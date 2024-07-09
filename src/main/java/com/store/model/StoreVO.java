@@ -1,4 +1,4 @@
-
+package com.store.model;
 
 import java.sql.Timestamp;
 
