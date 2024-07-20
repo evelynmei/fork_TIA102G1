@@ -1,5 +1,6 @@
 package com.tia102g1.member.controller;
 
+import com.tia102g1.member.dto.MemberLoginRequest;
 import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
@@ -27,6 +28,15 @@ public class MemberController {
         Member member = memberService.getMemberById(memberid);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(member);
+    }
+
+    @PostMapping("/members/login")
+                                        //藉由memberLoginRequest判斷使用者的帳密是否能夠正確登入
+    public ResponseEntity<Member> login(@RequestBody @Valid MemberLoginRequest memberLoginRequest) {
+
+        Member member = memberService.login(memberLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(member);
     }
 
     @GetMapping("/members/{memberId}")

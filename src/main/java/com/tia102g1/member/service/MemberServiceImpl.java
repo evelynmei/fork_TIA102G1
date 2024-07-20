@@ -1,6 +1,7 @@
 package com.tia102g1.member.service;
 
 import com.tia102g1.member.dao.MemberDao;
+import com.tia102g1.member.dto.MemberLoginRequest;
 import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
@@ -37,6 +38,24 @@ public class MemberServiceImpl implements MemberService {
         }
         //創建帳號
         return memberDao.createMember(memberRegisterRequest);
+    }
+
+    @Override
+    public Member login(MemberLoginRequest memberLoginRequest) {
+        Member member = memberDao.getMemberByAccount(memberLoginRequest.getAccount());
+
+        //登入失敗情況
+        if (member == null) {
+            log.warn("該帳號不存在");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        //判斷該帳號所輸入的密碼是否正確
+        if (member.getPassword().equals(memberLoginRequest.getPassword())) {
+            return member;
+        } else {
+            log.warn("輸入的密碼錯誤");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

@@ -1,10 +1,8 @@
 package com.tia102g1.member.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class MemberUpdateDto implements Serializable {
