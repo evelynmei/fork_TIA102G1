@@ -1,5 +1,6 @@
 package com.tia102g1.member.dao;
 
+import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
 
@@ -7,11 +8,12 @@ import java.util.List;
 
 
 public interface MemberDao {
-    /**
-     * 新增一筆會員資料的方法
-     * @param member 由前端發送過來的參數
+    /**新增一筆會員的方法
+     *
+     * @param memberRegisterRequest 前端傳來的要新建的會員資料
+     * @return 返回的是最新會員的ID
      */
-    Integer createMember(Member member);
+    Integer createMember(MemberRegisterRequest memberRegisterRequest);
 
     /**
      * 藉由會員ID查詢會員的方法
@@ -27,7 +29,21 @@ public interface MemberDao {
     List<Member> getAll();
 
     /**
-     * 更新某會員ID地址的方法
+     * 藉由帳號查詢會員ID的方法
+     * @param account 要查詢的帳號
+     * @return 該帳號的會員資料，沒有該帳號則返回null
+     */
+    Member getMemberByAccount(String account);
+
+    /**
+     *查看更新密碼的是哪一個會員
+     * @param password 更新的密碼
+     * @return 返回該會員資料
+     */
+    Member getMemberByUpdatedPasswordMemberId(String password);
+
+    /**
+     * 更新某會員ID資料的方法
      *
      */
     Integer updateMember(Integer memberId, MemberUpdateDto memberUpdateDto);
@@ -38,4 +54,7 @@ public interface MemberDao {
      *
      */
     Integer deleteMemberById(Integer memberId);
+
+
+
 }

@@ -1,57 +1,75 @@
-package com.tia102g1.member.model;
+package com.tia102g1.member.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 
-public class Member implements Serializable {
-      Integer memberId;
-      Integer memberLvId;
-      Integer staffId;
-      String account;
-      @JsonIgnore //必須隱藏起來不能再request body顯示給任何人看到
-      String password;
-      String name;
-      Date birthDt;
-      String phone;
-      String email;
-      Integer cntCode;
-      Integer distCode;
-      String  address;
-      Integer accumulate;
-      Integer coinBalance;
-      Date joinDate;
-      Integer noShow;
-      String cardHolder;
-      String cardNumber;
-      Integer cardYY;
-      Integer cardMM;
-      String cardVerifyCode;
-      Integer status;
-      Timestamp blockedTime;
-      String blockedReason;
-      String createdBy;
-      Timestamp dateCreated;
-      String lastUpdatedBy;
-      Timestamp lastUpdated;
+public class MemberRegisterRequest implements Serializable {
 
-    public Integer getMemberId() {
-        return memberId;
-    }
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
+    @NotNull
+    Integer memberLvId = 1;
+    Integer staffId;
+    @NotBlank
+    String account;
+    @NotBlank
+
+    String password;
+    @NotBlank
+    String name;
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    Date birthDt;
+    @NotNull
+    String phone;
+    @NotNull
+    String email;
+    @NotNull
+    Integer cntCode;
+    @NotNull
+    Integer distCode;
+    @NotNull
+    String address;
+    @NotNull
+    Integer accumulate = 0;
+    @NotNull
+    Integer coinBalance = 0;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    Date joinDate;
+    @NotNull
+    Integer noShow = 0;
+    String cardHolder;
+    String cardNumber;
+    Integer cardYY;
+    Integer cardMM;
+    String cardVerifyCode;
+    @NotNull
+    Integer status = 1;
+
+    Timestamp blockedTime;
+    String blockedReason;
+    @NotNull
+    String createdBy;
+    Timestamp dateCreated;
+    @NotNull
+    String lastUpdatedBy;
+    Timestamp lastUpdated;
+
+    public MemberRegisterRequest() {
     }
 
     public Integer getMemberLvId() {
         return memberLvId;
     }
 
-    public void setMemberLvId(Integer memberLvid) {
-        this.memberLvId = memberLvid;
+    public void setMemberLvId(Integer memberLvId) {
+        this.memberLvId = memberLvId;
     }
 
     public Integer getStaffId() {
@@ -222,12 +240,12 @@ public class Member implements Serializable {
         this.blockedTime = blockedTime;
     }
 
-    public String getBlockedReason() {
+    public String getBlockReason() {
         return blockedReason;
     }
 
-    public void setBlockedReason(String blockedReason) {
-        this.blockedReason = blockedReason;
+    public void setBlockReason(String blockReason) {
+        this.blockedReason = blockReason;
     }
 
     public String getCreatedBy() {
@@ -261,4 +279,6 @@ public class Member implements Serializable {
     public void setLastUpdated(Timestamp lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+
+
 }

@@ -1,5 +1,7 @@
 package com.tia102g1.member.controller;
 
+import com.tia102g1.member.dto.MemberLoginRequest;
+import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.member.service.MemberService;
@@ -17,13 +19,26 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping("/members")
-    public ResponseEntity<Member> creatMember(@RequestBody
-                                              @Valid Member member) {
-        Integer memberid = memberService.createMember(member);
+    @PostMapping("/members/register")
+    public ResponseEntity<Member> register(@RequestBody
+                                           @Valid MemberRegisterRequest memberRegisterRequest) {
+        //藉由Keyholder方法返回最新一筆生成的會員id
+        Integer memberid = memberService.register(memberRegisterRequest);
+        //將生成的會員id利用getmemberId方法返回完整的會員資料
+        Member member = memberService.getMemberById(memberid);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(member);
     }
+
+    @PostMapping("/members/login")
+                                        //藉由memberLoginRequest判斷使用者的帳密是否能夠正確登入
+    public ResponseEntity<Member> login(@RequestBody @Valid MemberLoginRequest memberLoginRequest) {
+
+        Member member = memberService.login(memberLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(member);
+    }
+
     @GetMapping("/members/{memberId}")
     public ResponseEntity<Member> getMemberId(@PathVariable Integer memberId) {
         Member member = memberService.getMemberById(memberId);
