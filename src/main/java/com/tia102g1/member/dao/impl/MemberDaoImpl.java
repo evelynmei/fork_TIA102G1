@@ -2,9 +2,11 @@ package com.tia102g1.member.dao.impl;
 
 
 import com.tia102g1.member.dao.MemberDao;
+import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.member.rowmapper.MemberRowMapper;
+import org.hibernate.sql.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,7 +25,7 @@ public class MemberDaoImpl implements MemberDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Integer createMember(Member member) {
+    public Integer createMember(MemberRegisterRequest member) {
 
         Map<String, Object> map = new HashMap<>();
         String sql = "INSERT INTO member(memberlvid, staffid, account, password, name, birthdt, phone, email, cntcode, distcode,\n" +
@@ -85,6 +87,17 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
+    public Member getMemberByAccount(String account) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "SELECT memberid,memberlvid,staffid,account,password,name,birthdt,phone,email,cntcode,distcode,address,accumulate,\n" +
+                "       coinbalance,joindate,noshow,cardholder,cardnumber,cardyy,cardmm,cardverifycode,status,blockedtime,blockedreason,\n" +
+                "       createdby,datecreated,lastupdatedby,lastupdated FROM member WHERE ACCOUNT =:account";
+        map.put("account", account);
+        List<Member> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
+        return memberList.isEmpty() ? null : memberList.get(0);
+    }
+
+    @Override
     public List<Member> getAll() {
         Map<String, Object> map = new HashMap<>();
         String sql = "SELECT memberid, memberlvid, staffid, account, password, name, birthdt, phone,\n" +
@@ -106,7 +119,7 @@ public class MemberDaoImpl implements MemberDao {
                 "                  cardHolder = :cardHolder, cardNumber = :cardNumber, cardYY = :cardYY, cardMM = :cardMM, cardVerifyCode= :cardVerifyCode,\n" +
                 "                  status = :status, blockedTime = :blockedTime, BLOCKEDREASON = :blockedReason, lastUpdatedBy = :lastUpdatedBy, lastUpdated = :lastUpdated\n" +
                 "                    where memberid = :memberId;";
-        map.put("memberId",memberId);
+        map.put("memberId", memberId);
 
         map.put("memberlvid", memberUpdateDto.getMemberLvId());
         map.put("staffId", memberUpdateDto.getStaffId());
@@ -128,7 +141,7 @@ public class MemberDaoImpl implements MemberDao {
         map.put("cardVerifyCode", memberUpdateDto.getCardVerifyCode());
         map.put("status", memberUpdateDto.getStatus());
         map.put("blockedReason", memberUpdateDto.getBlockReason());
-        map.put("lastUpdatedBy",memberUpdateDto.getLastUpdatedBy());
+        map.put("lastUpdatedBy", memberUpdateDto.getLastUpdatedBy());
         map.put("lastUpdated", new Date());
         int i = namedParameterJdbcTemplate.update(sql, map);
         return i;

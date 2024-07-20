@@ -34,7 +34,7 @@ public class MemberRowMapper implements RowMapper<Member> {
         member.setCardVerifyCode(rs.getString("CARDVERIFYCODE"));
         member.setStatus(rs.getInt("STATUS"));
         member.setBlockedTime(rs.getTimestamp("BLOCKEDTIME"));
-        member.setBlockReason(rs.getString("BLOCKEDREASON"));
+        member.setBlockedReason(rs.getString("BLOCKEDREASON"));
         member.setCreatedBy(rs.getString("CREATEDBY"));
         member.setDateCreated(rs.getTimestamp("DATECREATED"));
         member.setLastUpdatedBy(rs.getString("LASTUPDATEDBY"));
