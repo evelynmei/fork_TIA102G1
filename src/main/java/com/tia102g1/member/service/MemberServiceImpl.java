@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
@@ -34,8 +36,11 @@ public class MemberServiceImpl implements MemberService {
         if (member != null) {
             log.warn("該帳號已經被註冊");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-
         }
+        //使用 MD5 加密密碼
+        String hashedPassword = DigestUtils.md5DigestAsHex(memberRegisterRequest.getPassword().getBytes());
+        //將加密過後的密碼set到該會員資料
+        memberRegisterRequest.setPassword(hashedPassword);
         //創建帳號
         return memberDao.createMember(memberRegisterRequest);
     }
@@ -49,8 +54,11 @@ public class MemberServiceImpl implements MemberService {
             log.warn("該帳號不存在");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+        //將使用者輸入的密碼先利用MD5加密，再將此密碼和資料庫的會員密碼比對是否相同
+        String hashedPassword = DigestUtils.md5DigestAsHex(memberLoginRequest.getPassword().getBytes());
+
         //判斷該帳號所輸入的密碼是否正確
-        if (member.getPassword().equals(memberLoginRequest.getPassword())) {
+        if (member.getPassword().equals(hashedPassword)) {
             return member;
         } else {
             log.warn("輸入的密碼錯誤");
@@ -70,6 +78,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Integer updateMember(Integer memberId, MemberUpdateDto memberUpdateDto) {
+        Member member = memberDao.getMemberByUpdatedPasswordMemberId(memberUpdateDto.getPassword());
+
+        //將更新過後的密碼用MD5加密
+        String hashedPassword =DigestUtils.md5DigestAsHex(memberUpdateDto.getPassword().getBytes());
+        memberUpdateDto.setPassword(hashedPassword);
 
         return memberDao.updateMember(memberId, memberUpdateDto);
     }

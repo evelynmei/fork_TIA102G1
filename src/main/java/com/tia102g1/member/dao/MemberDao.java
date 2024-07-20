@@ -36,6 +36,13 @@ public interface MemberDao {
     Member getMemberByAccount(String account);
 
     /**
+     *查看更新密碼的是哪一個會員
+     * @param password 更新的密碼
+     * @return 返回該會員資料
+     */
+    Member getMemberByUpdatedPasswordMemberId(String password);
+
+    /**
      * 更新某會員ID資料的方法
      *
      */
@@ -47,4 +54,7 @@ public interface MemberDao {
      *
      */
     Integer deleteMemberById(Integer memberId);
+
+
+
 }

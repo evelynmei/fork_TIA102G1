@@ -14,7 +14,6 @@ public interface MemberService {
      * @param memberRegisterRequest 由前端發送過來的參數
      */
     Integer register(MemberRegisterRequest memberRegisterRequest);
-
     /**
      * 會員登入的方法
      * @param memberLoginRequest 會員登入的帳密
