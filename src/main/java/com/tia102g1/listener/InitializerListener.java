@@ -3,7 +3,7 @@ package com.tia102g1.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.tia102g1.HibernateUtil;
+import util.HibernateUtil;
 
 public class InitializerListener implements ServletContextListener {
 	@Override

@@ -6,7 +6,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-	com.tia102g1.staff.service.StaffServiceImpl svc = new com.tia102g1.staff.service.StaffServiceImpl();
+	StaffServiceImpl svc = new StaffServiceImpl();
 	List<Staff> allStaff = svc.getAllStaff();
 	request.setAttribute("allStaff", allStaff);
 %>
