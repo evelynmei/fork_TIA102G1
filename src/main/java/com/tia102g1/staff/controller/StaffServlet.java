@@ -73,7 +73,7 @@ public class StaffServlet extends HttpServlet {
 		req.setAttribute("staffList", staffList);
 		req.setAttribute("currentPage", currentPage);
 
-		return "/tia102g1/staff/staffPages/listAllStaff.jsp";
+		return "/tia102g1/staff/staffPages/listAllStaffEX.jsp";
 	}
 
 	private String getById(HttpServletRequest req, HttpServletResponse res) {
@@ -82,7 +82,7 @@ public class StaffServlet extends HttpServlet {
 		List<Staff> staffList = new ArrayList<>();
 		staffList.add(staff);
 		req.setAttribute("staffList", staffList);
-		return "/tia102g1/staff/staffPages/listAllStaff.jsp";
+		return "/tia102g1/staff/staffPages/listAllStaffEX.jsp";
 	}
 
 	private String getCompositeStaffQuery(HttpServletRequest req, HttpServletResponse res) {
@@ -94,7 +94,7 @@ public class StaffServlet extends HttpServlet {
 		} else {
 			return "/mainPage.jsp";
 		}
-		return "/tia102g1/staff/staffPages/listCompositeQueryStaff.jsp";
+		return "/tia102g1/staff/staffPages/listCompositeQueryStaffEX.jsp";
 	}
 
 	private String getAddStaff(HttpServletRequest req, HttpServletResponse res) {
@@ -167,11 +167,11 @@ public class StaffServlet extends HttpServlet {
 
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("staff", staff);
-			return "/tia102g1/staff/staffPages/addStaff.jsp";
+			return "/tia102g1/staff/staffPages/addStaffEX.jsp";
 		} else {
 			Staff addStaff = staffService.addStaff(staff);
 			req.setAttribute("staff", addStaff);
-			return "/tia102g1/staff/staffPages/addStaffSuccess.jsp";
+			return "/tia102g1/staff/staffPages/addStaffSuccessEX.jsp";
 		}
 
 	}
@@ -182,7 +182,7 @@ public class StaffServlet extends HttpServlet {
 		List<Staff> staffList = new ArrayList<>();
 		staffList.add(staff);
 		req.setAttribute("staffList", staffList);
-		return "/tia102g1/staff/staffPages/updateStaff.jsp";
+		return "/tia102g1/staff/staffPages/updateStaffEX.jsp";
 	}
 
 	private String getUpdate(HttpServletRequest req, HttpServletResponse res) {
@@ -273,14 +273,14 @@ public class StaffServlet extends HttpServlet {
 	        List<Staff> staffList = new ArrayList<>();
 	        staffList.add(staff);
 	        req.setAttribute("staffList", staffList);
-			return "/tia102g1/staff/staffPages/updateStaff.jsp";
+			return "/tia102g1/staff/staffPages/updateStaffEX.jsp";
 		} else {
 
 			Staff updateStaff = staffService.updateStaff(staff);
 //			List<Staff> updateStaffList = new ArrayList<>();
 //			updateStaffList.add(updateStaff);
 			req.setAttribute("staff", updateStaff);
-			return "/tia102g1/staff/staffPages/updateStaffSuccess.jsp";
+			return "/tia102g1/staff/staffPages/updateStaffSuccessEX.jsp";
 		}
 	}
 
