@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.tia102g1.staff.entity.Staff;
 import com.tia102g1.staff.service.StaffService;
@@ -51,6 +52,12 @@ public class StaffServlet extends HttpServlet {
 			break;
 		case "update":
 			forwardPath = getUpdate(req, res);
+			break;
+		case "login":
+			forwardPath = getLogin(req, res);
+			break;
+		case "changePW":
+			forwardPath = getChangePW(req, res);
 			break;
 		default:
 		}
@@ -134,8 +141,6 @@ public class StaffServlet extends HttpServlet {
 
 		}
 
-//		String statusStr = req.getParameter("status");
-//		Integer status = statusStr != null ? Integer.valueOf(statusStr) : null;
 		Integer status = 1;
 
 		String createdBy = null;
@@ -225,8 +230,6 @@ public class StaffServlet extends HttpServlet {
 			errorMsgs.add("離職日不得早於到職日");
 		}
 
-//		String statusStr = req.getParameter("status");
-//		Integer status = statusStr != null ? Integer.valueOf(statusStr) : null;
 		Integer status = Integer.valueOf(req.getParameter("status"));
 
 		String createdBy = null;
@@ -270,17 +273,101 @@ public class StaffServlet extends HttpServlet {
 
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("staff", staff);
-	        List<Staff> staffList = new ArrayList<>();
-	        staffList.add(staff);
-	        req.setAttribute("staffList", staffList);
+			List<Staff> staffList = new ArrayList<>();
+			staffList.add(staff);
+			req.setAttribute("staffList", staffList);
 			return "/tia102g1/staff/staffPages/updateStaffEX.jsp";
 		} else {
-
 			Staff updateStaff = staffService.updateStaff(staff);
-//			List<Staff> updateStaffList = new ArrayList<>();
-//			updateStaffList.add(updateStaff);
 			req.setAttribute("staff", updateStaff);
 			return "/tia102g1/staff/staffPages/updateStaffSuccessEX.jsp";
+		}
+	}
+
+	private String getLogin(HttpServletRequest req, HttpServletResponse res) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		String staffIdStr = req.getParameter("staffId");
+		if (staffIdStr == null || staffIdStr.trim().length() == 0) {
+			errorMsgs.add("員工編號:請勿空白");
+		}
+
+		Integer staffId = null;
+		if (staffIdStr != null && staffIdStr.trim().length() != 0) {
+			try {
+				staffId = Integer.valueOf(staffIdStr);
+			} catch (NumberFormatException e) {
+				errorMsgs.add("請確認員工編號");
+			}
+		}
+
+		if (!errorMsgs.isEmpty()) {
+			return "/tia102g1/staff/staffLogin/staffLoginPage.jsp";
+		}
+
+		String password = req.getParameter("password");
+		if (password == null || password.trim().length() == 0) {
+			errorMsgs.add("密碼:請勿空白");
+		}
+
+		List<Staff> allStaff = staffService.getAllStaff();
+
+		Staff changePassword = null;
+		Staff currectStaff = null;
+		for (Staff staff : allStaff) {
+			if (staffId.equals(staff.getStaffId()) && password.equals("Desserter")) {
+				changePassword = staff;
+				req.getSession().setAttribute("staffId", staffId);
+			} else if (staffId.equals(staff.getStaffId()) && password.equals(staff.getPassword())) {
+				currectStaff = staff;
+				req.getSession().setAttribute("staffId", staffId);
+				break;
+			}
+		}
+
+		if (changePassword != null) {
+			return "/tia102g1/staff/staffLogin/staffChangePW.jsp";
+		} else if (currectStaff != null) {
+			return "/tia102g1/staff/staffMainPage/mainPageEX.jsp";
+		} else {
+			errorMsgs.add("登入失敗!!!");
+			return "/tia102g1/staff/staffLogin/staffLoginPage.jsp";
+		}
+	}
+
+	private String getChangePW(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		HttpSession session = req.getSession();
+		Integer staffId = (Integer) session.getAttribute("staffId");
+		req.setAttribute("staffId", staffId);
+
+		Staff staff = staffService.getStaffByStaffId(staffId);
+
+		String pastPW = req.getParameter("pastPassword");
+		if (pastPW == null || pastPW.trim().length() == 0 || !pastPW.equals(staff.getPassword())) {
+			errorMsgs.add("請輸入舊密碼!!");
+		}
+
+		String newPWReg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{1,10}$";
+		String newPW = req.getParameter("newPassword");
+		if (newPW == null || newPW.trim().length() == 0) {
+			errorMsgs.add("請輸入新密碼!!");
+		} else if (newPW.equals(pastPW)) {
+			errorMsgs.add("密碼不得與舊密碼相同!!");
+		} else if (!newPW.trim().matches(newPWReg)) {
+			errorMsgs.add("密碼請輸入英文大小寫及數字，不得超過10字!!");
+		}
+
+		if (!errorMsgs.isEmpty()) {
+			return "/tia102g1/staff/staffLogin/staffChangePW.jsp";
+		} else {
+			staff.setPassword(newPW);
+			Staff changePW = staffService.updateStaff(staff);
+			req.setAttribute("staff", changePW);
+			return "/tia102g1/staff/staffLogin/staffLoginPage.jsp";
 		}
 	}
 
