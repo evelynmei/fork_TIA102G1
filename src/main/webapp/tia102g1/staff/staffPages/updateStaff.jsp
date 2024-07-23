@@ -112,9 +112,10 @@ Staff staff = (Staff) request.getAttribute("staff");
 
 			</c:forEach>
 		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="staffId" value="${staff.staffId}"> <input
-			type="submit" value="確認修改">
+		<br> 
+		<input type="hidden" name="action" value="update"> 
+		<input type="hidden" name="staffId" value="${staff.staffId}"> 
+		<input type="submit" value="確認修改">
 	</form>
 	<br>
 	<a
