@@ -15,10 +15,8 @@
 <h2>修改員工成功</h2>
 <p>員工資料:</p>
 <table border="1">
-<%-- 	<c:forEach var="staff" items="${updateStaff}"> --%>
 	
     <tr><td>員工編號</td><td>${staff.staffId}</td></tr>
-<%--     <tr><td>預設密碼</td><td>${staff.password}</td></tr> --%>
     <tr><td>姓名</td><td>${staff.name}</td></tr>
     <tr><td>電話</td><td>${staff.phone}</td></tr>
     <tr><td>電子郵件</td><td>${staff.email}</td></tr>
@@ -33,8 +31,8 @@
     <tr><td>最後更新日期</td>
     <td><fmt:formatDate value="${staff.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td></tr>
     <!--     ======================================================== -->
-<%--     </c:forEach> --%>
 </table>
+
 <a href="${pageContext.request.contextPath}/tia102g1/staff/staff.do?action=getAll">返回列表</a>
 <a href="${pageContext.request.contextPath}/tia102g1/staff/staffMainPage/mainPage.jsp">回首頁</a>
 </body>
