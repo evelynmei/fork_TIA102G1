@@ -18,6 +18,9 @@ import com.tia102g1.staff.entity.Staff;
 
 import util.HibernateUtil;
 
+
+
+
 public class StaffDAOImpl implements StaffDAO{
 	
 	private SessionFactory factory;
