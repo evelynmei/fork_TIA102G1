@@ -13,8 +13,9 @@ import org.hibernate.SessionFactory;
 
 import util.HibernateUtil;
 
-@WebFilter(urlPatterns = { "/*" })
-public class OpenSessionInViewFilter implements Filter {
+
+//@WebFilter(urlPatterns = { "/*" })
+public class OpenSessionInViewFilter implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -32,4 +33,5 @@ public class OpenSessionInViewFilter implements Filter {
 		}
 
 	}
+
 }

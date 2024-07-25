@@ -5,6 +5,7 @@ import javax.servlet.ServletContextListener;
 
 import util.HibernateUtil;
 
+
 public class InitializerListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
