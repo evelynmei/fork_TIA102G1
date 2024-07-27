@@ -1,6 +1,6 @@
 package com.tia102g1.member.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 import jdk.jfr.BooleanFlag;
 
 public class MemberLoginRequest {
