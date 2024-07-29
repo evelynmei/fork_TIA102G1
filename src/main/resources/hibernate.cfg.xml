@@ -13,5 +13,6 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 
 		<mapping class="com.tia102g1.staff.entity.Staff"/>
+		<mapping class="com.tia102g1.productInfo.entity.ProductInfo"/>
 	</session-factory>
 </hibernate-configuration>
