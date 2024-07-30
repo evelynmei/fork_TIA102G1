@@ -93,7 +93,7 @@
 	    </FORM>
 	  </li>
 	
-	  <jsp:useBean id="eventSvc" scope="page" class="com.event.model.EventService" />
+	  <jsp:useBean id="eventSvc" scope="page" class="com.tia102g1.event.model.EventService" />
 	   
 	  <li>
 	     <FORM METHOD="post" ACTION="event.do" >
