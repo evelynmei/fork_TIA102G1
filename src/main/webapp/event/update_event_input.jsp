@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.event.model.*"%>
+<%@ page import="com.tia102g1.event.model.*"%>
 
 <% //見com.event.controller.EventServlet.java第163行存入req的eventVO物件 (此為從資料庫取出的eventVO, 也可以是輸入格式有錯誤時的eventVO物件)
    EventVO eventVO = (EventVO) request.getAttribute("eventVO");
