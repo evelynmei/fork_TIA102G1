@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.staff.entity.Staff"%>
-<%@ page import="com.staff.service.StaffServiceImpl"%>
+<%@ page import="com.tia102g1.staff.entity.Staff"%>
+<%@ page import="com.tia102g1.staff.service.StaffServiceImpl"%>
 <%
 Staff staff = (Staff) request.getAttribute("staff");
 %>
