@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>所有商品種類</title>
+</head>
+<body>
+<div align="center"><h2>所有商品種類</h2></div>
+<h3><a th:href="@{/productType/select_page}">回商品種類頁面</a></h3>
+<table class="display" style="width: 100%">
+	<thead>
+		<tr>
+			<th>商品類型編號</th>
+			<th>商品類型名稱</th>
+			<th>建檔者</th>
+			<th>建檔時間</th>
+			<th>最後更新者</th>
+			<th>最後更新時間</th>
+			<th>修改</th>
+		</tr>
+	</thead>
+	<tbody>
+		<th:block th:each="productTypeVO : ${typeListData}">
+			<tr>
+				<td th:text="${productTypeVO.productTypeId}"></td>
+				<td th:text="${productTypeVO.typeName}"></td>
+				<td th:text="${productTypeVO.createdBy}"></td>
+				<td th:text="${#dates.format(productTypeVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:text="${productTypeVO.lastUpdatedBy}"></td>
+				<td th:text="${#dates.format(productTypeVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></td>
+			<td>
+				<form method="post" th:action="@{/productType/getOne_For_Update}">
+					<input type="submit" value="修改">
+					<input type="hidden" name="productTypeId" th:value="${productTypeVO.productTypeId}">
+				</form>
+			</td>
+			</tr>
+		</th:block>
+	</tbody>
+
+</table>
+</body>
+</html>

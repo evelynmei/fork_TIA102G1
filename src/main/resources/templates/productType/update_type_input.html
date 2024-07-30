@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品類型修改</title>
+</head>
+<body>
+<div align="center"><h2>商品類型修改</h2></div>
+<h3><a th:href="@{/productType/select_page}">回商品種類頁面</a></h3>
+
+<form th:action="@{update}" method="post" th:object="${productTypeVO}">
+	<div>
+	<label>商品類型編號:</label>
+	<input type="text" th:field="*{productTypeId}" readonly/><br>
+	</div>
+	<div>
+	<label>商品類型名稱:</label>
+	<input type="text" th:field="*{typeName}" onclick="hideContent('typeName.errors');" ><br>
+	<span  th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}" class="error" id="typeName.errors"></span>
+	</div>
+	<div>
+	<label>建檔者:</label>
+	<input type="text" th:field="*{createdBy}" readonly/><br/>
+	</div>
+	<div>
+	<label>建檔時間:</label>
+	<input type="text" th:field="*{dateCreated}" readonly/><br/>
+	</div>
+	<div>
+	<label>最後更新者:</label>
+	<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');"/><br/>
+	<span th:if="${#fields.hasErrors('lastUpdatedBy')}" th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy"></span>
+	</div>
+	<div>
+	<div><button type="submit" id="submit">送出修改</button></div>
+	</div>
+</form>
+
+<script>
+function hideContent(d){
+	document.getElementById(d).style.display="none";
+}
+</script>
+</body>
+</html>
