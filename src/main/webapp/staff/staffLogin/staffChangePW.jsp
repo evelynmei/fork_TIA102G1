@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.staff.service.StaffServiceImpl" %>
+<%@ page import="com.tia102g1.staff.service.StaffServiceImpl" %>
 <!DOCTYPE html>
 <html>
 <head>
