@@ -66,7 +66,7 @@ public class ProductTypeController {
 		
 		model.addAttribute("productTypeVO", typeVO);
 		model.addAttribute("getOne_For_Display", "true");
-		return "/productType/select_page";
+		return "/productType/mainPageProductType";
 	}
 	
 	@PostMapping("getOne_For_Update")
@@ -75,14 +75,14 @@ public class ProductTypeController {
 		ProductTypeVO typeVO =  typeSvc.getOneType(Integer.valueOf(productTypeId));
 		
 		model.addAttribute("productTypeVO", typeVO);
-		return "productType/update_type_input";
+		return "productType/updateProductType";
 	}
 	
 	@PostMapping("update")
 	public String update(@Valid ProductTypeVO typeVO, BindingResult result, ModelMap model) throws IOException{
 		
 		if(result.hasErrors()) {
-			return "productType/update_type_input";
+			return "productType/updateProductType";
 		}
 		
 		typeVO.setLastUpdated(now);

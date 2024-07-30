@@ -159,7 +159,7 @@
             <img th:src="@{/dist/img/g1/cat.png}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">管理員-chris</a>
+            <a href="#" class="d-block">TIA102G1管理員</a>
           </div>
         </div>
 
@@ -192,13 +192,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/member/mainPageMember}" class="nav-link">
                     <i class="far fa-regular fa-address-book nav-icon"></i>
                     <p>會員總覽</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/member/blockedMember}" class="nav-link">
                     <i class="far fas fa-solid fa-user-lock nav-icon"></i>
                     <p>黑名單總覽</p>
                   </a>
@@ -218,19 +218,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/productInfo/mainPageProductInfo}" class="nav-link">
                     <i class="far fas fa-solid fa-cookie-bite nav-icon"></i>
                     <p>商品總覽</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/productComment/mainPageProductComment}" class="nav-link">
                     <i class="far fa-regular fa-thumbs-up nav-icon"></i>
                     <p>商品評價管理</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/addOn/mainPageAddOn}" class="nav-link">
                     <i class="far fas fa-solid fa-tags nav-icon"></i>
                     <p>加購商品關係管理</p>
                   </a>
@@ -240,7 +240,7 @@
 
             <!-- 訂單管理 -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a th:href="@{/orderList/mainPageOrderList}" class="nav-link">
                 <i class="nav-icon fas fa-regular fa-file"></i>
                 <p>
                   訂單管理
@@ -251,7 +251,7 @@
 
             <!-- 活動管理 -->
             <li class="nav-item">
-              <a th:href="@{/event/select_page}" class="nav-link">
+              <a th:href="@{/event/mainPageEvent}" class="nav-link">
                 <i class="nav-icon fas fa-calendar-check"></i>
                 <p>
                   活動管理
@@ -262,7 +262,7 @@
 
             <!-- 優惠券管理 -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a th:href="@{/coupon/mainPageCoupon}" class="nav-link">
                 <i class="nav-icon fas fa-solid fa-money-bill-wave"></i>
                 <p>
                   優惠券管理
@@ -273,7 +273,7 @@
 
             <!-- 購物金管理 -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a th:href="@{/memberCoin/mainPageMemberCoin}" class="nav-link">
                 <i class="nav-icon fas fa-coins"></i>
                 <p>
                   購物金管理
@@ -284,7 +284,7 @@
 
             <!-- 客服中心管理 -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a th:href="@{/csForm/mainPageCsForm}" class="nav-link">
                 <i class="nav-icon fas fa-hand-holding-heart"></i>
                 <p>
                   客服中心管理
@@ -295,7 +295,7 @@
 
             <!-- 報表分析管理 -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a th:href="@{/report/mainPageReport}" class="nav-link">
                 <i class="nav-icon fas fa-solid fa-chart-line"></i>
                 <p>
                   報表分析管理
@@ -314,31 +314,31 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/quType/mainPageQuType}" class="nav-link">
                     <i class="far fas fa-solid fa-question nav-icon"></i>
                     <p>客服問題類型管理</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/productType/mainPageProductType}" class="nav-link">
                     <i class="far fas fa-filter nav-icon"></i>
                     <p>商品類型管理</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/sysMsg/mainPageSysMsg}" class="nav-link">
                     <i class="far fas fa-paper-plane nav-icon"></i>
                     <p>系統訊息管理</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/news/mainPageNews}" class="nav-link">
                     <i class="far fas fa-bullhorn nav-icon"></i>
                     <p>商品公告管理</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a th:href="@{/staff/mainPageStaff}" class="nav-link">
                     <i class="far fas fa-address-card nav-icon"></i>
                     <p>員工資料管理</p>
                   </a>
