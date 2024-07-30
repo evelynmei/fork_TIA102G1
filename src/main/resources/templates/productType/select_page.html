@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品類型</title>
+</head>
+<body>
+<div align="center"><h2>商品類型</h2></div>
+<h4><span>商品類型查詢:</span></h4>
+<div class="errorblock" th:utext="${errorMssage}">${errorMessage}</div><br>
+<div>
+	<ul>
+		<li><h5><a href="listAllType">全部</a>商品類型</h5></li>
+		
+		<li>
+			<form method="post" th:action="@{getOne_For_Display}">
+				選擇產品名稱:
+				<select name="productTypeId">
+					<option th:each="productTypeVO : ${typeListData}" th:value="${productTypeVO.productTypeId}" th:text="${productTypeVO.typeName}" />
+				</select>
+				<input type="submit" value="送出">
+			</form><br>
+		</li>
+	</ul>
+</div>
+<ul>
+	<li><h5><a href="addType">新增</a>商品類型</h5>
+</ul>
+
+<div th:if="${getOne_For_Display}">
+	<div th:insert="~{/productType/listOneType :: listOneType-div}"></div>
+</div>
+
+
+</body>
+</html>
