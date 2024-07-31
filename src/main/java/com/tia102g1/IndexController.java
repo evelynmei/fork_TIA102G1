@@ -72,11 +72,11 @@ public class IndexController {
 		return "productType/mainPageProductType";
 	}
 
-	// 商品基本資料
-	@GetMapping("productInfo/mainPageProductInfo")
-	public String mainPageProductInfo(Model model) {
-		return "productInfo/mainPageProductInfo";
-	}
+//	// 商品基本資料
+//	@GetMapping("productInfo/mainPageProductInfo")
+//	public String mainPageProductInfo(Model model) {
+//		return "productInfo/mainPageProductInfo";
+//	}
 
 	// 商品入庫紀錄
 	@GetMapping("productStock/mainPageProductStock")
