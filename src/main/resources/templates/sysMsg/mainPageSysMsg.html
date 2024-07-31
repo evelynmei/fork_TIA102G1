@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,28 +7,6 @@
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
 		
-		<style>
-		  table#table-1 {
-			width: 450px;
-			background-color: #CCCCFF;
-			margin-top: 5px;
-			margin-bottom: 10px;
-		    border: 3px ridge Gray;
-		    height: 80px;
-		    text-align: center;
-		  }
-		  table#table-1 h4 {
-		    color: red;
-		    display: block;
-		    margin-bottom: 1px;
-		  }
-		  h4 {
-		    color: blue;
-		    display: inline;
-		  }
-		</style>
-		
-
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -39,7 +16,7 @@
 	
 	<!-- Content Wrapper. Contains page content -->
     <!-- 儀錶板上面那排 -->
-    <div class="content-wrapper"></div>
+    <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
@@ -62,12 +39,19 @@
 	<section class="content">
 		
 	<p>系統訊息管理 主頁 測試</p>
-	<div align="center"><h2>系統訊息</h2></div>
-	<h4><span>訊息訊息查詢</span></h4>
-	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div><br>
+	<div align="center">
+		<h2>系統訊息</h2>
+	</div>
+	<h4>
+		<span>訊息訊息查詢</span>
+	</h4>
+	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+	<br>
 	<div>
 		<ul>
-			<li><h5><a href="listAllSysMsg">全部</a>系統訊息通知</h5></li>
+			<li><h5>
+					<a href="listAllSysMsg">全部</a>系統訊息通知
+				</h5></li>
 			<li>
 				<form method="post" th:action="@{listSysMsg_ByCompositeQuery}">
 					<p>選擇訊息類型:</p>
@@ -76,29 +60,31 @@
 						<option value="2">付款相關訊息</option>
 						<option value="3">訂單相關訊息</option>
 					</select>
-					
+
 					<p>訊息標題包含:</p>
 					<input type="text" name="msgTitle" th:value="${param.msgTitle}">
-					
+
 					<p>訊息內容包含:</p>
 					<input type="text" name="msgContent" th:value="${param.msgContent}">
-					
+
 					<p>啟用狀態:</p>
 					<select name="status">
 						<option value="0">停用</option>
 						<option value="1">啟用中</option>
-					</select>
-					<input type="submit" value="送出">
+					</select> <input type="submit" value="送出">
 				</form>
 			</li>
 		</ul>
-		
-		<h4><span>系統訊息管理</span></h4>
+
+		<h4>
+			<span>系統訊息管理</span>
+		</h4>
 		<ul>
-			<li><h5><a href='addSysMsg'>新增</a>系統狀態</h5></li>
+			<li><h5>
+					<a href='addSysMsg'>新增</a>系統狀態
+				</h5></li>
 		</ul>
 	</div>
-	
 	
 	
 	</section>
