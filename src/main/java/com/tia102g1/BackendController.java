@@ -1,31 +1,24 @@
 package com.tia102g1;
 
-import java.util.List;
-
+import com.tia102g1.productType.model.ProductTypeService;
+import com.tia102g1.productType.model.ProductTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tia102g1.productType.model.ProductTypeService;
-import com.tia102g1.productType.model.ProductTypeVO;
-import com.tia102g1.sysMsg.model.SysMsgService;
-import com.tia102g1.sysMsg.model.SysMsgVO;
+import java.util.List;
 
 @Controller
-public class IndexController {
+public class BackendController {
 
 	@Autowired
 	ProductTypeService typeSvc;
-	
-	@Autowired
-	SysMsgService sysMsgSvc;
 
 	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
-	@GetMapping("/")
+	@GetMapping({"", "/admin", "/admin/index"})
 	public String index(Model model) {
 		return "index";
 	}
@@ -64,7 +57,7 @@ public class IndexController {
 	// 優惠券持有紀錄
 	@GetMapping("memberCoupon/mainPageMemberCoupon")
 	public String mainPageMemberCoupon(Model model) {
-		return "memberCoupon/mainPageMemberCoupon";
+		return "coupon/mainPageCoupon";
 	}
 
 	// 購物金持有紀錄
@@ -192,47 +185,11 @@ public class IndexController {
 	public String mainPageSysMsg(Model model) {
 		return "sysMsg/mainPageSysMsg";
 	}
-	
-	@GetMapping("sysMsg/listAllSysMsg")
-	public String listAll() {
-		return "sysMsg/listAllSysMsg";
-	}
-	
-	@ModelAttribute("sysMsgListData")
-	protected List<SysMsgVO> referenceSysMsgListData(Model model) {
-		List<SysMsgVO> list = sysMsgSvc.getAll();
-		return list;
-	}
 
 	// 員工資料
 	@GetMapping("staff/mainPageStaff")
 	public String mainPageStaff(Model model) {
 		return "staff/mainPageStaff";
-	}
-
-	/* ======================= 前台使用者頁面 ======================= */
-	// 首頁
-	@RequestMapping({"/","index","/index.html"})
-	public String homePage() {
-		return "/frontend-app/index";
-	}
-
-	// 購物車
-	@GetMapping("/cart-page.html")
-	public String cartPage(){
-		return "/frontend-app/cart-page";
-	}
-
-	// 關於我們
-	@GetMapping("/about-us.html")
-	public String aboutUsPage(){
-		return "/frontend-app/about-us";
-	}
-
-	// 聯絡我們
-	@GetMapping("/contact-us.html")
-	public String contactUsPage(){
-		return "/frontend-app/contact-us";
 	}
 
 }
