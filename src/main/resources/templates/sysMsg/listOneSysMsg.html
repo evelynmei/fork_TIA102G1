@@ -2,27 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>系統通知訊息</title>
+<head th:insert="~{/comPage1}"></head>
+
 </head>
-<body>
-<h3><a th:href="@{/sysMsg/mainPageSysMsg}">回系統通知頁面</a></h3>
-<div align="center" th:fragment="listOneMsg-div">
-<span>系統通知編號:</span><span th:text="${sysMsgVO.sysMsgId}"></span><br>
-<span>訊息類型:</span>
-	<span th:if="${sysMsgVO.type} == 1">會員相關訊息</span>
-	<span th:if="${sysMsgVO.type} == 2">付款相關訊息</span>
-	<span th:if="${sysMsgVO.type} == 3">訂單相關訊息</span>
-	<br>
-<span>訊息標題:</span><span th:text="${sysMsgVO.msgTitle}"></span><br>
-<span>訊息內容:</span><span th:text="${sysMsgVO.msgContent}"></span><br>
-<span>啟用狀態:</span>
-	<span th:if="${sysMsgVO.status} == 0">停用</span>
-	<span th:if="${sysMsgVO.status} == 1">啟用中</span>
-	<br>
-<span>建檔者:</span><span th:text="${sysMsgVO.createdBy}"></span><br>
-<span>建檔時間:</span><span th:text="${#dates.format(sysMsgVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>				
-<span>最後更新者:</span><span th:text="${sysMsgVO.lastUpdatedBy}"></span><br>
-<span>最後更新時間:</span><span th:text="${#dates.format(sysMsgVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
-</div>
-</body>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+<body th:insert="~{/comPage2}"></body>
+
+<!-- Content Wrapper. Contains page content -->
+<!-- 儀錶板上面那排 -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">系統訊息管理</h1>
+				</div>
+				<!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+						<li class="breadcrumb-item active">系統訊息管理</li>
+					</ol>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	<!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+		<h3>
+			<a th:href="@{/sysMsg/mainPageSysMsg}">回系統通知頁面</a>
+		</h3>
+		<div align="center" th:fragment="listOneMsg-div">
+			<span>系統通知編號:</span><span th:text="${sysMsgVO.sysMsgId}"></span><br>
+			<span>訊息類型:</span> <span th:if="${sysMsgVO.type} == 1">會員相關訊息</span>
+			<span th:if="${sysMsgVO.type} == 2">付款相關訊息</span> <span
+				th:if="${sysMsgVO.type} == 3">訂單相關訊息</span> <br> <span>訊息標題:</span><span
+				th:text="${sysMsgVO.msgTitle}"></span><br> <span>訊息內容:</span><span
+				th:text="${sysMsgVO.msgContent}"></span><br> <span>啟用狀態:</span>
+			<span th:if="${sysMsgVO.status} == 0">停用</span> <span
+				th:if="${sysMsgVO.status} == 1">啟用中</span> <br> <span>建檔者:</span><span
+				th:text="${sysMsgVO.createdBy}"></span><br> <span>建檔時間:</span><span
+				th:text="${#dates.format(sysMsgVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+			<span>最後更新者:</span><span th:text="${sysMsgVO.lastUpdatedBy}"></span><br>
+			<span>最後更新時間:</span><span
+				th:text="${#dates.format(sysMsgVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+		</div>
+	</section>
+	<!-- 功能內容結束 -->
+
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
 </html>
