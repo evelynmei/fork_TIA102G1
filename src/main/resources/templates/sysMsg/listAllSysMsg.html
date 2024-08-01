@@ -27,10 +27,17 @@
 		<th:block th:each="sysMsgVO : ${sysMsgListData}">
 			<tr>
 				<td th:text="${sysMsgVO.sysMsgId}"></td>
-				<td th:text="${sysMsgVO.type}"></td>
+				<td>
+					<span th:if="${sysMsgVO.type} == 1">會員相關訊息</span>
+					<span th:if="${sysMsgVO.type} == 2">付款相關訊息</span>
+					<span th:if="${sysMsgVO.type} == 3">訂單相關訊息</span>
+				</td>
 				<td th:text="${sysMsgVO.msgTitle}"></td>
 				<td th:text="${sysMsgVO.msgContent}"></td>
-				<td th:text="${sysMsgVO.status}"></td>
+				<td>
+					<span th:if="${sysMsgVO.status} == 0">停用</span>
+					<span th:if="${sysMsgVO.status} == 1">啟用中</span>
+				</td>
 				<td th:text="${sysMsgVO.createdBy}"></td>
 				<td th:text="${#dates.format(sysMsgVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
 				<td th:text="${sysMsgVO.lastUpdatedBy}"></td>

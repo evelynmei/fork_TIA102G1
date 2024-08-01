@@ -2,6 +2,7 @@ package com.tia102g1.sysMsg.model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class SysMsgService {
 	public void deleteSysMsg(Integer sysMsgId) {
 		if(repo.existsById(sysMsgId))
 			repo.deleteBySysMsgId(sysMsgId);
+	}
+	
+	public SysMsgVO getOneSysMsg(Integer sysMsgId) {
+		Optional<SysMsgVO> optional = repo.findById(sysMsgId);
+		return optional.orElse(null);
 	}
 	
 	public List<SysMsgVO> getAll(){
