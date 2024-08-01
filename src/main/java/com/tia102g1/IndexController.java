@@ -18,6 +18,7 @@ public class IndexController {
 	@Autowired
 	ProductTypeService typeSvc;
 
+	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
 	@GetMapping("/")
 	public String index(Model model) {
@@ -193,25 +194,29 @@ public class IndexController {
 		return "staff/mainPageStaff";
 	}
 
-	//前台頁面
-	//首頁
+	/* ======================= 前台使用者頁面 ======================= */
+	// 首頁
 	@RequestMapping({"/","index","/index.html"})
 	public String homePage() {
 		return "/frontend-app/index";
 	}
-	//購物車
+
+	// 購物車
 	@GetMapping("/cart-page.html")
 	public String cartPage(){
 		return "/frontend-app/cart-page";
 	}
-	//關於我們
+
+	// 關於我們
 	@GetMapping("/about-us.html")
 	public String aboutUsPage(){
 		return "/frontend-app/about-us";
 	}
-	//聯絡我們
+
+	// 聯絡我們
 	@GetMapping("/contact-us.html")
 	public String contactUsPage(){
 		return "/frontend-app/contact-us";
 	}
+
 }
