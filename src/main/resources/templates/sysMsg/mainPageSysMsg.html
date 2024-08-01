@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,12 +38,11 @@
 	<!-- 功能內容開始 -->
 	<section class="content">
 		
-	<p>系統訊息管理 主頁 測試</p>
 	<div align="center">
 		<h2>系統訊息</h2>
 	</div>
 	<h4>
-		<span>訊息訊息查詢</span>
+		<span>訊息查詢</span>
 	</h4>
 	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
 	<br>
@@ -54,24 +53,27 @@
 				</h5></li>
 			<li>
 				<form method="post" th:action="@{listSysMsg_ByCompositeQuery}">
-					<p>選擇訊息類型:</p>
+					<p>選擇訊息類型:
 					<select name="type">
+						<option value=" "></option>
 						<option value="1">會員相關訊息</option>
 						<option value="2">付款相關訊息</option>
 						<option value="3">訂單相關訊息</option>
 					</select>
 
-					<p>訊息標題包含:</p>
-					<input type="text" name="msgTitle" th:value="${param.msgTitle}">
+					<p>訊息標題包含:
+					<input type="text" name="msgTitle">
 
-					<p>訊息內容包含:</p>
-					<input type="text" name="msgContent" th:value="${param.msgContent}">
+					<p>訊息內容包含:
+					<input type="text" name="msgContent">
 
-					<p>啟用狀態:</p>
+					<p>啟用狀態:
 					<select name="status">
-						<option value="0">停用</option>
+						<option value=" "></option>
 						<option value="1">啟用中</option>
-					</select> <input type="submit" value="送出">
+						<option value="0">停用</option>
+					</select></p>
+					<input type="submit" value="送出">
 				</form>
 			</li>
 		</ul>

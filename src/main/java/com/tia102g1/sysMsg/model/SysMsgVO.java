@@ -29,8 +29,8 @@ public class SysMsgVO {
 	private String msgTitle;
 	
 	@NotEmpty(message="系統訊息內容:請勿空白")
-	@Pattern(regexp="^[\\u4e00-\\u9fa5\\u0041-\\u005a\\u0061-\\u007a\\u0030-\\u0039\\u0020-\\u002f\\u003a-\\u0040\\u005b-\\u0060\\u007b-\\u007e]{2,150}$", message = "系統訊息內容: 只能是中、英文、數字及標點符號 , 且長度必需在2到150之間")
-	@Column(name="MSGCONTENT", unique = true)
+	@Pattern(regexp="^[\\u4e00-\\u9fa5a-zA-Z0-9\\p{Punct}\\u3000-\\u303F\\uFF00-\\uFFEF]{2,150}$", message = "系統訊息內容: 只能是中、英文、數字及標點符號 , 且長度必需在2到150之間")
+	@Column(name="MSGCONTENT", columnDefinition="TEXT")
 	private String msgContent;
 	
 	@Column(name = "STATUS")

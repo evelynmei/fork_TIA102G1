@@ -8,14 +8,21 @@
 <h3><a th:href="@{/sysMsg/mainPageSysMsg}">回系統通知頁面</a></h3>
 <div align="center" th:fragment="listOneMsg-div">
 <span>系統通知編號:</span><span th:text="${sysMsgVO.sysMsgId}"></span><br>
-<span>訊息類型:</span><span th:text="${sysMsgVO.type}"></span><br>
+<span>訊息類型:</span>
+	<span th:if="${sysMsgVO.type} == 1">會員相關訊息</span>
+	<span th:if="${sysMsgVO.type} == 2">付款相關訊息</span>
+	<span th:if="${sysMsgVO.type} == 3">訂單相關訊息</span>
+	<br>
 <span>訊息標題:</span><span th:text="${sysMsgVO.msgTitle}"></span><br>
 <span>訊息內容:</span><span th:text="${sysMsgVO.msgContent}"></span><br>
-<span>啟用狀態:</span><span th:text="${sysMsgVO.status}"></span><br>
-<span>建檔者:</span><span th:text="${productTypeVO.createdBy}"></span><br>
-<span>建檔時間:</span><span th:text="${#dates.format(productTypeVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>				
-<span>最後更新者:</span><span th:text="${productTypeVO.lastUpdatedBy}"></span><br>
-<span>最後更新時間:</span><span th:text="${#dates.format(productTypeVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+<span>啟用狀態:</span>
+	<span th:if="${sysMsgVO.status} == 0">停用</span>
+	<span th:if="${sysMsgVO.status} == 1">啟用中</span>
+	<br>
+<span>建檔者:</span><span th:text="${sysMsgVO.createdBy}"></span><br>
+<span>建檔時間:</span><span th:text="${#dates.format(sysMsgVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>				
+<span>最後更新者:</span><span th:text="${sysMsgVO.lastUpdatedBy}"></span><br>
+<span>最後更新時間:</span><span th:text="${#dates.format(sysMsgVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
 </div>
 </body>
 </html>

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +56,7 @@ public class ProductTypeController {
 		
 		model.addAttribute("typeListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "productType/listAllType";
+		return "redirect:/productType/listAllType";
 	}
 	
 	@PostMapping("getOne_For_Display")

@@ -25,7 +25,7 @@ public class CompositeQuery_SysMsg {
 		if("type".equals(columnName) || "status".equals(columnName))
 			predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
 		else if("msgTitle".equals(columnName) || "msgContent".equals(columnName))
-			predicate = builder.equal(root.get(columnName), "%" + value + "%");
+			predicate = builder.like(root.get(columnName), "%" + value + "%");
 		return predicate;
 	}
 	

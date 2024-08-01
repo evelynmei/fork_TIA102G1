@@ -7,16 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tia102g1.productType.model.ProductTypeService;
 import com.tia102g1.productType.model.ProductTypeVO;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.tia102g1.sysMsg.model.SysMsgService;
+import com.tia102g1.sysMsg.model.SysMsgVO;
 
 @Controller
 public class IndexController {
 
 	@Autowired
 	ProductTypeService typeSvc;
+	
+	@Autowired
+	SysMsgService sysMsgSvc;
 
 	// 首頁
 	@GetMapping("/")
@@ -185,6 +190,17 @@ public class IndexController {
 	@GetMapping("sysMsg/mainPageSysMsg")
 	public String mainPageSysMsg(Model model) {
 		return "sysMsg/mainPageSysMsg";
+	}
+	
+	@GetMapping("sysMsg/listAllSysMsg")
+	public String listAll() {
+		return "sysMsg/listAllSysMsg";
+	}
+	
+	@ModelAttribute("sysMsgListData")
+	protected List<SysMsgVO> referenceSysMsgListData(Model model) {
+		List<SysMsgVO> list = sysMsgSvc.getAll();
+		return list;
 	}
 
 	// 員工資料

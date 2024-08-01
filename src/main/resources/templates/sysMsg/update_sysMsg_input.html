@@ -8,10 +8,9 @@
 <div align="center"><h2>系統訊息修改</h2></div>
 <h3><a th:href="@{/sysMsg/mainPageSysMsg}">回系統通知頁面</a></h3>
 
-<form th:action="@{update}" method="post" th:object="$sysMsgVO}">
+<form th:action="@{update}" method="post" th:object="${sysMsgVO}">
 	<div>
-		<label>系統通知編號:</label>
-		<input th:field="*{sysMsgId}" readonly/><br>
+		<input type="hidden" th:field="*{sysMsgId}" readonly/><br>
 	</div>
 	<div>
 		<label>訊息類型:</label>
@@ -24,12 +23,12 @@
 	<div>
 		<label>訊息標題:</label>
 		<input type="text" th:field="*{msgTitle}" onclick="hideContent('msgTitle.errors');"/><br>
-		<span th:if="${#fields.hasErrors('msgTitle')" th:errors="*{msgTitle}" class="error" id="msgTitle.errors"></span>
+		<span th:if="${#fields.hasErrors('msgTitle')}" th:errors="*{msgTitle}" class="error" id="msgTitle.errors"></span>
 	</div>
 	<div>
 		<label>訊息內容:</label>
 		<input type="text" th:field="*{msgContent}" onclick="hideContent('msgContent.errors');"/><br>
-		<span th:if="${#fields.hasErrors('msgContent')" th:errors="*{msgContent}" class="error" id="msgContent.errors"></span>
+		<span th:if="${#fields.hasErrors('msgContent')}" th:errors="*{msgContent}" class="error" id="msgContent.errors"></span>
 	</div>
 	<div>
 		<label>啟用狀態:</label>
@@ -38,19 +37,16 @@
 			<option value="1">啟用中</option>
 		</select><br>
 	</div>
-	<div>
-		<label>建檔者:</label>
-		<input type="text" th:field="*{createdBy}" readonly/><br/>
-	</div>
-	<div>
-		<label>建檔時間:</label>
-		<input type="text" th:field="*{dateCreated}" readonly/><br/>
-	</div>
+		<input type="hidden" th:field="*{createdBy}" readonly/>
+		<input type="hidden" th:field="*{dateCreated}" readonly/>
 	<div>
 		<label>最後更新者:</label>
 		<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');"/><br/>
 		<span th:if="${#fields.hasErrors('lastUpdatedBy')}" th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy"></span>
 	</div>
+	<div>
+		<div><button type="submit" id="submit">送出修改</button></div>
+	</div>	
 </form>
 <script>
 	function hideContent(d){
