@@ -2,46 +2,90 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>新增系統通知訊息</title>
-</head>
-<body>
-	<div align="center"><h2>新增系統通知訊息</h2>
-	<h3><a th:href="@{/sysMsg/mainPageSysMsg}">回系統通知訊息頁面</a></h3>
-	
-	<form th:action="@{insert}" method="post" th:object="${sysMsgVO}">
-		<div>
-			<label>訊息類型:</label>
-			<select name="type">
-				<option value="1">會員相關訊息</option>
-				<option value="2">付款相關訊息</option>
-				<option value="3">訂單相關訊息</option>
-			</select>
-		</div>
-		<div>
-			<label>訊息標題:</label>
-			<input type="text" th:field="*{msgTitle}" onclick="hideContent('msgTitle.errors');"/><br>
-			<span th:if="${#fields.hasErrors('msgTitle')}" th:errors="*{msgTitle}" class="error" id="msgTitle.errors"></span>
-		</div>		
-		<div>
-			<label>訊息內容:</label>
-			<input type="text" th:field="*{msgContent}" onclick="hideContent('msgContent.errors');"/><br>
-			<span th:if="${#fields.hasErrors('msgContent')}" th:errors="*{msgContent}" class="error" id="msgContent.errors"></span>
-		</div>
-		<div>
-		<label>建檔者:</label>
-		<input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');"/><br/>
-		<span th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}" class="error" id="createdBy.errors"></span>
-		</div>
-		<div>
-			<button type="submit" id="submit">送出新增</button>
-		</div>	
-	</form>
-	</div>
-<script>
-	function hideContent(d){
-		document.getElementById(d).style.display="none";	
-	}
-</script>
+<head th:insert="~{/comPage1}"></head>
 
-</body>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+<body th:insert="~{/comPage2}"></body>
+
+<!-- Content Wrapper. Contains page content -->
+<!-- 儀錶板上面那排 -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">系統訊息管理</h1>
+				</div>
+				<!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+						<li class="breadcrumb-item active">系統訊息管理</li>
+					</ol>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	<!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+		<div align="center">
+			<h2>新增系統通知訊息</h2>
+			<h3>
+				<a th:href="@{/sysMsg/mainPageSysMsg}">回系統通知訊息頁面</a>
+			</h3>
+
+			<form th:action="@{insert}" method="post" th:object="${sysMsgVO}">
+				<div>
+					<label>訊息類型:</label> <select name="type">
+						<option value="1">會員相關訊息</option>
+						<option value="2">付款相關訊息</option>
+						<option value="3">訂單相關訊息</option>
+					</select>
+				</div>
+				<div>
+					<label>訊息標題:</label> <input type="text" th:field="*{msgTitle}"
+						onclick="hideContent('msgTitle.errors');" /><br> <span
+						th:if="${#fields.hasErrors('msgTitle')}" th:errors="*{msgTitle}"
+						class="error" id="msgTitle.errors"></span>
+				</div>
+				<div>
+					<label>訊息內容:</label> <input type="text" th:field="*{msgContent}"
+						onclick="hideContent('msgContent.errors');" /><br> <span
+						th:if="${#fields.hasErrors('msgContent')}"
+						th:errors="*{msgContent}" class="error" id="msgContent.errors"></span>
+				</div>
+				<div>
+					<label>建檔者:</label> <input type="text" th:field="*{createdBy}"
+						onclick="hideContent('createdBy.errors');" /><br /> <span
+						th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}"
+						class="error" id="createdBy.errors"></span>
+				</div>
+				<div>
+					<button type="submit" id="submit">送出新增</button>
+				</div>
+			</form>
+		</div>
+		<script>
+			function hideContent(d) {
+				document.getElementById(d).style.display = "none";
+			}
+		</script>
+	</section>
+	<!-- 功能內容結束 -->
+
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
 </html>

@@ -1,14 +1,17 @@
 package com.tia102g1;
 
-import com.tia102g1.productType.model.ProductTypeService;
-import com.tia102g1.productType.model.ProductTypeVO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.List;
+import com.tia102g1.productType.model.ProductTypeService;
+import com.tia102g1.productType.model.ProductTypeVO;
+import com.tia102g1.sysMsg.model.SysMsgService;
+import com.tia102g1.sysMsg.model.SysMsgVO;
 
 @Controller
 public class BackendController {
@@ -16,22 +19,14 @@ public class BackendController {
 	@Autowired
 	ProductTypeService typeSvc;
 
+	@Autowired
+	SysMsgService sysMsgSvc;
+
 	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
-	@GetMapping({"", "/admin", "/admin/index"})
+	@GetMapping({ "", "/admin", "/admin/index" })
 	public String index(Model model) {
 		return "index";
-	}
-
-	@GetMapping("/productType/listAllType")
-	public String listAllType(Model model) {
-		return "productType/listAllType";
-	}
-
-	@ModelAttribute("typeListData")
-	protected List<ProductTypeVO> referenceListData(Model model) {
-		List<ProductTypeVO> list = typeSvc.getAll();
-		return list;
 	}
 
 	/* ======================= mainPage ======================= */
@@ -41,7 +36,7 @@ public class BackendController {
 	public String mainPageMember(Model model) {
 		return "member/mainPageMember";
 	}
-	
+
 	// 會員黑名單
 	@GetMapping("member/blockedMember")
 	public String blockedMember(Model model) {
@@ -70,6 +65,17 @@ public class BackendController {
 	@GetMapping("productType/mainPageProductType")
 	public String mainPageProductType(Model model) {
 		return "productType/mainPageProductType";
+	}
+	
+	@GetMapping("/productType/listAllType")
+	public String listAllType(Model model) {
+		return "productType/listAllType";
+	}
+
+	@ModelAttribute("typeListData")
+	protected List<ProductTypeVO> referenceListData(Model model) {
+		List<ProductTypeVO> list = typeSvc.getAll();
+		return list;
 	}
 
 //	// 商品基本資料
@@ -143,7 +149,7 @@ public class BackendController {
 	public String mainPageCsForm(Model model) {
 		return "csForm/mainPageCsForm";
 	}
-	
+
 	// 報表分析管理
 	@GetMapping("report/mainPageReport")
 	public String mainPageReport(Model model) {
@@ -184,6 +190,17 @@ public class BackendController {
 	@GetMapping("sysMsg/mainPageSysMsg")
 	public String mainPageSysMsg(Model model) {
 		return "sysMsg/mainPageSysMsg";
+	}
+
+	@GetMapping("/sysMsg/listAllSysMsg")
+	public String listAllSysMsg(Model model) {
+		return "sysMsg/listAllSysMsg";
+	}
+
+	@ModelAttribute("sysMsgListData")
+	protected List<SysMsgVO> referenceSysMsgListData(Model model) {
+		List<SysMsgVO> list = sysMsgSvc.getAll();
+		return list;
 	}
 
 	// 員工資料

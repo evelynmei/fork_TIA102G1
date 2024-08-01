@@ -2,36 +2,79 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>商品種類新增</title>
+<head th:insert="~{/comPage1}"></head>
 </head>
-<body>
-	<div align="center"><h2>商品種類新增</h2>
-	<h3><a th:href="@{/productType/mainPageProductType}">回商品種類頁面</a></h3>
-	
-	<form th:action="@{insert}" method="post" th:object="${productTypeVO}">
-		<div>
-		<label>商品種類:</label>
-		<input type="text" th:field="*{typeName}" onclick="hideContent('typeName.errors');"/><br>
-		<span  th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}" class="error" id="typeName.errors"></span>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+<body th:insert="~{/comPage2}"></body>
+
+<!-- Content Wrapper. Contains page content -->
+<!-- 儀錶板上面那排 -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">商品類型管理</h1>
+				</div>
+				<!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+						<li class="breadcrumb-item active">商品類型管理</li>
+					</ol>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
 		</div>
-		
-		<div>
-		<label>建檔者:</label>
-		<input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');"/><br/>
-		<span th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}" class="error" id="createdBy.errors"></span>
-		</div>
-	
-		<div>
-			<button type="submit" id="submit">送出新增</button>
-		</div>
-	
-	</form>
-	
+		<!-- /.container-fluid -->
 	</div>
-<script>
-	function hideContent(d){
-		document.getElementById(d).style.display="none";
-	}
-</script>
-</body>
+	<!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+		<div align="center">
+			<h2>商品種類新增</h2>
+			<h3>
+				<a th:href="@{/productType/mainPageProductType}">回商品種類頁面</a>
+			</h3>
+
+			<form th:action="@{insert}" method="post"
+				th:object="${productTypeVO}">
+				<div>
+					<label>商品種類:</label> <input type="text" th:field="*{typeName}"
+						onclick="hideContent('typeName.errors');" /><br> <span
+						th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}"
+						class="error" id="typeName.errors"></span>
+				</div>
+
+				<div>
+					<label>建檔者:</label> <input type="text" th:field="*{createdBy}"
+						onclick="hideContent('createdBy.errors');" /><br /> <span
+						th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}"
+						class="error" id="createdBy.errors"></span>
+				</div>
+
+				<div>
+					<button type="submit" id="submit">送出新增</button>
+				</div>
+
+			</form>
+
+		</div>
+	</section>
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
+	<script>
+		function hideContent(d) {
+			document.getElementById(d).style.display = "none";
+		}
+	</script>
+	</body>
 </html>

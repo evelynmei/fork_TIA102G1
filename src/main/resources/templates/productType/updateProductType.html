@@ -2,10 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>商品類型修改</title>
+
+<head th:insert="~{/comPage1}"></head>
+
 </head>
-<body>
-<div align="center"><h2>商品類型修改</h2></div>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">商品類型管理</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                <li class="breadcrumb-item active">商品類型管理</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+	<div align="center"><h2>商品類型修改</h2></div>
 <h3><a th:href="@{/productType/mainPageProductType}">回商品種類頁面</a></h3>
 
 <form th:action="@{update}" method="post" th:object="${productTypeVO}">
@@ -41,5 +73,8 @@ function hideContent(d){
 	document.getElementById(d).style.display="none";
 }
 </script>
+
+<body th:insert="~{/comPage3}"></body>
+
 </body>
 </html>
