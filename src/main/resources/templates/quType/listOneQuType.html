@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>客服問題類型管理</title>
+		<title>客服問題類型</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -22,12 +22,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">客服問題類型管理</h1>
+              <h1 class="m-0">客服問題類型</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item active">客服問題類型管理</li>
+                <li class="breadcrumb-item active">客服問題類型</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -38,39 +38,21 @@
 	<!-- 功能內容開始 -->
 	<section class="content">
 		
-	<table class="display" style="width: 100%">
-		<thead>
-			<tr>
-				<th>類型編號</th>
-				<th>問題類型描述</th>
-				<th>建檔者</th>
-				<th>建檔時間</th>
-				<th>最後更新者</th>
-				<th>最後更新時間</th>
-			</tr>
-		</thead>
-		<tbody>
-			<th:block th:each="quTypeVO : ${quTypeListData}">
-				<tr>
-					<td th:text="${quTypeVO.quTypeId}"></td>
-					<td th:text="${quTypeVO.quTypeDesc}"></td>
-					<td th:text="${quTypeVO.createdBy}"></td>
-					<td th:text="${#dates.format(quTypeVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
-					<td th:text="${quTypeVO.lastUpdatedBy}"></td>
-					<td th:text="${#dates.format(quTypeVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></td>
-					<td>
-						<form method="post" th:action="@{/quType/getOne_For_Update}">
-							<input type="submit" value="修改">
-							<input type="hidden" name="quTypeId" th:value="${quTypeVO.quTypeId}">
-						</form>
-					</td>
-				</tr>
-		</tbody>
-	</table>
-	
-	<ul>
-		<li><h5><a href="addQuType">新增</a>客服問題類型</h5></li>
-	</ul>
+	<h3>
+		<a th:href="@{/quType/mainPageQuType}">回客服問題類型頁面</a>
+	</h3>
+		<span>類型編號:</span>	
+			<span th:text="${quTypeVO.quTypeId}"></span><br>
+		<span>問題類型描述:</span>
+			<span th:text="${quTypeVO.quTypeDesc}"></span><br>
+		<span>建檔者:</span>
+			<span th:text="${quTypeVO.createdBy}"></span><br>
+		<span>建檔時間:</span>
+			<span th:text="${#dates.format(quTypeVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+		<span>最後更新者:</span>
+			<span th:text="${quTypeVO.lastUpdatedBy}"></span><br>
+		<span>最後更新時間:</span>
+			<span th:text="${#dates.format(quTypeVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
 	</section>
 	<!-- 功能內容結束 -->
 	
