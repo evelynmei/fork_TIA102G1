@@ -54,22 +54,21 @@
 					</select>
 				</div>
 				<div>
-					<label>訊息標題:</label> <input type="text" th:field="*{msgTitle}"
-						onclick="hideContent('msgTitle.errors');" /><br> <span
-						th:if="${#fields.hasErrors('msgTitle')}" th:errors="*{msgTitle}"
-						class="error" id="msgTitle.errors"></span>
+					<label>訊息標題:</label> 
+						<input type="text" th:field="*{msgTitle}" onclick="hideContent('msgTitle.errors');" /><br> 
+						<span th:if="${#fields.hasErrors('msgTitle')}" th:errors="*{msgTitle}" class="error" id="msgTitle.errors">
+					</span>
 				</div>
 				<div>
-					<label>訊息內容:</label> <input type="text" th:field="*{msgContent}"
-						onclick="hideContent('msgContent.errors');" /><br> <span
-						th:if="${#fields.hasErrors('msgContent')}"
-						th:errors="*{msgContent}" class="error" id="msgContent.errors"></span>
+					<label>訊息內容:</label> 
+						<input type="text" th:field="*{msgContent}" onclick="hideContent('msgContent.errors');" /><br> 
+						<span th:if="${#fields.hasErrors('msgContent')}" th:errors="*{msgContent}" class="error" id="msgContent.errors">
+					</span>
 				</div>
 				<div>
-					<label>建檔者:</label> <input type="text" th:field="*{createdBy}"
-						onclick="hideContent('createdBy.errors');" /><br /> <span
-						th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}"
-						class="error" id="createdBy.errors"></span>
+					<label>建檔者:</label> <input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');" /><br /> 
+					<span th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}" class="error" id="createdBy.errors">
+					</span>
 				</div>
 				<div>
 					<button type="submit" id="submit">送出新增</button>

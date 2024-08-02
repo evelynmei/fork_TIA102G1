@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.tia102g1.productType.model.ProductTypeService;
 import com.tia102g1.productType.model.ProductTypeVO;
+import com.tia102g1.qutype.model.QuTypeService;
+import com.tia102g1.qutype.model.QuTypeVO;
 import com.tia102g1.sysMsg.model.SysMsgService;
 import com.tia102g1.sysMsg.model.SysMsgVO;
 
@@ -21,6 +23,9 @@ public class BackendController {
 
 	@Autowired
 	SysMsgService sysMsgSvc;
+	
+	@Autowired
+	QuTypeService quTypeSvc;
 
 	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
@@ -142,6 +147,17 @@ public class BackendController {
 	@GetMapping("quType/mainPageQuType")
 	public String mainPageQuType(Model model) {
 		return "quType/mainPageQuType";
+	}
+	
+	@GetMapping("/quType/listAllQuType")
+	public String listAllQuType(Model model) {
+		return "quType/listAllQuType";
+	}
+
+	@ModelAttribute("quTypeListData")
+	protected List<QuTypeVO> referenceQuTypeListData(Model model) {
+		List<QuTypeVO> list = quTypeSvc.getAll();
+		return list;
 	}
 
 	// 客服表單

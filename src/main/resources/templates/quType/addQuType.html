@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>新增客服問題類型</title>
+
+		<!-- header-css etc. -->
+		<head th:insert="~{/comPage1}"></head>
+		
+	</head>
+	
+	<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">新增客服問題類型</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                <li class="breadcrumb-item active">新增客服問題類型</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+		<div align="center">
+			<h2>新增客服問題類型</h2>
+			<h3>
+				<a th:href="@{/quType/mainPageQuType}">回客服問題類型</a>
+			</h3>
+			
+			<form th:action="@{insert}" method="post" th:object="${quTypeVO}">
+				<div>
+					<label>類型編號:</label>
+					<input type="text" th:field="*{quTypeId}" onclick="hideContent('quTypeId.errors');"/><br>
+					<span th:if="${#fields.hasErrors('quTypeId')}" th:errors="*{quTypeId}" class="error" id="quTypeId.errors"></span>
+				</div>
+				<div>
+					<label>問題類型描述:</label>
+					<input type="text" th:field="*{quTypeDesc}" onclick="hideVontent('quTypeDesc.errors');"/><br>
+					<span th:if="${#fields.hasErrors('quTypeDesc')}" th:errors="*{quTypeDesc}" class="error" id="quTypeDesc.errors"></span>
+				</div>
+				<div>
+					<label>建檔者:</label> <input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');" /><br /> 
+					<span th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}" class="error" id="createdBy.errors">
+					</span>
+				</div>
+				<div>
+					<button type="submit" id="submit">送出新增</button>
+				</div>
+			</form>
+		</div>
+		<script>
+			function hideContent(d){
+				document.getElementById(d).style.display = "none";
+			}
+		</script>
+	
+	
+	</section>
+	<!-- 功能內容結束 -->
+	
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
+</html>
