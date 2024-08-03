@@ -1,40 +1,21 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<!-- xmlns:th="http://www.thymeleaf.org"讓IDE能提示Thymeleaf相關的指令，如th:for等常見功能 -->
+<!--  xmlns:th="http://www.thymeleaf.org"使IDE能智能地提示Thymeleaf指令 -->
 
 <head>
 	<title>Desserter - Index</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Demo powered by Templatetrip">
-	<meta name="author" content="">
-	<link rel="shortcut icon" type="image/x-icon" th:href="@{/frontend-app/img/favicon.ico}">
-	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<!-- Bootstrap core CSS -->
-	<link th:href="@{/frontend-app/vendor/bootstrap/css/bootstrap.css}" rel="stylesheet">
-
-	<!-- Bootstrap core CSS -->
-	<link th:href="@{/frontend-app/css/styles.css}" rel="stylesheet">
-	<link th:href="@{/frontend-app/css/animate.css}" rel="stylesheet">
-	<link th:href="@{/frontend-app/css/owl-carousel.css}" rel="stylesheet">
-	<link th:href="@{/frontend-app/css/lightbox.css}" rel="stylesheet">
-
-	<!-- Custom styles for this template -->
+	<!-- common-import -->
+	<meta th:replace="~{frontendApp/components/common :: headtag-import}">
 </head>
 
 <body class="index layout1">
 
-
 	<!-- header -->
-	<div th:replace="~{frontend-app/components/common.html :: app-header}"></div>
-	<!-- 用 Thymeleaf 模版取代功能，將 Templates/frontend-app/common.html 裡的 app-header 裡的
+	<div th:replace="~{frontendApp/components/common.html :: app-header}"></div>
+	<!-- 用 Thymeleaf 模版取代功能，將 Templates/frontendApp/common.html 裡的 app-header 裡的
 			所有 html 代碼取代掉 33 行這個 <div></div>
 			注意所有用到 Thymeleaf 的功能，網頁不能放在 static 下，要放在 templates 下，
         	否則 Thymeleaf 不會去對模版進行處理。 -->
-
 
 	<main>
 
@@ -45,7 +26,7 @@
 				<div class="slider slider-for owl-carousel">
 					<div>
 						<a href="#">
-							<img th:src="@{/frontend-app/img/slider/sample-01.jpg}" alt="" height="1316" width="2626" />
+							<img src="/frontendApp/img/slider/sample-01.jpg" alt="" height="1316" width="2626" />
 						</a>
 						<div class="slider-content-wrap center effect_top">
 							<div class="slider-title mb-20 text-capitalize float-left w-100">our specials</div>
@@ -55,7 +36,7 @@
 					</div>
 					<div>
 						<a href="#">
-							<img th:src="@{/frontend-app/img/slider/sample-02.jpg}" alt="" height="800" width="1600" />
+							<img src="/frontendApp/img/slider/sample-02.jpg" alt="" height="800" width="1600" />
 						</a>
 						<div class="slider-content-wrap center effect_bottom">
 							<div class="slider-title mb-20 text-capitalize float-left w-100">about us</div>
@@ -72,7 +53,7 @@
 				<div class="ttbannerblock container text-center">
 					<div class="row">
 						<div class="ttbanner1 ttbanner col-sm-6 col-xs-6 left-to-right hb-animate-element">
-							<div class="ttbanner-img"><a href="#"><img th:src="@{/frontend-app/img/banner/cms-01.jpg}" alt="cms-01"
+							<div class="ttbanner-img"><a href="#"><img src="/frontendApp/img/banner/cms-01.jpg" alt="cms-01"
 																	   height="600" width="630"></a></div>
 							<div class="ttbanner-inner d-inline-block align-top float-none">
 								<div class="ttbanner-desc float-left w-100">
@@ -86,7 +67,7 @@
 							</div>
 						</div>
 						<div class="ttbanner2 ttbanner col-sm-6 col-xs-6 right-to-left hb-animate-element">
-							<div class="ttbanner-img"><a href="#"><img th:src="@{/frontend-app/img/banner/cms-02.jpg}" alt="cms-02"
+							<div class="ttbanner-img"><a href="#"><img src="/frontendApp/img/banner/cms-02.jpg" alt="cms-02"
 																	   height="600" width="630"></a></div>
 							<div class="ttbanner-inner d-inline-block align-top float-none">
 								<div class="ttbanner-desc">
@@ -132,9 +113,9 @@
 												<div class="product-thumb">
 													<div class="image zoom">
 														<a href="/product-details.html">
-															<img th:src="@{/frontend-app/img/products/01.jpg}" alt="01" height="501"
+															<img src="/frontendApp/img/products/01.jpg" alt="01" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02"
+															<img src="/frontendApp/img/products/02.jpg" alt="02"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 														<ul class="countdown1 countdown">
@@ -183,7 +164,7 @@
 																	disabled="disabled"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -203,9 +184,9 @@
 												<div class="product-thumb">
 													<div class="image zoom">
 														<a href="/product-details.html">
-															<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02" height="501"
+															<img src="/frontendApp/img/products/02.jpg" alt="02" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03"
+															<img src="/frontendApp/img/products/03.jpg" alt="03"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 														<div class="flags">
@@ -257,7 +238,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -277,9 +258,9 @@
 												<div class="product-thumb">
 													<div class="image zoom">
 														<a href="/product-details.html">
-															<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03" height="501"
+															<img src="/frontendApp/img/products/03.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04"
+															<img src="/frontendApp/img/products/04.jpg" alt="04"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
@@ -313,7 +294,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -333,16 +314,16 @@
 												<div class="product-thumb">
 													<div class="image zoom">
 														<a href="/product-details.html">
-															<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04" height="501"
+															<img src="/frontendApp/img/products/04.jpg" alt="04" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05"
+															<img src="/frontendApp/img/products/05.jpg" alt="05"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Checked Polo Collar
+																	href="productDetails.html">Checked Polo Collar
 																	T-shirt</a></h4>
 														</div>
 														<div class="rating">
@@ -369,7 +350,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -388,17 +369,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/05.jpg" alt="05" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06"
+															<img src="/frontendApp/img/products/06.jpg" alt="06"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Crochet Detail
+																	href="productDetails.html">Crochet Detail
 																	Lightweight Top</a></h4>
 														</div>
 														<div class="rating">
@@ -425,7 +406,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -444,17 +425,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/06.jpg" alt="06" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/07.jpg}" alt="07"
+															<img src="/frontendApp/img/products/07.jpg" alt="07"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Girls Floral Print
+																	href="productDetails.html">Girls Floral Print
 																	Jumpsuit</a></h4>
 														</div>
 														<div class="rating">
@@ -481,7 +462,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -500,17 +481,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/07.jpg}" alt="07" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/07.jpg" alt="07" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/08.jpg}" alt="08"
+															<img src="/frontendApp/img/products/08.jpg" alt="08"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Girls Striped Fit and
+																	href="productDetails.html">Girls Striped Fit and
 																	Flare Dress</a></h4>
 														</div>
 														<div class="rating">
@@ -538,7 +519,7 @@
 																	disabled="disabled"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -557,17 +538,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/08.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/08.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/09.jpg}" alt="09"
+															<img src="/frontendApp/img/products/09.jpg" alt="09"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Juventus Henley Neck
+																	href="productDetails.html">Juventus Henley Neck
 																	Jersey</a></h4>
 														</div>
 														<div class="rating">
@@ -594,7 +575,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -620,10 +601,10 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/01.jpg}" alt="01" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/01.jpg" alt="01" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02"
+															<img src="/frontendApp/img/products/02.jpg" alt="02"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 														<ul class="countdown1 countdown">
@@ -644,7 +625,7 @@
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Printed Dugaree with
+																	href="productDetails.html">Printed Dugaree with
 																	T-Shirt</a></h4>
 														</div>
 														<div class="rating">
@@ -672,7 +653,7 @@
 																	disabled="disabled"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -691,17 +672,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/02.jpg" alt="02" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03"
+															<img src="/frontendApp/img/products/03.jpg" alt="03"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Printed Polo Collar
+																	href="productDetails.html">Printed Polo Collar
 																	T-shirt</a></h4>
 														</div>
 														<div class="rating">
@@ -728,7 +709,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -747,17 +728,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/03.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04"
+															<img src="/frontendApp/img/products/04.jpg" alt="04"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Burgundy Small
+																	href="productDetails.html">Burgundy Small
 																	Dresss</a></h4>
 														</div>
 														<div class="rating">
@@ -784,7 +765,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -803,17 +784,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/04.jpg" alt="04" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05"
+															<img src="/frontendApp/img/products/05.jpg" alt="05"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Merino Small Dress</a>
+																	href="productDetails.html">Merino Small Dress</a>
 															</h4>
 														</div>
 														<div class="rating">
@@ -840,7 +821,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -859,17 +840,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/05.jpg" alt="05" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06"
+															<img src="/frontendApp/img/products/06.jpg" alt="06"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Arkun Bordeaux
+																	href="productDetails.html">Arkun Bordeaux
 																	Blouse</a></h4>
 														</div>
 														<div class="rating">
@@ -896,7 +877,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -915,17 +896,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/06.jpg" alt="06" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/07.jpg}" alt="07"
+															<img src="/frontendApp/img/products/07.jpg" alt="07"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Medium Denim
+																	href="productDetails.html">Medium Denim
 																	Overshirt</a></h4>
 														</div>
 														<div class="rating">
@@ -952,7 +933,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -971,10 +952,10 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/07.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/07.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/08.jpg}" alt="08"
+															<img src="/frontendApp/img/products/08.jpg" alt="08"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
@@ -1008,7 +989,7 @@
 																	disabled="disabled"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1027,17 +1008,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/08.jpg}" alt="08" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/08.jpg" alt="08" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/09.jpg}" alt="09"
+															<img src="/frontendApp/img/products/09.jpg" alt="09"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Long Sleeves Cotton
+																	href="productDetails.html">Long Sleeves Cotton
 																	Polo</a></h4>
 														</div>
 														<div class="rating">
@@ -1064,7 +1045,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1090,10 +1071,10 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/01.jpg}" alt="01" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/01.jpg" alt="01" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02"
+															<img src="/frontendApp/img/products/02.jpg" alt="02"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 														<ul class="countdown1 countdown">
@@ -1114,7 +1095,7 @@
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Slim-fit Leaf-Print
+																	href="productDetails.html">Slim-fit Leaf-Print
 																	Linen Shirt</a></h4>
 														</div>
 
@@ -1143,7 +1124,7 @@
 																	disabled="disabled"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1162,17 +1143,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/02.jpg" alt="02" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03"
+															<img src="/frontendApp/img/products/03.jpg" alt="03"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Women Floral Print
+																	href="productDetails.html">Women Floral Print
 																	Lounge T-Shirt</a></h4>
 														</div>
 														<div class="rating">
@@ -1199,7 +1180,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1218,17 +1199,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/03.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04"
+															<img src="/frontendApp/img/products/04.jpg" alt="04"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Women Striped Shirt
+																	href="productDetails.html">Women Striped Shirt
 																	Dress</a></h4>
 														</div>
 														<div class="rating">
@@ -1255,7 +1236,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1274,17 +1255,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/04.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/04.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05"
+															<img src="/frontendApp/img/products/05.jpg" alt="05"
 																 class="second_image img-responsive" height="501"
 																 width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Women Solid Bodycon
+																	href="productDetails.html">Women Solid Bodycon
 																	Dress</a></h4>
 														</div>
 														<div class="rating">
@@ -1311,7 +1292,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1330,17 +1311,17 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/05.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/05.jpg" alt="03" height="501"
 																 width="385" />
-															<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06"
+															<img src="/frontendApp/img/products/06.jpg" alt="06"
 																 class="second_image img-responsive" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Printed V-Neck
+																	href="productDetails.html">Printed V-Neck
 																	T-shirt</a></h4>
 														</div>
 														<div class="rating">
@@ -1367,7 +1348,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1386,14 +1367,14 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/06.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/06.jpg" alt="03" height="501"
 																 width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Solid Straight Kurta</a>
+																	href="productDetails.html">Solid Straight Kurta</a>
 															</h4>
 														</div>
 														<div class="rating">
@@ -1420,7 +1401,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1439,14 +1420,14 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/07.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/07.jpg" alt="03" height="501"
 																width="385" /> </a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Tropical Shirt Dress</a>
+																	href="productDetails.html">Tropical Shirt Dress</a>
 															</h4>
 														</div>
 														<div class="rating">
@@ -1474,7 +1455,7 @@
 																	disabled="disabled"> <i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1493,14 +1474,14 @@
 											<div class="product-layouts">
 												<div class="product-thumb">
 													<div class="image zoom">
-														<a href="product-details.html">
-															<img th:src="@{/frontend-app/img/products/08.jpg}" alt="03" height="501"
+														<a href="productDetails.html">
+															<img src="/frontendApp/img/products/08.jpg" alt="03" height="501"
 																width="385" /></a>
 													</div>
 													<div class="thumb-description">
 														<div class="caption">
 															<h4 class="product-title text-capitalize"><a
-																	href="product-details.html">Shoulder Embroidered
+																	href="productDetails.html">Shoulder Embroidered
 																	Bodysuit</a></h4>
 														</div>
 														<div class="rating">
@@ -1527,7 +1508,7 @@
 																	data-target="#cart-pop" data-toggle="modal"><i
 																		class="material-icons">shopping_cart</i><span>Add
 																		to cart</span></button>
-																<a href="wishlist.html"
+																<a href="favProduct.html"
 																	class="btn btn-primary btn-wishlist"><i
 																		class="material-icons">favorite</i><span>wishlist</span></a>
 																<button type="button"
@@ -1556,7 +1537,7 @@
 							<div class="tttestimonial owl-carousel">
 								<div>
 									<div class="testimonial-block">
-										<div class="testimonial-image"><img alt="" th:src="@{/frontend-app/img/banner/user1.jpg}"
+										<div class="testimonial-image"><img alt="" src="/frontendApp/img/banner/user1.jpg"
 												height="120" width="120" /></div>
 										<div class="testimonial-content">
 											<div class="testimonial-desc">
@@ -1575,7 +1556,7 @@
 								</div>
 								<div>
 									<div class="testimonial-block">
-										<div class="testimonial-image"><img alt="" th:src="@{/frontend-app/img/banner/user2.jpg}"
+										<div class="testimonial-image"><img alt="" src="/frontendApp/img/banner/user2.jpg"
 												height="120" width="120" /></div>
 										<div class="testimonial-content">
 											<div class="testimonial-desc">
@@ -1594,7 +1575,7 @@
 								</div>
 								<div>
 									<div class="testimonial-block">
-										<div class="testimonial-image"><img alt="" th:src="@{/frontend-app/img/banner/user3.jpg}"
+										<div class="testimonial-image"><img alt="" src="/frontendApp/img/banner/user3.jpg"
 												height="120" width="120" /></div>
 										<div class="testimonial-content">
 											<div class="testimonial-desc">
@@ -1619,7 +1600,7 @@
 					<div class="ttbannerblock container">
 						<div class="row">
 							<div class="ttbanner1 ttbanner col-sm-6 col-xs-6">
-								<div class="ttbanner-img"><a href="#"><img th:src="@{/frontend-app/img/banner/cms-03.jpg}" alt="cms-03"
+								<div class="ttbanner-img"><a href="#"><img src="/frontendApp/img/banner/cms-03.jpg" alt="cms-03"
 											height="600" width="400"></a></div>
 								<div class="ttbanner-inner">
 									<div class="ttbanner-desc text-center">
@@ -1631,7 +1612,7 @@
 								</div>
 							</div>
 							<div class="ttbanner2 ttbanner col-sm-6">
-								<div class="ttbanner-img"><a href="#"><img th:src="@{/frontend-app/img/banner/cms-04.jpg}" alt="cms-04"
+								<div class="ttbanner-img"><a href="#"><img src="/frontendApp/img/banner/cms-04.jpg" alt="cms-04"
 											height="600" width="400"></a></div>
 								<div class="ttbanner-inner">
 									<div class="ttbanner-desc text-center">
@@ -1654,8 +1635,8 @@
 									<div class="product-thumb">
 										<div class="image zoom">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/products/01.jpg}" alt="01" height="501" width="385" />
-												<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02"
+												<img src="/frontendApp/img/products/01.jpg" alt="01" height="501" width="385" />
+												<img src="/frontendApp/img/products/02.jpg" alt="02"
 													class="second_image img-responsive" height="501" width="385" /> </a>
 											<ul class="countdown3 countdown">
 												<li><span class="days">00</span>
@@ -1675,7 +1656,7 @@
 										<div class="thumb-description">
 											<div class="caption">
 												<h4 class="product-title text-capitalize"><a
-														href="product-details.html">Checked Polo Collar T-shirt</a></h4>
+														href="productDetails.html">Checked Polo Collar T-shirt</a></h4>
 											</div>
 											<div class="rating">
 												<div class="product-ratings d-inline-block align-middle">
@@ -1699,7 +1680,7 @@
 														disabled="disabled"><i
 															class="material-icons">shopping_cart</i><span>Add to
 															cart</span></button>
-													<a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+													<a href="favProduct.html" class="btn btn-primary btn-wishlist"><i
 															class="material-icons">favorite</i><span>wishlist</span></a>
 													<button type="button" class="btn btn-primary btn-compare"><i
 															class="material-icons">equalizer</i><span>Compare</span></button>
@@ -1716,14 +1697,14 @@
 									<div class="product-thumb">
 										<div class="image zoom">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/products/02.jpg}" alt="02" height="501" width="385" />
-												<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03"
+												<img src="/frontendApp/img/products/02.jpg" alt="02" height="501" width="385" />
+												<img src="/frontendApp/img/products/03.jpg" alt="03"
 													class="second_image img-responsive" height="501" width="385" /></a>
 										</div>
 										<div class="thumb-description">
 											<div class="caption">
 												<h4 class="product-title text-capitalize"><a
-														href="product-details.html">Crochet Detail Lightweight Top</a>
+														href="productDetails.html">Crochet Detail Lightweight Top</a>
 												</h4>
 											</div>
 											<div class="rating">
@@ -1747,7 +1728,7 @@
 														data-target="#cart-pop" data-toggle="modal"><i
 															class="material-icons">shopping_cart</i><span>Add to
 															cart</span></button>
-													<a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+													<a href="favProduct.html" class="btn btn-primary btn-wishlist"><i
 															class="material-icons">favorite</i><span>wishlist</span></a>
 													<button type="button" class="btn btn-primary btn-compare"><i
 															class="material-icons">equalizer</i><span>Compare</span></button>
@@ -1764,14 +1745,14 @@
 									<div class="product-thumb">
 										<div class="image zoom">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/products/03.jpg}" alt="03" height="501" width="385" />
-												<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04"
+												<img src="/frontendApp/img/products/03.jpg" alt="03" height="501" width="385" />
+												<img src="/frontendApp/img/products/04.jpg" alt="04"
 													class="second_image img-responsive" height="501" width="385" /></a>
 										</div>
 										<div class="thumb-description">
 											<div class="caption">
 												<h4 class="product-title text-capitalize"><a
-														href="product-details.html">Girls Floral Print Jumpsuit</a></h4>
+														href="productDetails.html">Girls Floral Print Jumpsuit</a></h4>
 											</div>
 											<div class="rating">
 												<div class="product-ratings d-inline-block align-middle">
@@ -1794,7 +1775,7 @@
 														data-target="#cart-pop" data-toggle="modal"><i
 															class="material-icons">shopping_cart</i><span>Add to
 															cart</span></button>
-													<a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+													<a href="favProduct.html" class="btn btn-primary btn-wishlist"><i
 															class="material-icons">favorite</i><span>wishlist</span></a>
 													<button type="button" class="btn btn-primary btn-compare"><i
 															class="material-icons">equalizer</i><span>Compare</span></button>
@@ -1811,14 +1792,14 @@
 									<div class="product-thumb">
 										<div class="image zoom">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/products/04.jpg}" alt="04" height="501" width="385" />
-												<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05"
+												<img src="/frontendApp/img/products/04.jpg" alt="04" height="501" width="385" />
+												<img src="/frontendApp/img/products/05.jpg" alt="05"
 													class="second_image img-responsive" height="501" width="385" /></a>
 										</div>
 										<div class="thumb-description">
 											<div class="caption">
 												<h4 class="product-title text-capitalize"><a
-														href="product-details.html">Girls Striped Fit and Flare
+														href="productDetails.html">Girls Striped Fit and Flare
 														Dress</a></h4>
 											</div>
 											<div class="rating">
@@ -1842,7 +1823,7 @@
 														data-target="#cart-pop" data-toggle="modal"><i
 															class="material-icons">shopping_cart</i><span>Add to
 															cart</span></button>
-													<a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+													<a href="favProduct.html" class="btn btn-primary btn-wishlist"><i
 															class="material-icons">favorite</i><span>wishlist</span></a>
 													<button type="button" class="btn btn-primary btn-compare"><i
 															class="material-icons">equalizer</i><span>Compare</span></button>
@@ -1859,14 +1840,14 @@
 									<div class="product-thumb">
 										<div class="image zoom">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/products/05.jpg}" alt="05" height="501" width="385" />
-												<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06"
+												<img src="/frontendApp/img/products/05.jpg" alt="05" height="501" width="385" />
+												<img src="/frontendApp/img/products/06.jpg" alt="06"
 													class="second_image img-responsive" height="501" width="385" /> </a>
 										</div>
 										<div class="thumb-description">
 											<div class="caption">
 												<h4 class="product-title text-capitalize"><a
-														href="product-details.html">Juventus Henley Neck Jersey</a></h4>
+														href="productDetails.html">Juventus Henley Neck Jersey</a></h4>
 											</div>
 											<div class="rating">
 												<div class="product-ratings d-inline-block align-middle">
@@ -1889,7 +1870,7 @@
 														data-target="#cart-pop" data-toggle="modal"><i
 															class="material-icons">shopping_cart</i><span>Add to
 															cart</span></button>
-													<a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+													<a href="favProduct.html" class="btn btn-primary btn-wishlist"><i
 															class="material-icons">favorite</i><span>wishlist</span></a>
 													<button type="button" class="btn btn-primary btn-compare"><i
 															class="material-icons">equalizer</i><span>Compare</span></button>
@@ -1906,14 +1887,14 @@
 									<div class="product-thumb">
 										<div class="image zoom">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/products/06.jpg}" alt="06" height="501" width="385" />
-												<img th:src="@{/frontend-app/img/products/07.jpg}" alt="07"
+												<img src="/frontendApp/img/products/06.jpg" alt="06" height="501" width="385" />
+												<img src="/frontendApp/img/products/07.jpg" alt="07"
 													class="second_image img-responsive" height="501" width="385" /></a>
 										</div>
 										<div class="thumb-description">
 											<div class="caption">
 												<h4 class="product-title text-capitalize"><a
-														href="product-details.html">Printed Dugaree with T-Shirt</a>
+														href="productDetails.html">Printed Dugaree with T-Shirt</a>
 												</h4>
 											</div>
 											<div class="rating">
@@ -1937,7 +1918,7 @@
 														data-target="#cart-pop" data-toggle="modal"><i
 															class="material-icons">shopping_cart</i><span>Add to
 															cart</span></button>
-													<a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+													<a href="favProduct.html" class="btn btn-primary btn-wishlist"><i
 															class="material-icons">favorite</i><span>wishlist</span></a>
 													<button type="button" class="btn btn-primary btn-compare"><i
 															class="material-icons">equalizer</i><span>Compare</span></button>
@@ -1963,10 +1944,10 @@
 									<div class="item">
 										<div class="ttblog_image_holder">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/banner/blog-01.jpg}" alt="blog-01" width="415"
+												<img src="/frontendApp/img/banner/blog-01.jpg" alt="blog-01" width="415"
 													height="269"> </a>
 											<span class="blogicons">
-												<a title="Click to view Full Image" href="/frontend-app/img/banner/blog-01.jpg"
+												<a title="Click to view Full Image" href="/frontendApp/img/banner/blog-01.jpg"
 													data-lightbox="example-set" class="icon zoom"><i
 														class="material-icons">search</i></a> </span>
 										</div>
@@ -1986,10 +1967,10 @@
 									<div class="item">
 										<div class="ttblog_image_holder">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/banner/blog-02.jpg}" alt="blog-02" width="415"
+												<img src="/frontendApp/img/banner/blog-02.jpg" alt="blog-02" width="415"
 													height="269"> </a>
 											<span class="blogicons">
-												<a title="Click to view Full Image" th:href="@{/frontend-app/img/banner/blog-02.jpg}"
+												<a title="Click to view Full Image" href="/frontendApp/img/banner/blog-02.jpg"
 													data-lightbox="example-set" class="icon zoom"><i
 														class="material-icons">search</i></a> </span>
 										</div>
@@ -2009,10 +1990,10 @@
 									<div class="item">
 										<div class="ttblog_image_holder">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/banner/blog-03.jpg}" alt="blog-03" width="415"
+												<img src="/frontendApp/img/banner/blog-03.jpg" alt="blog-03" width="415"
 													height="269"> </a>
 											<span class="blogicons">
-												<a title="Click to view Full Image" th:href="@{/frontend-app/img/banner/blog-03.jpg}"
+												<a title="Click to view Full Image" href="/frontendApp/img/banner/blog-03.jpg"
 													data-lightbox="example-set" class="icon zoom"><i
 														class="material-icons">search</i></a> </span>
 										</div>
@@ -2032,10 +2013,10 @@
 									<div class="item">
 										<div class="ttblog_image_holder">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/banner/blog-04.jpg}" alt="blog-04" width="415"
+												<img src="/frontendApp/img/banner/blog-04.jpg" alt="blog-04" width="415"
 													height="269"> </a>
 											<span class="blogicons">
-												<a title="Click to view Full Image" th:href="@{/frontend-app/img/banner/blog-04.jpg}"
+												<a title="Click to view Full Image" href="/frontendApp/img/banner/blog-04.jpg"
 													data-lightbox="example-set" class="icon zoom"><i
 														class="material-icons">search</i></a> </span>
 										</div>
@@ -2055,10 +2036,10 @@
 									<div class="item">
 										<div class="ttblog_image_holder">
 											<a href="#">
-												<img th:src="@{/frontend-app/img/banner/blog-05.jpg}" alt="blog-05" width="415"
+												<img src="/frontendApp/img/banner/blog-05.jpg" alt="blog-05" width="415"
 													height="269"> </a>
 											<span class="blogicons">
-												<a title="Click to view Full Image" th:href="@{/frontend-app/img/banner/blog-05.jpg}"
+												<a title="Click to view Full Image" href="/frontendApp/img/banner/blog-05.jpg"
 													data-lightbox="example-set" class="icon zoom"><i
 														class="material-icons">search</i></a> </span>
 										</div>
@@ -2082,27 +2063,27 @@
 					<div class="container">
 						<div class="tt-brand owl-carousel">
 							<div class="item">
-								<a href="#"><img th:src="@{/frontend-app/img/logos/brand-logo-01.png}" alt="brand-logo-01" width="140"
+								<a href="#"><img src="/frontendApp/img/logos/brand-logo-01.png" alt="brand-logo-01" width="140"
 										height="100"></a>
 							</div>
 							<div class="item">
-								<a href="#"><img th:src="@{/frontend-app/img/logos/brand-logo-02.png}" alt="brand-logo-02" width="140"
+								<a href="#"><img src="/frontendApp/img/logos/brand-logo-02.png" alt="brand-logo-02" width="140"
 										height="100"></a>
 							</div>
 							<div class="item">
-								<a href="#"><img th:src="@{/frontend-app/img/logos/brand-logo-03.png}" alt="brand-logo-03" width="140"
+								<a href="#"><img src="/frontendApp/img/logos/brand-logo-03.png" alt="brand-logo-03" width="140"
 										height="100"></a>
 							</div>
 							<div class="item">
-								<a href="#"><img th:src="@{/frontend-app/img/logos/brand-logo-04.png}" alt="brand-logo-04" width="140"
+								<a href="#"><img src="/frontendApp/img/logos/brand-logo-04.png" alt="brand-logo-04" width="140"
 										height="100"></a>
 							</div>
 							<div class="item">
-								<a href="#"><img th:src="@{/frontend-app/img/logos/brand-logo-05.png}" alt="brand-logo-05" width="140"
+								<a href="#"><img src="/frontendApp/img/logos/brand-logo-05.png" alt="brand-logo-05" width="140"
 										height="100"></a>
 							</div>
 							<div class="item">
-								<a href="#"><img th:src="@{/frontend-app/img/logos/brand-logo-06.png}" alt="brand-logo-06" width="140"
+								<a href="#"><img src="/frontendApp/img/logos/brand-logo-06.png" alt="brand-logo-06" width="140"
 										height="100"></a>
 							</div>
 						</div>
@@ -2111,37 +2092,32 @@
 
 			</div>
 		</div>
+		<!-- 智能客服demo todo-->
+		<script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/oversea/index.js"></script>
+		<script>
+			new CozeWebSDK.WebChatClient({
+				config: {
+					bot_id: '7398395320973574160',
+				},
+				componentProps: {
+					title: 'Desserter',
+					icon:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-0a3TmoPgyaLT33Z2_kRuqJ5tpF2dyg7aZw&s'
+				},
+			});
+		</script>
 	</main>
 
 	<!-- Footer -->
-	<div th:replace="~{frontend-app/components/common :: app-footer}"></div>
+	<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
 
 	<!-- Modals -->
-	<div th:replace="~{frontend-app/components/common :: app-modals}"></div>
+	<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
 
 	<!-- Product Compare -->
-	<div th:replace="~{frontend-app/components/common :: index-product-compare-modal}"></div>
+	<div th:replace="~{frontendApp/components/common :: index-product-compare-modal}"></div>
 
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script th:src="@{/frontend-app/js/jquery.min.js}"></script>
-	<script th:src="@{/frontend-app/js/bootstrap.min.js}"></script>
-	<script th:src="@{/frontend-app/js/owl.carousel.min.js}"></script>
-	<script th:src="@{/frontend-app/js/custom.js}"></script>
-	<script th:src="@{/frontend-app/js/parallax.js}"></script>
-	<script th:src="@{/frontend-app/js/lightbox-2.6.min.js}"></script>
-	<script th:src="@{/frontend-app/js/ResizeSensor.min.js}"></script>
-	<script th:src="@{/frontend-app/js/theia-sticky-sidebar.min.js}"></script>
-	<script th:src="@{/frontend-app/js/inview.js}"></script>
-	<script th:src="@{/frontend-app/js/cookiealert.js}"></script>
-	<script th:src="@{/frontend-app/js/jquery.countdown.min.js}"></script>
-	<script th:src="@{/frontend-app/js/masonry.pkgd.min.js}"></script>
-	<script th:src="@{/frontend-app/js/imagesloaded.pkgd.min.js}"></script>
-	<script th:src="@{/frontend-app/js/jquery.zoom.min.js}"></script>
-
-
+	<div th:replace="~{/frontendApp/components/common :: import-in-the-end}"></div>
 </body>
 
 </html>

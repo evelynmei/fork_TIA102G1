@@ -3,39 +3,23 @@
 
 <head>
     <title>Desserter - About Us</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" type="image/x-icon" href="/frontend-app/img/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap core CSS -->
-    <link href="/frontend-app/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Bootstrap core CSS -->
-    <link href="/frontend-app/css/styles.css" rel="stylesheet">
-    <link href="/frontend-app/css/animate.css" rel="stylesheet">
-    <link href="/frontend-app/css/owl-carousel.css" rel="stylesheet">
-    <link href="/frontend-app/css/lightbox.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-</head>
+    <!-- common-import -->
+    <meta th:replace="~{frontendApp/components/common :: headtag-import}"></head>
 
 <body id="about-us">
 
     <!-- header -->
-    <div th:replace="~{frontend-app/components/common.html :: app-header}"></div>
+    <div th:replace="~{frontendApp/components/common.html :: app-header}"></div>
 
-    <!--    &lt;!&ndash; bread-crumb  &ndash;&gt;-->
-    <!--    <div th:replace="~{frontend-app/components/common :: app-bread-crumb}"></div>-->
+    <!-- bread-crumb  -->
+    <div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'about us'})}"></div>
 
     <div class="main-content w-100 float-left">
         <div id="about-main-1" class="float-left w-100 mb-150 mb-sm-30">
             <div class="container">
                 <div class="row align-items-center about-main">
                     <div class="col-12 col-lg-5 text-center col-left">
-                        <img src="/frontend-app/img/banner/about-us.jpg" alt="" class="border-radius-6 w-100" data-no-retina="">
+                        <img src="/frontendApp/img/banner/about-us.jpg" alt="" class="border-radius-6 w-100" data-no-retina="">
                     </div>
                     <div class="col-12 col-lg-7 col-right">
                         <span class="d-inline-block title mb-10">Don’t worry, you’re in safe hands.</span>
@@ -87,7 +71,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 text-center col-left p-0">
-                    <img src="/frontend-app/img/banner/about-us1.jpg" alt="" class="border-radius-6 w-100" data-no-retina="">
+                    <img src="/frontendApp/img/banner/about-us1.jpg" alt="" class="border-radius-6 w-100" data-no-retina="">
                 </div>
             </div>
         </div>
@@ -97,7 +81,7 @@
                     <div class="team-block col-sm-6 col-md-3 col-lg-3 float-left mb-sm-30">
                         <div class="team-block-inner position-relative">
                             <div class="team-image text-center">
-                                <img src="/frontend-app/img/banner/team-01.jpg" alt="team-01" />
+                                <img src="/frontendApp/img/banner/team-01.jpg" alt="team-01" />
                                 <div class="overlay"></div>
 
                             </div>
@@ -154,7 +138,7 @@
                     <div class="team-block col-sm-6 col-md-3 col-lg-3 float-left mb-sm-30">
                         <div class="team-block-inner position-relative">
                             <div class="team-image text-center">
-                                <img src="/frontend-app/img/banner/team-02.jpg" alt="team-02" />
+                                <img src="/frontendApp/img/banner/team-02.jpg" alt="team-02" />
                                 <div class="overlay"></div>
                             </div>
                             <div class="team-content text-center float-left w-100">
@@ -210,7 +194,7 @@
                     <div class="team-block col-sm-6 col-md-3 col-lg-3 float-left mb-sm-30">
                         <div class="team-block-inner position-relative">
                             <div class="team-image text-center">
-                                <img src="/frontend-app/img/banner/team-03.jpg" alt="team-03" />
+                                <img src="/frontendApp/img/banner/team-03.jpg" alt="team-03" />
                                 <div class="overlay"></div>
                             </div>
                             <div class="team-content text-center float-left w-100">
@@ -266,7 +250,7 @@
                     <div class="team-block col-sm-6 col-md-3 col-lg-3 float-left mb-sm-30">
                         <div class="team-block-inner position-relative">
                             <div class="team-image text-center">
-                                <img src="/frontend-app/img/banner/team-04.jpg" alt="team-04" />
+                                <img src="/frontendApp/img/banner/team-04.jpg" alt="team-04" />
                                 <div class="overlay"></div>
                             </div>
                             <div class="team-content text-center float-left w-100">
@@ -327,25 +311,25 @@
             <div class="container">
                 <div class="tt-brand owl-carousel">
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-01.png" alt="brand-logo-01"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-01.png" alt="brand-logo-01"></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-02.png" alt="brand-logo-02"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-02.png" alt="brand-logo-02"></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-03.png" alt="brand-logo-03"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-03.png" alt="brand-logo-03"></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-04.png" alt="brand-logo-04"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-04.png" alt="brand-logo-04"></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-05.png" alt="brand-logo-05"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-05.png" alt="brand-logo-05"></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-06.png" alt="brand-logo-06"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-06.png" alt="brand-logo-06"></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img src="/frontend-app/img/logos/brand-logo-07.png" alt="brand-logo-07"></a>
+                        <a href="#"><img src="/frontendApp/img/logos/brand-logo-07.png" alt="brand-logo-07"></a>
                     </div>
                 </div>
             </div>
@@ -356,7 +340,7 @@
                     <ul class="tttestimonial tttesti owl-carousel p-0">
                         <li>
                             <div class="testimonial-block">
-                                <div class="testimonial-image"><img alt="" src="/frontend-app/img/banner/user1.jpg" /></div>
+                                <div class="testimonial-image"><img alt="" src="/frontendApp/img/banner/user1.jpg" /></div>
                                 <div class="testimonial-content">
                                     <div class="testimonial-desc">
                                         <div class="rating">
@@ -382,7 +366,7 @@
                         </li>
                         <li>
                             <div class="testimonial-block">
-                                <div class="testimonial-image"><img alt="" src="/frontend-app/img/banner/user2.jpg" /></div>
+                                <div class="testimonial-image"><img alt="" src="/frontendApp/img/banner/user2.jpg" /></div>
                                 <div class="testimonial-content">
                                     <div class="testimonial-desc">
                                         <div class="rating">
@@ -408,7 +392,7 @@
                         </li>
                         <li>
                             <div class="testimonial-block">
-                                <div class="testimonial-image"><img alt="" src="/frontend-app/img/banner/user3.jpg" /></div>
+                                <div class="testimonial-image"><img alt="" src="/frontendApp/img/banner/user3.jpg" /></div>
                                 <div class="testimonial-content">
                                     <div class="testimonial-desc">
                                         <div class="rating">
@@ -440,27 +424,10 @@
     </div>
 
     <!-- Footer -->
-    <div th:replace="~{frontend-app/components/common :: app-footer}"></div>
+    <div th:replace="~{frontendApp/components/common :: app-footer}"></div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/frontend-app/js/jquery.min.js"></script>
-    <script src="/frontend-app/js/bootstrap.min.js"></script>
-    <script src="/frontend-app/js/owl.carousel.min.js"></script>
-    <script src="/frontend-app/js/custom.js"></script>
-    <script src="/frontend-app/js/parallax.js"></script>
-    <script src="/frontend-app/js/lightbox-2.6.min.js"></script>
-    <script src="/frontend-app/js/ResizeSensor.min.js"></script>
-    <script src="/frontend-app/js/theia-sticky-sidebar.min.js"></script>
-    <script src="/frontend-app/js/inview.js"></script>
-    <script src="/frontend-app/js/cookiealert.js"></script>
-    <script src="/frontend-app/js/jquery.countdown.min.js"></script>
-    <script src="/frontend-app/js/masonry.pkgd.min.js"></script>
-    <script src="/frontend-app/js/imagesloaded.pkgd.min.js"></script>
-    <script src="/frontend-app/js/jquery.zoom.min.js"></script>
-
-
+    <div th:replace="~{/frontendApp/components/common :: import-in-the-end}"></div>
 </body>
 
 </html>

@@ -3,28 +3,16 @@
 
 <head>
 	<title>Desserter - Contact Us</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="shortcut icon" type="image/x-icon" href="/frontend-app/img/favicon.ico">
-	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet">
-
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- Bootstrap core CSS -->
-	<link href="/frontend-app/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-	<!-- Bootstrap core CSS -->
-	<link href="/frontend-app/css/styles.css" rel="stylesheet">
-	<link href="/frontend-app/css/animate.css" rel="stylesheet">
-	<link href="/frontend-app/css/owl-carousel.css" rel="stylesheet">
-	<link href="/frontend-app/css/lightbox.css" rel="stylesheet">
-	<!-- Custom styles for this template -->
-</head>
+	<!-- common-import -->
+	<meta th:replace="~{frontendApp/components/common :: headtag-import}"></head>
 
 <body>
 
 	<!-- header -->
-	<div th:replace="~{frontend-app/components/common :: app-header}"></div>
+	<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+
+	<!-- bread-crumb  -->
+	<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'contact us'})}"></div>
 
 	<div class="main-content w-100 float-left">
 		<div class="container">
@@ -111,30 +99,10 @@
 	</div>
 
 	<!-- Footer -->
-	<div th:replace="~{frontend-app/components/common :: app-footer}"></div>
+	<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
 
-
-
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/frontend-app/js/jquery.min.js"></script>
-	<script src="/frontend-app/js/bootstrap.min.js"></script>
-	<script src="/frontend-app/js/owl.carousel.min.js"></script>
-	<script src="/frontend-app/js/custom.js"></script>
-	<script src="/frontend-app/js/parallax.js"></script>
-	<script src="/frontend-app/js/lightbox-2.6.min.js"></script>
-	<script src="/frontend-app/js/ResizeSensor.min.js"></script>
-	<script src="/frontend-app/js/theia-sticky-sidebar.min.js"></script>
-	<script src="/frontend-app/js/inview.js"></script>
-	<script src="/frontend-app/js/cookiealert.js"></script>
-	<script src="/frontend-app/js/jquery.countdown.min.js"></script>
-	<script src="/frontend-app/js/masonry.pkgd.min.js"></script>
-	<script src="/frontend-app/js/imagesloaded.pkgd.min.js"></script>
-	<script src="/frontend-app/js/jquery.zoom.min.js"></script>
-
-
+	<div th:replace="~{/frontendApp/components/common :: import-in-the-end}"></div>
 </body>
 
 </html>

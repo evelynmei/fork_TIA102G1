@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Desserter - Cart</title>
+	<!-- common-import -->
+	<meta th:replace="~{frontendApp/components/common :: headtag-import}"></head>
+
+<body>
+
+	<!-- header -->
+	<div th:replace="~{frontendApp/components/common.html :: app-header}"></div>
+
+	<!-- bread-crumb  -->
+	<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'cart'})}"></div>
+
+	<div class="cart-area table-area pt-110 pb-95 float-left w-100" id="shopping-cart">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12 col-sm-12 float-left cart-wrapper">
+					<div class="table-responsive">
+						<table class="table product-table text-center">
+							<thead>
+							<tr>
+
+								<th class="table-image">商品</th>
+								<th class="table-p-name"></th>
+								<th class="table-p-price">單價</th>
+								<th class="table-p-qty">數量</th>
+								<th class="table-total">總計</th>
+								<th class="table-remove">刪除</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr v-for="item in items">
+								<td class="table-image"><a href="productDetails.html"><img
+										src="img/products/02.jpg" alt=""></a></td>
+								<td class="table-p-name text-capitalize"><a
+										href="productDetails.html">{{item.productName}}</a></td>
+								<td class="table-p-price">
+									<p>{{item.price}}</p>
+								</td>
+								<td class="table-p-qty"><input v-model="item.proAmount" name="cart-qty" type="number"></td>
+								<td class="table-total">
+									<p>{{item.price * item.proAmount}}</p>
+								</td>
+								<td class="table-remove">
+									<button><i class="material-icons">delete</i></button>
+								</td>
+							</tr>
+
+							</tbody>
+						</table>
+					</div>
+					<div class="table-bottom-wrapper">
+						<div
+								class="table-coupon d-flex d-xs-block d-lg-flex d-sm-flex fix justify-content-start float-left">
+							<input type="text" placeholder="輸入優惠代碼">
+							<button type="submit" class="btn-primary btn">套用優惠券</button>
+						</div>
+						<div class="table-update d-flex d-xs-block d-lg-flex d-sm-flex justify-content-end">
+							<button type="button" class="btn-primary btn">繼續購物</button>
+						</div>
+					</div>
+				</div>
+				<div
+						class="table-total-wrapper d-flex justify-content-end pt-60 col-md-12 col-sm-12 col-lg-4 float-left  align-items-center">
+					<div class="table-total-content">
+						<h2 class="pb-20">訂單金額</h2>
+						<div class="table-total-amount">
+							<div class="single-total-content d-flex justify-content-between float-left w-100">
+								<strong>商品總金額</strong>
+								<span class="c-total-price">{{sum}}</span>
+							</div>
+							<div class="single-total-content d-flex justify-content-between float-left w-100">
+								<strong>運費</strong>
+								<span class="c-total-price">$80</span>
+							</div>
+							<!-- <div class="single-total-content d-flex justify-content-end float-left w-100">
+                                <a href="#">Calculate shipping</a>
+                            </div> -->
+							<div class="single-total-content tt-total d-flex justify-content-between float-left w-100">
+								<strong>總付款金額</strong>
+								<span class="c-total-price">${{sum + 80}}</span>
+							</div>
+							<a href="checkout_page.html" class="btn btn-primary float-left w-100 text-center">去買單</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Footer -->
+	<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+
+	<!-- Placed at the end of the document so the pages load faster -->
+	<div th:replace="~{/frontendApp/components/common :: import-in-the-end}"></div>
+
+	<!-- 引入 Vue 及 Axios JavaScript 功能庫處理綁定及呼叫 REST api 邏輯-->
+	<script type="module" src="/frontendApp/js/vue/cartPage.js"></script>
+</body>
+
+</html>
