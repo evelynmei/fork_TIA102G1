@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--  xmlns:th="http://www.thymeleaf.org" 加上這行，
-        那 IDE 就能智能地提示 Thymeleaf 相關的指令，比如 th:for 等常見功能。 -->
+<!--  xmlns:th="http://www.thymeleaf.org"讓IDE能提示Thymeleaf相關的指令, 如 th:for等常見功能 -->
 
 <head>
     <meta charset="UTF-8">
-    <title> Thymeleaf 通用組件, Common "Template References" 共同的模版引用, aka "Components" 前端組件/元件</title>
+    <title> Thymeleaf 通用組件, Common "Template References" 共同的模版引用, "Components" 前端組件/元件</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -15,11 +14,13 @@
     <!-- th:fragment 用 Thymeleaf 的模版引用功能，把 header 這個模板註冊，方便其它網頁引用 -->
     <header th:fragment="app-header" class="header-area header-sticky text-center header-default">
         <div class="header-main-sticky">
+    <!-- header sticky效果待修正 todo-->
+
             <!-- Header 上面的黑條-->
             <div class="header-nav">
                 <div class="container">
                     <div class="nav-left float-left">
-                        <div class="ttheader-service">慶祝母親節，全館7折優惠，名額有限送完即止：折扣碼 TK8888 </div>
+                        <div class="ttheader-service">父親節全館8折優惠, 輸入折扣碼PA8888 </div>
                     </div>
                     <div class="nav-right float-right d-flex">
                         <div class="ttheader-mail"><a href="mailto:desserter@cookiemail.com">desserter@cookiemail.com</a></div>
@@ -27,6 +28,7 @@
                 </div>
             </div>
             <div class="header-main-head">
+
                 <!-- Header 中間主區域 -->
                 <div class="header-main">
                     <div class="container">
@@ -38,7 +40,7 @@
                         </div>
                         <div class="header-middle float-lg-left float-md-left float-sm-left float-xs-none">
                             <div class="logo">
-                                <a href="../index.html"><img src="/frontend-app/img/logos/logo.png" alt="logo" width="200"
+                                <a href="../index.html"><img src="/frontendApp/img/logos/logo.png" alt="logo" width="200"
                                                              height="50"></a>
                             </div>
                         </div>
@@ -49,7 +51,7 @@
                                     <i class="material-icons close">close</i> </a>
                                 <form autocomplete="on" class="search-form">
                                     <div class="autocomplete">
-                                        <input id="myInput" type="text" name="myCountry" placeholder="Search here">
+                                        <input id="myInput" type="text" name="myCountry" placeholder="搜尋">
                                         <button type="button"><i class="material-icons">search</i></button>
                                     </div>
                                 </form>
@@ -57,15 +59,6 @@
                             <div class="user-info">
                                 <button type="button" class="btn">
                                     <i class="material-icons">perm_identity</i> </button>
-                                <div id="user-dropdown" class="user-menu">
-                                    <ul>
-                                        <li><a href="my-account.html" class="text-capitalize">我的帳號</a></li>
-                                        <li><a href="#" class="modal-view button" data-toggle="modal"
-                                                data-target="#modalRegisterForm">註冊</a></li>
-                                        <li><a href="#" class="modal-view button" data-toggle="modal"
-                                                data-target="#modalLoginForm">登入</a></li>
-                                    </ul>
-                                </div>
                             </div>
                             <div class="cart-wrapper">
                                 <button type="button" class="btn">
@@ -80,7 +73,7 @@
                                                     <tr>
                                                         <!-- 跟購物車綁定，動態資料 todo -->
                                                         <td class="text-center"><a href="#"><img
-                                                                    src="/frontend-app/img/products/01.jpg" alt="01" title="01"
+                                                                    src="/frontendApp/img/products/01.jpg" alt="01" title="01"
                                                                     height="104" width="80"></a></td>
                                                         <td class="text-left product-name"><a href="#">商品總共</a>
                                                             <div class="quantity float-left w-100">
@@ -88,7 +81,7 @@
                                                                 <span class="text-left price"> $20.00</span>
                                                             </div>
                                                         </td>
-                                                        <!-- close 按鍵失效，不重要有閒再弄-->
+                                                        <!-- close 按鍵失效 todo-->
                                                         <td class="text-center close"><a class="close-cart"><i
                                                                     class="material-icons">close</i></a></td>
                                                     </tr>
@@ -107,7 +100,7 @@
                                             </table>
                                         </li>
                                         <li class="buttons w-100 float-left">
-                                            <form action="../cart-page.html">
+                                            <form action="../cart.html">
                                                 <input class="btn pull-left mt_10 btn-primary btn-rounded w-100"
                                                     value="查看購物車" type="submit">
                                             </form>
@@ -165,7 +158,7 @@
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle text-uppercase"
-                                            href="category.html">Pages</a>
+                                            href="category.html">關於我們</a>
                                         <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
                                             <div class="sub-menu">
                                                 <ul class="list-unstyled">
@@ -266,23 +259,44 @@
     </header>
 
     <!-- 註冊 app-bread-crumb 模版組件 -->
-    <nav th:fragment="app-bread-crumb" aria-label="breadcrumb" class="w-100 float-left">
-        <ol class="breadcrumb parallax justify-content-center" data-source-url="/frontend-app/img/banner/parallax.jpg"
-            style="background-image: url(&quot;/frontend-app/img/banner/parallax.jpg&quot;); background-position: 50% 0.809717%;">
+    <nav th:fragment="app-bread-crumb(title)" aria-label="breadcrumb" class="w-100 float-left">
+        <ol class="breadcrumb parallax justify-content-center" data-source-url="/frontendApp/img/banner/parallax.jpg"
+            style="background-image: url(/frontendApp/img/banner/parallax.jpg); background-position: 50% 0.809717%;">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">cart</li>
-
+            <li class="breadcrumb-item active" aria-current="page" th:text="${title}"></li>
         </ol>
     </nav>
 
     <!-- 註冊 app-footer 模版-->
     <div th:fragment="app-footer">
+        <div class="block-newsletter">
+            <div class="parallax" data-source-url="/frontendApp/img/banner/parallax.jpg"
+                 style="background-image:url(/frontendApp/img/banner/parallax.jpg); background-position:50% 65.8718%;">
+                <div class="container">
+                    <div class="tt-newsletter col-sm-7">
+                        <h2 class="text-uppercase">Subscribe to our Newsletter</h2>
+                    </div>
+                    <div class="block-content col-sm-5">
+                        <form method="post" action="contact-us.html">
+                            <div class="input-group">
+                                <input type="email" name="email" value="" placeholder="Email address.." required=""
+                                       class="form-control">
+                                <span class="input-group-btn">
+								<button class="btn btn-theme text-uppercase btn-primary"
+                                        type="submit">Subscribe</button>
+							</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer class="page-footer font-small footer-default">
             <div class="container text-center text-md-left">
                 <div class="row">
                     <div class="col-md-2 footer-cms footer-column">
                         <div class="ttcmsfooter">
-                            <div class="footer-logo"><img src="/frontend-app/img/logos/footer-logo.png" alt="footer-logo"></div>
+                            <div class="footer-logo"><img src="/frontendApp/img/logos/footer-logo.png" alt="footer-logo"></div>
                             <div class="footer-desc">每月奇特口味餅乾訂閱服務的全球領導品牌！前三個月訂閱不收運費，要訂要快哦。</div>
                         </div>
                     </div>
@@ -359,7 +373,7 @@
                     </div>
                     <div class="col-md-2 footer-column">
                         <div class="title">
-                            <a href="../about-us.html" class="font-weight-normal text-capitalize mb-10"
+                            <a href="../aboutUs.html" class="font-weight-normal text-capitalize mb-10"
                                data-toggle="collapse" aria-expanded="false">門市資訊</a>
                         </div>
                         <ul id="information" class="list-unstyled collapse">
@@ -396,7 +410,15 @@
             </div>
             <a href="#" id="goToTop" title="Back to top" class="btn-primary"><i
                     class="material-icons arrow-up">keyboard_arrow_up</i></a>
+            <!--  Cookie Alert-->
+            <div class="alert text-center cookiealert" role="alert">
+                <b>Do you like cookies?</b> We use cookies to ensure you get the best experience on our website. <a
+                    href="https://demo.templatetrip.com/Html/HTML001_victoria/" rel="noreferrer">learn more</a>
 
+                <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
+                    I agree
+                </button>
+            </div>
 
         </footer>
     </div>
@@ -492,35 +514,35 @@
                                     <div class="tab-pane active" id="product-1" role="tabpanel"
                                         aria-labelledby="product-tab-1">
                                         <div class="single-img img-full">
-                                            <a href="/frontend-app/img/products/01.jpg"><img src="/frontend-app/img/products/01.jpg"
+                                            <a href="/frontendApp/img/products/01.jpg"><img src="/frontendApp/img/products/01.jpg"
                                                     class="img-fluid" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="product-2" role="tabpanel"
                                         aria-labelledby="product-tab-2">
                                         <div class="single-img">
-                                            <a href="/frontend-app/img/products/02.jpg"><img src="/frontend-app/img/products/02.jpg"
+                                            <a href="/frontendApp/img/products/02.jpg"><img src="/frontendApp/img/products/02.jpg"
                                                     class="img-fluid" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="product-3" role="tabpanel"
                                         aria-labelledby="product-tab-3">
                                         <div class="single-img">
-                                            <a href="/frontend-app/img/products/03.jpg"><img src="/frontend-app/img/products/03.jpg"
+                                            <a href="/frontendApp/img/products/03.jpg"><img src="/frontendApp/img/products/03.jpg"
                                                     class="img-fluid" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="product-4" role="tabpanel"
                                         aria-labelledby="product-tab-4">
                                         <div class="single-img">
-                                            <a href="/frontend-app/img/products/04.jpg"><img src="/frontend-app/img/products/04.jpg"
+                                            <a href="/frontendApp/img/products/04.jpg"><img src="/frontendApp/img/products/04.jpg"
                                                     class="img-fluid" alt=""></a>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="product-5" role="tabpanel"
                                         aria-labelledby="product-tab-5">
                                         <div class="single-img">
-                                            <a href="/frontend-app/img/products/05.jpg"><img src="/frontend-app/img/products/05.jpg"
+                                            <a href="/frontendApp/img/products/05.jpg"><img src="/frontendApp/img/products/05.jpg"
                                                     class="img-fluid" alt=""></a>
                                         </div>
                                     </div>
@@ -530,24 +552,24 @@
                                         role="tablist">
                                         <div class="single-small-image img-full">
                                             <a data-toggle="tab" id="product-tab-1" href="#product-1"
-                                                class="img active"><img src="/frontend-app/img/products/01.jpg" class="img-fluid"
+                                                class="img active"><img src="/frontendApp/img/products/01.jpg" class="img-fluid"
                                                     alt=""></a>
                                         </div>
                                         <div class="single-small-image img-full">
                                             <a data-toggle="tab" id="product-tab-2" href="#product-2" class="img"><img
-                                                    src="/frontend-app/img/products/02.jpg" class="img-fluid" alt=""></a>
+                                                    src="/frontendApp/img/products/02.jpg" class="img-fluid" alt=""></a>
                                         </div>
                                         <div class="single-small-image img-full">
                                             <a data-toggle="tab" id="product-tab-3" href="#product-3" class="img"><img
-                                                    src="/frontend-app/img/products/03.jpg" class="img-fluid" alt=""></a>
+                                                    src="/frontendApp/img/products/03.jpg" class="img-fluid" alt=""></a>
                                         </div>
                                         <div class="single-small-image img-full">
                                             <a data-toggle="tab" id="product-tab-4" href="#product-4" class="img"><img
-                                                    src="/frontend-app/img/products/04.jpg" class="img-fluid" alt=""></a>
+                                                    src="/frontendApp/img/products/04.jpg" class="img-fluid" alt=""></a>
                                         </div>
                                         <div class="single-small-image img-full">
                                             <a data-toggle="tab" id="product-tab-5" href="#product-5" class="img"><img
-                                                    src="/frontend-app/img/products/05.jpg" class="img-fluid" alt=""></a>
+                                                    src="/frontendApp/img/products/05.jpg" class="img-fluid" alt=""></a>
                                         </div>
                                     </div>
                                 </div>
@@ -629,7 +651,7 @@
                             <div class="col-md-6 divide-right">
                                 <div class="row">
                                     <div class="col-md-5 col-xs-4 product-img float-left">
-                                        <img src="/frontend-app/img/products/01.jpg" class="img-responsive" alt="01">
+                                        <img src="/frontendApp/img/products/01.jpg" class="img-responsive" alt="01">
                                     </div>
                                     <div class="col-md-7 col-xs-8 product-desc float-left">
                                         <h4 class="product-title text-capitalize">aliquam quaerat voluptatem</h4>
@@ -693,15 +715,15 @@
                     <div class="row">
                         <div class="single-item col-sm-4 col-xs-4">
                             <div class="remove"></div>
-                            <div class="image"><img src="/frontend-app/img/products/01.jpg" class="img-fluid" alt=""></div>
+                            <div class="image"><img src="/frontendApp/img/products/01.jpg" class="img-fluid" alt=""></div>
                         </div>
                         <div class="single-item col-sm-4 col-xs-4">
                             <div class="remove"></div>
-                            <div class="image"><img src="/frontend-app/img/products/02.jpg" class="img-fluid" alt=""></div>
+                            <div class="image"><img src="/frontendApp/img/products/02.jpg" class="img-fluid" alt=""></div>
                         </div>
                         <div class="single-item col-sm-4 col-xs-4">
                             <div class="remove"></div>
-                            <div class="image"><img src="/frontend-app/img/products/03.jpg" class="img-fluid" alt=""></div>
+                            <div class="image"><img src="/frontendApp/img/products/03.jpg" class="img-fluid" alt=""></div>
                         </div>
                     </div>
                 </div>
@@ -713,7 +735,48 @@
         </div>
     </div>
 
+    <!-- 註冊 headTag-import 共同引入-->
+    <th:block th:fragment="headtag-import">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" type="image/x-icon" th:href="@{/frontendApp/img/favicon-16.ico}">
+        <title>Mimity</title>
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+        <!-- Bootstrap core CSS -->
+        <link href="/frontendApp/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+        <!-- Bootstrap core CSS -->
+        <link href="/frontendApp/css/styles.css" rel="stylesheet">
+        <link href="/frontendApp/css/animate.css" rel="stylesheet">
+        <link href="/frontendApp/css/owl-carousel.css" rel="stylesheet">
+        <link href="/frontendApp/css/lightbox.css" rel="stylesheet">
+
+    </th:block>
+
+    <!-- 註冊 import-in-the-end 共同引入-->
+    <th:block th:fragment="import-in-the-end">
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <script src="/frontendApp/js/jquery.min.js"></script>
+        <script src="/frontendApp/js/bootstrap.min.js"></script>
+        <script src="/frontendApp/js/owl.carousel.min.js"></script>
+        <script src="/frontendApp/js/custom.js"></script>
+        <script src="/frontendApp/js/parallax.js"></script>
+        <script src="/frontendApp/js/lightbox-2.6.min.js"></script>
+        <script src="/frontendApp/js/ResizeSensor.min.js"></script>
+        <script src="/frontendApp/js/theia-sticky-sidebar.min.js"></script>
+        <script src="/frontendApp/js/inview.js"></script>
+        <script src="/frontendApp/js/cookiealert.js"></script>
+        <script src="/frontendApp/js/jquery.countdown.min.js"></script>
+        <script src="/frontendApp/js/masonry.pkgd.min.js"></script>
+        <script src="/frontendApp/js/imagesloaded.pkgd.min.js"></script>
+        <script src="/frontendApp/js/jquery.zoom.min.js"></script>
+        <script src="/frontendApp/js/jquery.lazy.min.js"></script>
+    </th:block>
+    <!-- 較大的檔案放在最後面，前面先載入瀏覽體驗比較好 -->
 
 </body>
 

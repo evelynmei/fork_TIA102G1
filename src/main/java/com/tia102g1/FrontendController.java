@@ -12,34 +12,34 @@ public class FrontendController {
     //首頁
     @RequestMapping({"/index","/index.html"})
     public String frontendIndex(Model model) {
-        return "/frontend-app/index";
+        return "/frontendApp/index";
     }
 
     //購物車
-    @GetMapping("/cart-page.html")
+    @GetMapping({"/cart","/cart.html"})
     public String frontendShoppingCart(Model model){
-        return "/frontend-app/cart-page";
+        return "/frontendApp/cart";
     }
 
     //關於我們
-    @GetMapping("/about-us.html")
+    @GetMapping({"/aboutus","/aboutUs.html"})
     public String frontendAboutUs(Model model){
-        return "/frontend-app/about-us";
+        return "/frontendApp/aboutUs";
     }
 
     //聯絡我們
-    @GetMapping("/contact-us.html")
+    @GetMapping({"/contactus","/contactUs.html"})
     public String frontendContactUs(Model model){
-        return "/frontend-app/contact-us";
+        return "/frontendApp/contactUs";
     }
 
     //商品詳細資訊
-    @GetMapping("/product-details.html")
+    @GetMapping({"/productdetails","/productDetails.html"})
     public String frontendProductDetail(Model model) {
-        return "/frontend-app/product-details";
+        return "/frontendApp/productDetails";
     }
 
-    //我的最愛商品 todo：改成我的最愛列表用
-    @GetMapping("/wishlist.html")
-    public String frontendWishlist(Model model) { return "/frontend-app/wishlist"; }
+    //我的最愛商品
+    @GetMapping({"/favproduct","/favProduct.html"})
+    public String frontendFavProduct(Model model) { return "/frontendApp/favProduct"; }
 }
