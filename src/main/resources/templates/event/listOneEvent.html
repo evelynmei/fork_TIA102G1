@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>活動資料 - listOneEvent.html</title>
+
+<head th:insert="~{/event/included-fragment}"></head>
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>活動個人資料 - listOneEvent.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/event/mainPageEvent}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="listOneEvent-div"> <!-- 此div被mainPageEvent.html第158行insert用 -->
+		<h3><span>查詢結果 :</span></h3>
+		<span>活動編號:</span><span th:text="${eventVO.eventId}"></span><br/>
+		<span>活動名稱:</span><span th:text="${eventVO.eventName}"></span><br/>
+		<span>活動開始日期:</span><span th:text="${eventVO.startDt}"></span><br/>
+		<span>活動結束日期:</span><span th:text="${eventVO.endDt}"></span><br/>
+		<span>活動折數:</span><span th:text="${eventVO.eventDiscount}"></span><br/>
+		<span>活動圖片:</span><span><img th:src="@{/event/DBGifReader} + '?eventId=' + ${eventVO.eventId}" width="100px"></span><br/>
+		<span>活動狀態:</span><span th:text="${eventVO.status}"></span><br/>
+		<span>活動文案內容:</span><span th:text="${eventVO.eventContent}"></span><br/>
+		<span>建檔者:</span><span th:text="${eventVO.createdBy}"></span><br/>
+		<span>建檔時間:</span><span th:text="${eventVO.dateCreated}"></span><br/>
+		<span>最後更新者:</span><span th:text="${eventVO.lastUpdatedBy}"></span><br/>
+		<span>最後更新時間:</span><span th:text="${eventVO.lastUpdated}"></span><br/>
+	</div>
+
+</body>
+</html>

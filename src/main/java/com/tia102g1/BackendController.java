@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.tia102g1.event.model.EventService;
+import com.tia102g1.event.model.EventVO;
 import com.tia102g1.productType.model.ProductTypeService;
 import com.tia102g1.productType.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
@@ -22,8 +24,11 @@ public class BackendController {
 	ProductTypeService typeSvc;
 
 	@Autowired
+	EventService eventSvc;
+
+	@Autowired
 	SysMsgService sysMsgSvc;
-	
+
 	@Autowired
 	QuTypeService quTypeSvc;
 
@@ -37,9 +42,9 @@ public class BackendController {
 	/* ======================= mainPage ======================= */
 
 	// 會員資料
-	@GetMapping("member/mainPageMember")
+	@GetMapping({ "/member", "/member/mainPageMember" })
 	public String mainPageMember(Model model) {
-		return "member/mainPageMember";
+		return "/member/mainPageMember";
 	}
 
 	// 會員黑名單
@@ -49,29 +54,29 @@ public class BackendController {
 	}
 
 	// 會員等級對照
-	@GetMapping("memberLv/mainPageMemberLv")
+	@GetMapping({ "/memberLv", "/memberLv/mainPageMemberLv" })
 	public String mainPageMemberLv(Model model) {
-		return "memberLv/mainPageMemberLv";
+		return "/memberLv/mainPageMemberLv";
 	}
 
 	// 優惠券持有紀錄
-	@GetMapping("memberCoupon/mainPageMemberCoupon")
+	@GetMapping({ "/memberCoupon", "/memberCoupon/mainPageMemberCoupon" })
 	public String mainPageMemberCoupon(Model model) {
-		return "coupon/mainPageCoupon";
+		return "/memberCoupon/mainPageMemberCoupon";
 	}
 
 	// 購物金持有紀錄
-	@GetMapping("memberCoin/mainPageMemberCoin")
+	@GetMapping({ "/memberCoin", "/memberCoin/mainPageMemberCoin" })
 	public String mainPageMemberCoin(Model model) {
-		return "memberCoin/mainPageMemberCoin";
+		return "/memberCoin/mainPageMemberCoin";
 	}
 
 	// 商品類型對照
-	@GetMapping("productType/mainPageProductType")
+	@GetMapping({ "/productType", "/productType/mainPageProductType" })
 	public String mainPageProductType(Model model) {
-		return "productType/mainPageProductType";
+		return "/productType/mainPageProductType";
 	}
-	
+
 	@GetMapping("/productType/listAllType")
 	public String listAllType(Model model) {
 		return "productType/listAllType";
@@ -83,72 +88,83 @@ public class BackendController {
 		return list;
 	}
 
-//	// 商品基本資料
-//	@GetMapping("productInfo/mainPageProductInfo")
+	// 商品基本資料
+//	@GetMapping({ "/productInfo", "/productInfo/mainPageProductInfo" })
 //	public String mainPageProductInfo(Model model) {
-//		return "productInfo/mainPageProductInfo";
+//		return "/productInfo/mainPageProductInfo";
 //	}
 
 	// 商品入庫紀錄
-	@GetMapping("productStock/mainPageProductStock")
+	@GetMapping({ "/productStock", "/productStock/mainPageProductStock" })
 	public String mainPageProductStock(Model model) {
-		return "productStock/mainPageProductStock";
+		return "/productStock/mainPageProductStock";
 	}
 
 	// 商品評價紀錄
-	@GetMapping("productComment/mainPageProductComment")
+	@GetMapping({ "/productComment", "/productComment/mainPageProductComment" })
 	public String mainPageProductComment(Model model) {
-		return "productComment/mainPageProductComment";
+		return "/productComment/mainPageProductComment";
 	}
 
 	// 最愛商品紀錄
-	@GetMapping("favProduct/mainPageFavProduct")
+	@GetMapping({ "/favProduct", "/favProduct/mainPageFavProduct" })
 	public String mainPageFavProduct(Model model) {
-		return "favProduct/mainPageFavProduct";
+		return "/favProduct/mainPageFavProduct";
 	}
 
 	// 購物車紀錄
-	@GetMapping("cart/mainPageCart")
+	@GetMapping({ "/cart", "/cart/mainPageCart" })
 	public String mainPageCart(Model model) {
-		return "cart/mainPageCart";
+		return "/cart/mainPageCart";
 	}
 
 	// 加購商品關係
-	@GetMapping("addOn/mainPageAddOn")
+	@GetMapping({ "/addOn", "/addOn/mainPageAddOn" })
 	public String mainPageAddOn(Model model) {
-		return "addOn/mainPageAddOn";
+		return "/addOn/mainPageAddOn";
 	}
 
 	// 訂單紀錄
-	@GetMapping("orderList/mainPageOrderList")
+	@GetMapping({ "/orderList", "/orderList/mainPageOrderList" })
 	public String mainPageOrderList(Model model) {
-		return "orderList/mainPageOrderList";
+		return "/orderList/mainPageOrderList";
 	}
 
 	// 訂單商品明細
-	@GetMapping("orderListInfo/mainPageOrderListInfo")
+	@GetMapping({ "/orderListInfo", "/orderListInfo/mainPageOrderListInfo" })
 	public String mainPageOrderListInfo(Model model) {
-		return "orderListInfo/mainPageOrderListInfo";
+		return "/orderListInfo/mainPageOrderListInfo";
 	}
 
 	// 促銷活動
-	@GetMapping("event/mainPageEvent")
+	@GetMapping({ "/event", "/event/mainPageEvent" })
 	public String mainPageEvent(Model model) {
-		return "event/mainPageEvent";
+		return "/event/mainPageEvent";
+	}
+
+	@GetMapping("/event/listAllEvent")
+	public String listAllEvent(Model model) {
+		return "event/listAllEvent";
+	}
+
+	@ModelAttribute("eventListData")
+	protected List<EventVO> referenceEventListData(Model model) {
+		List<EventVO> list = eventSvc.getAll();
+		return list;
 	}
 
 	// 優惠券
-	@GetMapping("coupon/mainPageCoupon")
+	@GetMapping({ "/coupon", "/coupon/mainPageCoupon" })
 	public String mainPageCoupon(Model model) {
-		return "coupon/mainPageCoupon";
+		return "/coupon/mainPageCoupon";
 	}
 
 	// 問題類型對照
-	@GetMapping("quType/mainPageQuType")
+	@GetMapping({ "/quType", "/quType/mainPageQuType" })
 	public String mainPageQuType(Model model) {
-		return "quType/mainPageQuType";
+		return "/quType/mainPageQuType";
 	}
-	
+
 	@GetMapping("/quType/listAllQuType")
 	public String listAllQuType(Model model) {
 		return "quType/listAllQuType";
@@ -161,51 +177,51 @@ public class BackendController {
 	}
 
 	// 客服表單
-	@GetMapping("csForm/mainPageCsForm")
+	@GetMapping({ "/csForm", "/csForm/mainPageCsForm" })
 	public String mainPageCsForm(Model model) {
-		return "csForm/mainPageCsForm";
+		return "/csForm/mainPageCsForm";
 	}
 
 	// 報表分析管理
-	@GetMapping("report/mainPageReport")
+	@GetMapping({ "/report", "report/mainPageReport" })
 	public String mainPageReport(Model model) {
 		return "report/mainPageReport";
 	}
 
 	// 常見問題
-	@GetMapping("commonAsk/mainPageCommonAsk")
+	@GetMapping({ "/commonAsk", "/commonAsk/mainPageCommonAsk" })
 	public String mainPageCommonAsk(Model model) {
-		return "commonAsk/mainPageCommonAsk";
+		return "/commonAsk/mainPageCommonAsk";
 	}
 
 	// 商品公告
-	@GetMapping("news/mainPageNews")
+	@GetMapping({ "/news", "/news/mainPageNews" })
 	public String mainPageNews(Model model) {
-		return "news/mainPageNews";
+		return "/news/mainPageNews";
 	}
 
 	// 門市資訊
-	@GetMapping("store/mainPageStore")
+	@GetMapping({ "/store", "/store/mainPageStore" })
 	public String mainPageStore(Model model) {
-		return "store/mainPageStore";
+		return "/store/mainPageStore";
 	}
 
 	// 縣市代碼對照
-	@GetMapping("county/mainPageCounty")
+	@GetMapping({ "/county", "/county/mainPageCounty" })
 	public String mainPageCounty(Model model) {
-		return "county/mainPageCounty";
+		return "/county/mainPageCounty";
 	}
 
 	// 鄉鎮區代碼對照
-	@GetMapping("district/mainPageDistrict")
+	@GetMapping({ "/district", "/district/mainPageDistrict" })
 	public String mainPageDistrict(Model model) {
-		return "district/mainPageDistrict";
+		return "/district/mainPageDistrict";
 	}
 
 	// 系統通知訊息
-	@GetMapping("sysMsg/mainPageSysMsg")
+	@GetMapping({ "/sysMsg", "/sysMsg/mainPageSysMsg" })
 	public String mainPageSysMsg(Model model) {
-		return "sysMsg/mainPageSysMsg";
+		return "/sysMsg/mainPageSysMsg";
 	}
 
 	@GetMapping("/sysMsg/listAllSysMsg")
@@ -220,9 +236,9 @@ public class BackendController {
 	}
 
 	// 員工資料
-	@GetMapping("staff/mainPageStaff")
+	@GetMapping({ "/staff", "/staff/mainPageStaff" })
 	public String mainPageStaff(Model model) {
-		return "staff/mainPageStaff";
+		return "/staff/mainPageStaff";
 	}
 
 }
