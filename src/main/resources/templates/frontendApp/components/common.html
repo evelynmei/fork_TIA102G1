@@ -2,49 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--  xmlns:th="http://www.thymeleaf.org"讓IDE能提示Thymeleaf相關的指令, 如 th:for等常見功能 -->
 
-<head>
-    <meta charset="UTF-8">
-    <title> Thymeleaf 通用組件, Common "Template References" 共同的模版引用, "Components" 前端組件/元件</title>
+    <!-- 共同引入 headTag-import meta tag-->
+    <th:block th:fragment="headtag-import">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
+    <link rel="icon" type="image/x-icon" th:href="@{/frontendApp/img/favicon-16.ico}">
+    <title>Mimity</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<body>
+    <!-- Bootstrap core CSS -->
+    <link href="/frontendApp/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-    <!-- th:fragment 用 Thymeleaf 的模版引用功能，把 header 這個模板註冊，方便其它網頁引用 -->
+    <!-- Bootstrap core CSS -->
+    <link href="/frontendApp/css/styles.css" rel="stylesheet">
+    <link href="/frontendApp/css/animate.css" rel="stylesheet">
+    <link href="/frontendApp/css/owl-carousel.css" rel="stylesheet">
+    <link href="/frontendApp/css/lightbox.css" rel="stylesheet">
+
+</th:block>
+
+    <!-- 共用元件 header:圖示按鈕, navbar...-->
     <header th:fragment="app-header" class="header-area header-sticky text-center header-default">
+        <!-- loader icon (ajax-loader.gif)-->
+        <div class="ttloading-bg"></div>
         <div class="header-main-sticky">
-    <!-- header sticky效果待修正 todo-->
-
+        <!-- fixme header sticky失效 -->
             <!-- Header 上面的黑條-->
             <div class="header-nav">
                 <div class="container">
                     <div class="nav-left float-left">
-                        <div class="ttheader-service">父親節全館8折優惠, 輸入折扣碼PA8888 </div>
+                        <!-- todo Coupon優惠券 -->
+                        <div class="ttheader-service">
+                            父親節全館8折優惠, 折扣碼PA8888
+                        </div>
                     </div>
                     <div class="nav-right float-right d-flex">
-                        <div class="ttheader-mail"><a href="mailto:desserter@cookiemail.com">desserter@cookiemail.com</a></div>
+                        <div class="ttheader-mail">
+                            <a href="mailto:desserter@cookiemail.com">desserter@cookiemail.com</a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="header-main-head">
-
                 <!-- Header 中間主區域 -->
                 <div class="header-main">
                     <div class="container">
                         <div class="header-left float-left d-flex d-lg-flex d-md-block d-xs-block">
                             <div class="contact">
                                 <i class="material-icons">phone</i>
-                                <a href="tel:+0912345678">0912-345-678</a>
+                                0912-345-678
                             </div>
                         </div>
                         <div class="header-middle float-lg-left float-md-left float-sm-left float-xs-none">
                             <div class="logo">
-                                <a href="../index.html"><img src="/frontendApp/img/logos/logo.png" alt="logo" width="200"
-                                                             height="50"></a>
+                                <a href="../index.html"><img src="/frontendApp/img/logos/logo.png" alt="logo" width="400" height="100">
+                                </a>
                             </div>
                         </div>
                         <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
+                            <!-- 搜尋商品列 -->
                             <div class="search-wrapper">
                                 <a>
                                     <i class="material-icons search">search</i>
@@ -56,14 +74,17 @@
                                     </div>
                                 </form>
                             </div>
+                            <!--  memeber 會員中心  -->
                             <div class="user-info">
                                 <button type="button" class="btn">
-                                    <i class="material-icons">perm_identity</i> </button>
+                                    <i class="material-icons">perm_identity</i>
+                                </button>
                             </div>
+                            <!--  cart 購物車  -->
                             <div class="cart-wrapper">
                                 <button type="button" class="btn">
                                     <i class="material-icons">shopping_cart</i>
-                                    <!-- 購物車旁的數字綁定，todo -->
+                                    <!-- todo 購物車旁的數字綁定 -->
                                     <span class="ttcount">2</span> </button>
                                 <div id="cart-dropdown" class="cart-menu">
                                     <ul class="w-100 float-left">
@@ -71,7 +92,7 @@
                                             <table class="table table-striped">
                                                 <tbody>
                                                     <tr>
-                                                        <!-- 跟購物車綁定，動態資料 todo -->
+                                                        <!-- todo 跟購物車綁定，動態資料 -->
                                                         <td class="text-center"><a href="#"><img
                                                                     src="/frontendApp/img/products/01.jpg" alt="01" title="01"
                                                                     height="104" width="80"></a></td>
@@ -81,7 +102,7 @@
                                                                 <span class="text-left price"> $20.00</span>
                                                             </div>
                                                         </td>
-                                                        <!-- close 按鍵失效 todo-->
+                                                        <!-- fixme close按鍵無效 -->
                                                         <td class="text-center close"><a class="close-cart"><i
                                                                     class="material-icons">close</i></a></td>
                                                     </tr>
@@ -93,7 +114,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-left"><strong>總金額</strong></td>
-                                                        <!-- 跟購物車綁定，動態資料 todo -->
+                                                        <!-- todo 跟購物車綁定，動態資料 -->
                                                         <td class="text-right"><strong>$2,122.00</strong></td>
                                                     </tr>
                                                 </tbody>
@@ -115,142 +136,201 @@
                         </div>
                     </div>
                 </div>
-                <!-- Header 下面的菜單及導覽條 -->
+                <!-- Header 功能主選單 -->
                 <div class="menu">
                     <div class="container">
                         <!-- Navbar -->
                         <nav class="navbar navbar-expand-lg navbar-light d-sm-none d-xs-none d-lg-block navbar-full">
-
                             <!-- Navbar brand -->
                             <a class="navbar-brand text-uppercase d-none" href="#">Navbar</a>
-
                             <!-- Collapse button -->
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2"
                                 aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-
-                            <!-- Collapsible content -->
+                            <!-- Features 首頁功能主選單 Collapsible content -->
                             <div class="collapse navbar-collapse">
-
-                                <!-- Links -->
                                 <ul class="navbar-nav m-auto justify-content-center">
                                     <li class="nav-item dropdown active">
-                                        <a class="nav-link text-uppercase" href="index.html">
-                                            首頁
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown mega-dropdown">
-                                        <a class="nav-link text-uppercase" href="category.html">
+                                        <a class="nav-link dropdown-toggle text-uppercase" href="index.html">
                                             精選商品
+                                            <span class="sr-only">(current)</span>
                                         </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="category.html">
-                                            手工餅乾
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link  text-uppercase" href="category.html">
-                                            英式司康
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle text-uppercase"
-                                            href="category.html">關於我們</a>
                                         <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
-                                            <div class="sub-menu">
+                                            <div class="sub-menu mb-xl-0 mb-4">
                                                 <ul class="list-unstyled">
                                                     <li>
-                                                        <a class="menu-item pl-0" href="about-us.html">
-                                                            關於我們</a>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            手工餅乾
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            英式司康
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="nav-item dropdown mega-dropdown">
+                                        <a class="nav-link text-uppercase" href="index.html">
+                                            優惠活動
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown active">
+                                        <a class="nav-link dropdown-toggle text-uppercase" href="index.html">
+                                            會員中心
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
+                                            <div class="sub-menu mb-xl-0 mb-4">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            查詢訂單
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="favProduct.html">
+                                                            我的最愛
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            商品評論
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            管理會員資料
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            訊息
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown mega-dropdown">
+                                        <a class="nav-link text-uppercase" href="commonAsk.html">
+                                            常見問題
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown mega-dropdown">
+                                        <a class="nav-link text-uppercase" href="store.html">
+                                            門市資訊
+                                        </a>
+                                    </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="contact-us.html">聯絡我們</a>
+                                        <a class="nav-link text-uppercase" href="contactUs.html">
+                                            聯絡我們
+                                        </a>
                                     </li>
                                 </ul>
-                                <!-- Links -->
                             </div>
-                            <!-- Collapsible content -->
-
                         </nav>
-                        <!-- Navbar -->
-                        <nav class="navbar navbar-expand-lg navbar-light d-lg-none navbar-responsive">
 
+                        <!-- RWD漢堡選單 Collapsible content -->
+                        <nav class="navbar navbar-expand-lg navbar-light d-lg-none navbar-responsive">
                             <!-- Navbar brand -->
                             <a class="navbar-brand text-uppercase d-none" href="#">Navbar</a>
-
                             <!-- Collapse button -->
                             <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2"
                                 aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"><i class='material-icons'>sort</i></span>
                             </button>
-
-                            <!-- Collapsible content -->
+                            <!-- Features 首頁功能主選單 Collapsible content -->
                             <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-
-                                <!-- Links -->
                                 <ul class="navbar-nav m-auto justify-content-center">
-
-                                    <!-- Features -->
                                     <li class="nav-item dropdown active">
                                         <a class="nav-link text-uppercase" data-toggle="collapse"
                                             data-target="#menu1" aria-controls="menu1" aria-expanded="false"
                                             aria-label="Toggle navigation" href="#">
-                                            首頁
+                                            精選商品
                                         </a>
-                                    </li>
-                                    <li class="nav-item dropdown mega-dropdown">
-                                        <a class="nav-link dropdown-toggle text-uppercase" data-toggle="collapse"
-                                            data-target="#menu3" aria-controls="menu3" aria-expanded="false"
-                                            aria-label="Toggle navigation" href="#">精選商品</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle text-uppercase" data-toggle="collapse"
-                                            data-target="#menu2" aria-controls="menu2" aria-expanded="false"
-                                            aria-label="Toggle navigation" href="#">
-                                            手工餅乾
-                                        </a>
-                                    </li>
-                                    <!-- Technology -->
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle text-uppercase" data-toggle="collapse"
-                                            data-target="#menu4" aria-controls="menu4" aria-expanded="false"
-                                            aria-label="Toggle navigation" href="#">英式司康</a>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="contact-us.html">聯絡我們</a>
-                                    </li>
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle text-uppercase" data-toggle="collapse"
-                                            data-target="#menu5" aria-controls="menu5" aria-expanded="false"
-                                            aria-label="Toggle navigation" href="#">Pages</a>
-                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3"
-                                            id="menu5">
+                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3" id="menu1">
                                             <div class="sub-menu">
                                                 <ul class="list-unstyled">
                                                     <li>
-                                                        <a class="menu-item pl-0" href="about-us.html">
-                                                            關於我們</a>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            手工餅乾
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            英式司康
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-uppercase" href="index.html">
+                                            優惠活動
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown active">
+                                        <a class="nav-link text-uppercase" data-toggle="collapse"
+                                           data-target="#menu1" aria-controls="menu1" aria-expanded="false"
+                                           aria-label="Toggle navigation" href="#">
+                                            會員中心
+                                        </a>
+                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3" id="menu1">
+                                            <div class="sub-menu">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            查詢訂單
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="favProduct.html">
+                                                            我的最愛
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            商品評論
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            管理會員資料
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="menu-item pl-0" href="index.html">
+                                                            訊息
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-uppercase" href="commonAsk.html">
+                                            常見問題
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-uppercase" href="store.html">
+                                            門市資訊
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-uppercase" href="contactUs.html">
+                                            聯絡我們
+                                        </a>
+                                    </li>
                                 </ul>
-                                <!-- Links -->
                             </div>
-                            <!-- Collapsible content -->
-
                         </nav>
                     </div>
                 </div>
@@ -258,32 +338,34 @@
         </div>
     </header>
 
-    <!-- 註冊 app-bread-crumb 模版組件 -->
+    <!-- 共用元件(index除外) bread crumb -->
     <nav th:fragment="app-bread-crumb(title)" aria-label="breadcrumb" class="w-100 float-left">
         <ol class="breadcrumb parallax justify-content-center" data-source-url="/frontendApp/img/banner/parallax.jpg"
             style="background-image: url(/frontendApp/img/banner/parallax.jpg); background-position: 50% 0.809717%;">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="index.html">首頁</a></li>
             <li class="breadcrumb-item active" aria-current="page" th:text="${title}"></li>
+
         </ol>
     </nav>
 
-    <!-- 註冊 app-footer 模版-->
+    <!-- 共用元件 footer和一些按鈕功能 -->
     <div th:fragment="app-footer">
+        <!-- 訂閱電子報 -->
         <div class="block-newsletter">
             <div class="parallax" data-source-url="/frontendApp/img/banner/parallax.jpg"
                  style="background-image:url(/frontendApp/img/banner/parallax.jpg); background-position:50% 65.8718%;">
                 <div class="container">
                     <div class="tt-newsletter col-sm-7">
-                        <h2 class="text-uppercase">Subscribe to our Newsletter</h2>
+                        <h2 class="text-uppercase text-center">訂閱最新商品資訊</h2>
                     </div>
                     <div class="block-content col-sm-5">
-                        <form method="post" action="contact-us.html">
+                        <form method="post" action="#">
                             <div class="input-group">
-                                <input type="email" name="email" value="" placeholder="Email address.." required=""
+                                <input type="email" name="email" value="" placeholder="Email" required=""
                                        class="form-control">
                                 <span class="input-group-btn">
 								<button class="btn btn-theme text-uppercase btn-primary"
-                                        type="submit">Subscribe</button>
+                                        type="submit">OK</button>
 							</span>
                             </div>
                         </form>
@@ -297,95 +379,49 @@
                     <div class="col-md-2 footer-cms footer-column">
                         <div class="ttcmsfooter">
                             <div class="footer-logo"><img src="/frontendApp/img/logos/footer-logo.png" alt="footer-logo"></div>
-                            <div class="footer-desc">每月奇特口味餅乾訂閱服務的全球領導品牌！前三個月訂閱不收運費，要訂要快哦。</div>
+                            <div class="footer-desc">每月推出最新口味餅乾的領導品牌</div>
                         </div>
                     </div>
+                    <div class="  footer-column">
+                    </div>
+
+                    <!-- footer功能選單(RWD) -->
                     <div class="col-md-2 footer-column">
                         <div class="title">
-                            <a href="#todo" class="font-weight-normal text-capitalize mb-10" data-toggle="collapse"
-                                aria-expanded="false">顧客服務</a>
+                            <a href="/" class="font-weight-normal text-capitalize mb-10" data-toggle="collapse"
+                               aria-expanded="false">顧客服務</a>
                         </div>
-                        <ul id="company" class="list-unstyled collapse">
+                        <ul id="service" class="list-unstyled collapse">
                             <li>
-                                <a href="#todo">常見問題</a>
+                                <a href="commonAsk.html">常見問題</a>
                             </li>
                             <li>
-                                <a href="#todo">退換貨政策</a>
+                                <a href="index.html">退換貨政策</a>
                             </li>
                             <li>
-                                <a href="#todo">運送及付款方式</a>
+                                <a href="index.html">運送及付款方式</a>
                             </li>
                             <li>
-                                <a href="#todo">隱私權政策</a>
+                                <a href="index.html">隱私權政策</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2 footer-column">
+
+                    <div class="col-md-2 footer-column ">
                         <div class="title">
-                            <a href="#products" class="font-weight-normal text-capitalize mb-10" data-toggle="collapse"
-                                aria-expanded="false"></a>
+                            <a href="#" class="font-weight-normal text-capitalize mb-10" data-toggle="collapse"
+                               aria-expanded="false">聯絡我們</a>
                         </div>
-                        <ul id="products" class="list-unstyled collapse">
-                            <li>
-                                <a href="#">
-
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-
-                                </a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="col-md-2 footer-column">
-                        <div class="title">
-                            <a href="contact-us.html" class="font-weight-normal text-capitalize mb-10" data-toggle="collapse"
-                                aria-expanded="false">聯絡我們</a>
-                        </div>
-                        <ul id="account" class="list-unstyled collapse">
-                            <li>
-                                <span>服務時間:</span>
-                            </li>
+                        <ul id="contact" class="list-unstyled collapse">
                             <li>
                                 <span class="icon"><i class="material-icons">access_time</i></span>
-                                <span class="data"><a href="#">周一~周五，10:00-18:00</a></span>
+                                <span class="data">周一~周五 10:00-18:00</span>
                             </li>
                             <li>
-                                <a href="#"></a>
-                            </li>
-                            <li>
-                                <a href="#"></a>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="col-md-2 footer-column">
-                        <div class="title">
-                            <a href="../aboutUs.html" class="font-weight-normal text-capitalize mb-10"
-                               data-toggle="collapse" aria-expanded="false">門市資訊</a>
-                        </div>
-                        <ul id="information" class="list-unstyled collapse">
-<!--                            <li class="contact-detail links">-->
-<!--                                <span class="address">-->
-<!--                                    <span class="icon"><i class="material-icons">location_on</i></span>-->
-<!--                                    <span class="data"> 110台北市信義區信義路五段7號台北101辦公大樓88樓</span> </span>-->
-<!--                            </li>-->
-                            <li class="links">
                                 <span class="contact">
                                     <span class="icon"><i class="material-icons">phone</i></span>
-                                    <span class="data"><a href="tel:(886) 912-345-678">+ (886) 912-345-678</a></span> </span>
+                                    <span class="data">+(886)912-345-678</span>
+                                </span>
                             </li>
                             <li class="links">
                                 <span class="email">
@@ -403,29 +439,41 @@
                 <div class="container">
                     <div class="row">
                         <div class="footer-copyright text-center py-3">
-                            Copyright © 2024 - Desserter™ Limited. All rights reserved. Tibame Group01.
+                            Copyright © 2024 - Desserter™ Limited. All rights reserved.
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="#" id="goToTop" title="Back to top" class="btn-primary"><i
-                    class="material-icons arrow-up">keyboard_arrow_up</i></a>
-            <!--  Cookie Alert-->
+            <!-- 回到頂端按鈕 -->
+            <a id="goToTop" title="Back to top" class="btn-primary">
+                <i class="material-icons arrow-up">keyboard_arrow_up</i></a>
+            <!-- todo chatbot智能客服 -->
+            <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/oversea/index.js"></script>
+            <script>
+                new CozeWebSDK.WebChatClient({
+                    config: {
+                        bot_id: '7398395320973574160',
+                    },
+                    componentProps: {
+                        title: 'Desserter客服小幫手(測試中)',
+                        icon:'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgoJPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNTUiPgoJCTxwYXRoIGQ9Ik0xOCA0YTMgMyAwIDAgMSAzIDN2OGEzIDMgMCAwIDEtMyAzaC01bC01IDN2LTNINmEzIDMgMCAwIDEtMy0zVjdhMyAzIDAgMCAxIDMtM3pNOS41IDloLjAxbTQuOTkgMGguMDEiIC8+CgkJPHBhdGggZD0iTTkuNSAxM2EzLjUgMy41IDAgMCAwIDUgMCIgLz4KCTwvZz4KPC9zdmc+'
+                    },
+                });
+            </script>
+            <!--  Cookie取得同意 -->
             <div class="alert text-center cookiealert" role="alert">
                 <b>Do you like cookies?</b> We use cookies to ensure you get the best experience on our website. <a
-                    href="https://demo.templatetrip.com/Html/HTML001_victoria/" rel="noreferrer">learn more</a>
-
+                    href="/index.html" rel="noreferrer">learn more</a>
                 <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
                     I agree
                 </button>
             </div>
-
         </footer>
     </div>
 
-    <!-- 註冊 app-modals 模版-->
+    <!-- 選用元件 app-modals互動視窗 -->
     <div th:fragment="app-modals">
-        <!-- Register modal -->
+        <!-- Register會員註冊 -->
         <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -463,7 +511,7 @@
             </div>
         </div>
 
-        <!-- Login modal -->
+        <!-- Login 會員登入 -->
         <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -497,7 +545,7 @@
             </div>
         </div>
 
-        <!-- product_view modal -->
+        <!-- product_view 商品預覽互動視窗 -->
         <div class="modal fade product_view" id="product_view" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -636,7 +684,7 @@
             </div>
         </div>
 
-        <!-- cart-pop modal -->
+        <!-- cart-pop加入購物車提示 -->
         <div class="modal fade" id="cart-pop" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -699,64 +747,7 @@
         </div>
     </div>
 
-    <!-- 註冊 product-compare-modal 模版-->
-    <div th:fragment="index-product-compare-modal" class="compare-wrapper float-left w-100">
-        <div class="compare-inner d-flex align-items-center p-20">
-            <span class="close"><i class='material-icons'>
-                    close
-                </i></span>
-            <div class="col-xs-12 col-sm-2 col-md-3 float-left d-flex align-items-center flex-column compare-left">
-                <h2>compare products</h2>
-                <div class="compare-btn">show all</div>
-            </div>
-            <div class="col-xs-12 col-sm-10 col-md-9 d-flex float-left align-items-center compare-right">
-                <div class="compare-close-btn"></div>
-                <div class="compare-products d-flex col-sm-7 col-lg-5">
-                    <div class="row">
-                        <div class="single-item col-sm-4 col-xs-4">
-                            <div class="remove"></div>
-                            <div class="image"><img src="/frontendApp/img/products/01.jpg" class="img-fluid" alt=""></div>
-                        </div>
-                        <div class="single-item col-sm-4 col-xs-4">
-                            <div class="remove"></div>
-                            <div class="image"><img src="/frontendApp/img/products/02.jpg" class="img-fluid" alt=""></div>
-                        </div>
-                        <div class="single-item col-sm-4 col-xs-4">
-                            <div class="remove"></div>
-                            <div class="image"><img src="/frontendApp/img/products/03.jpg" class="img-fluid" alt=""></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="buttons col-sm-5 col-lg-2">
-                    <a href="compare.html" class="compare-btn btn btn-secondary float-left w-100 mb-15">compare</a>
-                    <div class="clear-btn btn btn-primary float-left w-100">clear</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 註冊 headTag-import 共同引入-->
-    <th:block th:fragment="headtag-import">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/x-icon" th:href="@{/frontendApp/img/favicon-16.ico}">
-        <title>Mimity</title>
-        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,900" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <!-- Bootstrap core CSS -->
-        <link href="/frontendApp/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-        <!-- Bootstrap core CSS -->
-        <link href="/frontendApp/css/styles.css" rel="stylesheet">
-        <link href="/frontendApp/css/animate.css" rel="stylesheet">
-        <link href="/frontendApp/css/owl-carousel.css" rel="stylesheet">
-        <link href="/frontendApp/css/lightbox.css" rel="stylesheet">
-
-    </th:block>
-
-    <!-- 註冊 import-in-the-end 共同引入-->
+    <!-- 共同引入 置底 import-in-the-end -->
     <th:block th:fragment="import-in-the-end">
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -776,8 +767,5 @@
         <script src="/frontendApp/js/jquery.zoom.min.js"></script>
         <script src="/frontendApp/js/jquery.lazy.min.js"></script>
     </th:block>
-    <!-- 較大的檔案放在最後面，前面先載入瀏覽體驗比較好 -->
-
-</body>
 
 </html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>門市資訊</title>
+    <!-- 共同引入 headTag-import meta tag-->
+    <meta th:replace="~{frontendApp/components/common :: headtag-import}">
+</head>
+<body>
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'門市資訊'})}"></div>
+
+<main>
+    <!-- 把你的內容貼在這裡-->
+    <div class="main-content w-100 float-left">
+        <div class="container">
+            <div class="row">
+                <!--Google map-->
+                <div id="map-container-google-1" class="z-depth-1-half map-container col-sm-12 mb-50"
+                     style="height: 500px">
+                    <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d59512.74927226758!2d72.81491575568408!3d21.210153908095307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e0!4m5!1s0x3be04efc0f8687bd%3A0xc783857ba5d79622!2sTemplateTrip%2C+4030%2C+Central+Bazzar%2C+opp.+Varachha+Police+Station%2C+Varachha+Main+Road%2C+Surat%2C+Gujarat+395006!3m2!1d21.2100775!2d72.84993519999999!4m0!5e0!3m2!1sen!2sin!4v1565339377691!5m2!1sen!2sin"
+                            width="100%" height="500" frameborder="0" style="border:0" allowfullscreen>
+                    </iframe>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- 把你的內容貼在這裡-->
+</main>
+
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
+</body>
+
+</html>

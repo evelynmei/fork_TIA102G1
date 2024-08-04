@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>功能名稱</title>
+    <!-- 共同引入 headTag-import meta tag-->
+    <meta th:replace="~{frontendApp/components/common :: headtag-import}">
+</head>
+<body>
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'功能名稱'})}"></div>
+
+<main>
+    <!-- 把你的內容貼在這裡-->
+
+
+
+    <!-- 把你的內容貼在這裡-->
+</main>
+
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
+</body>
+
+</html>

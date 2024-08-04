@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>常見問題</title>
+    <!-- 共同引入 headTag-import meta tag-->
+    <meta th:replace="~{frontendApp/components/common :: headtag-import}">
+</head>
+<body>
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'常見問題'})}"></div>
+
+<main>
+    <!-- 把你的內容貼在這裡-->
+    <div id="accordion-main">
+        <div class="container">
+            <div class="accordion-example w-100 float-left">
+                <div class="tt-innertitle w-100 float-left text-capitalize">accordion example 2 (with icon)</div>
+                <div id="accordion1" class=" w-100 float-left">
+                    <div class="card">
+                        <div class="card-header" id="headingOne1">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link float-left w-100 text-left" data-toggle="collapse"
+                                        data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
+                                    Lorem ipsum
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne1" class="collapse show" aria-labelledby="headingOne1"
+                             data-parent="#accordion1">
+                            <div class="card-body">
+                                Quisque egestas nibh vel ante eleifend, ac venenatis diam rhoncus. Proin sit amet lacus non
+                                nisi convallis ultrices ac vel diam. Class aptent taciti sociosqu ad litora torquent per
+                                conubia nostra, per inceptos himenaeos. Proin ante nunc, pharetra non justo id, hendrerit
+                                dictum quam. Nullam ut dui tempus, pretium erat ac, fringilla ligula.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo1">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed float-left w-100 text-left" data-toggle="collapse"
+                                        data-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
+                                    Quisque purus
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo1" data-parent="#accordion1">
+                            <div class="card-body">
+                                Quisque lacinia dolor enim. Nulla facilisi. Integer at aliquam magna. Quisque metus purus,
+                                vulputate non dolor sit amet, iaculis finibus nibh. Cras ac elit viverra, dignissim neque
+                                ut, interdum orci. Quisque venenatis neque at quam finibus, a molestie urna porttitor. Nunc
+                                a sem dapibus nisl aliquet aliquam sed pretium ipsum.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree1">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed float-left w-100 text-left" data-toggle="collapse"
+                                        data-target="#collapseThree1" aria-expanded="false" aria-controls="collapseThree">
+                                    Nulla iaculis tellus
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseThree1" class="collapse" aria-labelledby="headingThree1" data-parent="#accordion1">
+                            <div class="card-body">
+                                Suspendisse tristique arcu at diam fringilla elementum. In in velit quis nulla pulvinar
+                                aliquam eu et diam. Curabitur lacinia euismod molestie. Vivamus blandit aliquet sodales.
+                                Cras pulvinar risus ut vehicula commodo. Sed eget odio ullamcorper, rhoncus libero non,
+                                scelerisque leo. Donec id accumsan lectus, sit amet aliquet massa.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 把你的內容貼在這裡-->
+</main>
+
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
+</body>
+
+</html>

@@ -1742,7 +1742,7 @@
   font-family: "Material Icons";
   content: "";
   font-size: 20px;
-  position: absolute;
+  position: sticky;
   left: 0;
   top: 0;
   bottom: 0;
@@ -1811,7 +1811,7 @@
   width: 40px;
   border-radius: 50%;
   position: fixed;
-  bottom: 70px;
+  bottom: 100px;
   right: 40px;
   line-height: 40px;
   text-align: center;
@@ -1824,8 +1824,8 @@
 }
 @media (max-width: 543px) {
   .page-footer #goToTop {
-    bottom: 40px;
-    right: 20px;
+    bottom: 100px;
+    right: 35px;
   }
 }
 .page-footer #goToTop.show {

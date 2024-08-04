@@ -1,19 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-	<title>Desserter - Cart</title>
-	<!-- common-import -->
-	<meta th:replace="~{frontendApp/components/common :: headtag-import}"></head>
-
+	<meta charset="UTF-8">
+	<title>購物車</title>
+	<!-- 共同引入 headTag-import meta tag-->
+	<meta th:replace="~{frontendApp/components/common :: headtag-import}">
+</head>
 <body>
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'購物車'})}"></div>
 
-	<!-- header -->
-	<div th:replace="~{frontendApp/components/common.html :: app-header}"></div>
-
-	<!-- bread-crumb  -->
-	<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'cart'})}"></div>
-
+<main>
+	<!-- 把你的內容貼在這裡-->
 	<div class="cart-area table-area pt-110 pb-95 float-left w-100" id="shopping-cart">
 		<div class="container">
 			<div class="row">
@@ -22,7 +22,6 @@
 						<table class="table product-table text-center">
 							<thead>
 							<tr>
-
 								<th class="table-image">商品</th>
 								<th class="table-p-name"></th>
 								<th class="table-p-price">單價</th>
@@ -32,9 +31,14 @@
 							</tr>
 							</thead>
 							<tbody>
-							<tr v-for="item in items">
-								<td class="table-image"><a href="productDetails.html"><img
-										src="img/products/02.jpg" alt=""></a></td>
+
+							<!-- 用 Vue3 的 v-for 來渲染 list -->
+							<tr v-for=" (item, itemIndex) in items">
+								<td class="table-image"><a href="productDetails.html">
+									<img :src="item.picture" alt=""></a></td>
+									<!-- <img th:src="@{frontendApp/img/products/02.jpg}" alt=""></a></td> -->
+
+								<!-- href Vue 綁定, :href="item.url" 或是 v-bind:href="item.url"  -->
 								<td class="table-p-name text-capitalize"><a
 										href="productDetails.html">{{item.productName}}</a></td>
 								<td class="table-p-price">
@@ -45,7 +49,7 @@
 									<p>{{item.price * item.proAmount}}</p>
 								</td>
 								<td class="table-remove">
-									<button><i class="material-icons">delete</i></button>
+									<button @click="deleteItem(itemIndex)"><i class="material-icons">delete</i></button>
 								</td>
 							</tr>
 
@@ -89,17 +93,22 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 
-	<!-- Footer -->
-	<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
 
-	<!-- Placed at the end of the document so the pages load faster -->
-	<div th:replace="~{/frontendApp/components/common :: import-in-the-end}"></div>
 
-	<!-- 引入 Vue 及 Axios JavaScript 功能庫處理綁定及呼叫 REST api 邏輯-->
-	<script type="module" src="/frontendApp/js/vue/cartPage.js"></script>
+
+	<!-- 把你的內容貼在這裡-->
+</main>
+
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
+<!-- 引入 Vue及Axios JavaScript 功能庫處理綁定及呼叫 REST api 邏輯-->
+<script type="module" src="/frontendApp/js/vue/cartPage.js"></script>
 </body>
 
 </html>

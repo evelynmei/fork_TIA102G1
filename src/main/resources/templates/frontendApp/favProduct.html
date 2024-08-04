@@ -1,81 +1,79 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Desserter - Wishlist</title>
-	<!-- common-import -->
+	<meta charset="UTF-8">
+	<title>我的最愛</title>
+	<!-- 共同引入 headTag-import meta tag-->
 	<meta th:replace="~{frontendApp/components/common :: headtag-import}">
 </head>
-
 <body>
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'我的最愛'})}"></div>
 
-	<!-- header -->
-	<div th:replace="~{frontendApp/components/common.html :: app-header}"></div>
-
-	<!-- bread-crumb  -->
-	<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'wishlist'})}"></div>
-
+<main>
+	<!-- 把你的內容貼在這裡-->
 	<div class="cart-area table-area pt-110 pb-95 float-left w-100">
 		<div class="container">
 			<div class=" cart-wrapper float-left w-100">
 				<div class="table-responsive">
 					<table class="table product-table text-center">
 						<thead>
-							<tr>
-								<th class="table-remove text-uppercase">remove</th>
-								<th class="table-image text-uppercase">image</th>
-								<th class="table-p-name text-uppercase">product</th>
-								<th class="table-p-price text-uppercase">price</th>
-								<th class="table-p-qty text-uppercase">Stock Status</th>
-								<th class="table-total text-uppercase">add to cart</th>
-							</tr>
+						<tr>
+							<th class="table-remove text-uppercase">remove</th>
+							<th class="table-image text-uppercase">image</th>
+							<th class="table-p-name text-uppercase">product</th>
+							<th class="table-p-price text-uppercase">price</th>
+							<th class="table-p-qty text-uppercase">Stock Status</th>
+							<th class="table-total text-uppercase">add to cart</th>
+						</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="table-remove"><button><i class="material-icons">delete</i></button></td>
-								<td class="table-image"><a href="productDetails.html"><img src="frontendApp/img/products/02.jpg"
-																						   alt=""></a></td>
-								<td class="table-p-name text-capitalize"><a href="productDetails.html">aspetur autodit
-										autfugit</a></td>
-								<td class="table-p-price">
-									<p>$100.00</p>
-								</td>
-								<td class="table-p-qty">in stock</td>
-								<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
-										cart</a></td>
-							</tr>
-							<tr>
-								<td class="table-remove"><button><i class="material-icons">delete</i></button></td>
-								<td class="table-image"><a href="productDetails.html"><img src="frontendApp/img/products/03.jpg"
-																						   alt=""></a></td>
-								<td class="table-p-name text-capitalize"><a href="productDetails.html">magni dolores
-										eosquies</a></td>
-								<td class="table-p-price">
-									<p>$100.00</p>
-								</td>
-								<td class="table-p-qty">in stock</td>
-								<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
-										cart</a></td>
-							</tr>
+						<tr>
+							<td class="table-remove"><button><i class="material-icons">delete</i></button></td>
+							<td class="table-image"><a href="productDetails.html"><img src="frontendApp/img/products/02.jpg"
+																					   alt=""></a></td>
+							<td class="table-p-name text-capitalize"><a href="productDetails.html">aspetur autodit
+								autfugit</a></td>
+							<td class="table-p-price">
+								<p>$100.00</p>
+							</td>
+							<td class="table-p-qty">in stock</td>
+							<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
+								cart</a></td>
+						</tr>
+						<tr>
+							<td class="table-remove"><button><i class="material-icons">delete</i></button></td>
+							<td class="table-image"><a href="productDetails.html"><img src="frontendApp/img/products/03.jpg"
+																					   alt=""></a></td>
+							<td class="table-p-name text-capitalize"><a href="productDetails.html">magni dolores
+								eosquies</a></td>
+							<td class="table-p-price">
+								<p>$100.00</p>
+							</td>
+							<td class="table-p-qty">in stock</td>
+							<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
+								cart</a></td>
+						</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-
 	</div>
 
-	<!-- Footer -->
-	<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
 
-	<!-- Modals -->
-	<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
 
-	<!-- Product Compare -->
-	<div th:replace="~{frontendApp/components/common :: index-product-compare-modal}"></div>
+	<!-- 把你的內容貼在這裡-->
+</main>
 
-	<!-- Placed at the end of the document so the pages load faster -->
-	<div th:replace="~{/frontendApp/components/common :: import-in-the-end}"></div>
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
 </body>
 
 </html>
