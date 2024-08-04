@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>會員資料</title>
+    <!-- 共同引入 headTag-import meta tag-->
+    <meta th:replace="~{frontendApp/components/common :: headtag-import}">
+</head>
+<body>
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'會員資料'})}"></div>
+
+<main>
+    <!-- 把你的內容貼在這裡-->
+    <div class="main-content w-100 float-left blog-list">
+        <div class="container">
+            <div class="row">
+                <div class="products-grid col-xl-9 col-lg-8 order-lg-2">
+                    <div class="row">
+                        <div class="col-lg-12 order-lg-last account-content">
+                            <h4>Edit Account Information</h4>
+                            <form action="#" class="myacoount-form">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group required-field">
+                                                    <label for="acc-name">First Name <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="acc-name" name="acc-name"
+                                                           required="">
+                                                </div>
+                                                <!-- End .form-group -->
+                                            </div>
+                                            <!-- End .col-md-4 -->
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="acc-mname">Middle Name <span
+                                                            class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="acc-mname" name="acc-mname">
+                                                </div>
+                                                <!-- End .form-group -->
+                                            </div>
+                                            <!-- End .col-md-4 -->
+
+                                            <div class="col-md-4">
+                                                <div class="form-group required-field">
+                                                    <label for="acc-lastname">Last Name <span
+                                                            class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="acc-lastname"
+                                                           name="acc-lastname" required="">
+                                                </div>
+                                                <!-- End .form-group -->
+                                            </div>
+                                            <!-- End .col-md-4 -->
+                                        </div>
+                                        <!-- End .row -->
+                                    </div>
+                                    <!-- End .col-sm-11 -->
+                                </div>
+                                <!-- End .row -->
+
+                                <div class="form-group required-field">
+                                    <label for="acc-email">Email</label>
+                                    <input type="email" class="form-control" id="acc-email" name="acc-email" required="">
+                                </div>
+                                <!-- End .form-group -->
+
+                                <div class="form-group required-field">
+                                    <label for="account-password">Password</label>
+                                    <input type="password" class="form-control" id="account-password"
+                                           name="account-password" required="">
+                                </div>
+                                <!-- End .form-group -->
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="change-password-checkbox"
+                                           value="1">
+                                    <label class="custom-control-label" for="change-password-checkbox">Change
+                                        Password</label>
+                                </div>
+                                <!-- End .custom-checkbox -->
+
+                                <div id="account-change-password" class="">
+                                    <h4>Change Password</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group required-field">
+                                                <label for="account-pass2">Password</label>
+                                                <input type="password" class="form-control" id="account-pass2"
+                                                       name="account-pass2">
+                                            </div>
+                                            <!-- End .form-group -->
+                                        </div>
+                                        <!-- End .col-md-6 -->
+
+                                        <div class="col-md-6">
+                                            <div class="form-group required-field">
+                                                <label for="account-pass3">Confirm Password</label>
+                                                <input type="password" class="form-control" id="account-pass3"
+                                                       name="account-pass3">
+                                            </div>
+                                            <!-- End .form-group -->
+                                        </div>
+                                        <!-- End .col-md-6 -->
+                                    </div>
+                                    <!-- End .row -->
+                                </div>
+                                <!-- End #account-chage-pass -->
+
+                                <div class="required text-right">* Required Field</div>
+                                <div class="form-footer d-flex justify-content-between align-items-center">
+                                    <a href="#"><i class="material-icons">navigate_before</i>Back</a>
+
+                                    <div class="form-footer-right">
+                                        <button type="submit" class="btn btn-primary btn-primary">Save</button>
+                                    </div>
+                                </div>
+                                <!-- End .form-footer -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 把你的內容貼在這裡-->
+</main>
+
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
+</body>
+
+</html>

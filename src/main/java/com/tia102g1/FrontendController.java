@@ -25,6 +25,12 @@ public class FrontendController {
     @GetMapping({"/favproduct","/favProduct.html"})
     public String frontendFavProduct(Model model) { return "/frontendApp/favProduct"; }
 
+    //會員資料
+    @GetMapping({"/memberinfo", "/memberInfo.html"})
+    public String frontendMemberInfo(Model model) {
+        return "/frontendApp/memberInfo";
+    }
+
     /*  ====== 購物流程 ====== */
     // 商品總覽
     @GetMapping({"/productcategory", "/productCategory.html"})
