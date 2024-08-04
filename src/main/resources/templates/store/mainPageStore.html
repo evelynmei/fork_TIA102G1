@@ -1,54 +1,154 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>門市資訊管理</title>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>門市資料管理 - mainPageStore.html</title>
 
-		<!-- header-css etc. -->
-		<head th:insert="~{/comPage1}"></head>
+<head th:insert="~{/store/included-fragment}"></head> <!-- 使用included-fragment.html網頁的全部 -->
+<style type="text/css">
+
+	button {
+		padding: 5px;
+	}
+	form {
+		display: table;
+	}
+	form div {
+		display: table-row;
+	}
+	label, input, span, select {
+		display: table-cell;
+		margin: 2px;
+		text-align: left;		
+	}
+	input[type=text], input[type=password], select, textarea {
+		width: 200px;
+		margin: 2px;
+	}
+	form div div {
+		display: table-cell;
+	}
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+	div.a {
+        display: inline-block;
+        width: 50%;
+        height: auto;
+        padding: 5px;
+        border: 0px solid blue;    
+        background-color: white; 
+    }
+    div.b {
+        position: absolute; 
+        bottom: 1%; 
+        right: 2%; 
+        width: 45%;
+        padding: 5px; 
+        border: 1px solid blue;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>門市資料管理 - mainPageStore.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/back1.gif}">回index.html</a></h3></div>
+</nav>
+
+	<h4><span>資料查詢:</span></h4>
+	<!-- 錯誤表列 -->
+	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div><br>
+	<div class="a">
+	  <ul>
+		<li><h5><a href='listAllStore'>List</a> all Stores. <br><br></h5></li>
+
+		<li>
+			<form method="post" th:action="@{getOne_For_Display}">
+				輸入門市編號:
+				<input type="text" name="storeId" th:value="${param.storeId}" > 
+				<input type="submit" value="送出"> (輸入如7001)
+			</form><br>
+		</li>
+
 		
-	</head>
-	
-	<body class="hold-transition sidebar-mini layout-fixed">
+		
+		
+		<li>
+			<form method="post" th:action="@{getOne_For_Display}">
+				選擇門市編號:
+				<select name="storeId">
+				     <option th:each="storeVO : ${storeListData}" th:value="${storeVO.storeId}" th:text="${storeVO.storeId}" />
+			    </select>
+				<input type="submit" value="送出">
+			</form><br>
+		</li>
 
-	<!-- side bar -->
-	<body th:insert="~{/comPage2}"></body>
-	
-	<!-- Content Wrapper. Contains page content -->
-    <!-- 儀錶板上面那排 -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">門市資訊管理</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item active">門市資訊管理</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content-header -->
+		
+		
+		
+		<li>
+			<form method="post" th:action="@{getOne_For_Display}">
+				選擇門市名稱:
+				<select name="storeId">
+				     <option th:each="storeVO : ${storeListData}" th:value="${storeVO.storeId}" th:text="${storeVO.storeName}" />
+			    </select>
+				<input type="submit" value="送出">
+			</form><br>
+		</li>
+		
+		
+		
+		
+<!--  萬用複合查詢-以下欄位-可隨意增減 -->
+  
+  <li>   
+    <form method="post" th:action="@{listStores_ByCompositeQuery}">
+        <font color=blue>萬用複合查詢:</font><br>
+        輸入門市編號: 
+        <input type="text" name="storeId" value="" placeholder="1"><br>
+           
+        輸入門市名稱: 
+        <input type="text" name="storeName" value="" placeholder="中山店"><br>
+		
+		選擇縣市: 
+  		<select th:field="*{countyVO.cntCode}">
+			<option value="">
+			<option th:each="countyVO : ${countyListData}" th:value="${countyVO.cntCode}" th:text="${countyVO.cntName}" />
+		</select><br>
+		
+		選擇鄉鎮區: 
+  		<select th:field="*{distVO.distCode}">
+			<option value="">
+			<option th:each="distVO : ${distListData}" th:value="${distVO.distCode}" th:text="${distVO.distName}" />
+		</select><br>
 
-	<!-- 功能內容開始 -->
-	<section class="content">
+	    
+        <input type="submit" value="送出">
+     
+     </form>
+  </li>
+</ul>	
 	
-	<p>門市資訊管理 主頁 測試</p>
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
-	
-	</section>
-	<!-- 功能內容結束 -->
-	
-	<!-- footer and script link -->
-	<body th:insert="~{/comPage3}"></body>
+      <h4><span>門市管理</span></h4>
+	  <ul>
+		  <li><h5><a href='addStore'>Add</a> a new Store.</h5></li>
+	  </ul>
+	</div>
+    
+    <!-- 旗標getOne_For_Display見StorenoController.java的第74行 -->
+    <div class="b" th:if="${getOne_For_Display}">
+        <!--使用listOneStore.html網頁的listOneStore-div片段--> <!-- 見listOneStore.html的第35行的th:fragment="listOneStore-div" --> <!-- 使用th:replace也可 -->
+        <div th:insert="~{/store/listOneStore :: listOneStore-div}"></div>
+    </div>
 
-	</body>
+</body>
 </html>

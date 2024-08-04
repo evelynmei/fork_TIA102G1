@@ -8,12 +8,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.tia102g1.county.model.CountyService;
+import com.tia102g1.county.model.CountyVO;
+import com.tia102g1.dist.model.DistService;
+import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.event.model.EventService;
 import com.tia102g1.event.model.EventVO;
 import com.tia102g1.productType.model.ProductTypeService;
 import com.tia102g1.productType.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
 import com.tia102g1.qutype.model.QuTypeVO;
+import com.tia102g1.store.model.StoreService;
+import com.tia102g1.store.model.StoreVO;
 import com.tia102g1.sysMsg.model.SysMsgService;
 import com.tia102g1.sysMsg.model.SysMsgVO;
 
@@ -25,6 +31,15 @@ public class BackendController {
 
 	@Autowired
 	EventService eventSvc;
+	
+	@Autowired
+	StoreService storeSvc;
+	
+	@Autowired
+	CountyService countySvc;
+	
+	@Autowired
+	DistService distSvc;
 
 	@Autowired
 	SysMsgService sysMsgSvc;
@@ -205,6 +220,31 @@ public class BackendController {
 	public String mainPageStore(Model model) {
 		return "/store/mainPageStore";
 	}
+	
+	@GetMapping("/store/listAllStore")
+	public String listAllStore(Model model) {
+		return "store/listAllStore";
+	}
+
+	@ModelAttribute("storeListData")
+	protected List<StoreVO> referenceStoreListData(Model model) {
+		List<StoreVO> list = storeSvc.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("countyListData")
+	protected List<CountyVO> referenceListData_County(Model model) {
+		model.addAttribute("countyVO", new CountyVO());
+		List<CountyVO> list = countySvc.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("distListData")
+	protected List<DistVO> referenceListData_Dist(Model model) {
+		model.addAttribute("distVO", new DistVO());
+		List<DistVO> list = distSvc.getAll();
+		return list;
+	}
 
 	// 縣市代碼對照
 	@GetMapping({ "/county", "/county/mainPageCounty" })
@@ -213,9 +253,9 @@ public class BackendController {
 	}
 
 	// 鄉鎮區代碼對照
-	@GetMapping({ "/district", "/district/mainPageDistrict" })
-	public String mainPageDistrict(Model model) {
-		return "/district/mainPageDistrict";
+	@GetMapping({ "/dist", "/dist/mainPageDist" })
+	public String mainPageDist(Model model) {
+		return "/dist/mainPageDist";
 	}
 
 	// 系統通知訊息
