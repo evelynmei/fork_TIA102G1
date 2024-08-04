@@ -26,7 +26,10 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="<%=URIPath%>index.jsp">首頁</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
+                	<div th:if="${session.staffName == null}"><a href="staffLogin">登入</a></div>
+               	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
                 <li class="breadcrumb-item active">員工一覽</li>
               </ol>
             </div><!-- /.col -->
@@ -42,8 +45,6 @@
 	<br>
 	<div>
 		<ul>
-			<li><h5><a href="staffLogin">登入</a></h5></li>
-			<li><h5><a href="staffChangePW">變更</a>密碼</h5></li>
 			<li><h5><a href="listAllStaff">全部</a>員工</h5></li>
 			<li><h5><a href="addStaff">新增</a>員工</h5></li>
 			<li>
