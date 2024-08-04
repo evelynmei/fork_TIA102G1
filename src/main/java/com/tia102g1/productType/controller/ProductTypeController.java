@@ -92,12 +92,4 @@ public class ProductTypeController {
 		model.addAttribute("productTypeVO", typeVO);
 		return "productType/listOneType";
 	}
-	
-	@ModelAttribute("typeListData")
-	protected List<ProductTypeVO> referenceListData(Model model){
-		List<ProductTypeVO> list = typeSvc.getAll();
-		return list;
-	}
-	
-	
 }

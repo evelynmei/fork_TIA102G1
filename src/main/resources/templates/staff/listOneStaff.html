@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>員工管理</title>
+
+		<!-- header-css etc. -->
+	<head th:insert="~{/comPage1}"></head>
+
+	</head>
+	
+	<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">員工管理</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                <li class="breadcrumb-item active">員工管理</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+		<h3>
+			<a th:href="@{/staff/mainPageStaff}">回員工首頁</a>
+		</h3>
+		<p>員工資料</p>
+		<span>員工編號:</span>
+			<span th:text="${staffVO.staffId}"></span><br>
+		<span>姓名:</span>
+			<span th:text="${staffVO.name}"></span><br>
+		<span>電話:</span>
+			<span th:text="${staffVO.phone}"></span><br>
+		<span>電子郵件:</span>
+			<span th:text="${staffVO.email}"></span><br>
+		<span>入職日期:</span>
+			<span th:text="${#dates.format(staffVO.employDt, 'yyyy-MM-dd')}"></span><br>
+		<span>離職日期:</span>
+			<span th:text="${#dates.format(staffVO.leaveDt, 'yyyy-MM-dd')}"></span><br>
+		<span>建檔者:</span>
+			<span th:text="${staffVO.createdBy}"></span><br>
+		<span>建檔時間:</span>
+			<span th:text="${#dates.format(staffVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+		<span>最後更新者:</span>
+			<span th:text="${staffVO.lastUpdatedBy}"></span><br>
+		<span>最後更新時間:</span>
+			<span th:text="${#dates.format(staffVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+		
+	</section>
+	<!-- 功能內容結束 -->
+	
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
+</html>

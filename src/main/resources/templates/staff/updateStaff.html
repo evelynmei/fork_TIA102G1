@@ -1,0 +1,108 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>員工資料修改</title>
+
+		<!-- header-css etc. -->
+	<head th:insert="~{/comPage1}"></head>
+
+	</head>
+	
+	<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">員工資料修改</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                <li class="breadcrumb-item active">員工資料修改</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+	
+	
+	
+	<!-- 功能內容結束 -->
+		<div align="center">
+			<h2>修改員工</h2>
+		<h3>
+			<a th:href="@{/staff/mainPageStaff}">回員工首頁</a>
+		</h3>
+		
+		<form th:action="@{update}"	method="post" th:object="${staffVO}">
+					<div>
+						<label>員工編號:</label>
+						<span th:text="*{staffId}"></span>
+						<input type="hidden" th:field="*{staffId}" readonly/>
+					</div>
+	
+					<input type="hidden" th:field="*{password}" readonly/>
+	
+					<div>
+						<label>員工姓名:</label>
+							<input type="text" th:field="*{name}" onclick="hideContent('name.errors');"/><br>
+							<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span>
+					</div>
+					<div>
+						<label>員工電話:</label>
+							<input type="text" th:field="*{phone}" onclick="hideContent('phone.errors');"/><br>
+							<span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error" id="phone.errors"></span>
+					</div>
+					<div>
+						<label>員工信箱:</label>
+						<input type="text" th:field="*{email}" onclick="hideContent('email.errors');"/><br>
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
+					</div>
+					<input type="hidden" th:field="*{employDt}" readonly/>
+					<div>
+						<label>離職日期:</label>
+						<input type="date" th:field="*{leaveDt}" onclick="hideContent('leaveDt.errors');"/><br>
+						<span class="error" th:utext="${errorMessage}" id="leaveDt.errors">${errorMessage}</span>
+					</div>
+					<div>
+						<label>在職狀態:</label>
+							<select name="status">
+								<option value="1">在職</option>
+								<option value="0">已離職</option>
+							</select>
+					</div>
+					<input type="hidden" th:field="*{createdBy}" readonly /> 
+					<input type="hidden" th:field="*{dateCreated}" readonly />
+					<div>
+						<label>最後更新者:</label>
+							<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');" /><br /> 
+							<span th:if="${#fields.hasErrors('lastUpdatedBy')}"	th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
+					</div>
+					<div>
+						<button type="submit" id="submit">送出修改</button>
+					</div>
+			</form>
+			<script>
+				function hideContent(d) {
+					document.getElementById(d).style.display = "none";
+				}
+			</script>
+		</section>
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
+</html>

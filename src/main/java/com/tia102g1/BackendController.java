@@ -18,6 +18,8 @@ import com.tia102g1.productType.model.ProductTypeService;
 import com.tia102g1.productType.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
 import com.tia102g1.qutype.model.QuTypeVO;
+import com.tia102g1.staff.model.StaffService;
+import com.tia102g1.staff.model.StaffVO;
 import com.tia102g1.store.model.StoreService;
 import com.tia102g1.store.model.StoreVO;
 import com.tia102g1.sysMsg.model.SysMsgService;
@@ -46,6 +48,9 @@ public class BackendController {
 
 	@Autowired
 	QuTypeService quTypeSvc;
+	
+	@Autowired
+	StaffService staffSvc;
 
 	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
@@ -276,9 +281,20 @@ public class BackendController {
 	}
 
 	// 員工資料
-	@GetMapping({ "/staff", "/staff/mainPageStaff" })
+	@GetMapping("staff/mainPageStaff")
 	public String mainPageStaff(Model model) {
-		return "/staff/mainPageStaff";
+		return "staff/mainPageStaff";
+	}
+	
+	@GetMapping("staff/listAllStaff")
+	public String listAllStaff(Model model) {
+		return "staff/listAllStaff";
+	}
+
+	@ModelAttribute("staffListData")
+	protected List<StaffVO> referenceStaffListData(Model model) {
+		List<StaffVO> list = staffSvc.getAll();
+		return list;
 	}
 
 }

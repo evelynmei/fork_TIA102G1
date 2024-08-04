@@ -1,8 +1,8 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>員工資料管理</title>
+		<title>員工資料系統</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -22,12 +22,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">員工資料管理</h1>
+              <h1 class="m-0">Desserter 員工一覽</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item active">員工資料管理</li>
+                <li class="breadcrumb-item"><a href="<%=URIPath%>index.jsp">首頁</a></li>
+                <li class="breadcrumb-item active">員工一覽</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -37,12 +37,46 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<p>員工資料管理 主頁 測試</p>
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
+		<h2>員工查詢</h2>
+	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+	<br>
+	<div>
+		<ul>
+			<li><h5><a href="staffLogin">登入</a></h5></li>
+			<li><h5><a href="staffChangePW">變更</a>密碼</h5></li>
+			<li><h5><a href="listAllStaff">全部</a>員工</h5></li>
+			<li><h5><a href="addStaff">新增</a>員工</h5></li>
+			<li>
+				<form method="post" th:action="@{getOne_For_Display}">
+					<p>員工編號:
+					<select name="staffId">
+						<option th:each="staffVO : ${staffListData}" th:value="${staffVO.staffId}" th:text="${staffVO.staffId}"/>
+					</select>
+				<input type="submit" value="送出">
+				</form><br>
+			</li>
+		</ul>
+		<hr>
+		<ul>
+		<li>
+			<form method="post" th:action="@{listStaff_ByCompositeQuery}">
+				<p>到職日期區間:
+					<input type="date" name="startEmployDt">
+				   ~<input type="date" name="endEmployDt"><br>
+				<p>是否還在職:
+					<select name="status">
+						<option value = " "></option>
+						<option value = "1">在職</option>
+						<option value = "0">已離職</option>
+					</select>	
+				<input type="submit" value="送出">
+			</form><br>
+		</li>
+		</ul>
+	</div>
+	<div th:if="${getOne_For_Display}">
+		<div th:insert="~{/staff/listOneStaff :: listOneStaff-div}"></div>
+	</div>
 	
 	</section>
 	<!-- 功能內容結束 -->
@@ -50,5 +84,4 @@
 	<!-- footer and script link -->
 	<body th:insert="~{/comPage3}"></body>
 
-	</body>
 </html>

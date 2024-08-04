@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>員工登入</title>
+		
+		<head th:insert="~{/comPage1}"></head>
+	
+	</head>
+	
+	<body class="hold-transition sidebar-mini layout-fixed">
+	
+		<!-- side bar -->
+		<body th:insert="~{/comPage2}"></body>
+		
+		<!-- Content Wrapper. Contains page content -->
+	    <!-- 儀錶板上面那排 -->
+	    <div class="content-wrapper">
+	      <!-- Content Header (Page header) -->
+	      <div class="content-header">
+	        <div class="container-fluid">
+	          <div class="row mb-2">
+	            <div class="col-sm-6">
+	              <h1 class="m-0">員工登入</h1>
+	            </div><!-- /.col -->
+	            <div class="col-sm-6">
+	              <ol class="breadcrumb float-sm-right">
+	                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+	                <li class="breadcrumb-item active">員工登入</li>
+	              </ol>
+	            </div><!-- /.col -->
+	          </div><!-- /.row -->
+	        </div><!-- /.container-fluid -->
+	      </div>
+	      <!-- /.content-header -->
+	
+		<!-- 功能內容開始 -->
+		<section class="content">
+		
+		<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+	
+		<form th:action="@{login}" method="post">
+			<table border = 1>
+				<tr>
+					<td colspan = 2>
+						<p align = center>
+							輸入帳號密碼
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<p align = left>
+							<b>員工編號:</b>
+					</td>
+					<td>
+						<p>
+							<input type="text" name="staffId"><br>
+				</tr>
+				
+				<tr>
+					<td>
+						<p align = left>
+							<b>密碼:</b>
+					</td>
+					<td>
+						<p>
+							<input type="password" name="password"/><br>
+				<tr>
+					<td colspan = 2 align = center>
+						<input type = submit value = "ok">
+					</td>
+				</tr>
+			</table>
+		</form>
+		</section>
+		<body th:insert="~{/comPage3}"></body>
+		
+	</body>
+	</html>

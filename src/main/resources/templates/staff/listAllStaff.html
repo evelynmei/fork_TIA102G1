@@ -1,0 +1,87 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>員工列表</title>
+
+		<!-- header-css etc. -->
+	<head th:insert="~{/comPage1}"></head>
+
+	</head>
+	
+	<body class="hold-transition sidebar-mini layout-fixed">
+
+	<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">員工列表</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                <li class="breadcrumb-item active">員工列表</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+		<div align="center">
+			<h2>員工總覽</h2>
+		</div>
+		<h3>
+			<a th:href="@{/staff/mainPageStaff}">回員工首頁</a>
+		</h3>
+		<table style="width:50%; text-align:center;">
+			<thead>	
+				<tr>
+					<th>員工編號</th>
+					<th>員工姓名</th>
+					<th>員工電話</th>
+					<th>電子信箱</th>
+					<th>到職日</th>
+					<th>是否仍在職</th>
+					<th>離職日</th>
+					<th>修改</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="staffVO : ${staffListData}">
+					<tr>
+						<td th:text="${staffVO.staffId}"></td>
+						<td th:text="${staffVO.name}"></td>
+						<td th:text="${staffVO.phone}"></td>
+						<td th:text="${staffVO.email}"></td>
+						<td th:text="${staffVO.employDt}"></td>
+						<td><span th:if="${staffVO.status} == 1">在職</span>
+							<span th:if="${staffVO.status} == 0">已離職</span>
+						<td th:text="${staffVO.leaveDt}"></td>
+						<td>
+							<form method="post" th:action="@{/staff/getOne_For_Update}">
+								<input type="submit" value="修改">
+								<input type="hidden" name="staffId" th:value="${staffVO.staffId}">
+							</form>
+						</td>
+					</tr>
+			</tbody>
+		</table>
+		
+	</section>
+	<!-- 功能內容結束 -->
+	
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	</body>
+</html>
