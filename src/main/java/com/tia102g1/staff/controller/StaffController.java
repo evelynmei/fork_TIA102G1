@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +121,7 @@ public class StaffController {
 	}
 	
 	@PostMapping("login")
-	public String login(@RequestParam("staffId") String staffIdStr, @RequestParam("password") String password, Model model) {
+	public String login(@RequestParam("staffId") String staffIdStr, @RequestParam("password") String password, HttpSession session,Model model) {
 		
 		if(staffIdStr == null || staffIdStr.trim().length() == 0 || !staffIdStr.matches("^\\d{4}$")) {
 			model.addAttribute("errorMessage", "請輸入員工編號");
@@ -142,6 +143,7 @@ public class StaffController {
 			return "redirect:/staff/staffChangePW";
 		}else if(password.equals(staff.getPassword())) {
 			model.addAttribute("staffId", staffIdStr);
+			session.setAttribute("staffName", staff.getName());
 			return "redirect:/staff/mainPageStaff";
 		}else {
 			model.addAttribute("errorMessage", "登入失敗!!!");
@@ -198,6 +200,14 @@ public class StaffController {
 		staffSvc.updateStaff(staff);
 		model.addAttribute("staffVO", staff);
 		return "redirect:/staff/staffLogin";
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession session) {		
+	    
+		session.invalidate();
+		
+		return "redirect:/";
 	}
 	
 	public BindingResult removeFieldError(StaffVO staffVO, BindingResult result, String removedFieldname) {
