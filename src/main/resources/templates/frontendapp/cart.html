@@ -13,7 +13,6 @@
 <div th:replace="~{frontendapp/components/common :: app-bread-crumb(title=${'購物車'})}"></div>
 
 <main>
-	<!-- 把你的內容貼在這裡-->
 	<div class="cart-area table-area pt-110 pb-95 float-left w-100" id="shopping-cart">
 		<div class="container">
 			<div class="row">
@@ -31,44 +30,61 @@
 							</tr>
 							</thead>
 							<tbody>
-
-							<!-- 用 Vue3 的 v-for 來渲染 list -->
+							<!-- 用Vue3的v-for來渲染items, 產生動態的table row數量-->
 							<tr v-for=" (item, itemIndex) in items">
-								<td class="table-image"><a v-bind:href="item.url">
-									<img v-bind:src="item.picture" alt=""></a></td>
-									<!-- <img th:src="@{frontendapp/img/products/02.jpg}" alt=""></a></td> -->
-
-								<!-- href Vue 綁定, :href="item.url" 或是 v-bind:href="item.url"  -->
-								<td class="table-p-name text-capitalize"><a
-										v-bind:href="item.url">{{item.productName}}</a></td>
+								<!-- 用v-bind將每個table data中的元素(a,img...)與其對應的item.value做綁定-->
+								<td class="table-image">
+									<a v-bind:href="item.url">
+									<img v-bind:src="item.picture" alt="">
+									<!-- <img th:src="@{frontendapp/img/products/02.jpg}" alt=""> -->
+									</a>
+								</td>
+								<td class="table-p-name text-capitalize">
+									<a v-bind:href="item.url">
+										<!-- 動態取得商品名稱 -->
+										{{item.productName}}
+									</a>
+								</td>
 								<td class="table-p-price">
+									<!-- 動態取得商品價格 -->
 									<p>{{item.price}}</p>
 								</td>
-								<td class="table-p-qty"><input v-model="item.proAmount" name="cart-qty" type="number"></td>
+								<td class="table-p-qty">
+									<label>
+										<!-- 用v-model雙向綁定,將input取得的值傳到data: item.proAmount -->
+										<input v-model="item.proAmount" name="cart-qty" type="number">
+									</label>
+								</td>
 								<td class="table-total">
 									<p>{{item.price * item.proAmount}}</p>
 								</td>
 								<td class="table-remove">
-									<button @click="deleteItem(itemIndex)"><i class="material-icons">delete</i></button>
+									<!-- @click註冊btn與click事件, 執行刪除方法 -->
+									<button @click="deleteItem(itemIndex)">
+										<i class="material-icons">delete</i>
+									</button>
 								</td>
 							</tr>
-
 							</tbody>
 						</table>
 					</div>
 					<div class="table-bottom-wrapper">
-						<div
-								class="table-coupon d-flex d-xs-block d-lg-flex d-sm-flex fix justify-content-start float-left">
+						<div class="table-coupon d-flex d-xs-block d-lg-flex d-sm-flex fix justify-content-start float-left">
 							<input type="text" placeholder="輸入優惠代碼">
-							<button type="submit" class="btn-primary btn">套用優惠券</button>
+							<button type="submit" class="btn-primary btn">
+								套用優惠券
+							</button>
 						</div>
 						<div class="table-update d-flex d-xs-block d-lg-flex d-sm-flex justify-content-end">
-							<button type="button" class="btn-primary btn">繼續購物</button>
+								<!-- <button type="button" class="btn-primary btn"> -->
+								<a href="productCategory.html" class="btn btn-primary btn">
+									繼續購物
+								</a>
+								<!-- </button> -->
 						</div>
 					</div>
 				</div>
-				<div
-						class="table-total-wrapper d-flex justify-content-end pt-60 col-md-12 col-sm-12 col-lg-4 float-left  align-items-center">
+				<div class="table-total-wrapper d-flex justify-content-end pt-60 col-md-12 col-sm-12 col-lg-4 float-left  align-items-center">
 					<div class="table-total-content">
 						<h2 class="pb-20">訂單金額</h2>
 						<div class="table-total-amount">
@@ -87,18 +103,15 @@
 								<strong>總付款金額</strong>
 								<span class="c-total-price">${{sum + 80}}</span>
 							</div>
-							<a href="checkout_page.html" class="btn btn-primary float-left w-100 text-center">去買單</a>
+							<a href="checkout_page.html" class="btn btn-primary float-left w-100 text-center">
+								去買單
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<!-- 把你的內容貼在這裡-->
 </main>
 
 <!-- 共用元件 footer和一些按鈕功能 -->
