@@ -4,13 +4,13 @@
 	<meta charset="UTF-8">
 	<title>購物車</title>
 	<!-- 共同引入 headTag-import meta tag-->
-	<meta th:replace="~{frontendApp/components/common :: headtag-import}">
+	<meta th:replace="~{frontendapp/components/common :: headtag-import}">
 </head>
 <body>
 <!-- 共用元件 header:圖示按鈕, navbar...-->
-<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<div th:replace="~{frontendapp/components/common :: app-header}"></div>
 <!-- 共用元件(index除外) bread crumb -->
-<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'購物車'})}"></div>
+<div th:replace="~{frontendapp/components/common :: app-bread-crumb(title=${'購物車'})}"></div>
 
 <main>
 	<!-- 把你的內容貼在這裡-->
@@ -36,7 +36,7 @@
 							<tr v-for=" (item, itemIndex) in items">
 								<td class="table-image"><a href="productDetails.html">
 									<img :src="item.picture" alt=""></a></td>
-									<!-- <img th:src="@{frontendApp/img/products/02.jpg}" alt=""></a></td> -->
+									<!-- <img th:src="@{frontendapp/img/products/02.jpg}" alt=""></a></td> -->
 
 								<!-- href Vue 綁定, :href="item.url" 或是 v-bind:href="item.url"  -->
 								<td class="table-p-name text-capitalize"><a
@@ -102,13 +102,13 @@
 </main>
 
 <!-- 共用元件 footer和一些按鈕功能 -->
-<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<div th:replace="~{frontendapp/components/common :: app-footer}"></div>
 <!-- 選用元件 app-modals互動視窗 -->
-<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<div th:replace="~{frontendapp/components/common :: app-modals}"></div>
 <!-- 共同引入 置底 import-in-the-end -->
-<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
+<div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
 <!-- 引入 Vue及Axios JavaScript 功能庫處理綁定及呼叫 REST api 邏輯-->
-<script type="module" src="/frontendApp/js/vue/cartPage.js"></script>
+<script type="module" src="/frontendapp/js/vue/cartPage.js"></script>
 </body>
 
 </html>
