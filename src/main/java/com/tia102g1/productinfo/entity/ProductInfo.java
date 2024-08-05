@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
@@ -28,7 +30,7 @@ public class ProductInfo implements java.io.Serializable {
 	
 	
 //	@ManyToOne
-//	@JoinColumn(name = "productTypeId", referencedColumnName = "productTypeId")
+//	@JoinColumn(name = "PRODUCTTYPEID", referencedColumnName = "PRODUCTTYPEID")
 //	private ProductTypeVO productTypeVO;		
 	@Column(name = "productTypeId")
 	@NotNull(message="商品類型: 請勿空白")
@@ -81,17 +83,19 @@ public class ProductInfo implements java.io.Serializable {
 	@Column(name = "lastUpdated")
 	private Timestamp lastUpdated;
 	
-	
-
 	public ProductInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductInfo(Integer productId, Integer productTypeId, String proName, Integer proPrice,
-			Integer proSafetyStock, Integer totalCount, Integer commentUsers, Integer commentStars, byte[] proPic,
-			Integer proStatus, String proDesc, String createdBy, Timestamp dateCreated, String lastUpdatedBy,
-			Timestamp lastUpdated) {
+	public ProductInfo(Integer productId, @NotNull(message = "商品類型: 請勿空白") Integer productTypeId,
+			@Pattern(regexp = "^[\\u4e00-\\u9fa5]+$", message = "商品名稱: 請輸入中文") @NotEmpty(message = "商品名稱: 請勿空白") String proName,
+			@NotNull(message = "商品單價: 請勿空白") @DecimalMin(value = "1", message = "商品單價: 不能小於{value}") Integer proPrice,
+			@NotNull(message = "商品安全存量: 請勿空白") Integer proSafetyStock,
+			@NotNull(message = "商品結餘量: 請勿空白") Integer totalCount, Integer commentUsers, Integer commentStars,
+			byte[] proPic, @NotNull(message = "商品狀態: 請勿空白") Integer proStatus,
+			@NotEmpty(message = "商品描述: 請勿空白") String proDesc, String createdBy, Timestamp dateCreated,
+			String lastUpdatedBy, Timestamp lastUpdated) {
 		super();
 		this.productId = productId;
 		this.productTypeId = productTypeId;
@@ -230,15 +234,9 @@ public class ProductInfo implements java.io.Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductInfo [productId=" + productId + ", productTypeId=" + productTypeId + ", proName=" + proName
-				+ ", proPrice=" + proPrice + ", proSafetyStock=" + proSafetyStock + ", totalCount=" + totalCount
-				+ ", commentUsers=" + commentUsers + ", commentStars=" + commentStars + ", proPic="
-				+ Arrays.toString(proPic) + ", proStatus=" + proStatus + ", proDesc=" + proDesc + ", createdBy="
-				+ createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated="
-				+ lastUpdated + "]";
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-	
-	
+
+
 }

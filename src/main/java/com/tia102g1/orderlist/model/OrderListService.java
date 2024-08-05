@@ -1,11 +1,14 @@
 package com.tia102g1.orderlist.model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tia102g1.productinfo.entity.ProductInfo;
 
 @Service("orderListService")
 public class OrderListService {
@@ -16,6 +19,16 @@ public class OrderListService {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	// 新增
+	public void addOrderList(OrderListVO orderList) {
+		repository.save(orderList);
+	}
+	
+	// 修改
+	public void updateOrderList(OrderListVO orderList) {
+		repository.save(orderList);
+	}
+	
 	// 單筆查詢
 	public OrderListVO getOneOrderList(Integer orderListId) {
 		Optional<OrderListVO> optional = repository.findById(orderListId);
@@ -28,7 +41,7 @@ public class OrderListService {
 	}
 
 	// 複合查詢
-//	public List<OrderListVO> getAll(Map<String, String[]> map){
-//		return CompositeQuery_OrderList.getAllC(map, sessionFactory.openSession());
-//	}
+	public List<OrderListVO> getAll(Map<String, String[]> map){
+		return CompositeQuery_OrderList.getAllC(map, sessionFactory.openSession());
+	}
 }

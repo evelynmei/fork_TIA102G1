@@ -24,24 +24,39 @@ import org.hibernate.Transaction;
 import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.producttype.model.ProductTypeVO;
 
+public class CompositeQuery_ProductInfo {
 
-
-public class HibernateUtil_CompositeQuery_ProductInfo {
-
-	public static Predicate get_aPredicate_For_AnyDB(CriteriaBuilder builder, Root<ProductInfo> root, String columnName, String value) {
+	public static Predicate get_aPredicate_For_AnyDB(CriteriaBuilder builder, Root<ProductInfo> root, String columnName,
+			String value) {
 
 		Predicate predicate = null;
 
-		if ("productId".equals(columnName)) // 用於Integer
-			predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
-		else if ("proStatus".equals(columnName)) // 用於Integer
-			predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
-		else if ("proPrice".equals(columnName)) // 用於Integer
-			predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
-		else if ("productTypeId".equals(columnName)) {
-			ProductTypeVO productTypeVO = new ProductTypeVO();
-			productTypeVO.setProductTypeId(Integer.valueOf(value));
-			predicate = builder.equal(root.get("productTypeVO"), productTypeVO);	
+		try {
+			if ("productId".equals(columnName)) // 用於Integer
+				predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
+			else if ("proStatus".equals(columnName)) // 用於Integer
+				predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
+			else if ("proPrice".equals(columnName)) // 用於Integer
+				predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
+
+			else if ("priceMin".equals(columnName)) {
+				predicate = builder.greaterThanOrEqualTo(root.get("proPrice"), Integer.valueOf(value));
+			} else if ("priceMax".equals(columnName)) {
+				predicate = builder.lessThanOrEqualTo(root.get("proPrice"), Integer.valueOf(value));
+			} else if ("priceMin".equals(columnName) && "priceMax".equals(columnName)) {
+				String[] values = value.split(",");
+				if (values.length == 2) {
+					predicate = builder.between(root.get("proPrice"), Integer.valueOf(values[0]),
+							Integer.valueOf(values[1]));
+				}
+			} else if ("productTypeId".equals(columnName)) {
+				ProductTypeVO productTypeVO = new ProductTypeVO();
+				productTypeVO.setProductTypeId(Integer.valueOf(value));
+				predicate = builder.equal(root.get("productTypeVO"), productTypeVO);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return predicate;
@@ -62,7 +77,7 @@ public class HibernateUtil_CompositeQuery_ProductInfo {
 			Root<ProductInfo> root = criteriaQuery.from(ProductInfo.class);
 
 			List<Predicate> predicateList = new ArrayList<Predicate>();
-			
+
 			Set<String> keys = map.keySet();
 			int count = 0;
 			for (String key : keys) {
@@ -73,11 +88,12 @@ public class HibernateUtil_CompositeQuery_ProductInfo {
 					System.out.println("有送出查詢資料的欄位數count = " + count);
 				}
 			}
-			System.out.println("predicateList.size()="+predicateList.size());
+			System.out.println("predicateList.size()=" + predicateList.size());
 			criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
 			criteriaQuery.orderBy(builder.asc(root.get("productId")));
 			// 【●最後完成創建 javax.persistence.Query●】
-			Query query = session.createQuery(criteriaQuery); //javax.persistence.Query; //Hibernate 5 開始 取代原 org.hibernate.Query 介面
+			Query query = session.createQuery(criteriaQuery); // javax.persistence.Query; //Hibernate 5 開始 取代原
+																// org.hibernate.Query 介面
 			list = query.getResultList();
 
 			tx.commit();

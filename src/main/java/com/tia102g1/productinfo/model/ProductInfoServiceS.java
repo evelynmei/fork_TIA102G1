@@ -38,7 +38,7 @@ public class ProductInfoServiceS {
 	}
 
 	public List<ProductInfo> getAll(Map<String, String[]> map) {
-		return HibernateUtil_CompositeQuery_ProductInfo.getAllC(map,sessionFactory.openSession());
+		return CompositeQuery_ProductInfo.getAllC(map,sessionFactory.openSession());
 	}
 
 }
