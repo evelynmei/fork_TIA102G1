@@ -1,8 +1,11 @@
 import { createApp, ref, computed, onMounted, toRaw } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js';
 import axios from 'https://unpkg.com/axios@1.7.2/dist/esm/axios.min.js';
 
-
-// todo：目前登入會員寫死，未來要根據登入與否的 cookie 來決定 memberId 為多少
+/*
+todo 判斷用戶->
+     未登入: 存入sessionStorage
+     登入: 透過cookie取得emberId
+ */
 let memberId = "1";
 const apiURL = "http://localhost:8080/cart/";
 const productURL = "frontendapp/img/products/";
@@ -73,11 +76,11 @@ createApp({
 
         //刪除商品
         const deleteItem = index => {
-            let array = items.value;
+            let array = items.value; // [{}, {}, {}]
             let itemToDelete = array[index];
             let cartId = itemToDelete.cartId;
 
-            // array 裡需至少有一項，然後才執行，對 array spice 掉第 index 的一個 item
+            // array裡需至少有一項才執行，對array刪掉第 index 的一個 item
             array.length > 0 && array.splice(index, 1);
 
             console.log("item = ", toRaw(itemToDelete));
