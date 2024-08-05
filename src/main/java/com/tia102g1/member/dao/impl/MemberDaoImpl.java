@@ -2,6 +2,7 @@ package com.tia102g1.member.dao.impl;
 
 
 import com.tia102g1.member.dao.MemberDao;
+import com.tia102g1.member.dto.MemberQueryParams;
 import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
@@ -98,26 +99,47 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public Member getMemberByUpdatedPasswordMemberId(String password) {
-        Map<String,Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         String sql = "SELECT memberid,memberlvid,staffid,account,password,name,birthdt,phone,email,cntcode,distcode,address,accumulate,\n" +
                 "       coinbalance,joindate,noshow,cardholder,cardnumber,cardyy,cardmm,cardverifycode,status,blockedtime,blockedreason,\n" +
                 "       createdby,datecreated,lastupdatedby,lastupdated FROM member WHERE password =:password";
-        map.put("password",password);
+        map.put("password", password);
         List<Member> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
         return memberList.isEmpty() ? null : memberList.get(0);
     }
 
     @Override
-    public List<Member> getAll() {
+    public List<Member> getAll(MemberQueryParams memberQueryParams) {
         Map<String, Object> map = new HashMap<>();
         String sql = "SELECT memberid, memberlvid, staffid, account, password, name, birthdt, phone,\n" +
                 "       email, cntcode, distcode, address, accumulate, coinbalance, joindate, noshow,\n" +
                 "       cardholder, cardnumber, cardyy, cardmm, cardverifycode, status, blockedtime,\n" +
-                "       blockedreason, createdby, datecreated, lastupdatedby, lastupdated FROM member";
+                "       blockedreason, createdby, datecreated, lastupdatedby, lastupdated FROM member WHERE 1=1";
+        //查詢條件
+        //執行查詢條件前必須要先判斷是不是null
+        if (memberQueryParams.getSearchName() != null) {
+            //雖然拼接起來語法是對的，但是不能在sql語法中拼接，要將%放在map裡面的佔位符參數寫
+            sql = sql + " AND name LIKE :searchName";
+            map.put("searchName", "%" + memberQueryParams.getSearchName() + "%");
+        }
+        //查詢條件
+        if (memberQueryParams.getSearchAccount() != null) {
+            //雖然拼接起來語法是對的，但是不能在sql語法中拼接，要將%放在map裡面的佔位符參數寫
+            sql = sql + " AND account LIKE :searchAccount";
+            map.put("searchAccount", "%" + memberQueryParams.getSearchAccount() + "%");
+        }
+        //排序
+        //不用null判斷是因為orderBy、sort本身就有預設值，所以不會有null的例外發生
+        sql = sql + " ORDER BY " + memberQueryParams.getOrderBy() + " " + memberQueryParams.getSort();
+
+        //分頁
+        sql = sql + " limit :limit offset :offset ";
+        map.put("limit", memberQueryParams.getLimit());
+        map.put("offset", memberQueryParams.getOffset());
         //spring jdbc查詢到的結果用一個list接收
         List<Member> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
-        //判斷該List是否為null，避免異常例外
-        return memberList.isEmpty() ? null : memberList;
+
+        return memberList;
     }
 
     @Override
@@ -164,5 +186,29 @@ public class MemberDaoImpl implements MemberDao {
         map.put("memberId", memberId);
         int i = namedParameterJdbcTemplate.update(sql, map);
         return i;
+    }
+
+    @Override
+    public Integer countMember(MemberQueryParams memberQueryParams) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "SELECT count(*) FROM member WHERE 1=1";
+        //查詢條件
+        //執行查詢條件前必須要先判斷是不是null
+        if (memberQueryParams.getSearchName() != null) {
+            //雖然拼接起來語法是對的，但是不能在sql語法中拼接，要將%放在map裡面的佔位符參數寫
+            sql = sql + " AND name LIKE :searchName";
+            map.put("searchName", "%" + memberQueryParams.getSearchName() + "%");
+        }
+        //查詢條件
+        if (memberQueryParams.getSearchAccount() != null) {
+            //雖然拼接起來語法是對的，但是不能在sql語法中拼接，要將%放在map裡面的佔位符參數寫
+            sql = sql + " AND account LIKE :searchAccount";
+            map.put("searchAccount", "%" + memberQueryParams.getSearchAccount() + "%");
+        }
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+
+
     }
 }

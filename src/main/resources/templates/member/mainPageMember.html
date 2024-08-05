@@ -1,54 +1,83 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>會員總覽</title>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>會員管理</title>
+    <!-- header-css etc. -->
+    <head th:insert="~{/comPage1}"></head>
+</head>
 
-		<!-- header-css etc. -->
-		<head th:insert="~{/comPage1}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
 
-	</head>
-	
-	<body class="hold-transition sidebar-mini layout-fixed">
+<!-- side bar -->
+<body th:insert="~{/comPage2}"></body>
 
-	<!-- side bar -->
-	<body th:insert="~{/comPage2}"></body>
-	
-	<!-- Content Wrapper. Contains page content -->
-    <!-- 儀錶板上面那排 -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
+<!-- Content Wrapper. Contains page content -->
+<!-- 儀錶板上面那排 -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
         <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">會員總覽</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item active">會員總覽</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">會員管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+                        <!-- ===================================後台人員登入登出用 =================================================================-->
+                        <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
+                            <div th:if="${session.staffName == null}"><a href="staffLogin">登入</a></div>
+                            <div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div>
+                        </li>
+                        <!-- ===================================後台人員登入登出用 =================================================================-->
+                        <li class="breadcrumb-item active">會員管理</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content-header -->
+    </div>
+    <!-- /.content-header -->
 
-	<!-- 功能內容開始 -->
-	<section class="content">
-		
-	<p>會員總覽 主頁 測試</p>
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
-	
-	</section>
-	<!-- 功能內容結束 -->
-	
-	<!-- footer and script link -->
-	<body th:insert="~{/comPage3}"></body>
+    <!-- 功能內容開始 -->
+    <section class="content">
+        <h1>會員管理</h1>
 
-	</body>
+        <form th:action="@{/mainPageMember}" method="get">
+            <label for="searchName">姓名查詢:</label>
+            <input type="text" id="searchName" name="searchName" th:value="${searchName}">
+            <label for="searchAccount">帳號查詢:</label>
+            <input type="text" id="searchAccount" name="searchAccount" th:value="${searchAccount}">
+            <button type="submit">查詢</button>
+        </form>
+
+        <table border="1">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>帳號</th>
+                <th>電話</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${memberList}">
+                <td th:text="${member.memberId}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.account}"></td>
+                <td th:text="${member.phone}"></td>
+                <td th:text="${member.email}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <!-- 功能內容結束 -->
+</div>
+
+<!-- footer and script link -->
+<body th:insert="~{/comPage3}"></body>
+
+</body>
 </html>
