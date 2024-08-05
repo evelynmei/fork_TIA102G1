@@ -20,12 +20,21 @@ public class OrderListVO implements Serializable {
 	@Column(name = "orderListId")
 	private Integer orderListId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
+//	private Member member;	
 	@Column(name = "memberId")
 	private Integer memberId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "couponId", referencedColumnName = "couponId")
+//	private Coupon coupon;
 	@Column(name = "couponId")
 	private Integer couponId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
+//	private EventVO eventVO;
 	@Column(name = "eventId")
 	private Integer eventId;
 	
