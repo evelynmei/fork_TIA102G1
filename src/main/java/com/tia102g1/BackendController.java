@@ -16,6 +16,8 @@ import com.tia102g1.event.model.EventService;
 import com.tia102g1.event.model.EventVO;
 import com.tia102g1.membercoin.model.MemberCoinService;
 import com.tia102g1.membercoin.model.MemberCoinVO;
+import com.tia102g1.news.model.NewsService;
+import com.tia102g1.news.model.NewsVO;
 import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
@@ -56,6 +58,9 @@ public class BackendController {
 	
 	@Autowired
 	StaffService staffSvc;
+	
+	@Autowired
+	NewsService newsSvc;
 
 	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
@@ -234,6 +239,17 @@ public class BackendController {
 	@GetMapping({ "/news", "/news/mainPageNews" })
 	public String mainPageNews(Model model) {
 		return "/news/mainPageNews";
+	}
+	
+	@GetMapping("/news/listAllNews")
+	public String listAllNews(Model model) {
+		return "news/listAllNews";
+	}
+
+	@ModelAttribute("newsListData")
+	protected List<NewsVO> referenceNewsListData(Model model) {
+		List<NewsVO> list = newsSvc.getAll();
+		return list;
 	}
 
 	// 門市資訊
