@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.google.gson.annotations.Expose;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.dist.model.DistVO;
 
@@ -213,5 +214,14 @@ public class StoreVO implements java.io.Serializable {
 	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+
+//	@Override
+//	public String toString() {
+//		return "StoreVO [storeId=" + storeId + ", storeName=" + storeName + ", countyVO=" + countyVO + ", distVO="
+//				+ distVO + ", storeAddress=" + storeAddress + ", longitude=" + longitude + ", latitude=" + latitude
+//				+ ", storePhone=" + storePhone + ", openingHours=" + openingHours + ", storeMail=" + storeMail
+//				+ ", createdBy=" + createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy
+//				+ ", lastUpdated=" + lastUpdated + "]";
+//	}
 
 }

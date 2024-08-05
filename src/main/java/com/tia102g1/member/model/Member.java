@@ -1,264 +1,375 @@
 package com.tia102g1.member.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "MEMBER")
 public class Member implements Serializable {
-      Integer memberId;
-      Integer memberLvId;
-      Integer staffId;
-      String account;
-      @JsonIgnore //必須隱藏起來不能再request body顯示給任何人看到
-      String password;
-      String name;
-      Date birthDt;
-      String phone;
-      String email;
-      Integer cntCode;
-      Integer distCode;
-      String  address;
-      Integer accumulate;
-      Integer coinBalance;
-      Date joinDate;
-      Integer noShow;
-      String cardHolder;
-      String cardNumber;
-      Integer cardYY;
-      Integer cardMM;
-      String cardVerifyCode;
-      Integer status;
-      Timestamp blockedTime;
-      String blockedReason;
-      String createdBy;
-      Timestamp dateCreated;
-      String lastUpdatedBy;
-      Timestamp lastUpdated;
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "MEMBERID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer memberId;
+	
+	@Column(name = "MEMBERLVID")
+	private Integer memberLvId;
+	
+	@Column(name = "STAFFID")
+	private Integer staffId;
+	
+	@Column(name = "ACCOUNT")
+	private String account;
+	
+	@JsonIgnore //必須隱藏起來不能再request body顯示給任何人看到
+	@Column(name = "PASSWORD")
+	private String password;
+	
+	@NotEmpty(message = "姓名: 請勿空白")
+	@Column(name = "NAME")
+	private String name;
+	
+	@Column(name = "BIRTHDT")
+	private Date birthDt;
+	
+	@Column(name = "PHONE")
+	private String phone;
+	
+	@Column(name = "EMAIL")
+	private String email;
+	
+	@Column(name = "CNTCODE")
+	private Integer cntCode;
+	
+	@Column(name = "DISTCODE")
+	private Integer distCode;
+	
+	@Column(name = "ADDRESS")
+	private String address;
+	
+	@Column(name = "ACCUMULATE")
+	private Integer accumulate;
+	
+	@Column(name = "COINBALANCE")
+	private Integer coinBalance;
+	
+	@Column(name = "JOINDATE")
+	private Date joinDate;
+	
+	@Column(name = "NOSHOW")
+	private Integer noShow;
+	
+	@Column(name = "CARDHOLDER")
+	private String cardHolder;
+	
+	@Column(name = "CARDNUMBER")
+	private String cardNumber;
+	
+	@Column(name = "CARDYY")
+	private Integer cardYy;
+	
+	@Column(name = "CARDMM")
+	private Integer cardMm;
+	
+	@Column(name = "CARDVERIFYCODE")
+	private String cardVerifyCode;
+	
+	@Column(name = "STATUS")
+	private Integer status;
+	
+	@Column(name = "BLOCKEDTIME")
+	private Timestamp blockedTime;
+	
+	@Column(name = "BLOCKEDREASON")
+	private String blockedReason;
+	
+	@Column(name = "CREATEDBY")
+	private String createdBy;
+	
+	@Column(name = "DATECREATED")
+	private Timestamp dateCreated;
+	
+	@Column(name = "LASTUPDATEDBY")
+	private String lastUpdatedBy;
+	
+	@Column(name = "LASTUPDATED")
+	private Timestamp lastUpdated;
+	
+	
+	public Member() {
+		super();
+	}
+	
+	public Member(Integer memberId, Integer memberLvId, Integer staffId, String account, String password, String name,
+			Date birthDt, String phone, String email, Integer cntCode, Integer distCode, String address,
+			Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow, String cardHolder,
+			String cardNumber, Integer cardYy, Integer cardMm, String cardVerifyCode, Integer status,
+			Timestamp blockedTime, String blockedReason, String createdBy, Timestamp dateCreated, String lastUpdatedBy,
+			Timestamp lastUpdated) {
+		super();
+		this.memberId = memberId;
+		this.memberLvId = memberLvId;
+		this.staffId = staffId;
+		this.account = account;
+		this.password = password;
+		this.name = name;
+		this.birthDt = birthDt;
+		this.phone = phone;
+		this.email = email;
+		this.cntCode = cntCode;
+		this.distCode = distCode;
+		this.address = address;
+		this.accumulate = accumulate;
+		this.coinBalance = coinBalance;
+		this.joinDate = joinDate;
+		this.noShow = noShow;
+		this.cardHolder = cardHolder;
+		this.cardNumber = cardNumber;
+		this.cardYy = cardYy;
+		this.cardMm = cardMm;
+		this.cardVerifyCode = cardVerifyCode;
+		this.status = status;
+		this.blockedTime = blockedTime;
+		this.blockedReason = blockedReason;
+		this.createdBy = createdBy;
+		this.dateCreated = dateCreated;
+		this.lastUpdatedBy = lastUpdatedBy;
+		this.lastUpdated = lastUpdated;
+	}
 
-    public Integer getMemberId() {
-        return memberId;
-    }
+	public Integer getMemberId() {
+		return memberId;
+	}
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
-    }
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
 
-    public Integer getMemberLvId() {
-        return memberLvId;
-    }
+	public Integer getMemberLvId() {
+		return memberLvId;
+	}
 
-    public void setMemberLvId(Integer memberLvid) {
-        this.memberLvId = memberLvid;
-    }
+	public void setMemberLvId(Integer memberLvid) {
+		this.memberLvId = memberLvid;
+	}
 
-    public Integer getStaffId() {
-        return staffId;
-    }
+	public Integer getStaffId() {
+		return staffId;
+	}
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
-    }
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
+	}
 
-    public String getAccount() {
-        return account;
-    }
+	public String getAccount() {
+		return account;
+	}
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Date getBirthDt() {
-        return birthDt;
-    }
+	public Date getBirthDt() {
+		return birthDt;
+	}
 
-    public void setBirthDt(Date birthDt) {
-        this.birthDt = birthDt;
-    }
+	public void setBirthDt(Date birthDt) {
+		this.birthDt = birthDt;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public Integer getCntCode() {
-        return cntCode;
-    }
+	public Integer getCntCode() {
+		return cntCode;
+	}
 
-    public void setCntCode(Integer cntCode) {
-        this.cntCode = cntCode;
-    }
+	public void setCntCode(Integer cntCode) {
+		this.cntCode = cntCode;
+	}
 
-    public Integer getDistCode() {
-        return distCode;
-    }
+	public Integer getDistCode() {
+		return distCode;
+	}
 
-    public void setDistCode(Integer distCode) {
-        this.distCode = distCode;
-    }
+	public void setDistCode(Integer distCode) {
+		this.distCode = distCode;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public Integer getAccumulate() {
-        return accumulate;
-    }
+	public Integer getAccumulate() {
+		return accumulate;
+	}
 
-    public void setAccumulate(Integer accumulate) {
-        this.accumulate = accumulate;
-    }
+	public void setAccumulate(Integer accumulate) {
+		this.accumulate = accumulate;
+	}
 
-    public Integer getCoinBalance() {
-        return coinBalance;
-    }
+	public Integer getCoinBalance() {
+		return coinBalance;
+	}
 
-    public void setCoinBalance(Integer coinBalance) {
-        this.coinBalance = coinBalance;
-    }
+	public void setCoinBalance(Integer coinBalance) {
+		this.coinBalance = coinBalance;
+	}
 
-    public Date getJoinDate() {
-        return joinDate;
-    }
+	public Date getJoinDate() {
+		return joinDate;
+	}
 
-    public void setJoinDate(Date joinDate) {
-        this.joinDate = joinDate;
-    }
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
 
-    public Integer getNoShow() {
-        return noShow;
-    }
+	public Integer getNoShow() {
+		return noShow;
+	}
 
-    public void setNoShow(Integer noShow) {
-        this.noShow = noShow;
-    }
+	public void setNoShow(Integer noShow) {
+		this.noShow = noShow;
+	}
 
-    public String getCardHolder() {
-        return cardHolder;
-    }
+	public String getCardHolder() {
+		return cardHolder;
+	}
 
-    public void setCardHolder(String cardHolder) {
-        this.cardHolder = cardHolder;
-    }
+	public void setCardHolder(String cardHolder) {
+		this.cardHolder = cardHolder;
+	}
 
-    public String getCardNumber() {
-        return cardNumber;
-    }
+	public String getCardNumber() {
+		return cardNumber;
+	}
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
-    }
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
 
-    public Integer getCardYY() {
-        return cardYY;
-    }
+	public Integer getCardYy() {
+		return cardYy;
+	}
 
-    public void setCardYY(Integer cardYY) {
-        this.cardYY = cardYY;
-    }
+	public void setCardYy(Integer cardYy) {
+		this.cardYy = cardYy;
+	}
 
-    public Integer getCardMM() {
-        return cardMM;
-    }
+	public Integer getCardMm() {
+		return cardMm;
+	}
 
-    public void setCardMM(Integer cardMM) {
-        this.cardMM = cardMM;
-    }
+	public void setCardMm(Integer cardMm) {
+		this.cardMm = cardMm;
+	}
 
-    public String getCardVerifyCode() {
-        return cardVerifyCode;
-    }
+	public String getCardVerifyCode() {
+		return cardVerifyCode;
+	}
 
-    public void setCardVerifyCode(String cardVerifyCode) {
-        this.cardVerifyCode = cardVerifyCode;
-    }
+	public void setCardVerifyCode(String cardVerifyCode) {
+		this.cardVerifyCode = cardVerifyCode;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    public Timestamp getBlockedTime() {
-        return blockedTime;
-    }
+	public Timestamp getBlockedTime() {
+		return blockedTime;
+	}
 
-    public void setBlockedTime(Timestamp blockedTime) {
-        this.blockedTime = blockedTime;
-    }
+	public void setBlockedTime(Timestamp blockedTime) {
+		this.blockedTime = blockedTime;
+	}
 
-    public String getBlockedReason() {
-        return blockedReason;
-    }
+	public String getBlockedReason() {
+		return blockedReason;
+	}
 
-    public void setBlockedReason(String blockedReason) {
-        this.blockedReason = blockedReason;
-    }
+	public void setBlockedReason(String blockedReason) {
+		this.blockedReason = blockedReason;
+	}
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 
-    public Timestamp getDateCreated() {
-        return dateCreated;
-    }
+	public Timestamp getDateCreated() {
+		return dateCreated;
+	}
 
-    public void setDateCreated(Timestamp dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+	public void setDateCreated(Timestamp dateCreated) {
+		this.dateCreated = dateCreated;
+	}
 
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
 
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
 
-    public Timestamp getLastUpdated() {
-        return lastUpdated;
-    }
+	public Timestamp getLastUpdated() {
+		return lastUpdated;
+	}
 
-    public void setLastUpdated(Timestamp lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
+	public void setLastUpdated(Timestamp lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 }

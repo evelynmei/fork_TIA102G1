@@ -14,6 +14,8 @@ import com.tia102g1.dist.model.DistService;
 import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.event.model.EventService;
 import com.tia102g1.event.model.EventVO;
+import com.tia102g1.membercoin.model.MemberCoinService;
+import com.tia102g1.membercoin.model.MemberCoinVO;
 import com.tia102g1.productType.model.ProductTypeService;
 import com.tia102g1.productType.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
@@ -27,6 +29,9 @@ import com.tia102g1.sysMsg.model.SysMsgVO;
 
 @Controller
 public class BackendController {
+	
+	@Autowired
+	MemberCoinService memberCoinSvc;
 
 	@Autowired
 	ProductTypeService typeSvc;
@@ -90,7 +95,18 @@ public class BackendController {
 	public String mainPageMemberCoin(Model model) {
 		return "/memberCoin/mainPageMemberCoin";
 	}
+	
+	@GetMapping("/memberCoin/listAllMemberCoin")
+	public String listAllMemberCoin(Model model) {
+		return "memberCoin/listAllMemberCoin";
+	}
 
+	@ModelAttribute("memberCoinListData")
+	protected List<MemberCoinVO> referenceMemberCoinListData(Model model) {
+		List<MemberCoinVO> list = memberCoinSvc.getAll();
+		return list;
+	}
+	
 	// 商品類型對照
 	@GetMapping({ "/productType", "/productType/mainPageProductType" })
 	public String mainPageProductType(Model model) {
@@ -221,7 +237,7 @@ public class BackendController {
 	}
 
 	// 門市資訊
-	@GetMapping({ "/store", "/store/mainPageStore" })
+	@GetMapping({ "/stores", "/store/mainPageStore" })
 	public String mainPageStore(Model model) {
 		return "/store/mainPageStore";
 	}

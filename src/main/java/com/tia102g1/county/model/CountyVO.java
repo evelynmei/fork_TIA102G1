@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
+import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.store.model.StoreVO;
 
 @Entity
@@ -21,10 +24,12 @@ public class CountyVO implements java.io.Serializable {
 	
 	@Id
 	@Column(name = "CNTCODE")
+	@Expose
 	private Integer cntCode;
 	
 	@Column(name = "CNTNAME")
 	@NotEmpty(message = "縣市名稱: 請勿空白")
+	@Expose
 	private String cntName;
 	
 	@Column(name = "CREATEDBY", updatable = false)
@@ -41,13 +46,19 @@ public class CountyVO implements java.io.Serializable {
 	
 	@OneToMany(mappedBy = "countyVO", fetch=FetchType.EAGER)
 	private Set<StoreVO> stores = new HashSet<StoreVO>();
+	
+	@OneToMany(mappedBy = "countyVO", fetch=FetchType.EAGER)
+	@OrderBy("distCode asc")
+	@Expose
+	private Set<DistVO> dists = new HashSet<DistVO>();
 
 	public CountyVO() {
 		super();
 	}
 
-	public CountyVO(Integer cntCode, String cntName, String createdBy,
-			Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated, Set<StoreVO> stores) {
+	public CountyVO(Integer cntCode, @NotEmpty(message = "縣市名稱: 請勿空白") String cntName, String createdBy,
+			Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated, Set<StoreVO> stores,
+			Set<DistVO> dists) {
 		super();
 		this.cntCode = cntCode;
 		this.cntName = cntName;
@@ -56,6 +67,7 @@ public class CountyVO implements java.io.Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 		this.lastUpdated = lastUpdated;
 		this.stores = stores;
+		this.dists = dists;
 	}
 
 	public Integer getCntCode() {
@@ -112,6 +124,21 @@ public class CountyVO implements java.io.Serializable {
 
 	public void setStores(Set<StoreVO> stores) {
 		this.stores = stores;
+	}
+
+	public Set<DistVO> getDists() {
+		return dists;
+	}
+
+	public void setDists(Set<DistVO> dists) {
+		this.dists = dists;
+	}
+
+	@Override
+	public String toString() {
+		return "CountyVO [cntCode=" + cntCode + ", cntName=" + cntName + ", createdBy=" + createdBy + ", dateCreated="
+				+ dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", stores="
+				+ stores + ", dists=" + dists + "]";
 	}
 	
 	

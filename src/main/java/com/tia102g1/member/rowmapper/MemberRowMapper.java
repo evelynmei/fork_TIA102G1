@@ -29,8 +29,8 @@ public class MemberRowMapper implements RowMapper<Member> {
         member.setNoShow(rs.getInt("NOSHOW"));
         member.setCardHolder(rs.getString("CARDHOLDER"));
         member.setCardNumber(rs.getString("CARDNUMBER"));
-        member.setCardYY(rs.getInt("CARDYY"));
-        member.setCardMM(rs.getInt("CARDMM"));
+        member.setCardYy(rs.getInt("CARDYY"));
+        member.setCardMm(rs.getInt("CARDMM"));
         member.setCardVerifyCode(rs.getString("CARDVERIFYCODE"));
         member.setStatus(rs.getInt("STATUS"));
         member.setBlockedTime(rs.getTimestamp("BLOCKEDTIME"));

@@ -1,4 +1,4 @@
-package com.tia102g1.store;
+package com.tia102g1.membercoin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,43 +14,35 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.tia102g1.county.model.CountyVO;
-import com.tia102g1.dist.model.DistVO;
-import com.tia102g1.store.model.StoreVO;
+import com.tia102g1.membercoin.model.MemberCoinVO;
 
-public class CompositeQuery_Store {
-	public static Predicate get_aPredicate_For_AnyDB(CriteriaBuilder builder, Root<StoreVO> root, String columnName,
+
+public class CompositeQuery_MemberCoin {
+	public static Predicate get_aPredicate_For_AnyDB(CriteriaBuilder builder, Root<MemberCoinVO> root, String columnName,
 			String value) {
 
 		Predicate predicate = null;
 
 		try {
 			// 用於Integer
-			if ("storeId".equals(columnName)) {
+			if ("memCoinId".equals(columnName)) {
 				predicate = builder.equal(root.get(columnName), Integer.valueOf(value)); // root代表查詢的實體型別
 
 				// 用於varchar
-			} else if ("storeName".equals(columnName)) {
+			} else if ("summary".equals(columnName)) {
 				predicate = builder.like(root.get(columnName), "%" + value + "%");
 
-			} else if ("cntCode".equals(columnName) && "distCode".equals(columnName)) {
-				CountyVO countyVO = new CountyVO();
-				countyVO.setCntCode(Integer.valueOf(value));
-				predicate = builder.equal(root.get("countyVO"), countyVO);
-				
-				DistVO distVO = new DistVO();
-				distVO.setDistCode(Integer.valueOf(value));
-				predicate = builder.equal(root.get("distVO"), distVO);
-			
-			} else if ("cntCode".equals(columnName)) {
-				CountyVO countyVO = new CountyVO();
-				countyVO.setCntCode(Integer.valueOf(value));
-				predicate = builder.equal(root.get("countyVO"), countyVO);
 
-			} else if ("distCode".equals(columnName)) {
-				DistVO distVO = new DistVO();
-				distVO.setDistCode(Integer.valueOf(value));
-				predicate = builder.equal(root.get("distVO"), distVO);
+			
+//			} else if ("cntCode".equals(columnName)) {
+//				CountyVO countyVO = new CountyVO();
+//				countyVO.setCntCode(Integer.valueOf(value));
+//				predicate = builder.equal(root.get("countyVO"), countyVO);
+//
+//			} else if ("distCode".equals(columnName)) {
+//				DistVO distVO = new DistVO();
+//				distVO.setDistCode(Integer.valueOf(value));
+//				predicate = builder.equal(root.get("distVO"), distVO);
 			}
 
 		} catch (Exception e) {
@@ -61,17 +53,17 @@ public class CompositeQuery_Store {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<StoreVO> getAllC(Map<String, String[]> map, Session session) {
+	public static List<MemberCoinVO> getAllC(Map<String, String[]> map, Session session) {
 //		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		List<StoreVO> list = null;
+		List<MemberCoinVO> list = null;
 		try {
 			// 【●創建 CriteriaBuilder】
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			// 【●創建 CriteriaQuery】
-			CriteriaQuery<StoreVO> criteriaQuery = builder.createQuery(StoreVO.class);
+			CriteriaQuery<MemberCoinVO> criteriaQuery = builder.createQuery(MemberCoinVO.class);
 			// 【●創建 Root】
-			Root<StoreVO> root = criteriaQuery.from(StoreVO.class);
+			Root<MemberCoinVO> root = criteriaQuery.from(MemberCoinVO.class);
 
 			List<Predicate> predicateList = new ArrayList<Predicate>();
 
@@ -88,7 +80,7 @@ public class CompositeQuery_Store {
 			}
 			System.out.println("predicateList.size()=" + predicateList.size());
 			criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));
-			criteriaQuery.orderBy(builder.asc(root.get("storeId")));
+			criteriaQuery.orderBy(builder.asc(root.get("memCoinId")));
 			// 【●最後完成創建 javax.persistence.Query●】
 			Query query = session.createQuery(criteriaQuery); // javax.persistence.Query; //Hibernate 5 開始 取代原
 																// org.hibernate.Query 介面

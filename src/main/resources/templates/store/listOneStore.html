@@ -1,28 +1,48 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>門市資料 - listOneStore.html</title>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>門市資訊管理</title>
 
-<head th:insert="~{/store/included-fragment}"></head>
-<style type="text/css">
+		<!-- header-css etc. -->
+		<head th:insert="~{/comPage1}"></head>
+		<head th:insert="~{/store/included-fragment}"></head>
+	</head>
 	
-    span {
-		display: inline-block;
-		width: 150px;
-		text-align: left;
-		font-weight: bold;
-	}
-</style>
-</head>
-<body>
+	<body class="hold-transition sidebar-mini layout-fixed">
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>門市資料 - listOneStore.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/store/mainPageStore}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
-</nav>
+	<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">門市資訊管理</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+			<!-- ===================================後台人員登入登出用 =================================================================-->
+                 <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
+                	<div th:if="${session.staffName == null}"><a href="staffLogin">登入</a></div>
+               	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
+            <!-- ===================================後台人員登入登出用 =================================================================-->
+                <li class="breadcrumb-item active">門市資訊管理</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
 
+	<!-- 功能內容開始 -->
+	<section class="content">
+		
 	<div align="center" th:fragment="listOneStore-div"> <!-- 此div被mainPageStore.html第158行insert用 -->
 		<h3><span>查詢結果 :</span></h3>
 		<span>門市編號:</span><span th:text="${storeVO.storeId}"></span><br/>
@@ -40,6 +60,13 @@
 		<span>最後更新者:</span><span th:text="${storeVO.lastUpdatedBy}"></span><br/>
 		<span>最後更新時間:</span><span th:text="${storeVO.lastUpdated}"></span><br/>
 	</div>
+	
+	
+	</section>
+	<!-- 功能內容結束 -->
+	
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
 
-</body>
+	</body>
 </html>
