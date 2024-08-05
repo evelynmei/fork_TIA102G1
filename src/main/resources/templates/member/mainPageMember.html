@@ -4,17 +4,56 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>會員管理</title>
-    <!-- header-css etc. -->
-    <head th:insert="~{/comPage1}"></head>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+    <script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> <!-- ●●css for jquery datatables 用 -->
+
+    <!-- ●● jquery datatables 設定 -->
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "lengthMenu": [3 ,5, 10, 20, 50, 100],
+                "searching": true,  //搜尋功能, 預設是開啟
+                "paging": true,     //分頁功能, 預設是開啟
+                "ordering": true,   //排序功能, 預設是開啟
+                "language": {
+                    "processing": "處理中...",
+                    "loadingRecords": "載入中...",
+                    "lengthMenu": "顯示 _MENU_ 筆結果",
+                    "zeroRecords": "沒有符合的結果",
+                    "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+                    "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+                    "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+                    "infoPostFix": "",
+                    "search": "搜尋:",
+                    "paginate": {
+                        "first": "第一頁",
+                        "previous": "上一頁",
+                        "next": "下一頁",
+                        "last": "最後一頁"
+                    },
+                    "aria": {
+                        "sortAscending":  ": 升冪排列",
+                        "sortDescending": ": 降冪排列"
+                    }
+                }
+            });
+        });
+    </script>
+    <style type="text/css">
+        body {
+            margin: 1rem 12rem 2rem 12rem;
+        }
+    </style>
+    <!-- header-css 等其他樣式 -->
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-
 <!-- side bar -->
-<body th:insert="~{/comPage2}"></body>
 
 <!-- Content Wrapper. Contains page content -->
-<!-- 儀錶板上面那排 -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -22,23 +61,21 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">會員管理</h1>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                        <!-- ===================================後台人員登入登出用 =================================================================-->
+                        <!-- 後台人員登入登出用 -->
                         <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
                             <div th:if="${session.staffName == null}"><a href="staffLogin">登入</a></div>
                             <div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div>
                         </li>
-                        <!-- ===================================後台人員登入登出用 =================================================================-->
                         <li class="breadcrumb-item active">會員管理</li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
 
     <!-- 功能內容開始 -->
     <section class="content">
@@ -52,24 +89,38 @@
             <button type="submit">查詢</button>
         </form>
 
-        <table border="1">
+        <table id="example" class="display" style="width: 100%">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>姓名</th>
+            <tr style="background-color:#CCCCFF">
+                <th>會員ID</th>
                 <th>帳號</th>
+                <th>姓名</th>
                 <th>電話</th>
+                <th>生日</th>
                 <th>Email</th>
+                <th>累計消費</th>
+                <th>購物金餘額</th>
+                <th>未取貨次數</th>
+                <th>帳號狀態</th>
+                <th>加入日期</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="member : ${memberList}">
-                <td th:text="${member.memberId}"></td>
-                <td th:text="${member.name}"></td>
-                <td th:text="${member.account}"></td>
-                <td th:text="${member.phone}"></td>
-                <td th:text="${member.email}"></td>
-            </tr>
+            <th:block th:each="member : ${memberList}">
+                <tr>
+                    <td th:text="${member.memberId}"></td>
+                    <td th:text="${member.account}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.phone}"></td>
+                    <td th:text="${member.birthDt}"></td>
+                    <td th:text="${member.email}"></td>
+                    <td th:text="${member.accumulate}"></td>
+                    <td th:text="${member.coinBalance}"></td>
+                    <td th:text="${member.noShow}"></td>
+                    <td th:text="${member.status}"></td>
+                    <td th:text="${member.joinDate}"></td>
+                </tr>
+            </th:block>
             </tbody>
         </table>
     </section>
@@ -77,7 +128,5 @@
 </div>
 
 <!-- footer and script link -->
-<body th:insert="~{/comPage3}"></body>
-
 </body>
 </html>
