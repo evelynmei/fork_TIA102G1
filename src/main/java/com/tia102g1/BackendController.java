@@ -16,16 +16,16 @@ import com.tia102g1.event.model.EventService;
 import com.tia102g1.event.model.EventVO;
 import com.tia102g1.membercoin.model.MemberCoinService;
 import com.tia102g1.membercoin.model.MemberCoinVO;
-import com.tia102g1.productType.model.ProductTypeService;
-import com.tia102g1.productType.model.ProductTypeVO;
+import com.tia102g1.producttype.model.ProductTypeService;
+import com.tia102g1.producttype.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
 import com.tia102g1.qutype.model.QuTypeVO;
 import com.tia102g1.staff.model.StaffService;
 import com.tia102g1.staff.model.StaffVO;
 import com.tia102g1.store.model.StoreService;
 import com.tia102g1.store.model.StoreVO;
-import com.tia102g1.sysMsg.model.SysMsgService;
-import com.tia102g1.sysMsg.model.SysMsgVO;
+import com.tia102g1.sysmsg.model.SysMsgService;
+import com.tia102g1.sysmsg.model.SysMsgVO;
 
 @Controller
 public class BackendController {

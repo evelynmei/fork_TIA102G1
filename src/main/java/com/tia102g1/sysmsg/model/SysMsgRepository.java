@@ -1,4 +1,4 @@
-package com.tia102g1.sysMsg.model;
+package com.tia102g1.sysmsg.model;
 
 import java.util.List;
 

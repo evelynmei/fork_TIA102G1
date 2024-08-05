@@ -1,4 +1,4 @@
-package com.tia102g1.sysMsg;
+package com.tia102g1.sysmsg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.tia102g1.sysMsg.model.SysMsgVO;
+import com.tia102g1.sysmsg.model.SysMsgVO;
 
 public class CompositeQuery_SysMsg {
 	

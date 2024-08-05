@@ -3,6 +3,8 @@ package com.tia102g1.staff.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +46,13 @@ public class StaffController {
 	}
 	
 	@PostMapping("insert")
-	public String insert(@Valid StaffVO staffVO, BindingResult result, ModelMap model) throws IOException{
+	public String insert(@RequestParam("employDt") String employDt ,@Valid StaffVO staffVO, BindingResult result, ModelMap model) throws IOException{
+		
+		 if (employDt == null || employDt.trim().length() == 0) {
+		     model.addAttribute("errorMessage", "到職日期:請勿空白");
+		     return "staff/addStaff"; 
+		 }
+		 
 		if(result.hasErrors()) {
 			return "staff/addStaff";
 		}
@@ -81,16 +89,27 @@ public class StaffController {
 	}
 	
 	@PostMapping("update")
-	public String update(@Valid StaffVO staffVO, BindingResult result, ModelMap model, @RequestParam("leaveDt") Date leaveDt) {
+	public String update(@Valid StaffVO staffVO, BindingResult result, ModelMap model, @RequestParam(value = "leaveDt", required = false) String leaveDtStr) {
 		
 		result = removeFieldError(staffVO, result, "leaveDt");
 		
 		Date employDt = staffVO.getEmployDt();
+		Date leaveDt = null;
+		
+		if(leaveDtStr != null && leaveDtStr.trim().length() != 0) {
+            try {
+				leaveDt = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(leaveDtStr).getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		if(leaveDt != null && employDt != null && leaveDt.compareTo(employDt) < 0) {
 			model.addAttribute("errorMessage", "離職日不得早於到職日");
+	        return "staff/updateStaff";
 		}
 		
+	    staffVO.setLeaveDt(leaveDt);
 		staffVO.setLastUpdated(now);
 		
 		if(result.hasErrors()) {
