@@ -30,7 +30,7 @@ public class ThymeleafMemberController {
             @RequestParam(required = false) String searchAccount,
             @RequestParam(defaultValue = "MEMBERID") String orderBy,
             @RequestParam(defaultValue = "asc") String sort,
-            @RequestParam(defaultValue = "3") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "8") @Max(1000) @Min(0) Integer limit,
             @RequestParam(defaultValue = "0") @Min(0) Integer offset,
             Model model) {
 
