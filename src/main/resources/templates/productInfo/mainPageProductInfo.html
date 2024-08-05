@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ProductInfo</title>
+<title>MainPage_ProductInfo</title>
 
 
 
@@ -32,7 +32,7 @@ h4 {
 div.select {
 	display: inline-block;
 	font-size: 12px;
-	margin-right: 18px;
+	margin-right: 25px;
 }
 
 div.addProductInfo {
@@ -70,6 +70,31 @@ a:hover, a:active {
 .wrapper{
 	min-height:0 !important;
 }
+
+td{
+	font-size: 10px;
+	text-align: center;
+}
+
+.one{
+	width:120px;
+	
+}
+
+
+#priceMin, #priceMax{
+	width:80px;
+}
+
+#input{
+	width:80px;
+	font-size: 10px;
+}
+
+#roll{
+	width:100%;
+}
+
 </style>
 
 
@@ -77,11 +102,10 @@ a:hover, a:active {
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- header-css etc. -->
-<div th:insert="~{/comPage1}">
 
-</div>
+<div th:insert="~{/comPage1}"></div>
 
-	<!-- side bar -->
+<!-- side bar -->
 <div th:insert="~{/comPage2}"></div>
 
 <!-- Content Wrapper. Contains page content -->
@@ -92,13 +116,13 @@ a:hover, a:active {
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">商品</h1>
+					<h1 class="m-0">商品總覽</h1>
 				</div>
 				<!-- /.col -->
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-						<li class="breadcrumb-item active">商品</li>
+						<li class="breadcrumb-item active">商品總覽</li>
 					</ol>
 					<br>
 				</div>
@@ -113,7 +137,7 @@ a:hover, a:active {
 		</div>
 		<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
 		<br>
-		<div class="a"></div>
+	
 		<!-- /.content-header -->
 
 		<!-- 功能內容開始 -->
@@ -121,36 +145,39 @@ a:hover, a:active {
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">
-						<form method="post"
+						<form id="form" method="post"
 							th:action="@{listProductInfos_ByCompositeQuery}">
-							<div class="select">
-								<label> 輸入商品編號</label><br> <input type="text"
-									name="productId" th:value="${param.productId}">
+						
+							<div class="select one">
+								<label>選擇商品編號</label><br> <select id="roll" name="productId">
+									<option  th:each="productInfo:${productInfoListData}"
+										th:value="${productInfo.productId}"
+										th:text="${productInfo.productId}"></option>
+								</select>
 							</div>
+							
 
-							<div class="select">
+							<div class="select one">
 								<a><label> 勾選產品狀態</label></a><br> <input type="checkbox"
 									value="0"> <a>未上架</a> <input type="checkbox" value="1">
 								<a>上架中</a>
 							</div>
 
-							<div class="select">
-								<label>選擇商品類型</label><br> <select name="productTypeId">
-									<option th:each="productTypeVO:${typeListData}"
+							<div class="select one">
+								<label>選擇商品類型</label><br> <select id="roll" name="productTypeId">
+									<option th:each="productTypeVO : ${typeListData}"
 										th:value="${productTypeVO.productTypeId}"
 										th:text="${productTypeVO.typeName}"></option>
 								</select>
 							</div>
 
-							<div class="select">
+							<div class="select two">
 								<label>價格區間搜尋</label><br> <a for="priceMin">最小價格:</a> <input
 									type="number" id="priceMin" name="priceMin" step="0" min="0">
 								<a for="priceMax">最大價格:</a> <input type="number" id="priceMax"
 									name="priceMax" step="0" max="1000000">
 							</div>
-
-
-							<input type="submit" value="送出查詢">
+							<input id="input" type="submit" value="送出查詢">
 						</form>
 					</h3>
 				</div>
@@ -196,7 +223,7 @@ a:hover, a:active {
 							<td th:text="${productInfo.commentUsers}"></td>
 							<td th:text="${productInfo.commentStars}"></td>
 							<td><img
-								th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}" width="100px">
+								th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}" width="50px">
 							</td>
 							<td th:text="${productInfo.proStatus}"></td>
 							<td th:text="${productInfo.proDesc}"></td>
