@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tia102g1.member.model.Member;
+import com.tia102g1.member.model.MemberService;
 import com.tia102g1.membercoin.model.MemberCoinService;
 import com.tia102g1.membercoin.model.MemberCoinVO;
+import com.tia102g1.orderlist.model.OrderListService;
+import com.tia102g1.orderlist.model.OrderListVO;
 
 @Controller
 @RequestMapping("/memberCoin")
@@ -31,11 +35,11 @@ public class MemberCoinController {
 	@Autowired
 	MemberCoinService memberCoinSvc;
 	
-//	@Autowired
-//	CountyService countySvc;
-//	
-//	@Autowired
-//	DistService distSvc;
+	@Autowired
+	MemberService memberSvc;
+	
+	@Autowired
+	OrderListService orderListSvc;
 	
 	//帶著VO物件,導向addMemberCoin.html
 	@GetMapping("addMemberCoin")
@@ -161,17 +165,17 @@ public class MemberCoinController {
 	}
 	
 //	fk用
-//	@ModelAttribute("countyListData")
-//	protected List<CountyVO> referenceListData_County() {
-//		List<CountyVO> list = countySvc.getAll();
-//		return list;
-//	}
-//	
-//	@ModelAttribute("distListData")
-//	protected List<DistVO> referenceListData_Dist() {
-//		List<DistVO> list = distSvc.getAll();
-//		return list;
-//	}
+	@ModelAttribute("memberListData")
+	protected List<Member> referenceListData_Member() {
+		List<Member> list = memberSvc.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("orderListListData")
+	protected List<OrderListVO> referenceListData_OrderList() {
+		List<OrderListVO> list = orderListSvc.getAll();
+		return list;
+	}
 	
 	
 	// BindingResult 是 Spring 框架中的一個接口，用來存儲表單驗證的錯誤信息
