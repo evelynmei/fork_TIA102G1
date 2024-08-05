@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<title>購物車</title>
@@ -34,13 +34,13 @@
 
 							<!-- 用 Vue3 的 v-for 來渲染 list -->
 							<tr v-for=" (item, itemIndex) in items">
-								<td class="table-image"><a href="productDetails.html">
-									<img :src="item.picture" alt=""></a></td>
+								<td class="table-image"><a v-bind:href="item.url">
+									<img v-bind:src="item.picture" alt=""></a></td>
 									<!-- <img th:src="@{frontendapp/img/products/02.jpg}" alt=""></a></td> -->
 
 								<!-- href Vue 綁定, :href="item.url" 或是 v-bind:href="item.url"  -->
 								<td class="table-p-name text-capitalize"><a
-										href="productDetails.html">{{item.productName}}</a></td>
+										v-bind:href="item.url">{{item.productName}}</a></td>
 								<td class="table-p-price">
 									<p>{{item.price}}</p>
 								</td>
