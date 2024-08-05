@@ -8,8 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
+import com.tia102g1.member.model.Member;
+import com.tia102g1.orderlist.model.OrderListVO;
 
 @Entity
 @Table(name = "MEMBERCOIN")
@@ -21,11 +26,19 @@ public class MemberCoinVO implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer memCoinId;
 
-	@Column(name = "MEMBERID")
-	private Integer memberId;
-
-	@Column(name = "ORDERLISTID")
-	private Integer orderListId;
+//	@Column(name = "MEMBERID")
+//	private Integer memberId;
+	
+	@ManyToOne
+	@JoinColumn(name = "MEMBERID", referencedColumnName = "MEMBERID")
+	private Member member;
+	
+//	@Column(name = "ORDERLISTID")
+//	private Integer orderListId;
+	
+	@ManyToOne
+	@JoinColumn(name = "ORDERLISTID", referencedColumnName = "orderListId")
+	private OrderListVO orderListVO;
 
 	@Column(name = "GETDT")
 	private Date getDt;
@@ -58,14 +71,14 @@ public class MemberCoinVO implements java.io.Serializable {
 	public MemberCoinVO() {
 		super();
 	}
-
-	public MemberCoinVO(Integer memCoinId, Integer memberId, Integer orderListId, Date getDt,
+	
+	public MemberCoinVO(Integer memCoinId, Member memberVO, OrderListVO orderListVO, Date getDt,
 			@NotEmpty(message = "摘要: 請勿空白") String summary, Integer type, Integer amount, Date expiryDt,
 			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated) {
 		super();
 		this.memCoinId = memCoinId;
-		this.memberId = memberId;
-		this.orderListId = orderListId;
+		this.member = member;
+		this.orderListVO = orderListVO;
 		this.getDt = getDt;
 		this.summary = summary;
 		this.type = type;
@@ -85,20 +98,20 @@ public class MemberCoinVO implements java.io.Serializable {
 		this.memCoinId = memCoinId;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
-	public Integer getOrderListId() {
-		return orderListId;
+	public OrderListVO getOrderListVO() {
+		return orderListVO;
 	}
 
-	public void setOrderListId(Integer orderListId) {
-		this.orderListId = orderListId;
+	public void setOrderListVO(OrderListVO orderListVO) {
+		this.orderListVO = orderListVO;
 	}
 
 	public Date getGetDt() {
@@ -173,12 +186,5 @@ public class MemberCoinVO implements java.io.Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberCoinVO [memCoinId=" + memCoinId + ", memberId=" + memberId + ", orderListId=" + orderListId
-				+ ", getDt=" + getDt + ", summary=" + summary + ", type=" + type + ", amount=" + amount + ", expiryDt="
-				+ expiryDt + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy="
-				+ lastUpdatedBy + ", lastUpdated=" + lastUpdated + "]";
-	}
 
 }

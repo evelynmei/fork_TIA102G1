@@ -60,7 +60,7 @@ body {
 	<tr style="background-color:#CCCCFF">
 		<th>項次</th>
 		<th>紀錄編號</th>
-		<th>會員編號</th>
+		<th>會員姓名</th>
 		<th>訂單編號</th>
 		<th>取得日期</th>
 		<th>購物金類型(摘要)</th>
@@ -77,8 +77,8 @@ body {
 			<tr>
 				<td th:text="${memberCoinVOStat.count}"></td>
 				<td th:text="${memberCoinVO.memCoinId}"></td>
-				<td th:text="${memberCoinVO.memberId}"></td>
-				<td th:text="${memberCoinVO.orderListId}"></td>
+				<td th:text="${memberCoinVO.member.name} + '-[' + ${memberCoinVO.member.memberId} + ']'"></td>
+				<td th:text="${memberCoinVO.orderListVO.orderListId}"></td>
 				<td th:text="${memberCoinVO.getDt}"></td>
 				<td th:text="${memberCoinVO.summary}"></td>
 				<td th:text="${memberCoinVO.type}"></td>

@@ -49,14 +49,14 @@
 			
 			<div>
 			<label>會員編號:</label>
-			<input type="text" th:field="*{memberId}" onclick="hideContent('memberId.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" class="error" id="memberId.errors"></span>
+			<input type="text" th:field="*{member.memberId}" onclick="hideContent('member.memberId.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('member.memberId')}" th:errors="*{member.memberId}" class="error" id="member.memberId.errors"></span>
 			</div>
 			
 			<div>
 			<label>訂單編號:</label>
-			<input type="text" th:field="*{orderListId}" onclick="hideContent('orderListId.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('orderListId')}" th:errors="*{orderListId}" class="error" id="orderListId.errors"></span>
+			<input type="text" th:field="*{orderListVO.orderListId}" onclick="hideContent('orderListVO.orderListId.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('orderListVO.orderListId')}" th:errors="*{orderListVO.orderListId}" class="error" id="orderListVO.orderListId.errors"></span>
 			</div>
 			
 			<div>
