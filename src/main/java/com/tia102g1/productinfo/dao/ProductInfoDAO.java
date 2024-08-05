@@ -1,9 +1,9 @@
-package com.tia102g1.productInfo.dao;
+package com.tia102g1.productinfo.dao;
 
 import java.util.List;
 import java.util.Map;
 
-import com.tia102g1.productInfo.entity.ProductInfo;
+import com.tia102g1.productinfo.entity.ProductInfo;
 
 public interface ProductInfoDAO {
 	
