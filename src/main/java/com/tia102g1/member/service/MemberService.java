@@ -1,6 +1,7 @@
 package com.tia102g1.member.service;
 
 import com.tia102g1.member.dto.MemberLoginRequest;
+import com.tia102g1.member.dto.MemberQueryParams;
 import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
@@ -30,7 +31,7 @@ public interface MemberService {
      * 查詢所有會員的方法
      * @return 返回一個包含所有會員的List
      */
-    List<Member> getAll();
+    List<Member> getAll(MemberQueryParams memberQueryParams);
     /**
      * 更新某會員ID地址的方法
      *
@@ -42,4 +43,11 @@ public interface MemberService {
      *
      */
     Integer deleteMemberById(Integer memberId);
+
+    /**
+     * 查詢會員總數(分頁)
+     * @param memberQueryParams 要查詢的會員參數
+     * @return 返回查詢條件下的會員總數
+     */
+    Integer countMember(MemberQueryParams memberQueryParams);
 }
