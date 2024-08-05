@@ -8,14 +8,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.mapping.Set;
+
+import com.tia102g1.productType.model.ProductTypeVO;
 
 @Entity //要加上@Entity才能成為JPA的一個Entity類別
 @Table(name = "productinfo") //標示此永續類別對應到何Table
-public class ProductInfo {
+public class ProductInfo implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id //描述此屬性為表格PK
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //欄位值為Auto Increatement機制
 	@Column(name = "productId", updatable = false)
@@ -24,12 +33,13 @@ public class ProductInfo {
 	
 //	@ManyToOne
 //	@JoinColumn(name = "productTypeId", referencedColumnName = "productTypeId")
-//	private Set<ProductType> productType;		
+//	private ProductTypeVO productTypeVO;		
 	@Column(name = "productTypeId")
 	@NotNull(message="商品類型: 請勿空白")
 	private Integer productTypeId;
 	
 	@Column(name = "proName")
+	@Pattern(regexp="^[\\u4e00-\\u9fa5]+$", message = "商品名稱: 請輸入中文")
 	@NotEmpty(message="商品名稱: 請勿空白")
 	private String proName;
 	
@@ -52,7 +62,7 @@ public class ProductInfo {
 	@Column(name = "commentStars")
 	private Integer commentStars;
 	
-	@Column(name = "proPic", columnDefinition = "longblob" )
+	@Column(name = "proPic" )
 	private byte[] proPic;
 	
 	@Column(name = "proStatus")
@@ -63,10 +73,10 @@ public class ProductInfo {
 	@NotEmpty(message="商品描述: 請勿空白")
 	private String proDesc;
 	
-	@Column(name = "createdBy", updatable = false)
+	@Column(name = "createdBy")
 	private String createdBy;
 	
-	@Column(name = "dateCreated", updatable = false)
+	@Column(name = "dateCreated")
 	private Timestamp dateCreated;
 	
 	@Column(name = "lastUpdatedBy")

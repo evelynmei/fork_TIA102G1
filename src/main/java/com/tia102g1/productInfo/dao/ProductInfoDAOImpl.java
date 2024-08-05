@@ -13,6 +13,8 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.tia102g1.productInfo.dao.ProductInfoDAO;
+import com.tia102g1.productInfo.dao.ProductInfoDAOImpl;
 import com.tia102g1.productInfo.entity.ProductInfo;
 
 import util.HibernateUtil;
