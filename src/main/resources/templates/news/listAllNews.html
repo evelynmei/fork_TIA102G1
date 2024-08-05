@@ -29,7 +29,7 @@
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 			<!-- ===================================後台人員登入登出用 =================================================================-->
                  <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
-                	<div th:if="${session.staffName == null}"><a href="staffLogin">登入</a></div>
+                	<div th:if="${session.staffName == null}"><a href="/staff/staffLogin">登入</a></div>
                	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
             <!-- ===================================後台人員登入登出用 =================================================================-->
                 <li class="breadcrumb-item active">你的功能名稱</li>
