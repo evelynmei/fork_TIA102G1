@@ -1,10 +1,11 @@
 import { createApp, ref, computed, onMounted, toRaw } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js';
-import Axios from 'https://unpkg.com/axios@1.7.2/dist/esm/axios.min.js';
+import axios from 'https://unpkg.com/axios@1.7.2/dist/esm/axios.min.js';
 
 
+// todo：目前登入會員寫死，未來要根據登入與否的 cookie 來決定 memberId 為多少
 let memberId = "1";
-let apiURL = "http://localhost:8080/cart/" + memberId;
-let productURL = "frontendapp/img/products/";
+const apiURL = "http://localhost:8080/cart/";
+const productURL = "frontendapp/img/products/";
 
 const products = {
     1001: {
@@ -30,7 +31,6 @@ const dumbItems = [
 
 createApp({
     setup() {
-
         let items = ref(dumbItems) ;
 
         /**
@@ -45,7 +45,7 @@ createApp({
          **/
 
         onMounted( async() => {
-            let { data } = await Axios.get(apiURL);
+            let { data } = await axios.get( apiURL + memberId);
 
             items.value = data.map(item => {
                 let id = item.productId;
@@ -75,17 +75,19 @@ createApp({
         const deleteItem = index => {
             let array = items.value;
             let itemToDelete = array[index];
-            let cartIdToDelete = itemToDelete.cartId;
+            let cartId = itemToDelete.cartId;
 
             // array 裡需至少有一項，然後才執行，對 array spice 掉第 index 的一個 item
             array.length > 0 && array.splice(index, 1);
 
             console.log("item = ", toRaw(itemToDelete));
-            console.log("cartId =", cartIdToDelete);
-            // todo 要送出 restapi 刪除 cartId及 memberId 符合的資料，比如 http://localhost:8080/cart/1/5
-            // Axios.delete(apiURL + memberId + "/" + cartIdToDelete);
-        };
+            console.log("cartId =", cartId);
 
+            // 送出刪除購物車的 api 請求
+            axios.delete(apiURL + cartId)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        };
 
         return {
             items,
