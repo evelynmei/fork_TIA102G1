@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.tia102g1.productType.model.ProductTypeVO;
+import com.tia102g1.producttype.model.ProductTypeVO;
 
 @Entity //要加上@Entity才能成為JPA的一個Entity類別
 @Table(name = "productinfo") //標示此永續類別對應到何Table
