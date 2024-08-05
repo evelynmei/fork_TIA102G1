@@ -2,6 +2,7 @@ package com.tia102g1.member.service;
 
 import com.tia102g1.member.dao.MemberDao;
 import com.tia102g1.member.dto.MemberLoginRequest;
+import com.tia102g1.member.dto.MemberQueryParams;
 import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
@@ -74,8 +75,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> getAll() {
-        return memberDao.getAll();
+    public List<Member> getAll(MemberQueryParams memberQueryParams) {
+        return memberDao.getAll(memberQueryParams);
     }
 
     @Override
@@ -92,5 +93,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer deleteMemberById(Integer memberId) {
         return memberDao.deleteMemberById(memberId);
+    }
+
+    @Override
+    public Integer countMember(MemberQueryParams memberQueryParams) {
+        return memberDao.countMember(memberQueryParams);
     }
 }

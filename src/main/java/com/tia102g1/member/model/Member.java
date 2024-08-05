@@ -1,5 +1,7 @@
 package com.tia102g1.member.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -18,100 +20,100 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "MEMBER")
 public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "MEMBERID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer memberId;
-	
+
 	@Column(name = "MEMBERLVID")
 	private Integer memberLvId;
-	
+
 	@Column(name = "STAFFID")
 	private Integer staffId;
-	
+
 	@Column(name = "ACCOUNT")
 	private String account;
-	
+
 	@JsonIgnore //必須隱藏起來不能再request body顯示給任何人看到
 	@Column(name = "PASSWORD")
 	private String password;
-	
+
 	@NotEmpty(message = "姓名: 請勿空白")
 	@Column(name = "NAME")
 	private String name;
-	
+
 	@Column(name = "BIRTHDT")
 	private Date birthDt;
-	
+
 	@Column(name = "PHONE")
 	private String phone;
-	
+
 	@Column(name = "EMAIL")
 	private String email;
-	
+
 	@Column(name = "CNTCODE")
 	private Integer cntCode;
-	
+
 	@Column(name = "DISTCODE")
 	private Integer distCode;
-	
+
 	@Column(name = "ADDRESS")
 	private String address;
-	
+
 	@Column(name = "ACCUMULATE")
 	private Integer accumulate;
-	
+
 	@Column(name = "COINBALANCE")
 	private Integer coinBalance;
-	
+
 	@Column(name = "JOINDATE")
 	private Date joinDate;
-	
+
 	@Column(name = "NOSHOW")
 	private Integer noShow;
-	
+
 	@Column(name = "CARDHOLDER")
 	private String cardHolder;
-	
+
 	@Column(name = "CARDNUMBER")
 	private String cardNumber;
-	
+
 	@Column(name = "CARDYY")
-	private Integer cardYy;
-	
+	private Integer cardYY;
+
 	@Column(name = "CARDMM")
-	private Integer cardMm;
-	
+	private Integer cardMM;
+
 	@Column(name = "CARDVERIFYCODE")
 	private String cardVerifyCode;
-	
+
 	@Column(name = "STATUS")
 	private Integer status;
-	
+
 	@Column(name = "BLOCKEDTIME")
 	private Timestamp blockedTime;
-	
+
 	@Column(name = "BLOCKEDREASON")
 	private String blockedReason;
-	
+
 	@Column(name = "CREATEDBY")
 	private String createdBy;
-	
+
 	@Column(name = "DATECREATED")
 	private Timestamp dateCreated;
-	
+
 	@Column(name = "LASTUPDATEDBY")
 	private String lastUpdatedBy;
-	
+
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
-	
-	
+
+
 	public Member() {
 		super();
 	}
-	
+
 	public Member(Integer memberId, Integer memberLvId, Integer staffId, String account, String password, String name,
 			Date birthDt, String phone, String email, Integer cntCode, Integer distCode, String address,
 			Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow, String cardHolder,
@@ -137,8 +139,8 @@ public class Member implements Serializable {
 		this.noShow = noShow;
 		this.cardHolder = cardHolder;
 		this.cardNumber = cardNumber;
-		this.cardYy = cardYy;
-		this.cardMm = cardMm;
+		this.cardYY = cardYy;
+		this.cardMM = cardMm;
 		this.cardVerifyCode = cardVerifyCode;
 		this.status = status;
 		this.blockedTime = blockedTime;
@@ -293,21 +295,21 @@ public class Member implements Serializable {
 		this.cardNumber = cardNumber;
 	}
 
-	public Integer getCardYy() {
-		return cardYy;
-	}
+    public Integer getCardYY() {
+        return cardYY;
+    }
 
-	public void setCardYy(Integer cardYy) {
-		this.cardYy = cardYy;
-	}
+    public void setCardYY(Integer cardYY) {
+        this.cardYY = cardYY;
+    }
 
-	public Integer getCardMm() {
-		return cardMm;
-	}
+    public Integer getCardMM() {
+        return cardMM;
+    }
 
-	public void setCardMm(Integer cardMm) {
-		this.cardMm = cardMm;
-	}
+    public void setCardMM(Integer cardMM) {
+        this.cardMM = cardMM;
+    }
 
 	public String getCardVerifyCode() {
 		return cardVerifyCode;
@@ -369,7 +371,41 @@ public class Member implements Serializable {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(Timestamp lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
+    public void setLastUpdated(Timestamp lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberId=" + memberId +
+                ", memberLvId=" + memberLvId +
+                ", staffId=" + staffId +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", birthDt=" + birthDt +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", cntCode=" + cntCode +
+                ", distCode=" + distCode +
+                ", address='" + address + '\'' +
+                ", accumulate=" + accumulate +
+                ", coinBalance=" + coinBalance +
+                ", joinDate=" + joinDate +
+                ", noShow=" + noShow +
+                ", cardHolder='" + cardHolder + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cardYY=" + cardYY +
+                ", cardMM=" + cardMM +
+                ", cardVerifyCode='" + cardVerifyCode + '\'' +
+                ", status=" + status +
+                ", blockedTime=" + blockedTime +
+                ", blockedReason='" + blockedReason + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+                ", lastUpdated=" + lastUpdated +
+                '}';
+    }
 }
