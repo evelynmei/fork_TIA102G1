@@ -4,13 +4,13 @@
 	<meta charset="UTF-8">
 	<title>功能名稱</title>
 	<!-- 共同引入 headTag-import meta tag-->
-	<meta th:replace="~{frontendApp/components/common :: headtag-import}">
+	<meta th:replace="~{frontendapp/components/common :: headtag-import}">
 </head>
 <body id="product-sticky-right">
 <!-- 共用元件 header:圖示按鈕, navbar...-->
-<div th:replace="~{frontendApp/components/common :: app-header}"></div>
+<div th:replace="~{frontendapp/components/common :: app-header}"></div>
 <!-- 共用元件(index除外) bread crumb -->
-<div th:replace="~{frontendApp/components/common :: app-bread-crumb(title=${'功能名稱'})}"></div>
+<div th:replace="~{frontendapp/components/common :: app-bread-crumb(title=${'功能名稱'})}"></div>
 
 <main>
 	<!-- 把你的內容貼在這裡-->
@@ -22,23 +22,23 @@
 						<div class="nav-add-sticky small-image-slider-single-product-tabstyle-3" role="tablist">
 							<div class="single-small-image img-full mb-30">
 								<a data-toggle="tab" id="product-tab-01" href="#product-01" class="img active"><img
-										src="/frontendApp/img/products/01.jpg" class="img-fluid" alt=""></a>
+										src="/frontendapp/img/products/01.jpg" class="img-fluid" alt=""></a>
 							</div>
 							<div class="single-small-image img-full mb-30">
 								<a data-toggle="tab" id="product-tab-02" href="#product-02" class="img"><img
-										src="/frontendApp/img/products/02.jpg" class="img-fluid" alt=""></a>
+                                        src="/frontendapp/img/products/02.jpg" class="img-fluid" alt=""></a>
 							</div>
 							<div class="single-small-image img-full mb-30">
 								<a data-toggle="tab" id="product-tab-03" href="#product-03" class="img"><img
-										src="/frontendApp/img/products/03.jpg" class="img-fluid" alt=""></a>
+                                        src="/frontendapp/img/products/03.jpg" class="img-fluid" alt=""></a>
 							</div>
 							<div class="single-small-image img-full mb-30">
 								<a data-toggle="tab" id="product-tab-04" href="#product-04" class="img"><img
-										src="/frontendApp/img/products/04.jpg" class="img-fluid" alt=""></a>
+										src="/frontendapp/img/products/04.jpg" class="img-fluid" alt=""></a>
 							</div>
 							<div class="single-small-image img-full">
 								<a data-toggle="tab" id="product-tab-05" href="#product-05" class="img"><img
-										src="/frontendApp/img/products/05.jpg" class="img-fluid" alt=""></a>
+                                        src="/frontendapp/img/products/05.jpg" class="img-fluid" alt=""></a>
 							</div>
 						</div>
 					</div>
@@ -275,8 +275,8 @@
 						<div class="product-thumb">
 							<div class="image zoom">
 								<a href="product-details.html">
-									<img src="/frontendApp/img/products/01.jpg" alt="01"/>
-									<img src="/frontendApp/img/products/02.jpg" alt="02" class="second_image img-responsive"/> </a></div>
+									<img src="/frontendapp/img/products/01.jpg" alt="01"/>
+									<img src="/frontendapp/img/products/02.jpg" alt="02" class="second_image img-responsive"/> </a></div>
 							<div class="thumb-description">
 								<div class="caption">
 									<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quaerat
@@ -316,8 +316,8 @@
 						<div class="product-thumb">
 							<div class="image zoom">
 								<a href="product-details.html">
-									<img src="/frontendApp/img/products/02.jpg" alt="02"/>
-									<img src="/frontendApp/img/products/03.jpg" alt="03" class="second_image img-responsive"/> </a></div>
+									<img src="/frontendapp/img/products/02.jpg" alt="02"/>
+									<img src="/frontendapp/img/products/03.jpg" alt="03" class="second_image img-responsive"/> </a></div>
 							<div class="thumb-description">
 								<div class="caption">
 									<h4 class="product-title text-capitalize"><a href="product-details.html">aspetur autodit
@@ -357,8 +357,8 @@
 						<div class="product-thumb">
 							<div class="image zoom">
 								<a href="product-details.html">
-									<img src="/frontendApp/img/products/03.jpg" alt="03"/>
-									<img src="/frontendApp/img/products/04.jpg" alt="04" class="second_image img-responsive"/>
+									<img src="/frontendapp/img/products/03.jpg" alt="03"/>
+									<img src="/frontendapp/img/products/04.jpg" alt="04" class="second_image img-responsive"/>
 								</a>
 							</div>
 							<div class="thumb-description">
@@ -400,8 +400,8 @@
 						<div class="product-thumb">
 							<div class="image zoom">
 								<a href="product-details.html">
-									<img src="/frontendApp/img/products/04.jpg" alt="04"/>
-									<img src="/frontendApp/img/products/05.jpg" alt="05" class="second_image img-responsive"/> </a></div>
+									<img src="/frontendapp/img/products/04.jpg" alt="04"/>
+									<img src="/frontendapp/img/products/05.jpg" alt="05" class="second_image img-responsive"/> </a></div>
 							<div class="thumb-description">
 								<div class="caption">
 									<h4 class="product-title text-capitalize"><a href="product-details.html">voluptas nulla
@@ -441,8 +441,8 @@
 						<div class="product-thumb">
 							<div class="image zoom">
 								<a href="product-details.html">
-									<img src="/frontendApp/img/products/05.jpg" alt="05"/>
-									<img src="/frontendApp/img/products/06.jpg" alt="06" class="second_image img-responsive"/> </a></div>
+									<img src="/frontendapp/img/products/05.jpg" alt="05"/>
+									<img src="/frontendapp/img/products/06.jpg" alt="06" class="second_image img-responsive"/> </a></div>
 							<div class="thumb-description">
 								<div class="caption">
 									<h4 class="product-title text-capitalize"><a href="product-details.html">aliquam quat
@@ -482,8 +482,8 @@
 						<div class="product-thumb">
 							<div class="image zoom">
 								<a href="product-details.html">
-									<img src="/frontendApp/img/products/06.jpg" alt="06"/>
-									<img src="/frontendApp/img/products/07.jpg" alt="07" class="second_image img-responsive"/> </a></div>
+									<img src="/frontendapp/img/products/06.jpg" alt="06"/>
+									<img src="/frontendapp/img/products/07.jpg" alt="07" class="second_image img-responsive"/> </a></div>
 							<div class="thumb-description">
 								<div class="caption">
 									<h4 class="product-title text-capitalize"><a href="product-details.html">voluptas sit
@@ -528,13 +528,13 @@
 </main>
 
 <!-- 共用元件 footer和一些按鈕功能 -->
-<div th:replace="~{frontendApp/components/common :: app-footer}"></div>
+<div th:replace="~{frontendapp/components/common :: app-footer}"></div>
 <!-- 選用元件 app-modals互動視窗 -->
-<div th:replace="~{frontendApp/components/common :: app-modals}"></div>
+<div th:replace="~{frontendapp/components/common :: app-modals}"></div>
 <!-- 共同引入 置底 import-in-the-end -->
-<div th:replace="~{frontendApp/components/common :: import-in-the-end}"></div>
-<script src="/frontendApp/js/jquery-ui.min.js"></script>
-<script src="/frontendApp/js/jquery.sticky-kit.min.js"></script>
+<div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
+<script src="/frontendapp/js/jquery-ui.min.js"></script>
+<script src="/frontendapp/js/jquery.sticky-kit.min.js"></script>
 
 </body>
 

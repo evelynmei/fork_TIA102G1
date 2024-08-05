@@ -12,77 +12,77 @@ public class FrontendController {
 	// 首頁
 	@RequestMapping({ "/index", "/index.html" })
 	public String frontendIndex(Model model) {
-		return "/frontendApp/index";
+		return "/frontendapp/index";
 	}
 
 	/* ====== 會員 ====== */
 	// 註冊登入
 	@GetMapping({ "/loginsignup", "/loginSignup.html" })
 	public String frontendLoginSignup(Model model) {
-		return "/frontendApp/loginSignup";
+		return "/frontendapp/loginSignup";
 	}
 
 	// 我的最愛
 	@GetMapping({ "/favproduct", "/favProduct.html" })
 	public String frontendFavProduct(Model model) {
-		return "/frontendApp/favProduct";
+		return "/frontendapp/favProduct";
 	}
 
 	// 會員資料
 	@GetMapping({ "/memberinfo", "/memberInfo.html" })
 	public String frontendMemberInfo(Model model) {
-		return "/frontendApp/memberInfo";
+		return "/frontendapp/memberInfo";
 	}
 
 	/* ====== 購物流程 ====== */
 	// 商品總覽
 	@GetMapping({ "/productcategory", "/productCategory.html" })
 	public String frontendCategory(Model model) {
-		return "/frontendApp/productCategory";
+		return "/frontendapp/productCategory";
 	}
 
 	// 商品詳細資訊
 	@GetMapping({ "/productdetails", "/productDetails.html" })
 	public String frontendProductDetail(Model model) {
-		return "/frontendApp/productDetails";
+		return "/frontendapp/productDetails";
 	}
 
 	// 購物車
 	@GetMapping({ "/cart", "/cart.html" })
 	public String frontendShoppingCart(Model model) {
-		return "/frontendApp/cart";
+		return "/frontendapp/cart";
 	}
 
 	/* ====== 結帳付款 ====== */
 	// 填寫付款資訊
 	@GetMapping({ "/checkout", "/checkout.html" })
 	public String frontendCheckout(Model model) {
-		return "/frontendApp/checkout";
+		return "/frontendapp/checkout";
 	}
 
 	// 訂單成立確認
 	@GetMapping({ "/orderconfirmation", "/orderConfirmation.html" })
 	public String frontendOrderConfirm(Model model) {
-		return "/frontendApp/orderConfirmation";
+		return "/frontendapp/orderConfirmation";
 	}
 
 	/* ====== 常見問題 ====== */
 	@GetMapping({ "/commonask", "/commonAsk.html" })
 	public String frontendCommonAsk(Model model) {
-		return "/frontendApp/commonAsk";
+		return "/frontendapp/commonAsk";
 	}
 
 	/* ====== 客服 ====== */
 	// 聯絡我們
 	@GetMapping({ "/contactus", "/contactUs.html" })
 	public String frontendContactUs(Model model) {
-		return "/frontendApp/contactUs";
+		return "/frontendapp/contactUs";
 	}
 
 	/* ====== 門市資訊 ====== */
 	@GetMapping({ "/store", "/store.html" })
 	public String frontendStore(Model model) {
-		return "/frontendApp/store";
+		return "/frontendapp/store";
 	}
 	
 	
@@ -90,12 +90,12 @@ public class FrontendController {
 	// 關於我們 (有空再做)
 	@GetMapping({ "/aboutus", "/aboutUs.html" })
 	public String frontendAboutUs(Model model) {
-		return "/frontendApp/aboutUs";
+		return "/frontendapp/aboutUs";
 	}
 
 	// 測試頁
 	@GetMapping({ "/sample" })
 	public String frontendSample(Model model) {
-		return "/frontendApp/sample";
+		return "/frontendapp/sample";
 	}
 }
