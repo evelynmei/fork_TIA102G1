@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.google.gson.annotations.Expose;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.store.model.StoreVO;
 
@@ -24,13 +25,19 @@ public class DistVO implements java.io.Serializable {
 	
 	@Id
 	@Column(name = "DISTCODE")
+	@Expose
 	private Integer distCode;
 	
-	@Column(name = "CNTCODE")
-	private Integer cntCode;
+//	@Column(name = "CNTCODE")
+//	private Integer cntCode;
+	
+	@ManyToOne
+	@JoinColumn(name = "CNTCODE", referencedColumnName = "CNTCODE")
+	private CountyVO countyVO;
 	
 	@Column(name = "DISTNAME")
 	@NotEmpty(message = "鄉鎮區名稱: 請勿空白")
+	@Expose
 	private String distName;
 	
 	@Column(name = "CREATEDBY", updatable = false)
@@ -52,11 +59,11 @@ public class DistVO implements java.io.Serializable {
 		super();
 	}
 
-	public DistVO(Integer distCode, Integer cntCode, String distName, String createdBy, Timestamp dateCreated,
-			String lastUpdatedBy, Timestamp lastUpdated, Set<StoreVO> stores) {
+	public DistVO(Integer distCode, CountyVO countyVO, @NotEmpty(message = "鄉鎮區名稱: 請勿空白") String distName,
+			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated, Set<StoreVO> stores) {
 		super();
 		this.distCode = distCode;
-		this.cntCode = cntCode;
+		this.countyVO = countyVO;
 		this.distName = distName;
 		this.createdBy = createdBy;
 		this.dateCreated = dateCreated;
@@ -73,12 +80,12 @@ public class DistVO implements java.io.Serializable {
 		this.distCode = distCode;
 	}
 
-	public Integer getCntCode() {
-		return cntCode;
+	public CountyVO getCountyVO() {
+		return countyVO;
 	}
 
-	public void setCntCode(Integer cntCode) {
-		this.cntCode = cntCode;
+	public void setCountyVO(CountyVO countyVO) {
+		this.countyVO = countyVO;
 	}
 
 	public String getDistName() {

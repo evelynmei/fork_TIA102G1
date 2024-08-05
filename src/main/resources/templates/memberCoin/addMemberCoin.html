@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>購物金資料新增 - addMemberCoin.html</title>
+
+<head th:insert="~{/memberCoin/included-fragment}"></head>
+<style type="text/css">
+	
+	button {
+		padding: 5px;
+	}
+	form {
+		display: table;
+	}
+	form div {
+		display: table-row;
+	}
+	label, input, span, select {
+		display: table-cell;
+		margin: 5px;
+		text-align: left;		
+	}
+	input[type=text], input[type=password], select, textarea {
+		width: 200px;
+		margin: 5px;
+	}
+	form div div {
+		display: table-cell;
+	}
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>購物金資料新增 - addMemberCoin.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/memberCoin/mainPageMemberCoin}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
+</nav>
+
+	<div align="center">
+		<h3><b>所有欄位皆為必填欄位</b></h3>
+		<form th:action="@{insert}" method="post" th:object="${memberCoinVO}" enctype="multipart/form-data">
+			
+			<div>
+			<label>會員編號:</label>
+			<input type="text" th:field="*{memberId}" onclick="hideContent('memberId.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('memberId')}" th:errors="*{memberId}" class="error" id="memberId.errors"></span>
+			</div>
+			
+			<div>
+			<label>訂單編號:</label>
+			<input type="text" th:field="*{orderListId}" onclick="hideContent('orderListId.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('orderListId')}" th:errors="*{orderListId}" class="error" id="orderListId.errors"></span>
+			</div>
+			
+			<div>
+			<label>購物金取得日期:</label>
+			<input type="date" th:field="*{getDt}" onclick="hideContent('getDt.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('getDt')}" th:errors="*{getDt}" class="error" id="getDt.errors"></span>
+			</div>
+			
+			<div>
+			<label>購物金類型(摘要):</label>
+				<select th:field="*{summary}" onclick="hideContent('summary.errors');" >
+					<option value="">-</option>
+		        	<option value="訂單回饋">訂單回饋</option>
+		        	<option value="生日禮金">生日禮金</option>
+		        	<option value="折抵消費">折抵消費</option>
+		        	<option value="購物金到期">購物金到期</option>
+				</select>
+			<span  th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}" class="error" id="summary.errors"></span>
+			</div>
+			
+			<div>
+			<label>異動類型:</label>
+				<select th:field="*{type}" onclick="hideContent('type.errors');" >
+					<option value="">-</option>
+					<option value="1">獲得</option>
+					<option value="-1">減少</option>
+				</select>
+			<span  th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error" id="type.errors"></span>
+			</div>
+			
+			<div>
+			<label>購物金金額:</label>
+			<input type="number" step="10" th:field="*{amount}" onclick="hideContent('amount.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="error" id="amount.errors"></span>
+			</div>
+			
+			<div>
+			<label>購物金到期日期:</label>
+			<input type="date" th:field="*{expiryDt}" onclick="hideContent('expiryDt.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('expiryDt')}" th:errors="*{expiryDt}" class="error" id="expiryDt.errors"></span>
+			</div>
+			
+			<div>
+			<label>建檔者:</label>
+			<input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}" class="error" id="createdBy.errors"></span>
+			</div>
+
+			<div>
+				<div><button type="submit" id="submit"> 送出新增 </button></div>
+			</div>		
+		</form>
+	
+	</div>
+
+
+<!-- JavaScript part -->
+<script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
