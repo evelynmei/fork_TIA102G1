@@ -1,33 +1,96 @@
-import { createApp, ref, computed, onMounted } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp, ref, computed, onMounted, toRaw } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js';
 import Axios from 'https://unpkg.com/axios@1.7.2/dist/esm/axios.min.js';
 
-// (async () => {
-//     await Axios
-//         .get('http://localhost:8080/book')
-//         .then(res => console.log(res.data))
-//         // .then(res => resData.value = res.data)
-//         .catch(error => console.log(error, "失敗"));
-// })();
+
+let memberId = "1";
+let apiURL = "http://localhost:8080/cart/" + memberId;
+let productURL = "frontendapp/img/products/";
+
+const products = {
+    1001: {
+        name: "巧克力餅乾",
+        price: 300,
+        picture: productURL + "04.jpg"
+    },
+    1002: {
+        name: "巧克力蛋糕",
+        price: 400,
+        picture: productURL + "09.jpg"
+    },
+    1003: {
+        name: "白巧克力餅乾",
+        price: 500,
+        picture: productURL + "07.jpg"
+    },
+}
+const dumbItems = [
+    {cartId:1, picture: "圖片", productName: "巧克力餅乾", price: 100, proAmount: 1,},
+    {cartId:2, picture: "圖片", productName: "牛奶糖餅乾", price: 200, proAmount: 2,}
+];
 
 createApp({
     setup() {
-        const TestMessage = ref('Hello vue!');
 
-        const item = {
-            checked: false,
-            picture: "圖片",
-            price: 100,
-            amount: 3,
-            total: 300
+        let items = ref(dumbItems) ;
+
+        /**
+         前端頁面資料推演，購物車，CartViewObject，需要什麼資料？
+         Cart: CartId、MemberId、ProductId、ProAmount、JoinDt
+         流水號PK、會員編號FK、商品編號FK、商品數量、加入日期
+
+         CartViewObject:
+         購物車項目 Id CartId、商品圖片、商品品項名、商品單價、商品數量、總計
+         所屬會員 Id
+
+         **/
+
+        onMounted( async() => {
+            let { data } = await Axios.get(apiURL);
+
+            items.value = data.map(item => {
+                let id = item.productId;
+                item.productName = products[id].name;
+                item.price = products[id].price;
+                item.picture = products[id].picture;
+                item.sum = item.price * item.proAmount;
+                item.url = "productDetails/" + item.cartId
+                return item;
+            })
+
+            console.log(toRaw(items.value));
+
+        })
+
+        //計算屬性: 為使前端頁面更新計算結果, 需使用computed()
+        const sum = computed(() => {
+            let sumTemp = 0;
+            for (let i = 0; i < items.value.length; i++) {
+                const subTotal = items.value[i].price * items.value[i].proAmount;
+                sumTemp = sumTemp + subTotal;
+            }
+            return sumTemp;
+        })
+
+        //刪除商品
+        const deleteItem = index => {
+            let array = items.value;
+            let itemToDelete = array[index];
+            let cartIdToDelete = itemToDelete.cartId;
+
+            // array 裡需至少有一項，然後才執行，對 array spice 掉第 index 的一個 item
+            array.length > 0 && array.splice(index, 1);
+
+            console.log("item = ", toRaw(itemToDelete));
+            console.log("cartId =", cartIdToDelete);
+            // todo 要送出 restapi 刪除 cartId及 memberId 符合的資料，比如 http://localhost:8080/cart/1/5
+            // Axios.delete(apiURL + memberId + "/" + cartIdToDelete);
         };
-        const items = ref([item, item, item]);
 
-        const hello = ()=>console.log("hello world");
 
         return {
-            TestMessage,
             items,
-            hello
+            sum,
+            deleteItem
         }
     }
 }).mount('#shopping-cart');
