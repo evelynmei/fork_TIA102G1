@@ -1,4 +1,4 @@
-package com.tia102g1.sysMsg.model;
+package com.tia102g1.sysmsg.model;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tia102g1.sysMsg.CompositeQuery_SysMsg;
+import com.tia102g1.sysmsg.CompositeQuery_SysMsg;
 
 @Service("sysMsgService")
 public class SysMsgService {

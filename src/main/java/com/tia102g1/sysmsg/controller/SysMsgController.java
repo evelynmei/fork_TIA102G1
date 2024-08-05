@@ -1,4 +1,4 @@
-package com.tia102g1.sysMsg.controller;
+package com.tia102g1.sysmsg.controller;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tia102g1.sysMsg.model.SysMsgService;
-import com.tia102g1.sysMsg.model.SysMsgVO;
+import com.tia102g1.sysmsg.model.SysMsgService;
+import com.tia102g1.sysmsg.model.SysMsgVO;
 
 @Controller
 @RequestMapping("/sysMsg")

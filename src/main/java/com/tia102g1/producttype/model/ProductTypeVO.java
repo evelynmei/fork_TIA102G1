@@ -1,4 +1,4 @@
-package com.tia102g1.productType.model;
+package com.tia102g1.producttype.model;
 
 import java.sql.Timestamp;
 

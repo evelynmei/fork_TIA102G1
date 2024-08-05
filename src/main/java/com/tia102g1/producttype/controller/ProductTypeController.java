@@ -1,4 +1,4 @@
-package com.tia102g1.productType.controller;
+package com.tia102g1.producttype.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -9,17 +9,15 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tia102g1.productType.model.ProductTypeService;
-import com.tia102g1.productType.model.ProductTypeVO;
+import com.tia102g1.producttype.model.ProductTypeService;
+import com.tia102g1.producttype.model.ProductTypeVO;
 
 @Controller
 @RequestMapping("/productType")

@@ -22,7 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.tia102g1.productInfo.entity.ProductInfo;
-import com.tia102g1.productType.model.ProductTypeVO; //Hibernate 5 開始 取代原 org.hibernate.Query 介面
+import com.tia102g1.producttype.model.ProductTypeVO;
 
 
 

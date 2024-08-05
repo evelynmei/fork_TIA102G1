@@ -65,7 +65,7 @@
 			<div>
 				<label>到職日期:</label>
 					<input type="date" th:field="*{employDt}" onclick="hideContent('employDt.errors');"/><br>
-					<span th:if="${#fields.hasErrors('employDt')}" th:errors="*{employDt}" class="error" id="employDt.errors"></span>
+					<span class="error" th:utext="${errorMessage}" id="employDt.errors">${errorMessage}</span>
 			</div>
 			<div>
 				<label>建檔者:</label> <input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');" /><br /> 
