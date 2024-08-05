@@ -4,7 +4,7 @@
  *        所以動態產生萬用SQL的部份,本範例無意採用MetaData的方式,也只針對個別的Table自行視需要而個別製作之
  * */
 
-package com.tia102g1.productInfo.model;
+package com.tia102g1.productinfo.model;
 
 //import hibernate.util.HibernateUtil;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.tia102g1.productInfo.entity.ProductInfo;
+import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.producttype.model.ProductTypeVO;
 
 

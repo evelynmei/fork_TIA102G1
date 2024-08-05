@@ -1,7 +1,6 @@
-package com.tia102g1.productInfo.controller;
+package com.tia102g1.productinfo.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tia102g1.event.model.EventVO;
-import com.tia102g1.productInfo.entity.ProductInfo;
-import com.tia102g1.productInfo.model.ProductInfoServiceS;
+import com.tia102g1.productinfo.entity.ProductInfo;
+import com.tia102g1.productinfo.model.ProductInfoServiceS;
 @Controller
 @RequestMapping("/productInfo")
 public class ProductInfoController {
@@ -112,7 +109,7 @@ public class ProductInfoController {
 			}
 		}
 		if (result.hasErrors()) { //錯誤訊息result
-			return "/productInfo/updateProductInfo";
+			return "/productinfo/updateProductInfo";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
 		
@@ -124,7 +121,7 @@ public class ProductInfoController {
 		productInfo = productInfoServiceS.getOneProductInfo(Integer.valueOf(productInfo.getProductId())); //取出剛更新完的VO物件,顯示在前端頁面上
 		model.addAttribute("productInfo",productInfo);
 			
-		return "/productInfo/listProductInfo";
+		return "/productinfo/listProductInfo";
 	}
 	
 	
@@ -138,7 +135,7 @@ public class ProductInfoController {
 				.filter(fieldname -> !fieldname.getField().equals(removedFieldname)) // 過濾掉欄位名稱等於 removedFieldname 的錯誤
 				.collect(Collectors.toList()); // 將過濾後的結果收集成一個 List<FieldError>
 		// 重新建立 BindingResult
-		result = new BeanPropertyBindingResult(productInfo, "productInfo"); // 創建一個新的 BeanPropertyBindingResult 對象，綁定到 productInfo
+		result = new BeanPropertyBindingResult(productInfo, "productinfo"); // 創建一個新的 BeanPropertyBindingResult 對象，綁定到 productinfo
 
 		// 將保留的錯誤加回到新的 BindingResult
 		for (FieldError fieldError : errorsListToKeep) { // 將保留的錯誤逐個加回到新的 BindingResult 中
@@ -153,6 +150,6 @@ public class ProductInfoController {
 		Map<String, String[]> map = req.getParameterMap();
 		List<ProductInfo> list = productInfoServiceS.getAll(map);
 		model.addAttribute("productInfoListData", list);
-		return "productInfo/mainPageProductInfo";
+		return "productinfo/mainPageProductInfo";
 	}
 }

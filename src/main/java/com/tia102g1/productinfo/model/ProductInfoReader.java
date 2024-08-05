@@ -1,14 +1,9 @@
-package com.tia102g1.productInfo.model;
+package com.tia102g1.productinfo.model;
 
 import java.io.*;
-import java.sql.*;
 
-import javax.naming.Context;
-import javax.naming.NamingException;
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
