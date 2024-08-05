@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import util.Page;
 
@@ -17,13 +18,14 @@ import java.util.List;
 
 @Validated
 @Controller
+@RequestMapping("/member")
 public class ThymeleafMemberController {
 
     @Autowired
     MemberService memberService;
 
     @GetMapping("/mainPageMember")
-    public String members(
+    public String getMembers(
             @RequestParam(required = false) String searchName,
             @RequestParam(required = false) String searchAccount,
             @RequestParam(defaultValue = "MEMBERID") String orderBy,
@@ -60,6 +62,6 @@ public class ThymeleafMemberController {
         model.addAttribute("searchName", searchName);
         model.addAttribute("searchAccount", searchAccount);
 
-        return "mainPageMember";
+        return "member/mainPageMember";
     }
 }

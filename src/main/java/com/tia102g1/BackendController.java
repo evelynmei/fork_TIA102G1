@@ -71,11 +71,11 @@ public class BackendController {
 
 	/* ======================= mainPage ======================= */
 
-	// 會員資料
-	@GetMapping({ "/member", "/member/mainPageMember" })
-	public String mainPageMember(Model model) {
-		return "/member/mainPageMember";
-	}
+//	// 會員資料
+//	@GetMapping({ "/member", "/member/mainPageMember" })
+//	public String mainPageMember(Model model) {
+//		return "/member/mainPageMember";
+//	}
 
 	// 會員黑名單
 	@GetMapping("member/blockedMember")
