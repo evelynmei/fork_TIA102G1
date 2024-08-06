@@ -117,10 +117,13 @@
         <input type="text" name="memCoinId" value="" placeholder="1"><br>
         
         輸入會員編號: 
-        <input type="text" name="memberId" value="" placeholder="1"><br>
+        <input type="text" th:field="*{member.memberId}" value="" placeholder="1"><br>
+        
+        輸入會員姓名:
+        <input type="text" th:field="*{member.name}">
         
         輸入訂單編號: 
-        <input type="text" name="orderListId" value="" placeholder="20001"><br>
+        <input type="text" th:field="*{orderListVO.orderListId}" placeholder="20001"><br>
            
         選擇購物金類型(摘要): 
         <select name="summary">
@@ -131,8 +134,11 @@
         	<option value="購物金到期">購物金到期</option>
         </select><br>
         
-        購物金金額:
-        <input type="number" step="10" name="amount" value="" placeholder="10"><br>
+        最低購物金金額:
+        <input type="number" step="10" name="amountMin" value="" placeholder="10"><br>
+        
+        最高購物金金額:
+        <input type="number" step="10" name="amountMax" value="" placeholder="10"><br>
         
         異動類型:
         <select name="type">

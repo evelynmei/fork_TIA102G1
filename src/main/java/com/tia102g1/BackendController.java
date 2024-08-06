@@ -14,10 +14,14 @@ import com.tia102g1.dist.model.DistService;
 import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.event.model.EventService;
 import com.tia102g1.event.model.EventVO;
+import com.tia102g1.member.model.Member;
+import com.tia102g1.member.model.MemberService;
 import com.tia102g1.membercoin.model.MemberCoinService;
 import com.tia102g1.membercoin.model.MemberCoinVO;
 import com.tia102g1.news.model.NewsService;
 import com.tia102g1.news.model.NewsVO;
+import com.tia102g1.orderlist.model.OrderListService;
+import com.tia102g1.orderlist.model.OrderListVO;
 import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
@@ -33,10 +37,16 @@ import com.tia102g1.sysmsg.model.SysMsgVO;
 public class BackendController {
 	
 	@Autowired
+	MemberService memberSvc;
+	
+	@Autowired
 	MemberCoinService memberCoinSvc;
 
 	@Autowired
 	ProductTypeService typeSvc;
+	
+	@Autowired
+	OrderListService orderListSvc;
 
 	@Autowired
 	EventService eventSvc;
@@ -71,11 +81,11 @@ public class BackendController {
 
 	/* ======================= mainPage ======================= */
 
-	// 會員資料
-	@GetMapping({ "/member", "/member/mainPageMember" })
-	public String mainPageMember(Model model) {
-		return "/member/mainPageMember";
-	}
+//	// 會員資料
+//	@GetMapping({ "/member", "/member/mainPageMember" })
+//	public String mainPageMember(Model model) {
+//		return "/member/mainPageMember";
+//	}
 
 	// 會員黑名單
 	@GetMapping("member/blockedMember")
@@ -109,6 +119,20 @@ public class BackendController {
 	@ModelAttribute("memberCoinListData")
 	protected List<MemberCoinVO> referenceMemberCoinListData(Model model) {
 		List<MemberCoinVO> list = memberCoinSvc.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("memberListData")
+	protected List<Member> referenceListData_Member(Model model) {
+		model.addAttribute("member", new Member());
+		List<Member> list = memberSvc.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("orderListListData")
+	protected List<OrderListVO> referenceListData_OrderList(Model model) {
+		model.addAttribute("orderListVO", new OrderListVO());
+		List<OrderListVO> list = orderListSvc.getAll();
 		return list;
 	}
 	

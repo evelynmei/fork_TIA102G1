@@ -1,20 +1,28 @@
 package com.tia102g1.producttype.model;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.tia102g1.productinfo.entity.ProductInfo;
+
 @Entity
 @Table(name = "PRODUCTTYPE")
-public class ProductTypeVO{
+public class ProductTypeVO implements java.io.Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRODUCTTYPEID")
@@ -37,6 +45,8 @@ public class ProductTypeVO{
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
 	
+//	@OneToMany(mappedBy = "productTypeVO")
+//	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>();
 	
 	public ProductTypeVO() {
 	}
@@ -77,6 +87,13 @@ public class ProductTypeVO{
 	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	
-	
+
+//	public Set<ProductInfo> getProductInfos() {
+//		return productInfos;
+//	}
+//
+//	public void setProductInfos(Set<ProductInfo> productInfos) {
+//		this.productInfos = productInfos;
+//	}
+
 }

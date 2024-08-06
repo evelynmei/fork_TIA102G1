@@ -2,13 +2,20 @@ package com.tia102g1.orderlist.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tia102g1.membercoin.model.MemberCoinVO;
 
 @Entity
 @Table(name = "OrderList")
@@ -20,12 +27,21 @@ public class OrderListVO implements Serializable {
 	@Column(name = "orderListId")
 	private Integer orderListId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
+//	private Member member;	
 	@Column(name = "memberId")
 	private Integer memberId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "couponId", referencedColumnName = "couponId")
+//	private Coupon coupon;
 	@Column(name = "couponId")
 	private Integer couponId;
 	
+//	@ManyToOne
+//	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
+//	private EventVO eventVO;
 	@Column(name = "eventId")
 	private Integer eventId;
 	
@@ -112,6 +128,11 @@ public class OrderListVO implements Serializable {
 	
 	@Column(name = "lastUpdated")
 	private Date lastUpdated;
+	
+	//此訂單主檔下關聯的購物金持有紀錄
+	@OneToMany(mappedBy = "orderListVO", fetch=FetchType.LAZY)
+	@OrderBy("memCoinId asc")
+	private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
 
 	public OrderListVO() {
 		super();

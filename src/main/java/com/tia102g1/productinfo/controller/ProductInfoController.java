@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
+import com.tia102g1.producttype.model.ProductTypeVO;
 @Controller
 @RequestMapping("/productInfo")
 public class ProductInfoController {
@@ -74,8 +75,9 @@ public class ProductInfoController {
 	        System.out.println(allErrors);
 	        return "/productInfo/addProductInfo"; // 確認返回路徑是否正確
 	    }
-
-	   
+	    
+	    productInfo.setCommentUsers(0);
+	    productInfo.setCommentStars(0);
 	    productInfo.setDateCreated(now);
 	    productInfo.setLastUpdated(now);
 	    productInfo.setLastUpdatedBy(productInfo.getCreatedBy());
@@ -145,11 +147,12 @@ public class ProductInfoController {
 		return result;
 	}
 
-	//@PostMapping("listProductInfosByCompositeQuery")
+	@PostMapping("listProductInfosByCompositeQuery")
 	public String listAllProductInfo(HttpServletRequest req, Model model) {
 		Map<String, String[]> map = req.getParameterMap();
 		List<ProductInfo> list = productInfoServiceS.getAll(map);
+		model.addAttribute("productTypeVO", new ProductTypeVO());
 		model.addAttribute("productInfoListData", list);
-		return "productinfo/mainPageProductInfo";
+		return "/productinfo/mainPageProductInfo";
 	}
 }
