@@ -1,11 +1,17 @@
 package com.tia102g1.member.dto;
 
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class MemberUpdateDto implements Serializable {
+    @Id
+    Integer memberId;
 
     @NotNull
     Integer memberLvId = 1;
@@ -13,10 +19,13 @@ public class MemberUpdateDto implements Serializable {
     @NotNull
     String password;
     @NotNull
+    @Size(min = 2, max = 10, message = "名字必須在2-5個字元之間")
     String name;
     @NotNull
+    @Pattern(regexp = "^09\\d{8}$", message = "輸入錯誤，請輸入09+末8碼")
     String phone;
     @NotNull
+    @Email(message = "請輸入正確的Email格式")
     String email;
     @NotNull
     Integer cntCode;
@@ -41,6 +50,15 @@ public class MemberUpdateDto implements Serializable {
     String blockReason;
     @NotNull
     String lastUpdatedBy;
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
     public Integer getMemberLvId() {
         return memberLvId;
     }

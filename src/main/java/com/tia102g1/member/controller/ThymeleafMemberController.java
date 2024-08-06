@@ -1,15 +1,17 @@
 package com.tia102g1.member.controller;
 
 import com.tia102g1.member.dto.MemberQueryParams;
+import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import util.Page;
 
 import javax.validation.constraints.Max;
@@ -30,7 +32,7 @@ public class ThymeleafMemberController {
             @RequestParam(required = false) String searchAccount,
             @RequestParam(defaultValue = "MEMBERID") String orderBy,
             @RequestParam(defaultValue = "asc") String sort,
-            @RequestParam(defaultValue = "8") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "100") @Max(1000) @Min(0) Integer limit,
             @RequestParam(defaultValue = "0") @Min(0) Integer offset,
             Model model) {
 
@@ -63,5 +65,30 @@ public class ThymeleafMemberController {
         model.addAttribute("searchAccount", searchAccount);
 
         return "member/mainPageMember";
+
     }
+    @GetMapping("/update/{id}")
+    public String updateMemberForm(@PathVariable Integer id, Model model) {
+        Member member = memberService.getMemberById(id);
+        if (member == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "會員不存在");
+        }
+        model.addAttribute("member", member);
+        return "member/update";
+    }
+    @PostMapping("/update/{id}")
+    public String updateMember(@PathVariable Integer id, @Validated @ModelAttribute("member") MemberUpdateDto memberUpdateDto, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("member", memberUpdateDto);
+            return "member/update";  // 如果有錯誤，返回更新頁面
+        }
+        memberService.updateMember(id, memberUpdateDto);
+        return "redirect:/member/mainPageMember"; //成功後回到 mainPageMember
+    }
+    @GetMapping("/delete/{id}")
+    public String deleteMember(@PathVariable Integer id) {
+        memberService.deleteMemberById(id);
+        return "redirect:/member/mainPageMember"; //刪除後回到 mainPageMember
+    }
+
 }
