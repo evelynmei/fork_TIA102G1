@@ -88,6 +88,7 @@ public class MemberController {
         page.setOffset(offset);
         page.setTotal(total);
         page.setResults(memberList);
+
         //當前端請求/members就會消耗資源，不管getAll是否查詢到/members這個資源都是存在的(就算查不到)
         //反之，查詢特定ID商品，/members/{memberId}，可能會因為是null而沒有這個資源
         return ResponseEntity.status(HttpStatus.OK).body(page);

@@ -36,7 +36,7 @@ public class MemberRegisterRequest implements Serializable {
     Date birthDt;
 
     @NotNull
-    @Pattern(regexp = "^09\\d{8}$", message = "請輸入09+末8碼")
+    @Pattern(regexp = "^09\\d{8}$", message = "輸入錯誤，請輸入09+末8碼")
     String phone;
 
     @NotNull
