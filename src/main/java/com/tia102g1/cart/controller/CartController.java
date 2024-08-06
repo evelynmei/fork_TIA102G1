@@ -2,18 +2,26 @@ package com.tia102g1.cart.controller;
 
 import com.tia102g1.cart.model.Cart;
 import com.tia102g1.cart.service.CartService;
+import com.tia102g1.productinfo.entity.ProductInfo;
+import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ProductInfoServiceS productInfoService;
 
     /**
      * 取得購物車內容
@@ -22,11 +30,18 @@ public class CartController {
      * @return cartList
      */
     @GetMapping("cart/{memberId}")
-    public ResponseEntity<List<Cart>> getAllItems(@PathVariable Integer memberId) {
-
+    public ResponseEntity<?> getAllItems(@PathVariable Integer memberId, Model model) {
         List<Cart> cartList = cartService.getAllItems();
+        model.addAttribute("cartList", cartList);
+
+        List<ProductInfo> productInfos = productInfoService.getAll();
+        model.addAttribute("productInfos", productInfos);
+
+        Map<String, List<?>> map = new HashMap<>();
+        map.put("cartList", cartList);
+        map.put("productInfos", productInfos);
         if (cartList != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(cartList);
+            return ResponseEntity.status(HttpStatus.OK).body(map);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -76,8 +91,7 @@ public class CartController {
     @DeleteMapping("/cart/{cartId}")
     public ResponseEntity<?> deleteItem(@PathVariable Integer cartId) {
         cartService.deleteItem(cartId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
