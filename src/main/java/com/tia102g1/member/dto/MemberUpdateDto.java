@@ -45,7 +45,7 @@ public class MemberUpdateDto implements Serializable {
     Integer cardMM;
     String cardVerifyCode;
     @NotNull
-    Integer status = 1;
+    Integer status = 0;
     Timestamp blockedTime;
     String blockReason;
     @NotNull
