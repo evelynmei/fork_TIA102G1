@@ -60,7 +60,7 @@ public class ProductInfo implements java.io.Serializable {
 	@Column(name = "commentStars")
 	private Integer commentStars;
 	
-	@Column(name = "proPic" )
+	@Column(name = "proPic" , columnDefinition = "longblob")
 	private byte[] proPic;
 	
 	@Column(name = "proStatus")
