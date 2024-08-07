@@ -1,15 +1,15 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>門市資訊管理</title>
+		<title>你的功能名稱</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>	
 		
 	<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>        
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> 
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css"/>
 	
 	<!-- jquery datatables 設定 -->
 	<script>
@@ -43,7 +43,6 @@
 			});
 		});
 	</script>
-	
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -59,7 +58,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0" font-style="bold">門市資訊管理</h1>
+              <h1 class="m-0" font-style="bold">你的功能名稱</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -69,7 +68,7 @@
 				<body th:insert="~{/comLogin}"></body>
 
                 <!-- ==============寫入你的mainPage名稱 =============-->
-                <li class="breadcrumb-item"><a th:href="@{../store/mainPageStore}">門市資訊管理</a></li>
+                <li class="breadcrumb-item"><a th:href="@{../XXXXXX/mainPageXXXXXX}">你的功能名稱</a></li>
                 <li class="breadcrumb-item active">顯示全部資料</li>
                 
               </ol>
@@ -81,63 +80,45 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<table id="example" class="table display" style="width: 100%">
-	  <thead>
-		<tr>
-			<th>項次</th>
-			<th>門市編號</th>
-			<th>門市名稱</th>
-			<th>縣市</th>
-			<th>鄉鎮區</th>
-			<th>地址</th>
-			<th>地址經度</th>
-			<th>地址緯度</th>
-			<th>電話</th>
-			<th>營業時間</th>
-			<th>電子信箱</th>
-			<th>編輯</th>
-			<th>刪除</th>
-		</tr>
-	  </thead>
-		
-	  <tbody>
-			<th:block th:each="storeVO : ${storeListData}">
-				<tr>
-					<td th:text="${storeVOStat.count}"></td>
-					<td th:text="${storeVO.storeId}"></td>
-					<td th:text="${storeVO.storeName}"></td>
-					<td th:text="${storeVO.countyVO.cntCode} + '-[' + ${storeVO.countyVO.cntName} + ']'"></td>
-					<td th:text="${storeVO.distVO.distCode} + '-[' + ${storeVO.distVO.distName} + ']'"></td>				
-					<td th:text="${storeVO.storeAddress}"></td>
-					<td th:text="${storeVO.longitude}"></td>
-					<td th:text="${storeVO.latitude}"></td>
-					<td th:text="${storeVO.storePhone}"></td>
-					<td th:text="${storeVO.openingHours}"></td>
-					<td th:text="${storeVO.storeMail}"></td>
+		<table id="example" class="display" style="width: 100%">
+		  <thead>
+			<tr style="background-color:#434b52; color:#ffffff">
+				<th>項次</th>
+				<th>欄位1</th>
+				<th>欄位2</th>
+				<th>編輯</th>
+				<th>刪除</th>
+			</tr>
+		  </thead>
+			
+		  <tbody>
+				<th:block th:each="XXXXXXVO : ${XXXXXXListData}">
+					<tr>
+						<td th:text="${XXXXXXVOStat.count}"></td>
+						<td th:text="${XXXXXXVO.欄位1}"></td>
+						<td th:text="${XXXXXXVO.欄位2}"></td>
+						
+					<td>
+					  <form method="post" th:action="@{/XXXXXX/getOne_For_Update}" style="margin-bottom: 0px;">
+					     <button type="submit" class="btn btn-primary btn-sm">編輯</button>
+					     <input type="hidden" name="XXXXXXId" th:value="${XXXXXXVO.XXXXXXId}"></form>
+					</td>
 					
-				<td>
-				  <form method="post" th:action="@{/store/getOne_For_Update}" style="margin-bottom: 0px;">
-				     <button type="submit" class="btn btn-primary btn-sm">編輯</button>
-				     <input type="hidden" name="storeId" th:value="${storeVO.storeId}"></form>
-				</td>
-				
-				<td>
-				  <form method="post" th:action="@{/store/delete}" style="margin-bottom: 0px;">
-				     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('是否要刪除資料?');">刪除</button>
-				     <input type="hidden" name="storeId" th:value="${storeVO.storeId}"></form>
-				</td>
-				</tr>
-			</th:block>
-	  </tbody>
-	</table>
-	
+					<td>
+					  <form method="post" th:action="@{/XXXXXX/delete}" style="margin-bottom: 0px;">
+					     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('是否要刪除資料?');">刪除</button>
+					     <input type="hidden" name="XXXXXXId" th:value="${XXXXXXVO.XXXXXXId}"></form>
+					</td>
+					</tr>
+				</th:block>
+		  </tbody>
+		</table>
 	
 	</section>
 	<!-- 功能內容結束 -->
 	
 	<!-- footer and script link -->
 	<body th:insert="~{/comPage3}"></body>
-	<script th:src="@{/dist/js/distpicker.js}"></script>
+	
 	</body>
 </html>

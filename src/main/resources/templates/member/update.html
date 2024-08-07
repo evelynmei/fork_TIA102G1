@@ -25,11 +25,12 @@
             <input type="text" id="name" th:field="*{name}" class="form-control"/>
             <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">錯誤訊息</div>
         </div>
-        <div class="form-group">
-            <label for="phone">電話</label>
-            <input type="text" id="phone" th:field="*{phone}" class="form-control"/>
-            <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">錯誤訊息</div>
-        </div>
+        <input type="hidden" id="phone" th:field="*{phone}" class="form-control"/>
+<!--        <div class="form-group">-->
+<!--            <label for="phone">電話</label>-->
+<!--            <input type="text" id="phone" th:field="*{phone}" class="form-control"/>-->
+<!--            <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">錯誤訊息</div>-->
+<!--        </div>-->
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" th:field="*{email}" class="form-control"/>
@@ -73,6 +74,7 @@
         <input type="hidden" th:field="*{password}" th:value="${member.password}"/>
         <input type="hidden" th:field="*{lastUpdatedBy}" th:value="${member.lastUpdatedBy}"/>
         <button type="submit" class="btn btn-primary">更新</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/member/mainPageMember'">回到上一頁</button>
     </form>
 </div>
 </body>

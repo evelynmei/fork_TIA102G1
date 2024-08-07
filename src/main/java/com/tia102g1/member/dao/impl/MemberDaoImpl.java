@@ -143,6 +143,40 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
+    public List<Member> getBlockedList(MemberQueryParams memberQueryParams) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "SELECT memberid, memberlvid, staffid, account, password, name, birthdt, phone,\n" +
+                "       email, cntcode, distcode, address, accumulate, coinbalance, joindate, noshow,\n" +
+                "       cardholder, cardnumber, cardyy, cardmm, cardverifycode, status, blockedtime,\n" +
+                "       blockedreason, createdby, datecreated, lastupdatedby, lastupdated FROM member WHERE status =1 AND 1=1";
+        //查詢條件
+        //執行查詢條件前必須要先判斷是不是null
+        if (memberQueryParams.getSearchName() != null) {
+            //雖然拼接起來語法是對的，但是不能在sql語法中拼接，要將%放在map裡面的佔位符參數寫
+            sql = sql + " AND name LIKE :searchName";
+            map.put("searchName", "%" + memberQueryParams.getSearchName() + "%");
+        }
+        //查詢條件
+        if (memberQueryParams.getSearchAccount() != null) {
+            //雖然拼接起來語法是對的，但是不能在sql語法中拼接，要將%放在map裡面的佔位符參數寫
+            sql = sql + " AND account LIKE :searchAccount";
+            map.put("searchAccount", "%" + memberQueryParams.getSearchAccount() + "%");
+        }
+
+        //排序
+        //不用null判斷是因為orderBy、sort本身就有預設值，所以不會有null的例外發生
+        sql = sql + " ORDER BY " + memberQueryParams.getOrderBy() + " " + memberQueryParams.getSort();
+
+        //分頁
+        sql = sql + " limit :limit offset :offset ";
+        map.put("limit", memberQueryParams.getLimit());
+        map.put("offset", memberQueryParams.getOffset());
+
+        List<Member> blockedList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
+        return blockedList;
+    }
+
+    @Override
     public Integer updateMember(Integer memberId, MemberUpdateDto memberUpdateDto) {
         Map<String, Object> map = new HashMap<>();
         String sql = "update member set memberlvid = :memberlvid, staffId = :staffId, password = :password,\n" +
@@ -210,5 +244,15 @@ public class MemberDaoImpl implements MemberDao {
         return total;
 
 
+    }
+
+    @Override
+    public Integer countBlockedMember(MemberQueryParams memberQueryParams) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "SELECT count(*) FROM member WHERE status = 1 AND 1=1";
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
     }
 }

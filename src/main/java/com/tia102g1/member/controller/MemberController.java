@@ -106,4 +106,36 @@ public class MemberController {
     public Integer deleteMemberById(@PathVariable Integer memberId) {
         return memberService.deleteMemberById(memberId);
     }
+
+    @GetMapping("/blocked")
+    public ResponseEntity<Page<Member>> getBlockedList(
+
+            //排序Sorting
+            @RequestParam(defaultValue = "MEMBERID") String orderBy,
+            @RequestParam(defaultValue = "asc") String sort,
+            //分頁Pagination
+            @RequestParam(defaultValue = "3") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset) {
+        MemberQueryParams memberQueryParams = new MemberQueryParams();
+        memberQueryParams.setOrderBy(orderBy);
+        memberQueryParams.setSort(sort);
+        memberQueryParams.setLimit(limit);
+        memberQueryParams.setOffset(offset);
+        //取得blockedList
+        List<Member> blockedList = memberService.getBlockedList(memberQueryParams);
+        //取得blockedMember總數
+        Integer total = memberService.countBlockedMember(memberQueryParams);
+        //分頁
+        Page<Member> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResults(blockedList);
+
+
+        //當前端請求/members就會消耗資源，不管getAll是否查詢到/members這個資源都是存在的(就算查不到)
+        //反之，查詢特定ID商品，/members/{memberId}，可能會因為是null而沒有這個資源
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+
+    }
 }

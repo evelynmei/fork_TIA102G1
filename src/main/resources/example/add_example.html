@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>門市資訊管理</title>
+		<title>你的功能名稱</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -23,7 +23,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0" font-style="bold">門市資訊管理</h1>
+              <h1 class="m-0" font-style="bold">你的功能名稱</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -33,8 +33,8 @@
 				<body th:insert="~{/comLogin}"></body>
 
                 <!-- ==============寫入你的mainPage名稱 =============-->
-                <li class="breadcrumb-item"><a th:href="@{../store/mainPageStore}">門市資訊管理</a></li>
-                <li class="breadcrumb-item active">查詢資料</li>
+                <li class="breadcrumb-item"><a th:href="@{../XXXXXX/mainPageXXXXXX}">你的功能名稱</a></li>
+                <li class="breadcrumb-item active">新增XX資料</li>
                 
               </ol>
             </div><!-- /.col -->
@@ -52,42 +52,38 @@
 		<!-- general form elements -->
 		<div class="card card-primary">
 			<div class="card-header">
-				<h3 class="card-title">查詢資料</h3>
+				<h3 class="card-title">新增XX資料</h3>
 			</div>
 			<!-- /.card-header -->
 			<!-- form start -->
-			<form th:action="@{listStores_ByCompositeQuery}" method="post">
+			<form th:action="@{insert}" method="post" th:object="${XXXXXXVO}" enctype="multipart/form-data">
 				<div class="card-body">
 				
 					<div class="form-group">
-					<label>門市編號:</label>
-					<input type="text" name="storeId" value="" placeholder="1" class="form-control" />
+					<label>欄位1:</label>
+					<!-- 欄位1內容 -->
+					<input type="text" class="form-control" />
 					</div>
 					
 					<div class="form-group">
-					<label>門市名稱:</label>
-					<input type="text" name="storeName" value="" placeholder="慶城店" class="form-control"/>
+					<label>欄位2:</label>
+					<input type="text" class="form-control" />
 					</div>
 
 					<div class="form-group">
-					<label>選擇縣市</label>
-			  		<select th:field="*{countyVO.cntCode}" id="countySelect" class="form-control custom-select">
-						<option value="">-</option>
-						<option th:each="countyVO : ${countyListData}" th:value="${countyVO.cntCode}" th:text="${countyVO.cntName}" />
-					</select>
+					<label>欄位3:下拉選單</label>
+					<select class="form-control">
+						<!-- 欄位3內容 -->
+						<option value="">選項1</option>
+						<option value="">選項2</option>
+					</select>	
 					</div>
 					
 					<div class="form-group">
-					<label>選擇鄉鎮區</label>
-			  		<select th:field="*{distVO.distCode}" id="distSelect" class="form-control custom-select">
-						<option value="">-</option>
-					</select>
-					</div>
-					
-					<div class="form-group">
-					<button type="reset" class="btn btn-secondary">清　除</button>
-					<button type="submit" class="btn btn-primary">查　詢</button>
-					<a href="addStore"><button type="button" class="btn btn-success">新　增</button></a>
+						<input type="hidden" name="action" value="insert">
+						<a th:href="@{../XXXXXX/listAllXXXXXX}"><button type="button" class="btn btn-primary">返回</button></a>
+						<button type="submit" class="btn btn-primary">送出新增</button>
+						<button type="reset" class="btn btn-secondary">清除重填</button>
 					</div>
 				</div>
 				<!-- /.card-body -->
@@ -96,14 +92,14 @@
 		</div>
 		<!-- /.card -->
 	</div>
-	<input type="hidden" id="pageType" value="mainPage">
+
 
 	</section>
 	<!-- 功能內容結束 -->
 	
 	<!-- footer and script link -->
 	<body th:insert="~{/comPage3}"></body>
-	<script th:src="@{/dist/js/distpicker.js}"></script>
+
 	<script type="text/javascript">
 	//清除提示信息
 	function hideContent(d) {
