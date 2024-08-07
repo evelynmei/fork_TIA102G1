@@ -354,5 +354,4 @@ public class BackendController {
 		List<StaffVO> list = staffSvc.getAll();
 		return list;
 	}
-
 }
