@@ -77,16 +77,24 @@ public class CompositeQuery_ProductInfo {
 			Root<ProductInfo> root = criteriaQuery.from(ProductInfo.class);
 
 			List<Predicate> predicateList = new ArrayList<Predicate>();
+			
+			
 
 			Set<String> keys = map.keySet();
 			int count = 0;
 			for (String key : keys) {
 				String value = map.get(key)[0];
+				System.out.println("key內容 = " + value);
 				if (value != null && value.trim().length() != 0 && !"action".equals(key)) {
-					count++;
-					predicateList.add(get_aPredicate_For_AnyDB(builder, root, key, value.trim()));
-					System.out.println("有送出查詢資料的欄位數count = " + count);
-				}
+	                count++;
+	                Predicate predicate = get_aPredicate_For_AnyDB(builder, root, key, value.trim());
+	                if (predicate != null) {
+	                    predicateList.add(predicate);
+	                } else {
+	                    System.out.println("Predicate 為 null, key: " + key + ", value: " + value);
+	                }
+	                System.out.println("有送出查詢資料的欄位數count = " + count);
+	            }
 			}
 			System.out.println("predicateList.size()=" + predicateList.size());
 			criteriaQuery.where(predicateList.toArray(new Predicate[predicateList.size()]));

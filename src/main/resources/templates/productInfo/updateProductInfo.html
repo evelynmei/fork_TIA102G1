@@ -78,7 +78,7 @@ a:hover, a:active {
 							<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 							<li class="breadcrumb-item"><a
 								th:href="@{mainPageProductInfo}">商品總覽</a></li>
-							<li class="breadcrumb-item active">新增商品</li>
+							<li class="breadcrumb-item active">修改商品 :</li>
 						</ol>
 					</div>
 					<!-- /.col -->
@@ -93,9 +93,15 @@ a:hover, a:active {
 		<br>
 		<section class="content">
 
-			<form th:action="@{insert}" method="post" th:object="${productInfo}"
+			<form th:action="@{update}" method="post" th:object="${productInfo}"
 				enctype="multipart/form-data">
 				<div class="card-body">
+					<div class="form-group">
+						<label>商品編號</label> <input type="text" class="form-control"
+							th:field="*{productId}" style="border: 0px; font-weight: bold;"
+							readonly />
+					</div>
+
 					<div class="form-group">
 						<label>商品名稱</label> <input type="text" class="form-control"
 							name="proName" placeholder="請輸入商品名稱" th:field="*{proName}"
@@ -106,13 +112,24 @@ a:hover, a:active {
 
 					<div class="form-group">
 						<label>商品類別</label> <select class="form-control"
-							name="productTypeId"> 
+							name="productTypeId" th:field="*{productTypeId}">
+							<!--獨立的默認選項 -->
 							<option value="" disabled selected>請選擇商品類別</option>
+							<!--動態生成的選項 -->
 							<option th:each="productTypeVO : ${typeListData}"
 								th:value="${productTypeVO.productTypeId}"
 								th:text="${productTypeVO.typeName}"></option>
 						</select>
 					</div>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label>商品類別</label> <input type="text" class="form-control" -->
+<!-- 							name="productTypeId" placeholder="請輸入商品名稱" -->
+<!-- 							th:field="*{productTypeId}" -->
+<!-- 							onclick="hideContent('productTypeId.errors');"> <span -->
+<!-- 							th:if="${#fields.hasErrors('productTypeId')}" -->
+<!-- 							th:errors="*{productTypeId}" class="error" -->
+<!-- 							id="productTypeId.errors"></span> -->
+<!-- 					</div> -->
 
 					<div class="form-group">
 						<label>商品單價</label> <input type="number" class="form-control"
@@ -159,6 +176,16 @@ a:hover, a:active {
 							th:if="${#fields.hasErrors('proDesc')}" th:errors="*{proDesc}"
 							class="error" id="proDesc.errors"></span>
 					</div>
+					<div class="form-group">
+						<label>總評價人數</label> <input type="text" class="form-control"
+							th:field="*{commentUsers}" style="border: 0px; font-weight: bold;"
+							readonly />
+					</div>
+					<div class="form-group">
+						<label>總星星數</label> <input type="text" class="form-control"
+							th:field="*{commentStars}" style="border: 0px; font-weight: bold;"
+							readonly />
+					</div>
 					<div class="select one">
 						<a><label> 勾選產品狀態</label></a><br> <input type="checkbox"
 							th:field="*{proStatus}" value="0"> <a>未上架</a> <input
@@ -173,14 +200,17 @@ a:hover, a:active {
 					<!-- 								</select> -->
 					<!-- 					</div> -->
 					<div class="form-group">
-						<label>選擇建檔者</label> <input type="text" class="form-control"
-							name="createdBy" placeholder="輸入建檔者" th:field="*{createdBy}"
-							onclick="hideContent('createdBy.errors');"> <span
-							th:if="${#fields.hasErrors('createdBy')}"
-							th:errors="*{createdBy}" class="error" id="createdBy.errors"></span>
+						<label>最後更新者</label> <input type="text" class="form-control"
+							name="lastUpdatedBy" placeholder="輸入建檔者" th:field="*{lastUpdatedBy}"
+							onclick="hideContent('lastUpdatedBy.errors');"> <span
+							th:if="${#fields.hasErrors('lastUpdatedBy')}"
+							th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
 					</div>
 
 				</div>
+				<input type="hidden" th:field="*{dateCreated}"/>
+				<input type="hidden" th:field="*{createdBy}"/>
+				
 				<!-- /.card-body -->
 
 				<div class="card-footer">

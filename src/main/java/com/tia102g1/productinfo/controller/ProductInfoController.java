@@ -18,15 +18,19 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
+import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
 @Controller
 @RequestMapping("/productInfo")
@@ -36,6 +40,9 @@ public class ProductInfoController {
 	
 	@Autowired
 	ProductInfoServiceS productInfoServiceS;
+	
+	@Autowired
+	ProductTypeService productTypeService;
 	
 	@GetMapping("/mainPageProductInfo")
 	public String referenceProductInfoListData(Model model){
@@ -48,6 +55,12 @@ public class ProductInfoController {
 	@ModelAttribute("productInfoListData")
 	protected List<ProductInfo> referenceListData(Model model){
 		List<ProductInfo> list = productInfoServiceS.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("typeListData")
+	protected List<ProductTypeVO> referenceListData_type(Model model){
+		List<ProductTypeVO> list = productTypeService.getAll();
 		return list;
 	}
 	
@@ -65,6 +78,11 @@ public class ProductInfoController {
 	        model.addAttribute("errorMessage", "商品照片: 請上傳照片");
 	    } else {
 	        for (MultipartFile multipartFile : parts) {
+	        	if (multipartFile.getSize() > 5 * 1024 * 1024) { // 5MB = 5 * 1024 * 1024 bytes
+                    model.addAttribute("errorMessage", "商品照片: 圖片大小不能超過 5MB");
+                    return "/productInfo/addProductInfo";
+                }
+
 	            byte[] buf = multipartFile.getBytes();
 	            productInfo.setProPic(buf);
 	        }
@@ -90,9 +108,31 @@ public class ProductInfoController {
 
 	    return "redirect:/productInfo/mainPageProductInfo"; // 確認重定向路徑是否正確
 	}
+	
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+    public String handleMaxUploadSizeExceededException(MaxUploadSizeExceededException exc, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("errorMessage", "文件大小超過最大限制 (5MB)");
+        return "redirect:/productInfo/addProductInfo";
+    }
 
 	
 	//修改
+	@PostMapping("getOne_For_Update")
+	public String getOne_For_Update(@RequestParam("productId") String productId, ModelMap model) {
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		/*************************** 2.開始查詢資料 *****************************************/
+		
+		//先把指定id的VO物件查出來並顯示,準備交給updateEvent頁面做修改
+		ProductInfo productInfo = productInfoServiceS.getOneProductInfo(Integer.valueOf(productId));
+				
+
+		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("productInfo", productInfo);
+		
+		return "productInfo/updateProductInfo";
+	}
+	
+	
 	@PostMapping("update")
 	public String update(@Valid ProductInfo productInfo, BindingResult result, ModelMap model, 
 			@RequestParam("proPic") MultipartFile[] parts) throws IOException {
@@ -106,6 +146,10 @@ public class ProductInfoController {
 			productInfo.setProPic(proPic); //然後setter放入當前VO物件中
 		} else { //使用者有選擇要上傳的新圖片時
 			for (MultipartFile multipartFile : parts) { //逐一取出
+				if (multipartFile.getSize() > 5 * 1024 * 1024) { // 5MB = 5 * 1024 * 1024 bytes
+                    model.addAttribute("errorMessage", "商品照片: 圖片大小不能超過 5MB");
+                    return "/productInfo/addProductInfo";
+                }
 				byte[] proPic = multipartFile.getBytes(); //轉為Bytes
 				productInfo.setProPic(proPic); //把Bytes setter進當前VO物件的圖片屬性
 			}
@@ -114,7 +158,7 @@ public class ProductInfoController {
 			return "/productinfo/updateProductInfo";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
-		
+		productInfo.setLastUpdated(now);
 		productInfoServiceS.updateProductInfo(productInfo); //把更新好屬性的當前VO物件交給Service層做update
 	
 
@@ -123,7 +167,7 @@ public class ProductInfoController {
 		productInfo = productInfoServiceS.getOneProductInfo(Integer.valueOf(productInfo.getProductId())); //取出剛更新完的VO物件,顯示在前端頁面上
 		model.addAttribute("productInfo",productInfo);
 			
-		return "/productinfo/listProductInfo";
+		return "/productinfo/listOneProductInfo";
 	}
 	
 	
@@ -147,11 +191,11 @@ public class ProductInfoController {
 		return result;
 	}
 
+
 	@PostMapping("listProductInfosByCompositeQuery")
 	public String listAllProductInfo(HttpServletRequest req, Model model) {
 		Map<String, String[]> map = req.getParameterMap();
 		List<ProductInfo> list = productInfoServiceS.getAll(map);
-		model.addAttribute("productTypeVO", new ProductTypeVO());
 		model.addAttribute("productInfoListData", list);
 		return "/productinfo/mainPageProductInfo";
 	}
