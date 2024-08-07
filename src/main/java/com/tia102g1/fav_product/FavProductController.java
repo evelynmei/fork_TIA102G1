@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@Validated
 public class FavProductController {
 
     @Autowired
     FavProductService favProductService;
 
     /**
+     * todo 前端請求時須給預設值欄位(favProductId, joinDt)
      * 新增最愛商品
      * @param favPrd
      * @return
@@ -26,12 +26,6 @@ public class FavProductController {
         FavProduct newFavPrd = favProductService.addFavPrd(favPrd);
         return ResponseEntity.status(HttpStatus.CREATED).body(newFavPrd);
     }
-    //修改最愛商品 用不到
-//    @RequestMapping("/updateFavPrd")
-//    public String updateFavPrd(FavProduct favProduct) {
-//        favProductService.updateFavPrd(favProduct);
-//        return "redirect:/favProduct/getAllFavPrds";
-//    }
 
     /**
      * 刪除最愛商品
@@ -44,9 +38,8 @@ public class FavProductController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-
     /**
-     * todo 取得會員全部最愛商品
+     * todo 從memberId取得最愛商品清單
      * @return
      */
     @GetMapping("favProduct/{memberId}")

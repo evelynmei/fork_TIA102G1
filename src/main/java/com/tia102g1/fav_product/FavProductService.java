@@ -48,11 +48,11 @@ public class FavProductService {
      */
     public FavProduct getFavPrd(Integer favProductId) {
         Optional<FavProduct> optional = repository.findById(favProductId);
-        return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
+        return optional.orElse(null);
     }
 
     /**
-     * 查詢全部最愛商品
+     * 查詢會員全部最愛商品
      * @return
      */
     public List<FavProduct> getMyFavPrds() {
