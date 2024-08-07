@@ -32,7 +32,7 @@ import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
-@Controller
+@Controller 
 @RequestMapping("/productInfo")
 public class ProductInfoController {
 

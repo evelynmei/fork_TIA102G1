@@ -27,7 +27,7 @@ public class OrderListVO implements Serializable {
 	@Column(name = "orderListId")
 	private Integer orderListId;
 	
-//	@ManyToOne
+//	@ManyToOne 
 //	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
 //	private Member member;	
 	@Column(name = "memberId")

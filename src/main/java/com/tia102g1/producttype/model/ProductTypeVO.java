@@ -21,7 +21,7 @@ import com.tia102g1.productinfo.entity.ProductInfo;
 @Table(name = "PRODUCTTYPE")
 public class ProductTypeVO implements java.io.Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

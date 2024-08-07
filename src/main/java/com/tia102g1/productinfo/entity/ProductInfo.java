@@ -23,7 +23,7 @@ import com.tia102g1.producttype.model.ProductTypeVO;
 public class ProductInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id //描述此屬性為表格PK
+	@Id //描述此屬性為表格PK 
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //欄位值為Auto Increatement機制
 	@Column(name = "productId", updatable = false)
 	private Integer productId;
