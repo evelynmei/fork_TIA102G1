@@ -221,7 +221,7 @@ public class BackendController {
 	}
 
 	// 優惠券
-	@GetMapping({ "/coupon", "/coupon/mainPageCoupon" })
+	@GetMapping({"admin/coupon", "/coupon/mainPageCoupon" })
 	public String mainPageCoupon(Model model) {
 		return "/coupon/mainPageCoupon";
 	}
