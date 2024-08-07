@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>門市資訊管理</title>
+    <title>你的功能名稱</title>
 
     <!-- header-css etc. -->
 
@@ -25,7 +25,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0" font-style="bold">門市資訊管理</h1>
+                        <h1 class="m-0" font-style="bold">你的功能名稱</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -36,8 +36,8 @@
                             <body th:insert="~{/comLogin}"></body>
 
                             <!-- ==============寫入你的mainPage名稱 =============-->
-                            <li class="breadcrumb-item"><a th:href="@{../store/mainPageStore}">門市資訊管理</a></li>
-                            <li class="breadcrumb-item active">門市資料</li>
+                            <li class="breadcrumb-item"><a th:href="@{../XXXXXX/mainPageXXXXXX}">你的功能名稱</a></li>
+                            <li class="breadcrumb-item active">XXXXXX資料</li>
 
                         </ol>
                     </div><!-- /.col -->
@@ -59,65 +59,33 @@
                         <div class="invoice p-3 mb-3">
                             <div class="row">
                                 <div class="col-12">
-                                    <p class="lead" font-style="bold">門市資料</p>
+                                    <p class="lead" font-style="bold">XXXXXX資料</p>
 
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tr>
-                                                <th>門市編號:</th>
-                                                <td th:text="${storeVO.storeId}"></td>
+                                                <th>欄位1:</th>
+                                                <td th:text="${要帶入的內容1}"></td>
                                             </tr>
                                             <tr>
-                                                <th>門市名稱:</th>
-                                                <td th:text="${storeVO.storeName}"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>縣市:</th>
-                                                <td th:text="${storeVO.countyVO.cntName} + '-[' + ${storeVO.countyVO.cntCode} + ']'"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>鄉鎮區:</th>
-                                                <td th:text="${storeVO.distVO.distName} + '-[' + ${storeVO.distVO.distCode} + ']'"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>地址:</th>
-                                                <td th:text="${storeVO.storeAddress}"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>地址經度:</th>
-                                                <td th:text="${storeVO.longitude}"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>地址緯度:</th>
-                                                <td th:text="${storeVO.latitude}"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>電話:</th>
-                                                <td th:text="${storeVO.storePhone}"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>營業時間:</th>
-                                                <td th:text="${storeVO.openingHours}"></td>
-                                            </tr>
-                                            <tr>
-                                                <th>電子信箱:</th>
-                                                <td th:text="${storeVO.storeMail}"></td>
+                                                <th>欄位1:</th>
+                                                <td th:text="${要帶入的內容2}"></td>
                                             </tr>
                                             <tr>
                                                 <th>建檔者:</th>
-                                                <td th:text="${storeVO.createdBy}"></td>
+                                                <td th:text="${XXXXXXVO.createdBy}"></td>
                                             </tr>
                                             <tr>
                                                 <th>建檔時間:</th>
-                                                <td th:text="${storeVO.dateCreated}"></td>
+                                                <td th:text="${XXXXXXVO.dateCreated}"></td>
                                             </tr>
                                             <tr>
                                                 <th>最後更新者:</th>
-                                                <td th:text="${storeVO.lastUpdatedBy}"></td>
+                                                <td th:text="${XXXXXXVO.lastUpdatedBy}"></td>
                                             </tr>
                                             <tr>
                                                 <th>最後更新時間:</th>
-                                                <td th:text="${storeVO.lastUpdated}"></td>
+                                                <td th:text="${XXXXXXVO.lastUpdated}"></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -127,7 +95,7 @@
                             <!-- /.row -->
 
                             <div>
-                                <a th:href="@{../store/listAllStore}"><button type="button" class="btn btn-primary">返回</button></a>
+                                <a th:href="@{../XXXXXX/listAllXXXXXX}"><button type="button" class="btn btn-primary">返回</button></a>
                             </div>
                         </div>
                         <!-- /.invoice -->
