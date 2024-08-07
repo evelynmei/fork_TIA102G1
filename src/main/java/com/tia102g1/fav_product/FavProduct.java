@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Getter
@@ -24,7 +25,7 @@ public class FavProduct implements Serializable {
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "MEMBERID", nullable = false)
 //    private Member memberId;
-    @NotNull
+//    @NotNull
     @Column(name = "memberId")
     private Integer memberId;
 
@@ -34,8 +35,7 @@ public class FavProduct implements Serializable {
     @NotNull
     private Integer productId;
 
-    @NotNull
     @Column(name = "JOINDT", nullable = false)
-    private LocalDate joinDt;
+    private Date joinDt;
 
 }
