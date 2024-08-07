@@ -8,13 +8,5 @@ import java.util.List;
 
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
-    @Transactional
-    @Modifying
-    @Query(value = "DELETE FROM coupon WHERE couponId =?1", nativeQuery = true)
-    void deleteByCouponId(int couponId);
-
-
-
-
 
 }
