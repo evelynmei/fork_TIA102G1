@@ -206,7 +206,7 @@ public class MemberDaoImpl implements MemberDao {
         map.put("cardMM", memberUpdateDto.getCardMM());
         map.put("cardVerifyCode", memberUpdateDto.getCardVerifyCode());
         map.put("status", memberUpdateDto.getStatus());
-        map.put("blockedReason", memberUpdateDto.getBlockReason());
+        map.put("blockedReason", memberUpdateDto.getBlockedReason());
         map.put("lastUpdatedBy", memberUpdateDto.getLastUpdatedBy());
         map.put("lastUpdated", new Date());
         int i = namedParameterJdbcTemplate.update(sql, map);
@@ -254,5 +254,16 @@ public class MemberDaoImpl implements MemberDao {
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
         return total;
+    }
+
+    @Override
+    public Integer unblockMember(Integer memberId) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "UPDATE member SET status = 0, blockedreason = null WHERE memberId = :memberId";
+        map.put("memberId", memberId);
+
+        int unblockedMemberId = namedParameterJdbcTemplate.update(sql, map);
+
+        return unblockedMemberId;
     }
 }

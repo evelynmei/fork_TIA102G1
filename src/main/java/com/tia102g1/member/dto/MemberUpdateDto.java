@@ -47,7 +47,7 @@ public class MemberUpdateDto implements Serializable {
     @NotNull
     Integer status = 0;
     Timestamp blockedTime;
-    String blockReason;
+    String blockedReason;
     @NotNull
     String lastUpdatedBy;
 
@@ -211,12 +211,12 @@ public class MemberUpdateDto implements Serializable {
         this.blockedTime = blockedTime;
     }
 
-    public String getBlockReason() {
-        return blockReason;
+    public String getBlockedReason() {
+        return blockedReason;
     }
 
-    public void setBlockReason(String blockReason) {
-        this.blockReason = blockReason;
+    public void setBlockedReason(String blockedReason) {
+        this.blockedReason = blockedReason;
     }
 
     public String getLastUpdatedBy() {

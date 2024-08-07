@@ -138,4 +138,11 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
 
     }
+
+    @PutMapping("/unblock/{memberId}")
+    public Integer unblockMember(@PathVariable Integer memberId) {
+
+        return memberService.unblockMember(memberId);
+    }
+
 }

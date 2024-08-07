@@ -26,11 +26,6 @@
             <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">錯誤訊息</div>
         </div>
         <input type="hidden" id="phone" th:field="*{phone}" class="form-control"/>
-<!--        <div class="form-group">-->
-<!--            <label for="phone">電話</label>-->
-<!--            <input type="text" id="phone" th:field="*{phone}" class="form-control"/>-->
-<!--            <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">錯誤訊息</div>-->
-<!--        </div>-->
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" th:field="*{email}" class="form-control"/>
@@ -68,14 +63,43 @@
         </div>
         <div class="form-group">
             <label for="status">帳號狀態</label>
-            <input type="text" id="status" th:field="*{status}" class="form-control"/>
+            <select id="status" th:field="*{status}" class="form-control" onchange="toggleBlockedReason()">
+                <option th:each="status : ${T(com.tia102g1.member.constant.AccountStatus).values()}"
+                        th:value="${status.getStatus()}"
+                        th:text="${status.name()}"
+                        th:selected="${member.status} == ${status.getStatus()}">
+                </option>
+            </select>
             <div class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">錯誤訊息</div>
         </div>
+
+        <div class="form-group" id="blockedReasonDiv" style="display: none;">
+            <label for="blockedReason">停權理由</label>
+            <input type="text" id="blockedReason" th:field="*{blockedReason}" class="form-control"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('blockedReason')}" th:errors="*{blockedReason}">錯誤訊息</div>
+        </div>
+
         <input type="hidden" th:field="*{password}" th:value="${member.password}"/>
         <input type="hidden" th:field="*{lastUpdatedBy}" th:value="${member.lastUpdatedBy}"/>
         <button type="submit" class="btn btn-primary">更新</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='/member/mainPageMember'">回到上一頁</button>
     </form>
 </div>
+
+<!-- 當帳號狀態為BLOCKED，會顯示出停權理由 -->
+<script>
+    function toggleBlockedReason() {
+        var status = document.getElementById("status").value;
+        var blockedReasonDiv = document.getElementById("blockedReasonDiv");
+        if (status == "1") {
+            blockedReasonDiv.style.display = "block";
+        } else {
+            blockedReasonDiv.style.display = "none";
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        toggleBlockedReason();
+    });
+</script>
 </body>
 </html>
