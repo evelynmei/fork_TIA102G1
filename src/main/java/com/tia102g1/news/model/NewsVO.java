@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -22,25 +25,29 @@ public class NewsVO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer newsId;
 	
-	@NotNull(message = "公告日期:請勿空白")
+	@NotEmpty(message = "公告標題:請勿空白")
+	@Pattern(regexp="^[\\u4e00-\\u9fa5a-zA-Z0-9\\p{Punct}\\s\\u3000-\\u303F\\uFF00-\\uFFEF]{2,20}$", message = "公告標題: 只能是中、英文、數字及標點符號 , 且長度必需在2到20之間")
+	@Column(name = "NEWSTITLE", unique = true)
+	private String newsTitle;
+	
 	@Column(name = "NEWSDATE")
 	private Date newsDate;
 	
-	@NotNull(message = "公告起始日期:請勿空白")
 	@Column(name = "STARTDT")
 	private Date startDt;
 	
-	@NotNull(message = "公告結束日期:請勿空白")
 	@Column(name = "ENDDT")
 	private Date endDt;
 	
 	@NotEmpty(message = "公告內容:請勿空白")
+	@Pattern(regexp="^[\\u4e00-\\u9fa5a-zA-Z0-9\\p{Punct}\\s\\u3000-\\u303F\\uFF00-\\uFFEF]{2,150}$", message = "公告內容: 只能是中、英文、數字及標點符號 , 且長度必需在2到150之間")
 	@Column(name = "NEWSCONTENT")
 	private String newsContent;
 	
 	@Column(name = "NEWSPIC")
 	private byte[] newsPic;
 	
+	@NotEmpty(message="請輸入員工編號")
 	@Column(name = "CREATEDBY")
 	private String createdBy;
 	
@@ -67,6 +74,15 @@ public class NewsVO {
 
 	public Date getNewsDate() {
 		return newsDate;
+	}
+	
+
+	public String getNewsTitle() {
+		return newsTitle;
+	}
+
+	public void setNewsTitle(String newsTitle) {
+		this.newsTitle = newsTitle;
 	}
 
 	public void setNewsDate(Date newsDate) {
