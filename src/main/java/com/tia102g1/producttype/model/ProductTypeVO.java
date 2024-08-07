@@ -45,8 +45,8 @@ public class ProductTypeVO implements java.io.Serializable{
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
 	
-//	@OneToMany(mappedBy = "productTypeVO")
-//	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>();
+	@OneToMany(mappedBy = "productTypeVO")
+	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>();
 	
 	public ProductTypeVO() {
 	}
@@ -88,12 +88,12 @@ public class ProductTypeVO implements java.io.Serializable{
 		this.lastUpdated = lastUpdated;
 	}
 
-//	public Set<ProductInfo> getProductInfos() {
-//		return productInfos;
-//	}
-//
-//	public void setProductInfos(Set<ProductInfo> productInfos) {
-//		this.productInfos = productInfos;
-//	}
+	public Set<ProductInfo> getProductInfos() {
+		return productInfos;
+	}
+
+	public void setProductInfos(Set<ProductInfo> productInfos) {
+		this.productInfos = productInfos;
+	}
 
 }

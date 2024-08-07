@@ -76,6 +76,8 @@ a:hover, a:active {
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+							<!-- ==============後台人員登入登出用 =============-->
+							<div class="breadcrumb-item"><a th:insert="~{/comLogin}"></div>
 							<li class="breadcrumb-item"><a
 								th:href="@{mainPageProductInfo}">商品總覽</a></li>
 							<li class="breadcrumb-item active">修改商品 :</li>
@@ -112,7 +114,7 @@ a:hover, a:active {
 
 					<div class="form-group">
 						<label>商品類別</label> <select class="form-control"
-							name="productTypeId" th:field="*{productTypeId}">
+							name="productTypeId" th:field="*{productTypeVO.productTypeId}">
 							<!--獨立的默認選項 -->
 							<option value="" disabled selected>請選擇商品類別</option>
 							<!--動態生成的選項 -->
@@ -187,18 +189,11 @@ a:hover, a:active {
 							readonly />
 					</div>
 					<div class="select one">
-						<a><label> 勾選產品狀態</label></a><br> <input type="checkbox"
+						<a><label> 勾選產品狀態</label></a><br> <input type="radio"
 							th:field="*{proStatus}" value="0"> <a>未上架</a> <input
-							type="checkbox" th:field="*{proStatus}" value="1"> <a>上架中</a>
+							type="radio" th:field="*{proStatus}" value="1"> <a>上架中</a>
 					</div>
 
-					<!-- 					<div class="form-group"> -->
-					<!-- 						<label>選擇建檔者</label><br> <select id="roll" name="createdBy"> -->
-					<!-- 									<option  th:each="staff:${staffListData}" -->
-					<!-- 										th:value="${staff.staffId}" -->
-					<!-- 										th:text="${staff.name}"></option> -->
-					<!-- 								</select> -->
-					<!-- 					</div> -->
 					<div class="form-group">
 						<label>最後更新者</label> <input type="text" class="form-control"
 							name="lastUpdatedBy" placeholder="輸入建檔者" th:field="*{lastUpdatedBy}"

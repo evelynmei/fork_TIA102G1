@@ -44,7 +44,7 @@ public class ProductInfoController {
 	@Autowired
 	ProductTypeService productTypeService;
 	
-	@GetMapping("/mainPageProductInfo")
+	@GetMapping({"", "/mainPageProductInfo"})
 	public String referenceProductInfoListData(Model model){
 		List<ProductInfo> list = productInfoServiceS.getAll();
 		model.addAttribute("productInfoListData", list);
@@ -89,8 +89,8 @@ public class ProductInfoController {
 	    }
 
 	    if(result.hasErrors() || parts[0].isEmpty()) {
-	        List<ObjectError> allErrors = result.getAllErrors();
-	        System.out.println(allErrors);
+	        List<ObjectError> allErrors = result.getAllErrors(); // 取得錯誤資訊
+	        System.out.println(allErrors); // 印出錯誤資訊
 	        return "/productInfo/addProductInfo"; // 確認返回路徑是否正確
 	    }
 	    
@@ -103,7 +103,7 @@ public class ProductInfoController {
 	    productInfoServiceS.addProductInfo(productInfo);
 
 	    List<ProductInfo> list = productInfoServiceS.getAll();
-	    model.addAttribute("productInfoListData", list);
+//	    model.addAttribute("productInfoListData", list);
 	    model.addAttribute("success", "- (新增成功)");
 
 	    return "redirect:/productInfo/mainPageProductInfo"; // 確認重定向路徑是否正確
@@ -138,7 +138,7 @@ public class ProductInfoController {
 			@RequestParam("proPic") MultipartFile[] parts) throws IOException {
 		
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		// 去除BindingResult中eventPic欄位的FieldError紀錄 --> 見第172行
+		// 去除BindingResult中proPic欄位的FieldError紀錄 --> 見第172行
 		result = removeFieldError(productInfo, result, "proPic");
 
 		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時,就取原有的圖片塞入

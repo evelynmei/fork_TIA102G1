@@ -1,7 +1,7 @@
 package com.tia102g1.orderlist.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +46,7 @@ public class OrderListVO implements Serializable {
 	private Integer eventId;
 	
 	@Column(name = "orderDt")
-	private Date orderDt;
+	private Timestamp orderDt;
 	
 	@Column(name = "orderAmount")
 	private Integer orderAmount;
@@ -121,13 +121,13 @@ public class OrderListVO implements Serializable {
 	private String createdBy;
 	
 	@Column(name = "dateCreated")
-	private Date dateCreated;
+	private Timestamp dateCreated;
 	
 	@Column(name = "lastUpdatedBy")
 	private String lastUpdatedBy;
 	
 	@Column(name = "lastUpdated")
-	private Date lastUpdated;
+	private Timestamp lastUpdated;
 	
 	//此訂單主檔下關聯的購物金持有紀錄
 	@OneToMany(mappedBy = "orderListVO", fetch=FetchType.LAZY)
@@ -138,13 +138,13 @@ public class OrderListVO implements Serializable {
 		super();
 	}
 
-	public OrderListVO(Integer orderListId, Integer memberId, Integer couponId, Integer eventId, Date orderDt,
+	public OrderListVO(Integer orderListId, Integer memberId, Integer couponId, Integer eventId, Timestamp orderDt,
 			Integer orderAmount, Integer couponUsedAmount, Integer coinUsedAmount, Integer payAmount,
 			Integer orderStatus, Integer paymentMethod, Integer paymentStatus, Integer pickupMethod, Integer useCoupon,
 			Integer uesCoin, String cardHolder, String cardNumber, Integer cardYy, String cardMm, String cardVerifyCode,
 			Integer invoiceWay, String invoiceTaxNo, String invoiceMobileCode, String recipientName,
 			String recipientPhone, Integer recipientCnt, Integer recipientDist, String recipientAddress,
-			String createdBy, Date dateCreated, String lastUpdatedBy, Date lastUpdated) {
+			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated) {
 		super();
 		this.orderListId = orderListId;
 		this.memberId = memberId;
@@ -212,12 +212,12 @@ public class OrderListVO implements Serializable {
 		this.eventId = eventId;
 	}
 
-	public Date getOrderDt() {
+	public Timestamp getOrderDt() {
 		return orderDt;
 	}
 
-	public void setOrderDt(Date orderDt) {
-		this.orderDt = orderDt;
+	public void setOrderDt(Timestamp now) {
+		this.orderDt = now;
 	}
 
 	public Integer getOrderAmount() {
@@ -412,11 +412,11 @@ public class OrderListVO implements Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Date getDateCreated() {
+	public Timestamp getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(Timestamp dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
@@ -428,11 +428,11 @@ public class OrderListVO implements Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public Date getLastUpdated() {
+	public Timestamp getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(Date lastUpdated) {
+	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 
