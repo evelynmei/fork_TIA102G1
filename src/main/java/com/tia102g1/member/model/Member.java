@@ -6,15 +6,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tia102g1.member.constant.AccountStatus;
 
 @Entity
 @Table(name = "MEMBER")
@@ -89,7 +84,8 @@ public class Member implements Serializable {
 	private String cardVerifyCode;
 
 	@Column(name = "STATUS")
-	private Integer status;
+	@Enumerated(EnumType.ORDINAL)
+	private AccountStatus status;
 
 	@Column(name = "BLOCKEDTIME")
 	private Timestamp blockedTime;
@@ -115,11 +111,11 @@ public class Member implements Serializable {
 	}
 
 	public Member(Integer memberId, Integer memberLvId, Integer staffId, String account, String password, String name,
-			Date birthDt, String phone, String email, Integer cntCode, Integer distCode, String address,
-			Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow, String cardHolder,
-			String cardNumber, Integer cardYy, Integer cardMm, String cardVerifyCode, Integer status,
-			Timestamp blockedTime, String blockedReason, String createdBy, Timestamp dateCreated, String lastUpdatedBy,
-			Timestamp lastUpdated) {
+				  Date birthDt, String phone, String email, Integer cntCode, Integer distCode, String address,
+				  Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow, String cardHolder,
+				  String cardNumber, Integer cardYy, Integer cardMm, String cardVerifyCode, AccountStatus status,
+				  Timestamp blockedTime, String blockedReason, String createdBy, Timestamp dateCreated, String lastUpdatedBy,
+				  Timestamp lastUpdated) {
 		super();
 		this.memberId = memberId;
 		this.memberLvId = memberLvId;
@@ -319,11 +315,11 @@ public class Member implements Serializable {
 		this.cardVerifyCode = cardVerifyCode;
 	}
 
-	public Integer getStatus() {
+	public AccountStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(AccountStatus status) {
 		this.status = status;
 	}
 

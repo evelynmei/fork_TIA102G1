@@ -74,8 +74,7 @@ public class MemberRegisterRequest implements Serializable {
 
     String cardVerifyCode;
 
-    @NotNull
-    Integer status = 1;
+    Integer status = 0;
 
     Timestamp blockedTime;
 

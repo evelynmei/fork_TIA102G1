@@ -1,5 +1,6 @@
 package com.tia102g1.member.rowmapper;
 
+import com.tia102g1.member.constant.AccountStatus;
 import com.tia102g1.member.model.Member;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -32,7 +33,14 @@ public class MemberRowMapper implements RowMapper<Member> {
         member.setCardYY(rs.getInt("CARDYY"));
         member.setCardMM(rs.getInt("CARDMM"));
         member.setCardVerifyCode(rs.getString("CARDVERIFYCODE"));
-        member.setStatus(rs.getInt("STATUS"));
+
+        int accountStatus = rs.getInt("STATUS");
+        AccountStatus status = AccountStatus.getStatus(accountStatus);
+        member.setStatus(status);
+
+//        member.setStatus(AccountStatus.getStatus(rs.getInt("STATUS")));
+//        member.setStatus(rs.getInt("STATUS")); 沒有用enum這樣寫
+
         member.setBlockedTime(rs.getTimestamp("BLOCKEDTIME"));
         member.setBlockedReason(rs.getString("BLOCKEDREASON"));
         member.setCreatedBy(rs.getString("CREATEDBY"));
