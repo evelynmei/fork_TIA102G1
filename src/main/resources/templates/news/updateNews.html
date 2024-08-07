@@ -1,8 +1,8 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>你的功能名稱</title>
+		<title>公告修改</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -22,17 +22,15 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">你的功能名稱</h1>
+              <h1 class="m-0">公告修改</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 			<!-- ===================================後台人員登入登出用 =================================================================-->
-                 <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
-                	<div th:if="${session.staffName == null}"><a href="/staff/staffLogin">登入</a></div>
-               	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
+                <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">你的功能名稱</li>
+                <li class="breadcrumb-item active">公告修改</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -43,11 +41,108 @@
 	<!-- 功能內容開始 -->
 	<section class="content">
 		
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
-	
+	<div align="center">
+		<h2>公告修改</h2>
+		<h3>
+			<a th:href="@{/news/mainPageNews}">回公告首頁</a>
+		</h3>
+		
+		<form th:action="@{update}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{newsId}" readonly>
+			<div>
+				<label>公告標題:</label>
+					<input type="text" th:field="*{newsTitle}" onclick="hideContent('newsTitle.errors');"/><br>
+					<span th:if="${#fields.hasErrors('newsTitle')}" th:errors="*{newsTitle}" class="error" id="newsTitle.errors"></span>			
+			</div>
+			<div>
+				<label>公告內容:</label>
+					<input type="text" th:field="*{newsContent}" onclick="hideContent('newsContent.errors');"/><br>
+					<span th:if="${#fields.hasErrors('newsContent')}" th:errors="*{newsContent}" class="error" id="newsContent.errors"></span>
+			</div>
+			<div>
+				<label>公告日期:</label>
+					<input type="date" th:field="*{newsDate}" onclick="hideContent('newsDate.errors');"/><br>
+					<span class="error" th:text="${errorMessage1}" id="newsDate.errors"></span>
+			</div>
+			<div>
+				<label>公告起始日期:</label>
+					<input type="date" th:field="*{startDt}" onclick="hideContent('startDt.errors');"/><br>
+					<span class="error" th:text="${errorMessage2}" id="startDt.errors"></span>
+			</div>
+			<div>
+				<label>公告結束日期:</label>
+					<input type="date" th:field="*{endDt}" onclick="hideContent('endDt.errors');"/><br>
+					<span class="error" th:text="${errorMessage3}" id="endDt.errors"></span>
+			</div>
+			<div>
+				<label>公告圖片:</label>
+					<input type="file" th:field="*{newsPic}" onclick="previewImage()" multiple="multiple"/><br>
+					<div id="blob_holder"><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></div>			
+			</div>
+			<input type="hidden" th:field="*{createdBy}" readonly /> 
+			<input type="hidden" th:field="*{dateCreated}" readonly />
+			<div>
+				<label>最後更新者:</label>
+					<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');" /><br /> 
+					<span th:if="${#fields.hasErrors('lastUpdatedBy')}"	th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
+			</div>
+			<div>
+				<button type="submit" id="submit">送出修改</button>
+			</div>
+		</form>
+	</div>	
+	<script>
+		function hideContent(d) {
+			document.getElementById(d).style.display = "none";
+		}
+		
+		var filereader_support = typeof FileReader != 'undefined';
+		if(!filereader_support){
+			alert("圖片格式不支援!!");
+		}
+		
+		acceptedTypes = {
+				'image/png' : true,
+				'image/jpeg' : true,
+				'image/gif' : true
+		};
+		
+		function previewImage(){
+			var upfile1 = document.getElementById("newsPic");
+			upfile1.addEventListener("change", function(event){
+				var files = event.target.files || event.dataTransfer.files;
+				for(var i = 0; i < files.length; i++){
+					previewfile(files[i])
+				}
+			}, false);
+		}
+		
+		function previewfile(file){
+			if(filereader_support === true && acceptedTypes[file.type] === true){
+				var reader = new FileReader();
+				reader.onload = function(event){
+					var image = new Image();
+					image.src = event.target.result;
+					image.width = 100;
+					image.height = 75;
+					image.border = 2;
+					if(blob_holder.hasChildNodes()){
+						blob_holder.removeChild(blob_holder.childNodes[0]);
+					}
+					blob_holder.appendChild(image);
+				};
+				reader.readAsDataURL(file);
+				document.getElementById('submit').disabled = false;
+			}else{
+				blob_holder.innerHTML = "<div style = 'text-align:left;'>" + "filename: " + file.name
+				+"<br>" + "ContentType: " + file.type
+				+"<br>" + "size: " +file.size + "bytes"
+				+"<br>" + "上傳檔案類型限制: <b><font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+			document.getElementById('submit').disabled = true;
+		
+			}
+		}
+	</script>
 	</section>
 	<!-- 功能內容結束 -->
 	

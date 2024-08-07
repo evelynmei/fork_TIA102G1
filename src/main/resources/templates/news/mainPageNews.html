@@ -1,8 +1,8 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>你的功能名稱</title>
+		<title>公告管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -22,17 +22,15 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">你的功能名稱</h1>
+              <h1 class="m-0">公告管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 			<!-- ===================================後台人員登入登出用 =================================================================-->
-                 <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
-                	<div th:if="${session.staffName == null}"><a href="/staff/staffLogin">登入</a></div>
-               	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
+                 <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">你的功能名稱</li>
+                <li class="breadcrumb-item active">公告管理</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -42,11 +40,49 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
+		<h2>公告查詢</h2>
+		<div>
+			<ul>
+				<li><h5><a href="listAllNews">全部</a>公告</h5>
+				<li><h5><a href="addNews">新增</a>公告</h5>
+			</ul>
+			<hr>
+			<ul>
+				<li>
+					<form method="post" th:action="@{listNews_ByCompositeQuery}">
+						<p>公告標題:
+							<input type="text" name="newsTitle">
+						<p>公告內容:
+							<input type="text" name="newsContent">
+						<p>日期區間內發布的公告:
+							<input type="date" id="startPublish" name="startPublish" onchange="validateDate()">
+							~<input type="date" id="endPublish" name="endPublish" onchange="validateDate()">
+<!-- 						<p>日期區間內生效的公告: -->
+<!-- 							<input type="date" id="beginDt" name="beginDt" onchange="validateDate()"> -->
+<!-- 							~<input type="date" id="overDt" name="overDt" onchange="validateDate()"> -->
+						
+						<br><input type="submit" value="送出">
+					</form><br>
+			</ul>
+		</div>
 	
+		<script>
+			function validateDate(){
+				var startPublish = document.getElementById('startPublish').value;
+				var endPublish = document.getElementById('endPublish').value;
+				var beginDt = document.getElementById('beginDt').value;
+				var overDt = document.getElementById('overDt').value;
+				
+	                if ((startPublish && endPublish) && (startPublish > endPublish)) {
+	                    alert('結束日不得早於開始日');
+	                    document.getElementById('endPublish').value = '';
+	                }
+	                if ((beginDt && overDt) && (beginDt > overDt)){
+	                    alert('結束日不得早於開始日');
+	                    document.getElementById('overDt').value = '';
+	                }
+				}
+		</script>
 	
 	</section>
 	<!-- 功能內容結束 -->

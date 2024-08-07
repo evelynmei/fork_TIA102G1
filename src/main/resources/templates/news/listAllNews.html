@@ -1,8 +1,8 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>你的功能名稱</title>
+		<title>公告列表</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -22,17 +22,15 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">你的功能名稱</h1>
+              <h1 class="m-0">公告列表</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 			<!-- ===================================後台人員登入登出用 =================================================================-->
-                 <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
-                	<div th:if="${session.staffName == null}"><a href="/staff/staffLogin">登入</a></div>
-               	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
+                 <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">你的功能名稱</li>
+                <li class="breadcrumb-item active">公告列表</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -43,11 +41,46 @@
 	<!-- 功能內容開始 -->
 	<section class="content">
 		
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
-	
+		<div align="center">
+			<h2>公告列表</h2>
+		</div>	
+		<h3>
+			<a th:href="@{/news/mainPageNews}">回公告首頁</a>
+		</h3>
+		<table style="width:50%; text-align:center;">
+			<thead>
+				<tr>
+					<th>公告編號</th>
+					<th>公告標題</th>
+					<th>公告內容</th>
+					<th>公告日期</th>
+					<th>公告起始日</th>
+					<th>公告結束日</th>
+					<th>公告圖片</th>
+					<th>修改</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="newsVO : ${newsListData}">
+					<tr>
+						<td th:text="${newsVO.newsId}"></td>
+						<td th:text="${newsVO.newsId}"></td>
+						<td th:text="${newsVO.newsId}"></td>
+						<td th:text="${newsVO.newsTitle}"></td>
+						<td th:text="${newsVO.newsContent}"></td>
+						<td th:text="${newsVO.newsDate}"></td>
+						<td th:text="${newsVO.startDt}"></td>
+						<td th:text="${newsVO.endDt}"></td>
+						<td><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></td>
+						<td>
+							<form method="post" th:action="@{/news/getOne_For_Update}">
+								<input type="submit" value="修改">
+								<input type="hidden" name="newsId" th:value="${newsVO.newsId}">
+							</form>
+						</td>
+					</tr>
+			</tbody>
+		</table>
 	</section>
 	<!-- 功能內容結束 -->
 	
