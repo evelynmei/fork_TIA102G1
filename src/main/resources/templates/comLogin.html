@@ -1,0 +1,4 @@
+<li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
+	<div th:if="${session.staffName == null}"><a href="../staff/staffLogin">登入</a></div>
+	<div th:if="${session.staffName != null}"><a href="../staff/logout" th:text="${session.staffName}"></a></div>
+</li>
