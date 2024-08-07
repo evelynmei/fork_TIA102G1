@@ -21,53 +21,42 @@ public class Coupon {
     private Integer CouponId;
 
     @Size(max = 20)
-    @NotNull
     @Column(name = "COUPONCODE", nullable = false, length = 20)
     private String couponCode;
 
     @Size(max = 30)
-    @NotNull
     @Column(name = "COUPONNAME", nullable = false, length = 30)
     private String couponName;
 
-    @NotNull
     @Column(name = "COUPONSTATUS", nullable = false)
     private Integer couponStatus;
 
-    @NotNull
     @Column(name = "STARTDT", nullable = false)
     private LocalDate startDt;
 
-    @NotNull
     @Column(name = "ENDDT", nullable = false)
     private LocalDate endDt;
 
-    @NotNull
     @Column(name = "DISCTYPE", nullable = false)
     private Integer discDype;
 
-    @NotNull
-    @Column(name = "DISCAMOUNT", nullable = false)
+    @Column(name = "DISCAMOUNT")
     private Integer discAmount;
 
     @Column(name = "DISCPERCENTAGE", precision = 3, scale = 2)
     private BigDecimal discPercentage;
 
     @Size(max = 50)
-    @NotNull
     @Column(name = "CREATEDBY", nullable = false, length = 50)
     private String createdBy;
 
-    @NotNull
     @Column(name = "DATECREATED", nullable = false)
     private Instant dateCreated;
 
     @Size(max = 50)
-    @NotNull
     @Column(name = "LASTUPDATEDBY", nullable = false, length = 50)
     private String lastUpdatedby;
 
-    @NotNull
     @Column(name = "LASTUPDATED", nullable = false)
     private Instant lastUpdated;
 
