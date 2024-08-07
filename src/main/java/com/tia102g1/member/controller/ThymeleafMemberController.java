@@ -67,6 +67,7 @@ public class ThymeleafMemberController {
         return "member/mainPageMember";
 
     }
+
     @GetMapping("/update/{id}")
     public String updateMemberForm(@PathVariable Integer id, Model model) {
         Member member = memberService.getMemberById(id);
@@ -76,6 +77,7 @@ public class ThymeleafMemberController {
         model.addAttribute("member", member);
         return "member/update";
     }
+
     @PostMapping("/update/{id}")
     public String updateMember(@PathVariable Integer id, @Validated @ModelAttribute("member") MemberUpdateDto memberUpdateDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -85,10 +87,47 @@ public class ThymeleafMemberController {
         memberService.updateMember(id, memberUpdateDto);
         return "redirect:/member/mainPageMember"; //成功後回到 mainPageMember
     }
+
     @GetMapping("/delete/{id}")
     public String deleteMember(@PathVariable Integer id) {
         memberService.deleteMemberById(id);
         return "redirect:/member/mainPageMember"; //刪除後回到 mainPageMember
     }
 
+    @GetMapping("/mainPageBlockedMember")
+    public String getBlockedMembers(
+            @RequestParam(required = false) String searchName,
+            @RequestParam(required = false) String searchAccount,
+            @RequestParam(defaultValue = "MEMBERID") String orderBy,
+            @RequestParam(defaultValue = "asc") String sort,
+            @RequestParam(defaultValue = "100") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset,
+            Model model) {
+
+        // 設置查詢參數
+        MemberQueryParams memberQueryParams = new MemberQueryParams();
+        memberQueryParams.setOrderBy(orderBy);
+        memberQueryParams.setSort(sort);
+        memberQueryParams.setLimit(limit);
+        memberQueryParams.setOffset(offset);
+
+        // 查詢會員列表和總數
+        List<Member> blockedList = memberService.getBlockedList(memberQueryParams);
+        Integer total = memberService.countBlockedMember(memberQueryParams);
+
+        // 分頁物件設置
+        Page<Member> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResults(blockedList);
+
+
+        // 添加屬性到模型
+        model.addAttribute("blockedList", blockedList);
+        model.addAttribute("searchName", searchName);
+        model.addAttribute("searchAccount", searchAccount);
+
+        return "member/mainPageBlockedMember";
+    }
 }
