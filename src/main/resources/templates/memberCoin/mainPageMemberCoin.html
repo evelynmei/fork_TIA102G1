@@ -1,186 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>購物金管理 - mainPageMemberCoin.html</title>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>購物金管理</title>
 
-<head th:insert="~{/memberCoin/included-fragment}"></head> <!-- 使用included-fragment.html網頁的全部 -->
-<style type="text/css">
-
-	button {
-		padding: 5px;
-	}
-	form {
-		display: table;
-	}
-	form div {
-		display: table-row;
-	}
-	label, input, span, select {
-		display: table-cell;
-		margin: 2px;
-		text-align: left;		
-	}
-	input[type=text], input[type=password], select, textarea {
-		width: 200px;
-		margin: 2px;
-	}
-	form div div {
-		display: table-cell;
-	}
-	.center {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    span {
-		display: inline-block;
-		width: 150px;
-		text-align: left;
-		font-weight: bold;
-	}
-	div.a {
-        display: inline-block;
-        width: 50%;
-        height: auto;
-        padding: 5px;
-        border: 0px solid blue;    
-        background-color: white; 
-    }
-    div.b {
-        position: absolute; 
-        bottom: 1%; 
-        right: 2%; 
-        width: 45%;
-        padding: 5px; 
-        border: 1px solid blue;
-    }
-</style>
-</head>
-<body>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>購物金管理 - mainPageMemberCoin.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/back1.gif}">回index.html</a></h3></div>
-</nav>
-
-	<h4><span>資料查詢:</span></h4>
-	<!-- 錯誤表列 -->
-	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div><br>
-	<div class="a">
-	  <ul>
-		<li><h5><a href='listAllMemberCoin'>List</a> all MemberCoins. <br><br></h5></li>
-
-		<li>
-			<form method="post" th:action="@{getOne_For_Display}">
-				輸入購物金紀錄編號:
-				<input type="text" name="memCoinId" th:value="${param.memCoinId}" > 
-				<input type="submit" value="送出"> (輸入如7001)
-			</form><br>
-		</li>
-
-		
-		
-		
-		<li>
-			<form method="post" th:action="@{getOne_For_Display}">
-				選擇購物金紀錄編號:
-				<select name="memCoinId">
-				     <option th:each="memberCoinVO : ${memberCoinListData}" th:value="${memberCoinVO.memCoinId}" th:text="${memberCoinVO.memCoinId}" />
-			    </select>
-				<input type="submit" value="送出">
-			</form><br>
-		</li>
-
-		
-		
-		
-		<li>
-			<form method="post" th:action="@{getOne_For_Display}">
-				選擇門市名稱:
-				<select name="memCoinId">
-				     <option th:each="memberCoinVO : ${memberCoinListData}" th:value="${memberCoinVO.memCoinId}" th:text="${memberCoinVO.memCoinId}" />
-			    </select>
-				<input type="submit" value="送出">
-			</form><br>
-		</li>
-		
-		
-		
-		
-<!--  萬用複合查詢-以下欄位-可隨意增減 -->
-  
-  <li>   
-    <form method="post" th:action="@{listMemberCoins_ByCompositeQuery}">
-        <font color=blue>萬用複合查詢:</font><br>
-        輸入購物金紀錄編號: 
-        <input type="text" name="memCoinId" value="" placeholder="1"><br>
-        
-        輸入會員編號: 
-        <input type="text" th:field="*{member.memberId}" value="" placeholder="1"><br>
-        
-        輸入會員姓名:
-        <input type="text" th:field="*{member.name}">
-        
-        輸入訂單編號: 
-        <input type="text" th:field="*{orderListVO.orderListId}" placeholder="20001"><br>
-           
-        選擇購物金類型(摘要): 
-        <select name="summary">
-        	<option value="">-</option>
-        	<option value="訂單回饋">訂單回饋</option>
-        	<option value="生日禮金">生日禮金</option>
-        	<option value="折抵消費">折抵消費</option>
-        	<option value="購物金到期">購物金到期</option>
-        </select><br>
-        
-        最低購物金金額:
-        <input type="number" step="10" name="amountMin" value="" placeholder="10"><br>
-        
-        最高購物金金額:
-        <input type="number" step="10" name="amountMax" value="" placeholder="10"><br>
-        
-        異動類型:
-        <select name="type">
-        	<option value="">-</option>
-			<option value="1">獲得</option>
-			<option value="-1">減少</option>
-		</select><br>
-		
-		取得日期:
-	    <input type="date" name="getDt"><br>
-	    
-	    到期日:
-	    <input type="date" name="expiryDt"><br>
-		
-<!-- 		選擇縣市:  -->
-<!--   		<select th:field="*{countyVO.cntCode}" id="countySelect"> -->
-<!-- 			<option value="">-</option> -->
-<!-- 			<option th:each="countyVO : ${countyListData}" th:value="${countyVO.cntCode}" th:text="${countyVO.cntName}" /> -->
-<!-- 		</select><br> -->
-		
-<!-- 		選擇鄉鎮區:  -->
-<!--   		<select th:field="*{distVO.distCode}" id="distSelect"> -->
-<!-- 			<option value="">-</option> -->
-<!-- 		</select><br> -->
-
-        <input type="submit" value="送出">
-     
-     </form>
-  </li>
-</ul>	
+		<!-- header-css etc. -->
+		<head th:insert="~{/comPage1}"></head>
+		<link rel="stylesheet" th:href="@{/css/error.css}">
+	</head>
 	
-      <h4><span>購物金管理</span></h4>
-	  <ul>
-		  <li><h5><a href='addMemberCoin'>Add</a> a new MemberCoin.</h5></li>
-	  </ul>
-	</div>
-    
-    <!-- 旗標getOne_For_Display見MemberCoinnoController.java的第74行 -->
-    <div class="b" th:if="${getOne_For_Display}">
-        <!--使用listOneMemberCoin.html網頁的listOneMemberCoin-div片段--> <!-- 見listOneMemberCoin.html的第35行的th:fragment="listOneMemberCoin-div" --> <!-- 使用th:replace也可 -->
-        <div th:insert="~{/memberCoin/listOneMemberCoin :: listOneMemberCoin-div}"></div>
-    </div>
+	<body class="hold-transition sidebar-mini layout-fixed">
 
-</body>
+	<!-- side bar -->
+	<body th:insert="~{/comPage2}"></body>
+	
+	<!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0" font-style="bold">購物金管理</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+				
+				<!-- ==============後台人員登入登出用 =============-->
+				<body th:insert="~{/comLogin}"></body>
+
+                <!-- ==============寫入你的mainPage名稱 =============-->
+                <li class="breadcrumb-item"><a th:href="@{../memberCoin/mainPageMemberCoin}">購物金管理</a></li>
+                <li class="breadcrumb-item active">查詢資料</li>
+                
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+	<!-- 功能內容開始 -->
+	<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+		<!-- left column -->
+		<div class="col-md-12">
+		<!-- general form elements -->
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">查詢資料</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+			<form th:action="@{listMemberCoins_ByCompositeQuery}" method="post">
+				<div class="card-body">
+				<div class="row">
+					<div class="col-6">
+						<div class="form-group">
+						<label>購物金紀錄編號:</label>
+						<input type="text" name="memCoinId" value="" placeholder="1" class="form-control"/>
+						</div>
+						
+						<div class="form-group">
+						<label>會員編號:</label>
+						<input type="text" th:field="*{member.memberId}" value="" placeholder="1" class="form-control"/>
+						</div>
+						
+						<div class="form-group">
+						<label>會員姓名:</label>
+	        			<input type="text" th:field="*{member.name}" value="" placeholder="1" class="form-control"/>
+						</div>
+						
+						<div class="form-group">
+						<label>訂單編號:</label>
+				        <input type="text" th:field="*{orderListVO.orderListId}" placeholder="20001" class="form-control"/>
+				        </div>
+				        
+				        <div class="form-group">   
+				        <label>購物金類型(摘要):</label> 
+				        <select name="summary" class="form-control custom-select">
+				        	<option value="">-</option>
+				        	<option value="訂單回饋">訂單回饋</option>
+				        	<option value="生日禮金">生日禮金</option>
+				        	<option value="折抵消費">折抵消費</option>
+				        	<option value="購物金到期">購物金到期</option>
+				        </select>
+			        	</div>
+					</div>
+					<div class="col-6">
+				        <div class="form-group">
+				        <label>最低購物金金額:</label>
+				        <input type="number" step="10" name="amountMin" value="" placeholder="10" class="form-control">
+				        </div>
+				        
+				        <div class="form-group">
+				        <label>最高購物金金額:</label>
+				        <input type="number" step="10" name="amountMax" value="" placeholder="10" class="form-control">
+				        </div>
+				        
+				        <div class="form-group">
+				        <label>異動類型:</label>
+				        <select name="type" class="form-control custom-select">
+				        	<option value="">-</option>
+							<option value="1">獲得</option>
+							<option value="-1">減少</option>
+						</select>
+						</div>
+						
+						<div class="form-group">
+						<label>取得日期:</label>
+					    <input type="date" name="getDt" class="form-control"><br>
+					    </div>
+					    
+					    <div class="form-group">
+					    <label>到期日:</label>
+					    <input type="date" name="expiryDt" class="form-control"><br>
+						</div>
+					</div>
+				</div>
+
+					<div class="form-group">
+					<button type="reset" class="btn btn-secondary">清　除</button>
+					<button type="submit" class="btn btn-primary">查　詢</button>
+					<a href="addMemberCoin"><button type="button" class="btn btn-success">新　增</button></a>
+					</div>
+				</div>
+				<!-- /.card-body -->
+
+			</form>
+		</div>
+		<!-- /.card -->
+	</div>
+
+
+	</section>
+	<!-- 功能內容結束 -->
+	
+	<!-- footer and script link -->
+	<body th:insert="~{/comPage3}"></body>
+
+	<script type="text/javascript">
+	//清除提示信息
+	function hideContent(d) {
+	     document.getElementById(d).style.display = "none";
+	}
+	</script>
+
+	</body>
 </html>

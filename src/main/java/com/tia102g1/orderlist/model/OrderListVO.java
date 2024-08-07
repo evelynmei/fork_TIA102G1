@@ -130,7 +130,7 @@ public class OrderListVO implements Serializable {
 	private Date lastUpdated;
 	
 	//此訂單主檔下關聯的購物金持有紀錄
-	@OneToMany(mappedBy = "orderListVO", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "orderListVO", fetch=FetchType.EAGER)
 	@OrderBy("memCoinId asc")
 	private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
 
