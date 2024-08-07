@@ -71,6 +71,7 @@ public class MemberCoinController {
 		/*************************** 2.開始新增資料 *****************************************/
 		
 		memberCoinVO.setLastUpdatedBy(memberCoinVO.getCreatedBy());
+		System.out.println("準備新增的VO:" + memberCoinVO);
 		memberCoinSvc.addMemberCoin(memberCoinVO);
 		
 //		try {

@@ -1,43 +1,152 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>活動資料 - listOneEvent.html</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>促銷活動管理</title>
 
-<head th:insert="~{/event/included-fragment}"></head>
-<style type="text/css">
-	
-    span {
-		display: inline-block;
-		width: 150px;
-		text-align: left;
-		font-weight: bold;
-	}
-</style>
+    <!-- header-css etc. -->
+
+    <head th:insert="~{/comPage1}"></head>
 </head>
-<body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>活動個人資料 - listOneEvent.html</h2>
-		 <h3><a class="navbar-brand" th:href="@{/event/mainPageEvent}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
-</nav>
+<body class="hold-transition sidebar-mini layout-fixed">
 
-	<div align="center" th:fragment="listOneEvent-div"> <!-- 此div被mainPageEvent.html第158行insert用 -->
-		<h3><span>查詢結果 :</span></h3>
-		<span>活動編號:</span><span th:text="${eventVO.eventId}"></span><br/>
-		<span>活動名稱:</span><span th:text="${eventVO.eventName}"></span><br/>
-		<span>活動開始日期:</span><span th:text="${eventVO.startDt}"></span><br/>
-		<span>活動結束日期:</span><span th:text="${eventVO.endDt}"></span><br/>
-		<span>活動折數:</span><span th:text="${eventVO.eventDiscount}"></span><br/>
-		<span>活動圖片:</span><span><img th:src="@{/event/DBGifReader} + '?eventId=' + ${eventVO.eventId}" width="100px"></span><br/>
-		<span>活動狀態:</span><span th:text="${eventVO.status}"></span><br/>
-		<span>活動文案內容:</span><span th:text="${eventVO.eventContent}"></span><br/>
-		<span>建檔者:</span><span th:text="${eventVO.createdBy}"></span><br/>
-		<span>建檔時間:</span><span th:text="${eventVO.dateCreated}"></span><br/>
-		<span>最後更新者:</span><span th:text="${eventVO.lastUpdatedBy}"></span><br/>
-		<span>最後更新時間:</span><span th:text="${eventVO.lastUpdated}"></span><br/>
-	</div>
+    <!-- side bar -->
+
+    <body th:insert="~{/comPage2}"></body>
+
+    <!-- Content Wrapper. Contains page content -->
+    <!-- 儀錶板上面那排 -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0" font-style="bold">促銷活動管理</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+
+                            <!-- ==============後台人員登入登出用 =============-->
+
+                            <body th:insert="~{/comLogin}"></body>
+
+                            <!-- ==============寫入你的mainPage名稱 =============-->
+                            <li class="breadcrumb-item"><a th:href="@{../event/mainPageEvent}">促銷活動管理</a></li>
+                            <li class="breadcrumb-item active">促銷活動資料</li>
+
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- 功能內容開始 -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="callout callout-info">
+                            <h6><i class="fas fa-info"></i> 修改成功!</h6>
+                        </div>
+
+                        <!-- Main content -->
+                        <div class="invoice p-3 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="lead" font-style="bold">促銷活動資料</p>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th>活動編號:</th>
+                                                <td th:text="${eventVO.eventId}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>活動名稱:</th>
+                                                <td th:text="${eventVO.eventName}"></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th>活動開始日期:</th>
+                                                <td th:text="${eventVO.startDt}"></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th>活動結束日期:</th>
+                                                <td th:text="${eventVO.endDt}"></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th>活動折數:</th>
+                                                <td th:text="${eventVO.eventDiscount}"></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th>活動圖片:</th>
+                                                <td><img th:src="@{/event/DBGifReader} + '?eventId=' + ${eventVO.eventId}" width="100px"></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th>活動狀態:</th>
+                                                <td th:text="${eventVO.status}"></td>
+                                            </tr>
+											<tr>
+                                                <th>活動文案:</th>
+                                                <td th:text="${eventVO.eventContent}"></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>建檔者:</th>
+                                                <td th:text="${eventVO.createdBy}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>建檔時間:</th>
+                                                <td th:text="${eventVO.dateCreated}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>最後更新者:</th>
+                                                <td th:text="${eventVO.lastUpdatedBy}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>最後更新時間:</th>
+                                                <td th:text="${eventVO.lastUpdated}"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+
+                            <div>
+                                <a th:href="@{../event/listAllEvent}"><button type="button" class="btn btn-primary">返回</button></a>
+                            </div>
+                        </div>
+                        <!-- /.invoice -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- 功能內容結束 -->
+
+        <!-- footer and script link -->
+
+        <body th:insert="~{/comPage3}"></body>
+
+        <script type="text/javascript">
+            //清除提示信息
+            function hideContent(d) {
+                document.getElementById(d).style.display = "none";
+            }
+        </script>
 
 </body>
+
 </html>
