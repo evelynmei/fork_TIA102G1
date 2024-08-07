@@ -33,6 +33,14 @@ public interface MemberDao {
     List<Member> getAll(MemberQueryParams memberQueryParams);
 
     /**
+     * 查詢所有黑名單的方法
+     *
+     * @param memberQueryParams 查詢條件
+     * @return 返回一個包含所有黑名單的list
+     */
+    List<Member> getBlockedList(MemberQueryParams memberQueryParams);
+
+    /**
      * 藉由帳號查詢會員ID的方法
      *
      * @param account 要查詢的帳號
@@ -66,5 +74,12 @@ public interface MemberDao {
      * @return 返回查詢條件下的會員總數
      */
     Integer countMember(MemberQueryParams memberQueryParams);
+
+    /**
+     * 查詢黑名單的總數(分頁)
+     * @param memberQueryParams  要查詢的黑名單參數
+     * @return 返回查詢條件下的黑名單總數
+     */
+    Integer countBlockedMember(MemberQueryParams memberQueryParams);
 
 }

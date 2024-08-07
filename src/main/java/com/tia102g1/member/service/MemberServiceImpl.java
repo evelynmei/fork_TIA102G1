@@ -80,6 +80,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<Member> getBlockedList(MemberQueryParams memberQueryParams) {
+        return memberDao.getBlockedList(memberQueryParams);
+    }
+
+    @Override
     public Integer updateMember(Integer memberId, MemberUpdateDto memberUpdateDto) {
         Member member = memberDao.getMemberByUpdatedPasswordMemberId(memberUpdateDto.getPassword());
 
@@ -98,5 +103,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer countMember(MemberQueryParams memberQueryParams) {
         return memberDao.countMember(memberQueryParams);
+    }
+
+    @Override
+    public Integer countBlockedMember(MemberQueryParams memberQueryParams) {
+        return memberDao.countBlockedMember(memberQueryParams);
     }
 }

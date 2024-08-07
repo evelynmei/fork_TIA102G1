@@ -35,28 +35,30 @@ import com.tia102g1.sysmsg.model.SysMsgVO;
 
 @Controller
 public class BackendController {
-	
+    @Autowired
+    MemberService memberService;
+
 	@Autowired
 	MemberService memberSvc;
-	
+
 	@Autowired
 	MemberCoinService memberCoinSvc;
 
 	@Autowired
 	ProductTypeService typeSvc;
-	
+
 	@Autowired
 	OrderListService orderListSvc;
 
 	@Autowired
 	EventService eventSvc;
-	
+
 	@Autowired
 	StoreService storeSvc;
-	
+
 	@Autowired
 	CountyService countySvc;
-	
+
 	@Autowired
 	DistService distSvc;
 
@@ -65,10 +67,10 @@ public class BackendController {
 
 	@Autowired
 	QuTypeService quTypeSvc;
-	
+
 	@Autowired
 	StaffService staffSvc;
-	
+
 	@Autowired
 	NewsService newsSvc;
 
@@ -81,17 +83,17 @@ public class BackendController {
 
 	/* ======================= mainPage ======================= */
 
-//	// 會員資料
+	// 會員資料
 //	@GetMapping({ "/member", "/member/mainPageMember" })
 //	public String mainPageMember(Model model) {
 //		return "/member/mainPageMember";
 //	}
 
-	// 會員黑名單
-	@GetMapping("member/blockedMember")
-	public String blockedMember(Model model) {
-		return "member/blockedMember";
-	}
+//	 會員黑名單
+//	@GetMapping("/member/mainPageBlockedMember")
+//	public String mainPageBlockedMember(Model model) {
+//		return "member/mainPageBlockedMember";
+//	}
 
 	// 會員等級對照
 	@GetMapping({ "/memberLv", "/memberLv/mainPageMemberLv" })
@@ -110,7 +112,7 @@ public class BackendController {
 	public String mainPageMemberCoin(Model model) {
 		return "/memberCoin/mainPageMemberCoin";
 	}
-	
+
 	@GetMapping("/memberCoin/listAllMemberCoin")
 	public String listAllMemberCoin(Model model) {
 		return "memberCoin/listAllMemberCoin";
@@ -121,21 +123,21 @@ public class BackendController {
 		List<MemberCoinVO> list = memberCoinSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("memberListData")
 	protected List<Member> referenceListData_Member(Model model) {
 		model.addAttribute("member", new Member());
 		List<Member> list = memberSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("orderListListData")
 	protected List<OrderListVO> referenceListData_OrderList(Model model) {
 		model.addAttribute("orderListVO", new OrderListVO());
 		List<OrderListVO> list = orderListSvc.getAll();
 		return list;
 	}
-	
+
 	// 商品類型對照
 	@GetMapping({ "/productType", "/productType/mainPageProductType" })
 	public String mainPageProductType(Model model) {
@@ -264,7 +266,7 @@ public class BackendController {
 	public String mainPageNews(Model model) {
 		return "/news/mainPageNews";
 	}
-	
+
 	@GetMapping("/news/listAllNews")
 	public String listAllNews(Model model) {
 		return "news/listAllNews";
@@ -281,7 +283,7 @@ public class BackendController {
 	public String mainPageStore(Model model) {
 		return "/store/mainPageStore";
 	}
-	
+
 	@GetMapping("/store/listAllStore")
 	public String listAllStore(Model model) {
 		return "store/listAllStore";
@@ -292,14 +294,14 @@ public class BackendController {
 		List<StoreVO> list = storeSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("countyListData")
 	protected List<CountyVO> referenceListData_County(Model model) {
 		model.addAttribute("countyVO", new CountyVO());
 		List<CountyVO> list = countySvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("distListData")
 	protected List<DistVO> referenceListData_Dist(Model model) {
 		model.addAttribute("distVO", new DistVO());
@@ -341,7 +343,7 @@ public class BackendController {
 	public String mainPageStaff(Model model) {
 		return "staff/mainPageStaff";
 	}
-	
+
 	@GetMapping("staff/listAllStaff")
 	public String listAllStaff(Model model) {
 		return "staff/listAllStaff";
