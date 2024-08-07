@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service("favProductService")
 public class FavProductService {
@@ -16,26 +17,47 @@ public class FavProductService {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addFavPrd(FavProduct favProduct) {
+    /**
+     * 新增最愛商品
+     *
+     * @param favProduct
+     * @return
+     */
+    public FavProduct addFavPrd(FavProduct favProduct) {
         repository.save(favProduct);
+        return favProduct;
     }
 
     public void updateFavPrd(FavProduct favProduct) {
         repository.save(favProduct);
     }
 
+    /**
+     * 刪除最愛商品
+     * @param favProductId
+     */
     public void deleteFavPrd(Integer favProductId) {
         if (repository.existsById(favProductId))
             repository.deleteById(favProductId);
     }
 
+    /**
+     * 查詢單項最愛商品
+     * @param favProductId
+     * @return
+     */
     public FavProduct getFavPrd(Integer favProductId) {
         Optional<FavProduct> optional = repository.findById(favProductId);
         return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
     }
 
-    public List<FavProduct> getAllFavPrds() {
-        return repository.findAll();
+    /**
+     * 查詢全部最愛商品
+     * @return
+     */
+    public List<FavProduct> getMyFavPrds() {
+
+        return repository.findByMemberId(2);//先假設會員ID為2
     }
 
 }

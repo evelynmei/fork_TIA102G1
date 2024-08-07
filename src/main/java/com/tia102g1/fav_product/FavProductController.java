@@ -1,47 +1,58 @@
 package com.tia102g1.fav_product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @Validated
-@RequestMapping("/favProduct")
 public class FavProductController {
 
     @Autowired
     FavProductService favProductService;
 
-    @RequestMapping("/addFavPrd")
-    public String addFavPrd(FavProduct favProduct) {
-        favProductService.addFavPrd(favProduct);
-        return "redirect:/favProduct/getAllFavPrds";
+    /**
+     * 新增最愛商品
+     * @param favPrd
+     * @return
+     */
+    @PostMapping("favProduct/{memberId}")
+    public ResponseEntity<FavProduct> addFavPrd(@RequestBody FavProduct favPrd) {
+        FavProduct newFavPrd = favProductService.addFavPrd(favPrd);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newFavPrd);
     }
+    //修改最愛商品 用不到
+//    @RequestMapping("/updateFavPrd")
+//    public String updateFavPrd(FavProduct favProduct) {
+//        favProductService.updateFavPrd(favProduct);
+//        return "redirect:/favProduct/getAllFavPrds";
+//    }
 
-    @RequestMapping("/updateFavPrd")
-    public String updateFavPrd(FavProduct favProduct) {
-        favProductService.updateFavPrd(favProduct);
-        return "redirect:/favProduct/getAllFavPrds";
-    }
-
-    @RequestMapping("/deleteFavPrd")
-    public String deleteFavPrd(Integer favProductId) {
+    /**
+     * 刪除最愛商品
+     * @param favProductId
+     * @return
+     */
+    @DeleteMapping("favProduct/{favProductId}")
+    public ResponseEntity<?> deleteFavPrd(@PathVariable Integer favProductId) {
         favProductService.deleteFavPrd(favProductId);
-        return "redirect:/favProduct/getAllFavPrds";
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping("/getFavPrd")
-    public String getFavPrd(Integer favProductId) {
-        favProductService.getFavPrd(favProductId);
-        return "redirect:/favProduct/getAllFavPrds";
-    }
 
-    @RequestMapping("/getAllFavPrds")
-    public String getAllFavPrds() {
-        favProductService.getAllFavPrds();
-        return "redirect:/favProduct/getAllFavPrds";
+    /**
+     * todo 取得會員全部最愛商品
+     * @return
+     */
+    @GetMapping("favProduct/{memberId}")
+    public ResponseEntity<?> getMyFavPrds (@PathVariable Integer memberId) {
+        List<FavProduct> myFavPrds = favProductService.getMyFavPrds();
+        return ResponseEntity.status(HttpStatus.OK).body(myFavPrds);
     }
-
 
 }
