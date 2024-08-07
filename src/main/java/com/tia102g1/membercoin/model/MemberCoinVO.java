@@ -72,7 +72,7 @@ public class MemberCoinVO implements java.io.Serializable {
 		super();
 	}
 	
-	public MemberCoinVO(Integer memCoinId, Member memberVO, OrderListVO orderListVO, Date getDt,
+	public MemberCoinVO(Integer memCoinId, Member member, OrderListVO orderListVO, Date getDt,
 			@NotEmpty(message = "摘要: 請勿空白") String summary, Integer type, Integer amount, Date expiryDt,
 			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated) {
 		super();
@@ -184,6 +184,13 @@ public class MemberCoinVO implements java.io.Serializable {
 
 	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberCoinVO [memCoinId=" + memCoinId + ", getDt=" + getDt + ", summary=" + summary + ", type=" + type
+				+ ", amount=" + amount + ", expiryDt=" + expiryDt + ", createdBy=" + createdBy + ", dateCreated="
+				+ dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + "]";
 	}
 
 

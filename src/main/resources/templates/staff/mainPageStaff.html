@@ -27,9 +27,7 @@
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item" style="display: inline-block; white-space: nowrap; margin-right: 10px;">
-                	<div th:if="${session.staffName == null}"><a href="staffLogin">登入</a></div>
-               	 	<div th:if="${session.staffName != null}"><a href="logout" th:text="${session.staffName}"></a></div></li>
+                <body th:insert="~{/comLogin}"></body>
                 <li class="breadcrumb-item active">員工一覽</li>
               </ol>
             </div><!-- /.col -->
@@ -62,8 +60,8 @@
 		<li>
 			<form method="post" th:action="@{listStaff_ByCompositeQuery}">
 				<p>到職日期區間:
-					<input type="date" name="startEmployDt">
-				   ~<input type="date" name="endEmployDt"><br>
+					<input type="date" id="startEmployDt" name="startEmployDt" onchange="validateDate()">
+				   ~<input type="date" id="endEmployDt" name="endEmployDt" onchange="validateDate()"><br>
 				<p>是否還在職:
 					<select name="status">
 						<option value = " "></option>
@@ -78,6 +76,20 @@
 	<div th:if="${getOne_For_Display}">
 		<div th:insert="~{/staff/listOneStaff :: listOneStaff-div}"></div>
 	</div>
+	<script>
+		function validateDate(){
+			var startEmployDt = document.getElementById('startEmployDt').value;
+			var endEmployDt = document.getElementById('endEmployDt').value;
+			
+			if(startEmployDt && endEmployDt){
+				if(endEmployDt < startEmployDt){
+					alert('結束日不得早於開始日');
+					
+					document.getElementById('endEmployDt').value = '';				}
+			}
+			
+		}
+	</script>
 	
 	</section>
 	<!-- 功能內容結束 -->

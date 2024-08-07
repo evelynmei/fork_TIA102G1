@@ -1,5 +1,6 @@
 package com.tia102g1.news;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,41 +16,34 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.tia102g1.news.model.NewsVO;
-import com.tia102g1.staff.model.StaffVO;
 
 public class CompositeQuery_News {
 	public static Predicate get_aPredicate_For_AnyDB(CriteriaBuilder builder, Root<NewsVO> root, String columnName, String value) {
 		Predicate predicate = null;
-		//查詢公告內容
-		if("newsContent".equals(columnName))
+		//查詢公告標題、內容
+		if("newsContent".equals(columnName) || "newsTitle".equals(columnName))
 			predicate = builder.like(root.get(columnName), "%" + value + "%");
 		//查詢公告發布日期
 		else if("startPublish".equals(columnName))
-			predicate = builder.greaterThanOrEqualTo(root.get("newsDate"), java.sql.Date.valueOf(value));
+			predicate = builder.greaterThanOrEqualTo(root.get("newsDate"), java.sql.Date.valueOf(LocalDate.parse(value)));
 		else if("endPublish".equals(columnName))
 			predicate = builder.lessThanOrEqualTo(root.get("newsDate"), java.sql.Date.valueOf(value));
 		else if("startPublish" != null && "endPublish" != null)
 			predicate = builder.between(root.get("newsDate"), java.sql.Date.valueOf(value), java.sql.Date.valueOf(value));
-		//查詢公告起始時間
-		else if("beginStartDt".equals(columnName))
-			predicate = builder.greaterThanOrEqualTo(root.get("startDt"), java.sql.Date.valueOf(value));
-		else if("endStartDt".equals(columnName))
-			predicate = builder.lessThanOrEqualTo(root.get("startDt"), java.sql.Date.valueOf(value));
-		else if("beginStartDt" != null && "endStartDt" != null)
-			predicate = builder.between(root.get("startDt"), java.sql.Date.valueOf(value), java.sql.Date.valueOf(value));
-		//查詢公告結束時間
-		else if("beginEndDt".equals(columnName))
-			predicate = builder.greaterThanOrEqualTo(root.get("endDt"), java.sql.Date.valueOf(value));
-		else if("endEndDt".equals(columnName))
-			predicate = builder.lessThanOrEqualTo(root.get("endDt"), java.sql.Date.valueOf(value));
-		else if("beginEndDt" != null && "endEndDt" != null)
-			predicate = builder.between(root.get("endDt"), java.sql.Date.valueOf(value), java.sql.Date.valueOf(value));
-		
-		else if("newsNow".equals(columnName)) {
-			Predicate afterStartDt = builder.greaterThanOrEqualTo(root.get("startDt"), java.sql.Date.valueOf(value));
-			Predicate beforeEndDt = builder.lessThanOrEqualTo(root.get("endDt"), java.sql.Date.valueOf(value));
-			predicate = builder.and(afterStartDt, beforeEndDt);
-		}
+        else if ("beginDt".equals(columnName) || "overDt".equals(columnName)) {
+		String[] dates = value.split(",");
+         
+		 if (dates.length == 2) {
+             LocalDate beginDate = LocalDate.parse(dates[0]);
+             LocalDate overDate = LocalDate.parse(dates[1]);
+             
+             Predicate beginDtPredicate = builder.lessThanOrEqualTo(root.get("startDt"), java.sql.Date.valueOf(overDate));
+             Predicate overDtPredicate = builder.greaterThanOrEqualTo(root.get("endDt"), java.sql.Date.valueOf(beginDate));
+             Predicate newsDatePredicate = builder.between(root.get("newsDate"), java.sql.Date.valueOf(beginDate), java.sql.Date.valueOf(overDate));
+             
+             predicate = builder.and(newsDatePredicate, beginDtPredicate, overDtPredicate);
+         }
+     }
 		return predicate;
 	}
 	
