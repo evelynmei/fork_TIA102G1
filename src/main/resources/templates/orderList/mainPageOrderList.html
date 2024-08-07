@@ -1,18 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>訂單管理</title>
+		<title>MainPage_OrderList</title>
 
-		<!-- header-css etc. -->
-		<head th:insert="~{/comPage1}"></head>
 		
+		<link rel="stylesheet" th:href="@{/css/error.css}">
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
 
-	<!-- side bar -->
-	<body th:insert="~{/comPage2}"></body>
+	<div th:insert="~{/comPage1}"></div>
+	
+	<div th:insert="~{/comPage2}"></div>
 	
 	<!-- Content Wrapper. Contains page content -->
     <!-- 儀錶板上面那排 -->
@@ -22,12 +23,17 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">訂單管理</h1>
+              <h1 class="m-0" font-style="bold">你的功能名稱</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item active">訂單管理</li>
+				<!-- ==============後台人員登入登出用 =============-->
+				<div class="breadcrumb-item"><a th:insert="~{/comLogin}"></div>
+                <!-- ==============寫入你的mainPage名稱 =============-->
+                <li class="breadcrumb-item"><a th:href="@{../XXXXXX/mainPageXXXXXX}">你的功能名稱</a></li>
+                <li class="breadcrumb-item active">查詢資料</li>
+                
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -37,18 +43,66 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<p>訂單管理 主頁 測試</p>
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
-	
+	<div class="container-fluid">
+		<div class="row">
+		<!-- left column -->
+		<div class="col-md-12">
+		<!-- general form elements -->
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">查詢資料</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+			<form th:action="@{listStores_ByCompositeQuery}" method="post">
+				<div class="card-body">
+				
+					<div class="form-group">
+					<label>查詢欄位1:</label>
+					<!-- 查詢欄位1內容 -->
+					<input type="text" name="欄位1名稱" value="" placeholder="預設值" class="form-control"/>
+					</div>
+					
+					<div class="form-group">
+					<label>查詢欄位2:</label>
+					<!-- 查詢欄位2內容 -->
+					<input type="text" name="欄位2名稱" value="" placeholder="預設值" class="form-control"/>
+					</div>
+
+					<div class="form-group">
+					<label>查詢欄位3 下拉選單:</label>
+			  		<select class="form-control custom-select">
+						<option value="">選項1</option>
+						<option value="">選項2</option>
+					</select>
+					</div>
+					
+					<div class="form-group">
+					<button type="reset" class="btn btn-secondary">清　除</button>
+					<button type="submit" class="btn btn-primary">查　詢</button>
+					<a href="addXXXXXX"><button type="button" class="btn btn-success">新　增</button></a>
+					</div>
+				</div>
+				<!-- /.card-body -->
+
+			</form>
+		</div>
+		<!-- /.card -->
+	</div>
+
+
 	</section>
 	<!-- 功能內容結束 -->
 	
 	<!-- footer and script link -->
-	<body th:insert="~{/comPage3}"></body>
+	<div th:insert="~{/comPage3}"></div>
+
+	<script type="text/javascript">
+	//清除提示信息
+	function hideContent(d) {
+	     document.getElementById(d).style.display = "none";
+	}
+	</script>
 
 	</body>
 </html>

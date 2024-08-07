@@ -21,7 +21,7 @@ import com.tia102g1.productinfo.entity.ProductInfo;
 @Table(name = "PRODUCTTYPE")
 public class ProductTypeVO implements java.io.Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; 
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +45,8 @@ public class ProductTypeVO implements java.io.Serializable{
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
 	
-//	@OneToMany(mappedBy = "productTypeVO")
-//	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>();
+	@OneToMany(mappedBy = "productTypeVO")
+	private Set<ProductInfo> productInfos = new HashSet<ProductInfo>();
 	
 	public ProductTypeVO() {
 	}
@@ -88,12 +88,12 @@ public class ProductTypeVO implements java.io.Serializable{
 		this.lastUpdated = lastUpdated;
 	}
 
-//	public Set<ProductInfo> getProductInfos() {
-//		return productInfos;
-//	}
-//
-//	public void setProductInfos(Set<ProductInfo> productInfos) {
-//		this.productInfos = productInfos;
-//	}
+	public Set<ProductInfo> getProductInfos() {
+		return productInfos;
+	}
+
+	public void setProductInfos(Set<ProductInfo> productInfos) {
+		this.productInfos = productInfos;
+	}
 
 }

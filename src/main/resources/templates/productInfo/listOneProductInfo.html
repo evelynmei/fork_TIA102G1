@@ -92,6 +92,7 @@ td {
 #productTypeId {
 	width: 100%;
 }
+
 </style>
 
 
@@ -119,6 +120,8 @@ td {
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+							<!-- ==============後台人員登入登出用 =============-->
+							<div class="breadcrumb-item"><a th:insert="~{/comLogin}"></div>
 							<li class="breadcrumb-item"><a
 								th:href="@{mainPageProductInfo}">商品總覽</a></li>
 							<li class="breadcrumb-item active">商品資訊</li>
@@ -160,8 +163,8 @@ td {
 
 
 									<a><label> 勾選產品狀態</label></a><br> <input name="proStatus"
-										type="checkbox" value="0"> <a>未上架</a> <input
-										name="proStatus" type="checkbox" value="1"> <a>上架中</a>
+										type="radio" value="0"> <a>未上架</a> <input
+										name="proStatus" type="radio" value="1"> <a>上架中</a>
 								</div>
 
 <!-- 								<div class="select one"> -->
@@ -229,7 +232,7 @@ td {
 						<th:block>
 							<tr>
 								<td th:text="${productInfo.productId}"></td>
-								<td th:text="${productInfo.productTypeId}"></td>
+								<td th:text="${productInfo.productTypeVO.productTypeId} + '-' + ${{productInfo.productTypeVO.typeName}}"></td>
 								<td th:text="${productInfo.proName}"></td>
 								<td th:text="${productInfo.proPrice}"></td>
 								<td th:text="${productInfo.proSafetyStock}"></td>
