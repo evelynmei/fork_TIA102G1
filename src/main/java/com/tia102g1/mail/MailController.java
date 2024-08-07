@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 	    @GetMapping("/sendMail")
 	    public String sendMail() {
 	        mailService.sendPlainText("j05011993@hotmail.com.tw", "訂單成立", "您好，您的訂單已成立");
-	        return "reidrect:ao6";
+	        return "reidrect:";
 	    }
 	}
+
+	

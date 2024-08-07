@@ -18,5 +18,6 @@ public void sendPlainText(String receivers, String subject, String content) {
 	message.setText("您好，您的訂單已成立");
 	
 	mailSender.send(message);
+	
 }
 }
