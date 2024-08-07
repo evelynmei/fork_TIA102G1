@@ -1,15 +1,28 @@
 package com.tia102g1.member.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tia102g1.member.constant.AccountStatus;
+import com.tia102g1.membercoin.model.MemberCoinVO;
 
 @Entity
 @Table(name = "MEMBER")
@@ -104,6 +117,11 @@ public class Member implements Serializable {
 
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
+	
+	//此會員下的購物金持有紀錄
+	@OneToMany(mappedBy = "member", fetch=FetchType.EAGER)
+	@OrderBy("memCoinId asc")
+	private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
 
 
 	public Member() {
