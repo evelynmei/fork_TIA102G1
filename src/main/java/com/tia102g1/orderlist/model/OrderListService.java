@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tia102g1.productinfo.entity.ProductInfo;
 
 @Service("orderListService")
 public class OrderListService {
@@ -20,13 +19,13 @@ public class OrderListService {
 	private SessionFactory sessionFactory;
 
 	// 新增
-	public void addOrderList(OrderListVO orderList) {
-		repository.save(orderList);
+	public void addOrderList(OrderListVO orderListVO) {
+		repository.save(orderListVO);
 	}
 	
 	// 修改
-	public void updateOrderList(OrderListVO orderList) {
-		repository.save(orderList);
+	public void updateOrderList(OrderListVO orderListVO) {
+		repository.save(orderListVO);
 	}
 	
 	// 單筆查詢
