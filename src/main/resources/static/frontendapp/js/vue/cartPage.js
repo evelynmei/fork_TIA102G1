@@ -55,9 +55,9 @@ createApp({
             // console.log(productInfos);
 
             // 用 JavaScript 裡 Array.reduce 方法，把 array 資料轉成一個 JavaScript Object
-            const newProducts = productInfos.reduce(reduceCallback, {});
-            console.log(newProducts);
-            products = newProducts;
+                // const newProducts = productInfos.reduce(reduceCallback, {});
+                // console.log(newProducts);
+                // products = newProducts;
 
             items.value = cartList.map(mapCallback);
             console.log(toRaw(items.value));
