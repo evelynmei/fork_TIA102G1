@@ -11,10 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.tia102g1.member.model.Member;
 import com.tia102g1.membercoin.model.MemberCoinVO;
 
 @Entity
@@ -27,11 +30,11 @@ public class OrderListVO implements Serializable {
 	@Column(name = "orderListId")
 	private Integer orderListId;
 	
-//	@ManyToOne 
-//	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
-//	private Member member;	
-	@Column(name = "memberId")
-	private Integer memberId;
+	@ManyToOne 
+	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
+	private Member member;	
+//	@Column(name = "memberId")
+//	private Integer memberId;
 	
 //	@ManyToOne
 //	@JoinColumn(name = "couponId", referencedColumnName = "couponId")
@@ -75,8 +78,8 @@ public class OrderListVO implements Serializable {
 	@Column(name = "useCoupon")
 	private Integer useCoupon;
 	
-	@Column(name = "uesCoin")
-	private Integer uesCoin;
+	@Column(name = "useCoin")
+	private Integer useCoin;
 	
 	@Column(name = "cardHolder")
 	private String cardHolder;
@@ -138,16 +141,17 @@ public class OrderListVO implements Serializable {
 		super();
 	}
 
-	public OrderListVO(Integer orderListId, Integer memberId, Integer couponId, Integer eventId, Timestamp orderDt,
+	public OrderListVO(Integer orderListId, Member member, Integer couponId, Integer eventId, Timestamp orderDt,
 			Integer orderAmount, Integer couponUsedAmount, Integer coinUsedAmount, Integer payAmount,
 			Integer orderStatus, Integer paymentMethod, Integer paymentStatus, Integer pickupMethod, Integer useCoupon,
-			Integer uesCoin, String cardHolder, String cardNumber, Integer cardYy, String cardMm, String cardVerifyCode,
+			Integer useCoin, String cardHolder, String cardNumber, Integer cardYy, String cardMm, String cardVerifyCode,
 			Integer invoiceWay, String invoiceTaxNo, String invoiceMobileCode, String recipientName,
 			String recipientPhone, Integer recipientCnt, Integer recipientDist, String recipientAddress,
-			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated) {
+			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated,
+			Set<MemberCoinVO> memCoins) {
 		super();
 		this.orderListId = orderListId;
-		this.memberId = memberId;
+		this.member = member;
 		this.couponId = couponId;
 		this.eventId = eventId;
 		this.orderDt = orderDt;
@@ -160,7 +164,7 @@ public class OrderListVO implements Serializable {
 		this.paymentStatus = paymentStatus;
 		this.pickupMethod = pickupMethod;
 		this.useCoupon = useCoupon;
-		this.uesCoin = uesCoin;
+		this.useCoin = useCoin;
 		this.cardHolder = cardHolder;
 		this.cardNumber = cardNumber;
 		this.cardYy = cardYy;
@@ -178,6 +182,7 @@ public class OrderListVO implements Serializable {
 		this.dateCreated = dateCreated;
 		this.lastUpdatedBy = lastUpdatedBy;
 		this.lastUpdated = lastUpdated;
+		this.memCoins = memCoins;
 	}
 
 	public Integer getOrderListId() {
@@ -188,12 +193,12 @@ public class OrderListVO implements Serializable {
 		this.orderListId = orderListId;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	public Integer getCouponId() {
@@ -216,8 +221,8 @@ public class OrderListVO implements Serializable {
 		return orderDt;
 	}
 
-	public void setOrderDt(Timestamp now) {
-		this.orderDt = now;
+	public void setOrderDt(Timestamp orderDt) {
+		this.orderDt = orderDt;
 	}
 
 	public Integer getOrderAmount() {
@@ -292,12 +297,12 @@ public class OrderListVO implements Serializable {
 		this.useCoupon = useCoupon;
 	}
 
-	public Integer getUesCoin() {
-		return uesCoin;
+	public Integer getUseCoin() {
+		return useCoin;
 	}
 
-	public void setUesCoin(Integer uesCoin) {
-		this.uesCoin = uesCoin;
+	public void setUseCoin(Integer useCoin) {
+		this.useCoin = useCoin;
 	}
 
 	public String getCardHolder() {
@@ -436,21 +441,17 @@ public class OrderListVO implements Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderListVO [orderListId=" + orderListId + ", memberId=" + memberId + ", couponId=" + couponId
-				+ ", eventId=" + eventId + ", orderDt=" + orderDt + ", orderAmount=" + orderAmount
-				+ ", couponUsedAmount=" + couponUsedAmount + ", coinUsedAmount=" + coinUsedAmount + ", payAmount="
-				+ payAmount + ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
-				+ paymentStatus + ", pickupMethod=" + pickupMethod + ", useCoupon=" + useCoupon + ", uesCoin=" + uesCoin
-				+ ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm="
-				+ cardMm + ", cardVerifyCode=" + cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo="
-				+ invoiceTaxNo + ", invoiceMobileCode=" + invoiceMobileCode + ", recipientName=" + recipientName
-				+ ", recipientPhone=" + recipientPhone + ", recipientCnt=" + recipientCnt + ", recipientDist="
-				+ recipientDist + ", recipientAddress=" + recipientAddress + ", createdBy=" + createdBy
-				+ ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated
-				+ "]";
+	public Set<MemberCoinVO> getMemCoins() {
+		return memCoins;
 	}
-	
 
+	public void setMemCoins(Set<MemberCoinVO> memCoins) {
+		this.memCoins = memCoins;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	
 }

@@ -4,15 +4,79 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>MainPage_OrderList</title>
-
 		
-		<link rel="stylesheet" th:href="@{/css/error.css}">
+		<style>
+			#form {
+				margin-top: 15px;
+				margin-left: 30px;
+				margin-bottom: 15px;
+				font-size: 0.9rem;
+				}
+				
+			.one {
+				width: 120px;
+			}
+			
+			div.select {
+				display: inline-block;
+				margin-right: 25px;
+			}
+			
+			#startorderDt, #endorderDt {
+				width: 100px;
+			}
+			
+			.dataTables_wrapper {
+			    position: relative;
+			    clear: both;
+			    width: 100%;
+			}
+		</style>
+		
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
+	<!-- header-css etc. -->
+		<div th:insert="~{/comPage1}"></div>	
+		
+		<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>        
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> 		
 
-	<div th:insert="~{/comPage1}"></div>
-	
+		
+		<!-- jquery datatables 設定 -->
+		<script>
+			$(document).ready(function() {
+				$('#example').DataTable({
+					"lengthMenu": [3 ,5, 10, 20, 50, 100],
+					"searching": true,  //搜尋功能, 預設是開啟
+				    "paging": true,     //分頁功能, 預設是開啟
+				    "ordering": true,   //排序功能, 預設是開啟
+				    "language": {
+				        "processing": "處理中...",
+				        "loadingRecords": "載入中...",
+				        "lengthMenu": "顯示 _MENU_ 筆結果",
+				        "zeroRecords": "沒有符合的結果",
+				        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+				        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+				        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+				        "infoPostFix": "",
+				        "search": "搜尋:",
+				        "paginate": {
+				            "first": "第一頁",
+				            "previous": "上一頁",
+				            "next": "下一頁",
+				            "last": "最後一頁"
+				        },
+				        "aria": {
+				            "sortAscending":  ": 升冪排列",
+				            "sortDescending": ": 降冪排列"
+				        }
+				    }
+				});
+			});
+		</script>
+
+	<!-- side bar -->
 	<div th:insert="~{/comPage2}"></div>
 	
 	<!-- Content Wrapper. Contains page content -->
@@ -23,16 +87,16 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0" font-style="bold">你的功能名稱</h1>
+              <h1 class="m-0" font-style="bold">訂單總覽</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
+              
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 				<!-- ==============後台人員登入登出用 =============-->
 				<div class="breadcrumb-item"><a th:insert="~{/comLogin}"></div>
                 <!-- ==============寫入你的mainPage名稱 =============-->
-                <li class="breadcrumb-item"><a th:href="@{../XXXXXX/mainPageXXXXXX}">你的功能名稱</a></li>
-                <li class="breadcrumb-item active">查詢資料</li>
+                <li class="breadcrumb-item active">訂單總覽</li>
                 
               </ol>
             </div><!-- /.col -->
@@ -54,41 +118,120 @@
 			</div>
 			<!-- /.card-header -->
 			<!-- form start -->
-			<form th:action="@{listStores_ByCompositeQuery}" method="post">
-				<div class="card-body">
+			<form id="form" th:action="@{/orderList/listOrderListByCompositeQuery}"  style="width: 100%" method="post">
 				
-					<div class="form-group">
-					<label>查詢欄位1:</label>
-					<!-- 查詢欄位1內容 -->
-					<input type="text" name="欄位1名稱" value="" placeholder="預設值" class="form-control"/>
+				
+					<div class="form-group select one" style="width: 8% ">
+						<label>訂單編號</label>
+						<br> <select id="roll" name="orderListId">
+							<option value="" disabled selected >選擇編號</option>
+							<option th:each="orderListVO : ${OrderListData2}"
+									th:value="${orderListVO.orderListId}"
+									th:text="${orderListVO.orderListId}">
+							</option></select>
+					</div>
+				
+					<div class="form-group select one" style="width: 8% ">
+						<label>會員編號</label>
+						<br> <select id="roll" name="memberId">
+							<option value="" disabled selected >選擇編號</option>
+							<option th:each="member : ${memberListData}"
+									th:value="${member.memberId}"
+									th:text="${member.memberId}">
+							</option></select>
 					</div>
 					
-					<div class="form-group">
-					<label>查詢欄位2:</label>
-					<!-- 查詢欄位2內容 -->
-					<input type="text" name="欄位2名稱" value="" placeholder="預設值" class="form-control"/>
+					<div class="form-group select one" style="width: 8% ">
+					<label>訂單狀態</label>
+					<br> <select id="roll" name="orderStatus">
+						<option value="" disabled selected >選擇狀態</option>
+						<option value="0" >處理中</option>
+						<option value="1" >已確認</option>
+						<option value="2" >已完成</option>
+						<option value="3" >已取消</option>
+						</option></select>				
+					</div>
+					
+					<div class="form-group select one" style="width: 8% ">
+					<label>付款狀態</label>
+					<br> <select id="roll" name="paymentStatus">
+						<option value="" disabled selected >選擇狀態</option>
+						<option value="0" >未付款</option>
+						<option value="1" >已付款</option>
+						<option value="2" >退款中</option>
+						<option value="3" >已退款</option>
+						</option></select>
+					</div>
+					
+					<div class="form-group select one" style="width: 8% ">
+					<label>取貨方式</label>
+					<br> <select id="roll" name="pickupMethod">
+						<option value="" disabled selected >選擇方式</option>
+						<option value="1" >宅配到府</option>
+						<option value="2" >現場取貨</option>
+						</option></select>
 					</div>
 
-					<div class="form-group">
-					<label>查詢欄位3 下拉選單:</label>
-			  		<select class="form-control custom-select">
-						<option value="">選項1</option>
-						<option value="">選項2</option>
-					</select>
+					<div class="select two" style="width: 35% ">
+							<label>訂單日期</label><br>									
+							<!-- 起始日期 -->
+							<label style="cursor: pointer;" onclick="document.getElementById('startorderDt').click();">
+							起始日期:
+							</label>
+							<input type="date" id="startorderDt" name="startorderDt" style="cursor: pointer;" onclick="this.showPicker();">									
+							<!-- 最終日期 -->
+							<label style="cursor: pointer;" onclick="document.getElementById('endorderDt').click();">
+							最終日期:
+							</label>
+							<input type="date" id="endorderDt" name="endorderDt" style="cursor: pointer;" onclick="this.showPicker();">
 					</div>
 					
+					<br>
 					<div class="form-group">
-					<button type="reset" class="btn btn-secondary">清　除</button>
-					<button type="submit" class="btn btn-primary">查　詢</button>
-					<a href="addXXXXXX"><button type="button" class="btn btn-success">新　增</button></a>
+					<button type="reset" class="btn btn-secondary"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">清&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除</button>
+					<button type="submit" class="btn btn-primary" style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;詢</button>
+					<a th:href="addOrderList"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新增商品</button></a>
 					</div>
+					</form>
 				</div>
 				<!-- /.card-body -->
-
-			</form>
-		</div>
+				
 		<!-- /.card -->
 	</div>
+	
+	<table id="example" class="table table-striped projects display">
+		  <thead>
+			<tr style="background-color:#434b52; color:#ffffff; ">
+				<th>訂單編號</th>
+				<th>會員編號</th><!-- 到時候改名字 -->
+				<th>訂單日期</th>
+				<th>總付款金額</th>
+				<th>訂單狀態</th>
+				<th>付款狀態</th>
+				<th>取貨方式</th>
+				<th></th>
+			</tr>
+		  </thead>
+			
+		  <tbody>
+				<th:block th:each="orderListVO : ${OrderListData}">
+					<tr>
+						<td th:text="${orderListVO.orderListId}"></td>
+						<td th:text="${orderListVO.member.memberId}"></td>
+						<td th:text="${#dates.format(orderListVO.orderDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${orderListVO.payAmount}"></td>
+						<td th:text="${orderListVO.orderStatus}"></td>
+						<td th:text="${orderListVO.paymentStatus}"></td>
+						<td th:text="${orderListVO.pickupMethod}"></td>
+						<td>
+							<form method="post" th:action="@{getOne_For_Update}">
+							<input type="submit" value="修改"> <input type="hidden" name="orderListId" th:value="${orderListVO.orderListId}">
+							</form>
+						</td>
+					</tr>
+				</th:block>
+		  </tbody>
+		</table>
 
 
 	</section>
