@@ -45,6 +45,7 @@ public class CompositeQuery_OrderList {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("predicate= " + predicate); //如果沒條件就會是null
 		return predicate;
 
 	}
@@ -69,6 +70,7 @@ public class CompositeQuery_OrderList {
 			int count = 0;
 			for (String key : keys) {
 				String value = map.get(key)[0];
+				System.out.println("key = " + key + "; value = " + value); //印出查詢條件
 				if (value != null && value.trim().length() != 0 && !"action".equals(key)) {
 					count++;
 					predicateList.add(get_aPredicate_For_AnyDB(builder, root, key, value.trim()));
@@ -87,12 +89,18 @@ public class CompositeQuery_OrderList {
 		} catch (RuntimeException ex) {
 			if (tx != null)
 				tx.rollback();
-			throw ex; // System.out.println(ex.getMessage());
+//			throw ex; // System.out.println(ex.getMessage());
+			System.out.println(ex.getMessage()); //印出錯誤訊息
 		} finally {
 			session.close();
 			// HibernateUtil.getSessionFactory().close();
 		}
-
+		
+		//印出查詢結果
+		for(OrderListVO o : list) {
+			System.out.println(o);
+		}
+		
 		return list;
 	}
 }

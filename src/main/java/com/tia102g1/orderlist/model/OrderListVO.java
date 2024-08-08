@@ -453,5 +453,20 @@ public class OrderListVO implements Serializable {
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "OrderListVO [orderListId=" + orderListId + ", couponId=" + couponId + ", eventId=" + eventId
+				+ ", orderDt=" + orderDt + ", orderAmount=" + orderAmount + ", couponUsedAmount=" + couponUsedAmount
+				+ ", coinUsedAmount=" + coinUsedAmount + ", payAmount=" + payAmount + ", orderStatus=" + orderStatus
+				+ ", paymentMethod=" + paymentMethod + ", paymentStatus=" + paymentStatus + ", pickupMethod="
+				+ pickupMethod + ", useCoupon=" + useCoupon + ", useCoin=" + useCoin + ", cardHolder=" + cardHolder
+				+ ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm=" + cardMm + ", cardVerifyCode="
+				+ cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo=" + invoiceTaxNo
+				+ ", invoiceMobileCode=" + invoiceMobileCode + ", recipientName=" + recipientName + ", recipientPhone="
+				+ recipientPhone + ", recipientCnt=" + recipientCnt + ", recipientDist=" + recipientDist
+				+ ", recipientAddress=" + recipientAddress + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated
+				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + "]";
+	}
+
 	
 }
