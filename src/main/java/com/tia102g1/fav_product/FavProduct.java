@@ -1,15 +1,13 @@
 package com.tia102g1.fav_product;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 
 @Getter
@@ -39,9 +37,8 @@ public class FavProduct implements Serializable {
     @NotNull
     private Integer productId;
 
-    @CreatedDate
-    @Column(name = "JOINDT", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    @CreatedDate
+    @Column(name = "JOINDT", insertable = false, updatable = false)
     private Date joinDt;
 
 }
