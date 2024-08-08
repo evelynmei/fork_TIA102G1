@@ -2,11 +2,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>客服問題類型</title>
+		<title>客服問題類型管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
-		
+		<style>
+	        th {
+	            width: 150px;
+	        }
+    	</style>
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -22,13 +26,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">客服問題類型</h1>
+              <h1 class="m-0">客服問題類型管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
                 <body th:insert="~{/comLogin}"></body>
-                <li class="breadcrumb-item active">客服問題類型</li>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageQuType}">客服問題類型管理</a></li>
+                <li class="breadcrumb-item active">客服問題類型管理</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -38,22 +43,44 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<h3>
-		<a th:href="@{/quType/mainPageQuType}">回客服問題類型頁面</a>
-	</h3>
-		<span>類型編號:</span>	
-			<span th:text="${quTypeVO.quTypeId}"></span><br>
-		<span>問題類型描述:</span>
-			<span th:text="${quTypeVO.quTypeDesc}"></span><br>
-		<span>建檔者:</span>
-			<span th:text="${quTypeVO.createdBy}"></span><br>
-		<span>建檔時間:</span>
-			<span th:text="${#dates.format(quTypeVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
-		<span>最後更新者:</span>
-			<span th:text="${quTypeVO.lastUpdatedBy}"></span><br>
-		<span>最後更新時間:</span>
-			<span th:text="${#dates.format(quTypeVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
+		<div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="callout callout-info">
+                        <h6><i class="fas fa-info"></i> 修改成功!</h6>
+                    </div>
+	<div class="invoice p-3 mb-3">
+    <div class="row">
+    <div class="col-12">
+		<p class="lead" style="font-weight:bold;">商品公告</p>
+		<div class="table-responsive">
+        	<table class="table">
+            	<tr>
+					<th>類型編號:</th>	
+					<td th:text="${quTypeVO.quTypeId}"></td>
+				</tr>
+				<tr>
+					<th>問題類型描述:</th>
+					<td th:text="${quTypeVO.quTypeDesc}"></td>
+				</tr>
+				<tr>
+					<th>建檔者:</th>
+					<td th:text="${quTypeVO.createdBy}"></td>
+				</tr>
+				<tr>
+					<th>建檔時間:</th>
+					<td th:text="${#dates.format(quTypeVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				</tr>
+				<tr>
+					<th>最後更新者:</th>
+					<td th:text="${quTypeVO.lastUpdatedBy}"></td>
+				</tr>
+				<tr>
+					<th>最後更新時間:</th>
+					<td th:text="${#dates.format(quTypeVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				</tr>
+			</table></div></div></div></div></div></div></div>
+			<a th:href="@{mainPageQuType}"><button type="button" class="btn btn-info">回主頁</button></a>
 	</section>
 	<!-- 功能內容結束 -->
 	

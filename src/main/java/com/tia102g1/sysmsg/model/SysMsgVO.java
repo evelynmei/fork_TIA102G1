@@ -36,6 +36,7 @@ public class SysMsgVO {
 	@Column(name = "STATUS")
 	private Integer status;
 	
+	@NotEmpty(message="請輸入員工編號")
 	@Column(name = "CREATEDBY")
 	private String createdBy;
 	

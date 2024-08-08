@@ -38,58 +38,46 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<div align="center">
-		<h2>系統訊息</h2>
-	</div>
-	<h4>
-		<span>訊息查詢</span>
-	</h4>
-	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
-	<br>
+	<div class="container-fluid">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title">系統訊息查詢</h3>
+		</div>	
 	<div>
-		<ul>
-			<li><h5>
-					<a href="listAllSysMsg">全部</a>系統訊息通知
-				</h5></li>
-			<li>
-				<form method="post" th:action="@{listSysMsg_ByCompositeQuery}">
-					<p>選擇訊息類型:
-					<select name="type">
-						<option value=" "></option>
-						<option value="1">會員相關訊息</option>
-						<option value="2">付款相關訊息</option>
-						<option value="3">訂單相關訊息</option>
-					</select>
-
-					<p>訊息標題包含:
-					<input type="text" name="msgTitle">
-
-					<p>訊息內容包含:
-					<input type="text" name="msgContent">
-
-					<p>啟用狀態:
-					<select name="status">
-						<option value=" "></option>
-						<option value="1">啟用中</option>
-						<option value="0">停用</option>
-					</select></p>
-					<input type="submit" value="送出">
-				</form>
-			</li>
-		</ul>
-
-		<h4>
-			<span>系統訊息管理</span>
-		</h4>
-		<ul>
-			<li><h5>
-					<a href='addSysMsg'>新增</a>系統訊息
-				</h5></li>
-		</ul>
-	</div>
-	
-	
+		<form method="post" th:action="@{listSysMsg_ByCompositeQuery}">
+			<div class="card-body">
+			<div class="form-group">
+				<label>訊息類型:</label>
+				<select name="type">
+					<option value=" "></option>
+					<option value="1">會員相關訊息</option>
+					<option value="2">付款相關訊息</option>
+					<option value="3">訂單相關訊息</option>
+				</select></div>
+			<div class="form-group">
+				<label>訊息標題包含:</label>
+				<input type="text" name="msgTitle">
+			</div>
+			<div class="form-group">
+				<label>訊息內容包含:</label>
+				<textarea name="msgContent"></textarea>
+			</div>
+			<div class="form-group">
+				<label>啟用狀態:</label>
+				<select name="status">
+					<option value=" "></option>
+					<option value="1">啟用中</option>
+					<option value="0">停用</option>
+				</select>
+			</div>
+			<div class="form-grout">
+				<button type="reset" class="btn btn-secondary">清 除</button>
+				<button type="submit" class="btn btn-primary">送 出</button>
+				<a href='addSysMsg'><button type="button" class="btn btn-success">新 增</button></a>
+			</div></div>
+		</form></div></div></div></div></div>
 	</section>
 	<!-- 功能內容結束 -->
 	

@@ -2,11 +2,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>公告管理</title>
+		<title>商品公告管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
-		
+		<link rel="stylesheet" th:href="@{/css/error.css}">
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -22,7 +22,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">公告管理</h1>
+              <h1 class="m-0" >商品公告管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -30,7 +30,8 @@
 			<!-- ===================================後台人員登入登出用 =================================================================-->
                  <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">公告管理</li>
+                <li class="breadcrumb-item active">商品公告管理</li>
+                
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -40,50 +41,55 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		<h2>公告查詢</h2>
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-md-12">
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">公告查詢</h3>
+			</div>
 		<div>
-			<ul>
-				<li><h5><a href="listAllNews">全部</a>公告</h5>
-				<li><h5><a href="addNews">新增</a>公告</h5>
-			</ul>
-			<hr>
-			<ul>
-				<li>
-					<form method="post" th:action="@{listNews_ByCompositeQuery}">
-						<p>公告標題:
-							<input type="text" name="newsTitle">
-						<p>公告內容:
-							<input type="text" name="newsContent">
-						<p>日期區間內發布的公告:
-							<input type="date" id="startPublish" name="startPublish" onchange="validateDate()">
-							~<input type="date" id="endPublish" name="endPublish" onchange="validateDate()">
-<!-- 						<p>日期區間內生效的公告: -->
-<!-- 							<input type="date" id="beginDt" name="beginDt" onchange="validateDate()"> -->
-<!-- 							~<input type="date" id="overDt" name="overDt" onchange="validateDate()"> -->
-						
-						<br><input type="submit" value="送出">
-					</form><br>
-			</ul>
-		</div>
-	
+			<form method="post" th:action="@{listNews_ByCompositeQuery}">
+				<div class="card-body">
+					<div class="form-group">
+						<label>公告標題:</label>
+							<input type="text" name="newsTitle" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>公告內容:</label>
+							<input type="text" name="newsContent" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label style="display: inline-block;">日期區間內發布的公告:</label>
+							<input type="date" id="startPublish" name="startPublish" onclick="this.showPicker();" onchange="validateDate()" class="form-control custom-date" style="width: 120px; display: inline-block; margin-left: 10px;margin-right: 10px;">
+							到
+							<input type="date" id="endPublish" name="endPublish" onclick="this.showPicker();" onchange="validateDate()" class="form-control custom-date" style="width: 120px; display: inline-block; margin-left: 10px;">
+					</div>
+					<div class="form-grout">
+						<button type="reset" class="btn btn-secondary">清 除</button>
+						<button type="submit" class="btn btn-primary">送 出</button>
+						<a href="addNews"><button type="button" class="btn btn-success">新 增</button></a>
+					</div>
+					</div>
+			</form>
+			</div>
+		</div></div></div>
 		<script>
-			function validateDate(){
+		function datePicker(input){
+			input.click();
+		}	
+		
+		function validateDate(){
 				var startPublish = document.getElementById('startPublish').value;
 				var endPublish = document.getElementById('endPublish').value;
-				var beginDt = document.getElementById('beginDt').value;
-				var overDt = document.getElementById('overDt').value;
 				
 	                if ((startPublish && endPublish) && (startPublish > endPublish)) {
 	                    alert('結束日不得早於開始日');
 	                    document.getElementById('endPublish').value = '';
 	                }
-	                if ((beginDt && overDt) && (beginDt > overDt)){
-	                    alert('結束日不得早於開始日');
-	                    document.getElementById('overDt').value = '';
-	                }
 				}
 		</script>
-	
+	</div>
 	</section>
 	<!-- 功能內容結束 -->
 	

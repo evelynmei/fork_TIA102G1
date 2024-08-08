@@ -2,10 +2,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>公告管理</title>
+		<title>商品公告管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
+		<style>
+	        th {
+	            width: 120px;
+	        }
+    	</style>
 		
 	</head>
 	
@@ -22,7 +27,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">公告管理</h1>
+              <h1 class="m-0">商品公告管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -30,7 +35,8 @@
 			<!-- ===================================後台人員登入登出用 =================================================================-->
                  <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">公告管理</li>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageNews}">商品公告管理</a></li>
+                <li class="breadcrumb-item active">商品公告管理</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -40,26 +46,53 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-		<h3>
-			<a th:href="@{/news/mainPageNews}">回公告首頁</a>
-		</h3>
-		
-		<p>公告</p>
-			<span>公告編號</span>
-				<span th:text="${newsVO.newsId}"></span><br>
-			<span>公告標題</span>
-				<span th:text="${newsVO.newsTitle}"></span><br>
-			<span>公告內容</span>
-				<span th:text="${newsVO.newsContent}"></span><br>
-			<span>公告日期</span>
-				<span th:text="${newsVO.newsDate}"></span><br>
-			<span>公告起始日</span>
-				<span th:text="${newsVO.startDt}"></span><br>
-			<span>公告結束日</span>
-				<span th:text="${newsVO.endDt}"></span><br>
-			<span>公告圖片</span>
-				<span><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></span><br>
+		<div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="callout callout-info">
+                        <h6><i class="fas fa-info"></i> 修改成功!</h6>
+                    </div>
+
+         <!-- Main content -->
+         <div class="invoice p-3 mb-3">
+         <div class="row">
+         <div class="col-12">
+			<p class="lead" style="font-weight:bold;">商品公告</p>
+			<div class="table-responsive">
+                <table class="table">
+					<tr>
+						<th>公告編號:</th>
+						<td th:text="${newsVO.newsId}"></td>
+					</tr>
+					<tr>
+						<th>公告標題:</th>
+						<td th:text="${newsVO.newsTitle}"></td>
+					</tr>
+					<tr>
+						<th>公告內容:</th>
+						<td th:text="${newsVO.newsContent}"></td>
+					</tr>
+					<tr>
+						<th>公告日期:</th>
+						<td th:text="${newsVO.newsDate}"></td>
+					</tr>
+					<tr>
+						<th>公告起始日:</th>
+						<td th:text="${newsVO.startDt}"></td>
+					</tr>
+					<tr>
+						<th>公告結束日:</th>
+						<td th:text="${newsVO.endDt}"></td>
+					</tr>
+					<tr>
+						<th>公告圖片:</th>
+						<td><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></td>
+					</tr>
+				</table></div></div></div>
+				<div>
+                    <a th:href="@{mainPageNews}"><button type="button" class="btn btn-primary">返回</button></a>
+                </div>
+				</div></div></div></div>
 	</section>
 	<!-- 功能內容結束 -->
 	

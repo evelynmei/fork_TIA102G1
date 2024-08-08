@@ -2,11 +2,49 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>員工列表</title>
-
+		<title>員工資料管理</title>
+		<style>
+			td{
+				vertical-align: middle;
+			}
+		</style>
 		<!-- header-css etc. -->
 	<head th:insert="~{/comPage1}"></head>
-
+	<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>        
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" /> 
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css"/>
+	
+	<script>
+			$(document).ready(function() {
+				$('#example').DataTable({
+					"lengthMenu": [3 ,5, 10, 20, 50, 100],
+					"searching": true,  //搜尋功能, 預設是開啟
+				    "paging": true,     //分頁功能, 預設是開啟
+				    "ordering": true,   //排序功能, 預設是開啟
+				    "language": {
+				        "processing": "處理中...",
+				        "loadingRecords": "載入中...",
+				        "lengthMenu": "顯示 _MENU_ 筆結果",
+				        "zeroRecords": "沒有符合的結果",
+				        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+				        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+				        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+				        "infoPostFix": "",
+				        "search": "搜尋:",
+				        "paginate": {
+				            "first": "第一頁",
+				            "previous": "上一頁",
+				            "next": "下一頁",
+				            "last": "最後一頁"
+				        },
+				        "aria": {
+				            "sortAscending":  ": 升冪排列",
+				            "sortDescending": ": 降冪排列"
+				        }
+				    }
+				});
+			});
+		</script>
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -22,12 +60,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">員工列表</h1>
+              <h1 class="m-0">員工資料管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
                  <body th:insert="~{/comLogin}"></body>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageStaff}">員工資料管理</a></li>
                 <li class="breadcrumb-item active">員工列表</li>
               </ol>
             </div><!-- /.col -->
@@ -38,13 +77,7 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		<div align="center">
-			<h2>員工總覽</h2>
-		</div>
-		<h3>
-			<a th:href="@{/staff/mainPageStaff}">回員工首頁</a>
-		</h3>
-		<table style="width:50%; text-align:center;">
+		<table id="example" class="table display" style="width:100%; vertical-align: middle;" >
 			<thead>	
 				<tr>
 					<th>員工編號</th>
@@ -70,14 +103,14 @@
 						<td th:text="${staffVO.leaveDt}"></td>
 						<td>
 							<form method="post" th:action="@{/staff/getOne_For_Update}">
-								<input type="submit" value="修改">
+								<button type="submit" class="btn btn-primary btn-sm" style="width:100%">修改</button>
 								<input type="hidden" name="staffId" th:value="${staffVO.staffId}">
 							</form>
 						</td>
 					</tr>
 			</tbody>
 		</table>
-		
+		<a th:href="@{mainPageStaff}"  style="display: inline-block;"><button type="button" class="btn btn-info">回主頁</button></a>
 	</section>
 	<!-- 功能內容結束 -->
 	

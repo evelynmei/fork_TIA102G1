@@ -2,10 +2,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>公告修改</title>
+		<title>商品公告管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
+		<link rel="stylesheet" th:href="@{/css/error.css}">
 		
 	</head>
 	
@@ -22,7 +23,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">公告修改</h1>
+              <h1 class="m-0">商品公告管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -30,7 +31,8 @@
 			<!-- ===================================後台人員登入登出用 =================================================================-->
                 <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">公告修改</li>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageNews}">商品公告管理</a></li>
+                <li class="breadcrumb-item active">商品公告修改</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -40,56 +42,58 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
-	<div align="center">
-		<h2>公告修改</h2>
-		<h3>
-			<a th:href="@{/news/mainPageNews}">回公告首頁</a>
-		</h3>
-		
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-md-12">
+		<div class="card card-primary">
+			<div class="card-header">	
+				<h3 class="card-title" align=left>商品公告修改</h3>
+			</div>		
 		<form th:action="@{update}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
+			<div class="card-body">
 			<input type="hidden" th:field="*{newsId}" readonly>
-			<div>
+			<div class="form-group">
 				<label>公告標題:</label>
-					<input type="text" th:field="*{newsTitle}" onclick="hideContent('newsTitle.errors');"/><br>
+					<input type="text" th:field="*{newsTitle}" onclick="hideContent('newsTitle.errors');" class="form-control"/><br>
 					<span th:if="${#fields.hasErrors('newsTitle')}" th:errors="*{newsTitle}" class="error" id="newsTitle.errors"></span>			
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告內容:</label>
-					<input type="text" th:field="*{newsContent}" onclick="hideContent('newsContent.errors');"/><br>
+					<textarea th:field="*{newsContent}" onclick="hideContent('newsContent.errors');" class="form-control" rows="4" cols="50"></textarea><br>
 					<span th:if="${#fields.hasErrors('newsContent')}" th:errors="*{newsContent}" class="error" id="newsContent.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告日期:</label>
-					<input type="date" th:field="*{newsDate}" onclick="hideContent('newsDate.errors');"/><br>
+					<input type="date" th:field="*{newsDate}" onclick="hideContent('newsDate.errors'); this.showPicker();" class="form-control custom-date"/><br>
 					<span class="error" th:text="${errorMessage1}" id="newsDate.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告起始日期:</label>
-					<input type="date" th:field="*{startDt}" onclick="hideContent('startDt.errors');"/><br>
+					<input type="date" th:field="*{startDt}" onclick="hideContent('startDt.errors'); this.showPicker();" class="form-control custom-date"/><br>
 					<span class="error" th:text="${errorMessage2}" id="startDt.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告結束日期:</label>
-					<input type="date" th:field="*{endDt}" onclick="hideContent('endDt.errors');"/><br>
+					<input type="date" th:field="*{endDt}" onclick="hideContent('endDt.errors'); this.showPicker();" class="form-control custom-date"/><br>
 					<span class="error" th:text="${errorMessage3}" id="endDt.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告圖片:</label>
-					<input type="file" th:field="*{newsPic}" onclick="previewImage()" multiple="multiple"/><br>
+					<input type="file" th:field="*{newsPic}" onclick="previewImage()" multiple="multiple" class="form-control custom-file"/><br>
 					<div id="blob_holder"><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></div>			
 			</div>
 			<input type="hidden" th:field="*{createdBy}" readonly /> 
 			<input type="hidden" th:field="*{dateCreated}" readonly />
-			<div>
+			<div class="form-group">
 				<label>最後更新者:</label>
-					<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');" /><br /> 
+					<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');" class="form-control"/><br /> 
 					<span th:if="${#fields.hasErrors('lastUpdatedBy')}"	th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
 			</div>
 			<div>
-				<button type="submit" id="submit">送出修改</button>
-			</div>
-		</form>
+				<button type="submit" class="btn btn-primary" id="submit">送出修改</button>
+				<a th:href="@{mainPageNews}"><button type="button" class="btn btn-info">回主頁</button></a>
+			</div></div>
+		</form></div></div></div>
 	</div>	
 	<script>
 		function hideContent(d) {
