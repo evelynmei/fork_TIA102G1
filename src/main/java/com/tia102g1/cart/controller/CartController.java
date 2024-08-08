@@ -2,6 +2,8 @@ package com.tia102g1.cart.controller;
 
 import com.tia102g1.cart.model.Cart;
 import com.tia102g1.cart.service.CartService;
+import com.tia102g1.coupon.Coupon;
+import com.tia102g1.coupon.CouponService;
 import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class CartController {
     @Autowired
     private ProductInfoServiceS productInfoService;
 
+    @Autowired
+    private CouponService couponService;
+
     /**
      * 取得購物車內容
      *
@@ -37,9 +42,13 @@ public class CartController {
 //        List<ProductInfo> productInfos = productInfoService.getAll();
 //        model.addAttribute("productInfos", productInfos);
 
+        List<Coupon> coupons = couponService.getAllCoupons();
+        model.addAttribute("coupons", coupons);
+
         Map<String, List<?>> map = new HashMap<>();
         map.put("cartList", cartList);
 //        map.put("productInfos", productInfos);
+        map.put("coupons", coupons);
         if (cartList != null) {
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } else {

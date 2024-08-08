@@ -26,6 +26,11 @@ const dumbProducts = {
         price: 500,
         picture: productURL + "07.jpg"
     },
+    1004: {
+        name: "白巧克力餅乾",
+        price: 500,
+        picture: productURL + "08.jpg"
+    },
 }
 const dumbItems = [
     {cartId:1, picture: "圖片", productName: "巧克力餅乾", price: 100, proAmount: 1,},
@@ -36,7 +41,11 @@ let products = dumbProducts;
 
 createApp({
     setup() {
-        let items = ref(dumbItems) ;
+        let items = ref(dumbItems);
+        const isDiscount = ref(false);
+        const codeInput = ref("");
+        const coupons = [];
+
 
         /**
          前端頁面資料推演，購物車，CartViewObject，需要什麼資料？
@@ -53,6 +62,7 @@ createApp({
             let { data } = await axios.get( apiURL + memberId);
             let { productInfos, cartList } = data;   // JavaScript、Python 裡的解構賦值
             // console.log(productInfos);
+            coupons.push(...data.coupons);
 
             // 用 JavaScript 裡 Array.reduce 方法，把 array 資料轉成一個 JavaScript Object
                 // const newProducts = productInfos.reduce(reduceCallback, {});
@@ -80,7 +90,7 @@ createApp({
             let itemToDelete = array[index];
             let cartId = itemToDelete.cartId;
 
-            // array 裡需至少有一項，然後才執行，對 array spice 掉第 index 的一個 item
+            // array 裡需至少有一項才執行，否則短路不繼續運算，不短路則 spice 掉陣列裡第 i 個 item
             array.length > 0 && array.splice(index, 1);
 
             console.log("item = ", toRaw(itemToDelete));
@@ -92,10 +102,25 @@ createApp({
                 .catch(err => console.log(err));
         };
 
+
+        const discountHandler = () => {
+
+            // 檢查輸入的 codeInput.value 跟 coupons 裡的 couponCode 是否符合
+            console.log(codeInput.value);
+            console.log(coupons);
+            const a = coupons.some(coupon => coupon.couponCode === codeInput.value);
+            console.log(a)
+
+            isDiscount.value = !isDiscount.value;
+        }
+
         return {
             items,
             sum,
-            deleteItem
+            isDiscount,
+            codeInput,
+            deleteItem,
+            discountHandler,
         }
     }
 }).mount('#shopping-cart');

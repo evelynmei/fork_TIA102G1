@@ -82,8 +82,8 @@
 					</div>
 					<div class="table-bottom-wrapper">
 						<div class="table-coupon d-flex d-xs-block d-lg-flex d-sm-flex fix justify-content-start float-left">
-							<input type="text" placeholder="輸入優惠代碼">
-							<button type="submit" class="btn-primary btn">
+							<input v-model="codeInput" type="text" placeholder="輸入優惠代碼">
+							<button type="submit" class="btn-primary btn" @click="discountHandler">
 								套用優惠券
 							</button>
 						</div>
@@ -108,9 +108,10 @@
 								<strong>運費</strong>
 								<span class="c-total-price">$80</span>
 							</div>
-							<!-- <div class="single-total-content d-flex justify-content-end float-left w-100">
-                                <a href="#">Calculate shipping</a>
-                            </div> -->
+							<div v-if="isDiscount" class="single-total-content d-flex justify-content-between float-left w-100">
+								<strong>折價卷優惠</strong>
+								<span class="c-total-price">-$80</span>
+							</div>
 							<div class="single-total-content tt-total d-flex justify-content-between float-left w-100">
 								<strong>總付款金額</strong>
 								<span class="c-total-price">${{sum + 80}}</span>
