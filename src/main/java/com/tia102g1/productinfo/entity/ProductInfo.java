@@ -23,19 +23,19 @@ import com.tia102g1.producttype.model.ProductTypeVO;
 public class ProductInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id //描述此屬性為表格PK
+	@Id //描述此屬性為表格PK 
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //欄位值為Auto Increatement機制
 	@Column(name = "productId", updatable = false)
 	private Integer productId;
 	
 	
-//	@ManyToOne
-//	@JoinColumn(name = "PRODUCTTYPEID", referencedColumnName = "PRODUCTTYPEID")
-//	private ProductTypeVO productTypeVO;		
-	@Column(name = "productTypeId")
-	@NotNull(message="商品類型: 請勿空白")
-	private Integer productTypeId;
-	
+	@ManyToOne
+	@JoinColumn(name = "PRODUCTTYPEID", referencedColumnName = "PRODUCTTYPEID")
+	private ProductTypeVO productTypeVO;		
+//	@Column(name = "productTypeId")
+//	@NotNull(message="商品類型: 請勿空白")
+//	private Integer productTypeId;
+
 	@Column(name = "proName")
 	@Pattern(regexp="^[\\u4e00-\\u9fa5]+$", message = "商品名稱: 請輸入中文")
 	@NotEmpty(message="商品名稱: 請勿空白")
@@ -88,7 +88,7 @@ public class ProductInfo implements java.io.Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductInfo(Integer productId, @NotNull(message = "商品類型: 請勿空白") Integer productTypeId,
+	public ProductInfo(Integer productId, ProductTypeVO productTypeVO,
 			@Pattern(regexp = "^[\\u4e00-\\u9fa5]+$", message = "商品名稱: 請輸入中文") @NotEmpty(message = "商品名稱: 請勿空白") String proName,
 			@NotNull(message = "商品單價: 請勿空白") @DecimalMin(value = "1", message = "商品單價: 不能小於{value}") Integer proPrice,
 			@NotNull(message = "商品安全存量: 請勿空白") Integer proSafetyStock,
@@ -98,7 +98,7 @@ public class ProductInfo implements java.io.Serializable {
 			String lastUpdatedBy, Timestamp lastUpdated) {
 		super();
 		this.productId = productId;
-		this.productTypeId = productTypeId;
+		this.productTypeVO = productTypeVO;
 		this.proName = proName;
 		this.proPrice = proPrice;
 		this.proSafetyStock = proSafetyStock;
@@ -122,12 +122,12 @@ public class ProductInfo implements java.io.Serializable {
 		this.productId = productId;
 	}
 
-	public Integer getProductTypeId() {
-		return productTypeId;
+	public ProductTypeVO getProductTypeVO() {
+		return productTypeVO;
 	}
 
-	public void setProductTypeId(Integer productTypeId) {
-		this.productTypeId = productTypeId;
+	public void setProductTypeVO(ProductTypeVO productTypeVO) {
+		this.productTypeVO = productTypeVO;
 	}
 
 	public String getProName() {
@@ -237,6 +237,8 @@ public class ProductInfo implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	
 
 
 }

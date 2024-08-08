@@ -10,7 +10,7 @@ let memberId = "1";
 const apiURL = "http://localhost:8080/cart/";
 const productURL = "frontendapp/img/products/";
 
-const products = {
+const dumbProducts = {
     1001: {
         name: "巧克力餅乾",
         price: 300,
@@ -31,6 +31,8 @@ const dumbItems = [
     {cartId:1, picture: "圖片", productName: "巧克力餅乾", price: 100, proAmount: 1,},
     {cartId:2, picture: "圖片", productName: "牛奶糖餅乾", price: 200, proAmount: 2,}
 ];
+let products = dumbProducts;
+
 
 createApp({
     setup() {
@@ -49,17 +51,15 @@ createApp({
 
         onMounted( async() => {
             let { data } = await axios.get( apiURL + memberId);
+            let { productInfos, cartList } = data;   // JavaScript、Python 裡的解構賦值
+            // console.log(productInfos);
 
-            items.value = data.map(item => {
-                let id = item.productId;
-                item.productName = products[id].name;
-                item.price = products[id].price;
-                item.picture = products[id].picture;
-                item.sum = item.price * item.proAmount;
-                item.url = "productDetails/" + item.cartId
-                return item;
-            })
+            // 用 JavaScript 裡 Array.reduce 方法，把 array 資料轉成一個 JavaScript Object
+            const newProducts = productInfos.reduce(reduceCallback, {});
+            console.log(newProducts);
+            products = newProducts;
 
+            items.value = cartList.map(mapCallback);
             console.log(toRaw(items.value));
 
         })
@@ -76,11 +76,11 @@ createApp({
 
         //刪除商品
         const deleteItem = index => {
-            let array = items.value; // [{}, {}, {}]
+            let array = items.value;
             let itemToDelete = array[index];
             let cartId = itemToDelete.cartId;
 
-            // array裡需至少有一項才執行，對array刪掉第 index 的一個 item
+            // array 裡需至少有一項，然後才執行，對 array spice 掉第 index 的一個 item
             array.length > 0 && array.splice(index, 1);
 
             console.log("item = ", toRaw(itemToDelete));
@@ -99,3 +99,23 @@ createApp({
         }
     }
 }).mount('#shopping-cart');
+
+function reduceCallback(accumulator, current){
+    accumulator[current.productId] = {
+        name: current.proName,
+        picture: productURL + "0" + (current.productId-1000) + ".jpg",
+        price: current.proPrice,
+        others: current
+    };
+    return accumulator;
+}
+
+function mapCallback(item){
+    let id = item.productId;
+    item.productName = products[id].name;
+    item.price = products[id].price;
+    item.picture = products[id].picture;
+    item.sum = item.price * item.proAmount;
+    item.url = "productDetails/" + item.cartId
+    return item;
+}

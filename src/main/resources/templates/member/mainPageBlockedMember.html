@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>會員管理</title>
+    <title>黑名單管理</title>
 
     <!-- 引入 Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -99,7 +99,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">會員管理</h1>
+                    <h1 class="m-0">黑名單管理</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -112,7 +112,7 @@
                                 <a href="logout" th:text="${session.staffName}" class="auth-link"></a>
                             </div>
                         </li>
-                        <li class="breadcrumb-item active">會員管理</li>
+                        <li class="breadcrumb-item active">黑名單管理</li>
                     </ol>
                 </div>
             </div>
@@ -135,13 +135,13 @@
                         <th style="display: none;">密碼</th>
                         <th>姓名</th>
                         <!--                        <th>電話</th>-->
-                        <th>生日</th>
-                        <th>Email</th>
+                        <!--                        <th>生日</th>-->
+                        <!--                        <th>Email</th>-->
                         <th>累計消費</th>
-                        <th>購物金餘額</th>
+                        <th>停權理由</th>
                         <th>未取貨次數</th>
                         <th>帳號狀態</th>
-                        <th>加入日期</th>
+                        <th>停權日期</th>
                         <th>更新者</th>
                         <th>操作</th> <!-- 新增的操作欄位 -->
                     </tr>
@@ -155,19 +155,19 @@
                             <td style="display: none" th:text="${member.password}"></td>
                             <td th:text="${member.name}"></td>
                             <!--                            <td th:text="${member.phone}"></td>-->
-                            <td th:text="${member.birthDt}"></td>
-                            <td th:text="${member.email}"></td>
+                            <!--                            <td th:text="${member.birthDt}"></td>-->
+                            <!--                            <td th:text="${member.email}"></td>-->
                             <td th:text="${member.accumulate}"></td>
-                            <td th:text="${member.coinBalance}"></td>
+                            <td th:text="${member.blockedReason}"></td>
                             <td th:text="${member.noShow}"></td>
                             <td th:text="${member.status}"></td>
-                            <td th:text="${member.joinDate}"></td>
+                            <td th:text="${member.blockedTime}"></td>
                             <td th:text="${member.lastUpdatedBy}"></td>
                             <td>
-                                <a th:href="@{/member/update/{id}(id=${member.memberId})}"
-                                   class="btn btn-primary btn-sm">更新</a>
-                                <a th:href="@{/member/delete/{id}(id=${member.memberId})}"
-                                   class="btn btn-danger btn-sm">刪除</a> <!-- 刪除按鈕 -->
+                                <form th:action="@{/member/unblock/{memberId}(memberId=${member.memberId})}" method="put">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <button type="submit" class="btn btn-primary btn-sm">解除黑名單</button>
+                                </form>
                             </td>
                         </tr>
                     </th:block>
