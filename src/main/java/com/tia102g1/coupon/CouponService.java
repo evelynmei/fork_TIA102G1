@@ -28,10 +28,13 @@ public class CouponService {
 
     /**
      * 修改優惠券
+     *
      * @param coupon
+     * @return
      */
-    public void updateCoupon(Coupon coupon) {
+    public Coupon updateCoupon(Coupon coupon) {
         repository.save(coupon);
+        return coupon;
     }
 
     /**
@@ -50,7 +53,7 @@ public class CouponService {
      */
     public Coupon getCoupon(Integer couponId) {
         Optional<Coupon> optional = repository.findById(couponId);
-        return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
+        return optional.orElse(null);
     }
 
     /**
@@ -60,6 +63,5 @@ public class CouponService {
     public List<Coupon> getAllCoupons() {
         return repository.findAll();
     }
-
 
 }
