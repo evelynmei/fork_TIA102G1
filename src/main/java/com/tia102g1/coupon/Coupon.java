@@ -2,19 +2,26 @@ package com.tia102g1.coupon;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "coupon")
-public class Coupon {
+public class Coupon implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COUPONID", columnDefinition = "int UNSIGNED not null")
@@ -47,17 +54,19 @@ public class Coupon {
     private BigDecimal discPercentage;
 
     @Size(max = 50)
-    @Column(name = "CREATEDBY", nullable = false, length = 50)
+    @Column(name = "CREATEDBY", updatable = false, nullable = false, length = 50)
     private String createdBy;
 
-    @Column(name = "DATECREATED", nullable = false)
-    private Instant dateCreated;
+    @CreatedDate
+    @Column(name = "DATECREATED", insertable = false, nullable = false)
+    private Timestamp dateCreated;
 
     @Size(max = 50)
     @Column(name = "LASTUPDATEDBY", nullable = false, length = 50)
     private String lastUpdatedby;
 
-    @Column(name = "LASTUPDATED", nullable = false)
-    private Instant lastUpdated;
+    @CreatedDate
+    @Column(name = "LASTUPDATED", insertable = false, nullable = false)
+    private Timestamp lastUpdated;
 
 }
