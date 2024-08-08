@@ -52,7 +52,7 @@ public class ProductInfoController {
 		
 	}
 	
-	@ModelAttribute("productInfoListData")
+	@ModelAttribute("productInfoListData2")
 	protected List<ProductInfo> referenceListData(Model model){
 		List<ProductInfo> list = productInfoServiceS.getAll();
 		return list;

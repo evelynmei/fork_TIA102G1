@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +22,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tia102g1.coupon.CouponService;
+
 import com.tia102g1.dist.model.DistService;
-import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.event.model.EventService;
-import com.tia102g1.event.model.EventVO;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.member.model.MemberService;
 import com.tia102g1.orderlist.model.OrderListService;
 import com.tia102g1.orderlist.model.OrderListVO;
-import com.tia102g1.productinfo.entity.ProductInfo;
 
 @Controller
 @RequestMapping("/orderList")
@@ -62,20 +60,19 @@ public class OrderListController {
 		model.addAttribute("OrderListData", list);
 		return "/orderList/mainPageOrderList";
 	}
-
-//	// BackendController有了
-//	@ModelAttribute("OrderListData")
-//	protected List<OrderListVO> referenceListData(Model model) {
-//		List<OrderListVO> list = orderListService.getAll();
-//		return list;
-//	}
 	
-//	// BackendController有了
-//	@ModelAttribute("memberListData")
-//	protected List<Member> referenceListData_member(Model model) {
-//		List<Member> list = memberService.getAll();
-//		return list;
-//	}
+	@ModelAttribute("OrderListData2")
+	protected List<OrderListVO> referenceListData(Model model) {
+		List<OrderListVO> list = orderListService.getAll();
+		return list;
+	}
+	
+	
+	@ModelAttribute("memberListData")
+	protected List<Member> referenceListData_member(Model model) {
+		List<Member> list = memberService.getAll();
+		return list;
+	}
 
 	// 等CouponService出來補上
 //	@ModelAttribute("couponListData")
@@ -91,7 +88,7 @@ public class OrderListController {
 //		return list;
 //	}
 
-	// 等DistController出來補上
+	// BackendController有了
 //	@ModelAttribute("DistListData")
 //	protected List<DistVO> referenceListData_dist(Model model){
 //		List<DistVO> list = distService.getAll();
@@ -115,8 +112,7 @@ public class OrderListController {
 		}
 
 		orderListVO.setOrderDt(now);
-		orderListVO.setPayAmount(
-				orderListVO.getOrderAmount() - orderListVO.getCouponUsedAmount() - orderListVO.getCoinUsedAmount());
+		orderListVO.setPayAmount(orderListVO.getOrderAmount() - orderListVO.getCouponUsedAmount() - orderListVO.getCoinUsedAmount());
 		orderListVO.setDateCreated(now);
 		orderListVO.setLastUpdated(now);
 		orderListVO.setLastUpdatedBy(orderListVO.getCreatedBy());
@@ -171,6 +167,14 @@ public class OrderListController {
 		model.addAttribute("orderListVO", orderListVO);
 			
 		return "/orderList/listOneOrderList";
+	}
+	
+	@PostMapping("listOrderListByCompositeQuery")
+	public String listAllOrderList(HttpServletRequest req, Model model) {
+		Map<String, String[]> map = req.getParameterMap();
+		List<OrderListVO> list = orderListService.getAll(map);
+		model.addAttribute("orderListData", list);
+		return "/orderlist/mainPageOrderList";
 	}
 
 }
