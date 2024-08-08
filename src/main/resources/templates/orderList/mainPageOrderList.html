@@ -214,7 +214,7 @@
 		  </thead>
 			
 		  <tbody>
-				<th:block th:each="orderListVO : ${OrderListData}">
+				<th:block th:each="orderListVO : ${orderListData}">
 					<tr>
 						<td th:text="${orderListVO.orderListId}"></td>
 						<td th:text="${orderListVO.member.memberId}"></td>
