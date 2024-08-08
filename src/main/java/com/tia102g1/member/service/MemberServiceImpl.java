@@ -1,5 +1,6 @@
 package com.tia102g1.member.service;
 
+import com.tia102g1.member.constant.AccountStatus;
 import com.tia102g1.member.dao.MemberDao;
 import com.tia102g1.member.dto.MemberLoginRequest;
 import com.tia102g1.member.dto.MemberQueryParams;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -92,6 +95,12 @@ public class MemberServiceImpl implements MemberService {
         String hashedPassword = passwordEncoder.encode(memberUpdateDto.getPassword());
         memberUpdateDto.setPassword(hashedPassword);
 
+        //如果有設置黑名單的話，要將停權日期更新
+        if (memberUpdateDto.getStatus().equals(AccountStatus.BLOCKED.getStatus())) {
+            Timestamp now = new Timestamp(System.currentTimeMillis());
+            memberUpdateDto.setBlockedTime(now);
+        }
+
         return memberDao.updateMember(memberId, memberUpdateDto);
     }
 
@@ -108,5 +117,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Integer countBlockedMember(MemberQueryParams memberQueryParams) {
         return memberDao.countBlockedMember(memberQueryParams);
+    }
+
+    @Override
+    public Integer unblockMember(Integer memberId) {
+
+        return memberDao.unblockMember(memberId);
     }
 }

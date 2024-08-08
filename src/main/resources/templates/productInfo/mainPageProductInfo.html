@@ -92,6 +92,7 @@ td {
 #productTypeId {
 	width: 100%;
 }
+
 </style>
 
 
@@ -117,10 +118,15 @@ td {
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-6">
+
 						<ol class="breadcrumb float-sm-right">
+
 							<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+							<!-- ==============後台人員登入登出用 =============-->
+							<div class="breadcrumb-item"><a th:insert="~{/comLogin}"></div>
 							<li class="breadcrumb-item active">商品總覽</li>
 						</ol>
+
 						<br>
 					</div>
 
@@ -158,25 +164,25 @@ td {
 
 
 									<a><label> 勾選產品狀態</label></a><br> <input name="proStatus"
-										type="checkbox" value="0"> <a>未上架</a> <input
-										name="proStatus" type="checkbox" value="1"> <a>上架中</a>
+										type="radio" value="0"> <a>未上架</a> <input
+										name="proStatus" type="radio" value="1"> <a>上架中</a>
 								</div>
 
-<!-- 								<div class="select one"> -->
+								<!-- 								<div class="select one"> -->
 
-<!-- 									<label>選擇商品類型</label><br> <select -->
-<!-- 										th:field="*{productTypeVO.productTypeId}" id="productTypeId" -->
-<!-- 										name="productTypeId"> -->
-<!-- 										<option th:each="productTypeVO : ${typeListData}" -->
-<!-- 											th:value="${productTypeVO.productTypeId}" -->
-<!-- 											th:text="${productTypeVO.typeName}" /> -->
-<!-- 									</select> -->
-<!-- 								</div> -->
+								<!-- 									<label>選擇商品類型</label><br> <select -->
+								<!-- 										th:field="*{productTypeVO.productTypeId}" id="productTypeId" -->
+								<!-- 										name="productTypeId"> -->
+								<!-- 										<option th:each="productTypeVO : ${typeListData}" -->
+								<!-- 											th:value="${productTypeVO.productTypeId}" -->
+								<!-- 											th:text="${productTypeVO.typeName}" /> -->
+								<!-- 									</select> -->
+								<!-- 								</div> -->
 
-<!-- 										th:field="*{productTypeVO.productTypeId}" -->
+								<!-- 										th:field="*{productTypeVO.productTypeId}" -->
 								<div class="select one">
-									<label>選擇商品類型</label><br> <select
-										id="productTypeId" name="productTypeId">
+									<label>選擇商品類型</label><br> <select id="productTypeId"
+										name="productTypeId">
 										<option th:each="productTypeVO : ${typeListData}"
 											th:value="${productTypeVO.productTypeId}"
 											th:text="${productTypeVO.typeName}"></option>
@@ -227,7 +233,7 @@ td {
 						<th:block th:each="productInfo : ${productInfoListData}">
 							<tr>
 								<td th:text="${productInfo.productId}"></td>
-								<td th:text="${productInfo.productTypeId}"></td>
+								<td th:text="${productInfo.productTypeVO.productTypeId} + '-' + ${{productInfo.productTypeVO.typeName}}"></td>
 								<td th:text="${productInfo.proName}"></td>
 								<td th:text="${productInfo.proPrice}"></td>
 								<td th:text="${productInfo.proSafetyStock}"></td>

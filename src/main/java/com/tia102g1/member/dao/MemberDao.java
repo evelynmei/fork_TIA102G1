@@ -82,4 +82,10 @@ public interface MemberDao {
      */
     Integer countBlockedMember(MemberQueryParams memberQueryParams);
 
+    /**
+     * 解除某會員的黑名單
+     * @param memberId 要解除的會員ID
+     * @return 解除的會員ID
+     */
+    Integer unblockMember(Integer memberId);
 }
