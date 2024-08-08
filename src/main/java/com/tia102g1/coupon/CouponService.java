@@ -13,8 +13,6 @@ public class CouponService {
     @Autowired
     CouponRepository repository;
 
-    @Autowired
-    private SessionFactory sessionFactory;
 
     /**
      * 新增優惠券
@@ -22,8 +20,7 @@ public class CouponService {
      * @return
      */
     public Coupon addCoupon(Coupon coupon) {
-        repository.save(coupon);
-        return coupon;
+        return repository.save(coupon);
     }
 
     /**
@@ -33,8 +30,7 @@ public class CouponService {
      * @return
      */
     public Coupon updateCoupon(Coupon coupon) {
-        repository.save(coupon);
-        return coupon;
+        return repository.save(coupon);
     }
 
     /**
@@ -63,5 +59,5 @@ public class CouponService {
     public List<Coupon> getAllCoupons() {
         return repository.findAll();
     }
-
 }
+
