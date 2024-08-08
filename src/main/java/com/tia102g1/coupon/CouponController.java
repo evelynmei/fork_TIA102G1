@@ -19,7 +19,7 @@ public class CouponController {
      * @param coupon
      * @return
      */
-    @PostMapping("coupon/{couponId}")
+    @PostMapping("coupon/add")
     public ResponseEntity<Coupon> addCoupon(@RequestBody Coupon coupon) {
         Coupon newCoupon = couponService.addCoupon(coupon);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCoupon);
@@ -32,6 +32,7 @@ public class CouponController {
      */
     @PutMapping("coupon/{couponId}")
     public ResponseEntity<Coupon> updateCoupon(@PathVariable Integer couponId, @RequestBody Coupon coupon) {
+        coupon.setCouponId(couponId);
        Coupon updatedCoupon = couponService.updateCoupon(coupon);
         return ResponseEntity.status(HttpStatus.OK).body(updatedCoupon);
 }

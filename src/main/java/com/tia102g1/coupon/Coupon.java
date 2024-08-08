@@ -2,16 +2,13 @@ package com.tia102g1.coupon;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
@@ -54,19 +51,17 @@ public class Coupon implements Serializable {
     private BigDecimal discPercentage;
 
     @Size(max = 50)
-    @Column(name = "CREATEDBY", updatable = false, nullable = false, length = 50)
+    @Column(name = "CREATEDBY", updatable = false)
     private String createdBy;
 
-    @CreatedDate
-    @Column(name = "DATECREATED", insertable = false, nullable = false)
+    @Column(name = "DATECREATED", insertable = false, updatable = false)
     private Timestamp dateCreated;
 
     @Size(max = 50)
-    @Column(name = "LASTUPDATEDBY", nullable = false, length = 50)
+    @Column(name = "LASTUPDATEDBY")
     private String lastUpdatedby;
 
-    @CreatedDate
-    @Column(name = "LASTUPDATED", insertable = false, nullable = false)
+    @Column(name = "LASTUPDATED", insertable = false, updatable = false)
     private Timestamp lastUpdated;
 
 }
