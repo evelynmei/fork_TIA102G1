@@ -34,12 +34,12 @@ public class CartController {
         List<Cart> cartList = cartService.getAllItems();
         model.addAttribute("cartList", cartList);
 
-        List<ProductInfo> productInfos = productInfoService.getAll();
-        model.addAttribute("productInfos", productInfos);
+//        List<ProductInfo> productInfos = productInfoService.getAll();
+//        model.addAttribute("productInfos", productInfos);
 
         Map<String, List<?>> map = new HashMap<>();
         map.put("cartList", cartList);
-        map.put("productInfos", productInfos);
+//        map.put("productInfos", productInfos);
         if (cartList != null) {
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } else {
