@@ -2,11 +2,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>員工管理</title>
+		<title>員工資料管理</title>
 
 		<!-- header-css etc. -->
 	<head th:insert="~{/comPage1}"></head>
-
+	<style>
+        th {
+            width: 150px;
+        }
+	</style>
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -22,13 +26,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">員工管理</h1>
+              <h1 class="m-0">員工資料管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
                  <body th:insert="~{/comLogin}"></body>
-                <li class="breadcrumb-item active">員工管理</li>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageStaff}">員工資料管理</a></li>
+                <li class="breadcrumb-item active">員工資料管理</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -38,31 +43,58 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		<h3>
-			<a th:href="@{/staff/mainPageStaff}">回員工首頁</a>
-		</h3>
-		<p>員工資料</p>
-		<span>員工編號:</span>
-			<span th:text="${staffVO.staffId}"></span><br>
-		<span>姓名:</span>
-			<span th:text="${staffVO.name}"></span><br>
-		<span>電話:</span>
-			<span th:text="${staffVO.phone}"></span><br>
-		<span>電子郵件:</span>
-			<span th:text="${staffVO.email}"></span><br>
-		<span>入職日期:</span>
-			<span th:text="${#dates.format(staffVO.employDt, 'yyyy-MM-dd')}"></span><br>
-		<span>離職日期:</span>
-			<span th:text="${#dates.format(staffVO.leaveDt, 'yyyy-MM-dd')}"></span><br>
-		<span>建檔者:</span>
-			<span th:text="${staffVO.createdBy}"></span><br>
-		<span>建檔時間:</span>
-			<span th:text="${#dates.format(staffVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
-		<span>最後更新者:</span>
-			<span th:text="${staffVO.lastUpdatedBy}"></span><br>
-		<span>最後更新時間:</span>
-			<span th:text="${#dates.format(staffVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></span><br>
-		
+		<div class="invoice p-3 mb-3">
+        <div class="row">
+        <div class="col-12">
+		<p class="lead" style="font-weight:bold;">員工資料</p>
+		<div class="table-responsive">
+			<table class="table">
+				<tr>		
+					<th>員工編號:</th>
+					<td th:text="${staffVO.staffId}"></td>
+				</tr>
+				<tr>
+					<th>姓名:</th>
+					<td th:text="${staffVO.name}"></td>
+				</tr>
+				<tr>
+					<th>電話:</th>
+					<td th:text="${staffVO.phone}"></td>
+				</tr>
+				<tr>
+					<th>電子郵件:</th>
+					<td th:text="${staffVO.email}"></td>
+				</tr>
+				<tr>
+					<th>入職日期:</th>
+					<td th:text="${#dates.format(staffVO.employDt, 'yyyy-MM-dd')}"></td>
+				</tr>
+				<tr>
+					<th>離職日期:</th>
+					<td th:text="${#dates.format(staffVO.leaveDt, 'yyyy-MM-dd')}"></td>
+				</tr>
+				<tr>
+					<th>建檔者:</th>
+					<td th:text="${staffVO.createdBy}"></td>
+				</tr>
+				<tr>
+					<th>建檔時間:</th>
+					<td th:text="${#dates.format(staffVO.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				</tr>
+				<tr>
+					<th>最後更新者:</th>
+					<td th:text="${staffVO.lastUpdatedBy}"></td>
+				</tr>
+				<tr>
+					<th>最後更新時間:</th>
+					<td th:text="${#dates.format(staffVO.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></td>
+				</tr>
+			</table></div></div></div></div>
+			<form method="post" th:action="@{/staff/getOne_For_Update}" style="display: inline-block; margin-left: 10px;">
+				<button type="submit" class="btn btn-primary">修改</button>
+				<input type="hidden" name="staffId" th:value="${staffVO.staffId}">
+			</form>
+			<a th:href="@{mainPageStaff}"  style="display: inline-block;"><button type="button" class="btn btn-info">回主頁</button></a>
 	</section>
 	<!-- 功能內容結束 -->
 	

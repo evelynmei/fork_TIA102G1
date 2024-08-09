@@ -6,7 +6,8 @@
 		<title>員工登入</title>
 		
 		<head th:insert="~{/comPage1}"></head>
-	
+		<link rel="stylesheet" th:href="@{/css/error.css}">
+		
 	</head>
 	
 	<body class="hold-transition sidebar-mini layout-fixed">
@@ -36,45 +37,27 @@
 	      <!-- /.content-header -->
 	
 		<!-- 功能內容開始 -->
-		<section class="content">
 		
-		<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
-	
-		<form th:action="@{login}" method="post">
-			<table border = 1>
-				<tr>
-					<td colspan = 2>
-						<p align = center>
-							輸入帳號密碼
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						<p align = left>
-							<b>員工編號:</b>
-					</td>
-					<td>
-						<p>
-							<input type="text" name="staffId"><br>
-				</tr>
-				
-				<tr>
-					<td>
-						<p align = left>
-							<b>密碼:</b>
-					</td>
-					<td>
-						<p>
-							<input type="password" name="password"/><br>
-				<tr>
-					<td colspan = 2 align = center>
-						<input type = submit value = "ok">
-					</td>
-				</tr>
-			</table>
-		</form>
-		<h5><a href="staffChangePW">變更</a>密碼</h5>
+		<section class="content">
+		<div class="invoice p-3 mb-3">
+        <div class="row">
+        <div class="col-12">
+		<p class="lead" style="font-weight:bold;">員工登入</p>
+			<form th:action="@{login}" method="post">
+	        	<table class="table" border = 1>
+					<tr>
+						<th style="width: 100px;">員工編號:</th>
+						<td><input type="text" name="staffId"></td>
+					</tr>
+					<tr>
+						<th>密碼:</th>
+						<td><input type="password" name="password"/></td>
+					</tr>
+				</table>
+		<span class="error" th:text="${errorMessage}"></span><br>
+		<button type="submit" class="btn btn-primary">登入</button>				
+		</form></div></div></div>
+		<a th:href="staffChangePW"><button type="submit" class="btn btn-secondary">變更密碼</button></a>
 		</section>
 		<body th:insert="~{/comPage3}"></body>
 		

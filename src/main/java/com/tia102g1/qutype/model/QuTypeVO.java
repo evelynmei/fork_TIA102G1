@@ -20,10 +20,11 @@ public class QuTypeVO {
 	@Column(name = "QUTYPEID")
 	public Integer quTypeId;
 	
-	@NotEmpty
+	@NotEmpty(message = "問題類型描述:請勿空白")
 	@Pattern(regexp="^[\\u4e00-\\u9fa5\\u0041-\\u005a\\u0061-\\u007a\\u0030-\\u0039\\u0020-\\u002f\\u003a-\\u0040\\u005b-\\u0060\\u007b-\\u007e]{2,20}$", message = "問題類型描述: 只能是中、英文、數字及標點符號 , 且長度必需在2到20之間")
 	public String quTypeDesc;
 	
+	@NotEmpty(message = "請輸入員工編號")
 	@Column(name = "CREATEDBY")
 	private String createdBy;
 	

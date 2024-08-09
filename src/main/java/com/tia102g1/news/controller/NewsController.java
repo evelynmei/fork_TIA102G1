@@ -68,7 +68,7 @@ public class NewsController {
 		}
 		
 		if(endDtStr == null || endDtStr.trim().length() == 0) {
-			model.addAttribute("errorMessage2", "公告結束日期:請勿空白");
+			model.addAttribute("errorMessage3", "公告結束日期:請勿空白");
 		}else if(endDtStr.compareTo(startDtStr) < 0) {
 			model.addAttribute("errorMessage3", "公告結束日期不得早於公告起始日");
 		}

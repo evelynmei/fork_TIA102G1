@@ -3,9 +3,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>變更密碼</title>
-
-	<th:block th:insert="~{/comPage1}"></th:block>
+		<title>變更密碼</title>
+	
+		<th:block th:insert="~{/comPage1}"></th:block>
+		<link rel="stylesheet" th:href="@{/css/error.css}">
+	
 	</head>
 	<body class="hold-transition sidebar-mini layout-fixed">
 	
@@ -35,57 +37,28 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-	
-	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
-
-	<form method="post" th:action="@{changePW}" th:object="${staffVO}">
-	
-	<table border = 1>
-			<tr>
-				<td colspan = 2>
-					<p align = center>
-						變更密碼
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<p align = left>
-						<b>員工編號:</b>
-				</td>
-				<td>
-					<p>
-						<input type="text" name="staffId"><br>
-			</tr>
-			<tr>
-				<td>
-					<p align = left>
-						<b>輸入舊密碼:</b>
-				</td>
-				<td>
-					<p>
-						<input type = "password" name = "pastPW"><br>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>
-					<p align = left>
-						<b>輸入新密碼:</b>
-				</td>
-				<td>
-					<p>
-						<input type = "password" name = "newPW"><br>
-				</td>
-			</tr>
-		
-			<tr>
-				<td colspan = 2 align = center>
-					<input type = submit value = "確認修改">
-				</td>
-			</tr>
-		</table>
-	</form>
+	<div class="invoice p-3 mb-3">
+    <div class="row">
+    <div class="col-12">
+    <p class="lead" style="font-weight:bold;">變更密碼</p>
+		<form method="post" th:action="@{changePW}" th:object="${staffVO}">
+			<table class="table" border = 1>
+				<tr>
+					<th>員工編號:</th>
+					<td><input type="text" name="staffId"></td>
+				</tr>
+				<tr>
+					<th>輸入舊密碼:</th>
+					<td><input type = "password" name = "pastPW"></td>
+				</tr>
+				<tr>
+					<th>輸入新密碼:</th>
+					<td><input type = "password" name = "newPW"></td>
+				</tr>
+			</table>
+			<span class="error" th:text="${errorMessage}"></span><br>
+			<button type="submit" class="btn btn-primary">確認修改</button>				
+		</form></div></div></div>
 	</section>
 	<th:block th:insert="~{/comPage3}"></th:block>
 		
