@@ -24,7 +24,7 @@
 								<!-- checkbox 全選 -->
 								<th class="align-middle">
 									<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-										<input type="checkbox" class="custom-control-input" id="all-items">
+										<input type="checkbox" class="custom-control-input" id="all-items" v-model="allSelected">
 										<label class="custom-control-label" for="all-items"></label>
 									</div>
 								</th>
@@ -42,7 +42,7 @@
 								<!-- 用v-bind將每個table data中的元素(a,img...)與其對應的item.value做綁定-->
 								<td class="align-middle">
 									<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-										<input type="checkbox" class="custom-control-input" v-bind:id="itemIndex">
+										<input type="checkbox" class="custom-control-input" v-bind:id="itemIndex" v-bind:value="item" v-model="selectedItems">
 										<label class="custom-control-label" v-bind:for="itemIndex"></label>
 									</div>
 								</td>
