@@ -36,6 +36,7 @@ public class StaffVO {
 	@Column(name = "PHONE")
 	private String phone;
 	
+	@NotEmpty(message="員工信箱:請勿空白")
 	@Column(name = "EMAIL")
 	private String email;
 	

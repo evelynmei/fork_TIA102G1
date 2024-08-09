@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>員工資料系統</title>
+		<title>員工資料管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
@@ -22,13 +22,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Desserter 員工一覽</h1>
+              <h1 class="m-0">員工資料管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
                 <body th:insert="~{/comLogin}"></body>
-                <li class="breadcrumb-item active">員工一覽</li>
+                <li class="breadcrumb-item active">員工資料管理</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -38,44 +38,41 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		<h2>員工查詢</h2>
-	<div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
-	<br>
-	<div>
-		<ul>
-			<li><h5><a href="listAllStaff">全部</a>員工</h5></li>
-			<li><h5><a href="addStaff">新增</a>員工</h5></li>
-			<li>
-				<form method="post" th:action="@{getOne_For_Display}">
-					<p>員工編號:
-					<select name="staffId">
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-md-12">
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">員工查詢</h3>
+			</div>
+		<div class="card-body" style="padding-bottom: 0;">
+		<form method="post" th:action="@{getOne_For_Display}">
+			<div class="form-group" style="display: flex; align-items: center;">
+				<label style="margin-top: 10px;">員工編號:</label>
+					<select name="staffId" style="margin-left: 10px;">
 						<option th:each="staffVO : ${staffListData}" th:value="${staffVO.staffId}" th:text="${staffVO.staffId}"/>
 					</select>
-				<input type="submit" value="送出">
-				</form><br>
-			</li>
-		</ul>
+				<button type="submit" class="btn btn-primary" style="margin-left: 10px;">送 出</button></div>
+		</form>
 		<hr>
-		<ul>
-		<li>
-			<form method="post" th:action="@{listStaff_ByCompositeQuery}">
-				<p>到職日期區間:
-					<input type="date" id="startEmployDt" name="startEmployDt" onchange="validateDate()">
-				   ~<input type="date" id="endEmployDt" name="endEmployDt" onchange="validateDate()"><br>
-				<p>是否還在職:
-					<select name="status">
+		<form method="post" th:action="@{listStaff_ByCompositeQuery}">
+			<div class="form-group">
+				<label style="display: inline-block;">到職日期區間:</label>
+					<input type="date" id="startEmployDt" name="startEmployDt" onclick="this.showPicker();" onchange="validateDate()" style="width: 120px; display: inline-block; margin-left: 10px;margin-right: 10px;">
+				   到<input type="date" id="endEmployDt" name="endEmployDt" onclick="this.showPicker();" onchange="validateDate()"style="width: 120px; display: inline-block; margin-left: 10px;"><br>
+				<label style="margin-top: 10px;">是否還在職:</label>
+					<select name="status" style="margin-left: 10px;">
 						<option value = " "></option>
 						<option value = "1">在職</option>
 						<option value = "0">已離職</option>
-					</select>	
-				<input type="submit" value="送出">
-			</form><br>
-		</li>
-		</ul>
-	</div>
-	<div th:if="${getOne_For_Display}">
-		<div th:insert="~{/staff/listOneStaff :: listOneStaff-div}"></div>
-	</div>
+					</select><br>	
+				<button type="submit" class="btn btn-primary" style="margin-top: 10px;">送 出</button></div></div>
+			<div class="form-group">
+				<a href="listAllStaff"><button type="submit" class="btn btn-primary" style="margin-left: 20px;">全部員工</button></a>
+				<a href="addStaff"><button type="button" class="btn btn-success">新 增</button></a>
+			</div>
+		</form></div></div></div></div>
+	</section>
 	<script>
 		function validateDate(){
 			var startEmployDt = document.getElementById('startEmployDt').value;
@@ -90,8 +87,6 @@
 			
 		}
 	</script>
-	
-	</section>
 	<!-- 功能內容結束 -->
 	
 	<!-- footer and script link -->

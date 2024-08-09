@@ -2,10 +2,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>新增公告</title>
+		<title>商品公告管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
+		<link rel="stylesheet" th:href="@{/css/error.css}">
 		
 	</head>
 	
@@ -22,7 +23,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">新增公告</h1>
+              <h1 class="m-0">商品公告管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -30,7 +31,8 @@
 			<!-- ===================================後台人員登入登出用 =================================================================-->
                  <body th:insert="~{/comLogin}"></body>
             <!-- ===================================後台人員登入登出用 =================================================================-->
-                <li class="breadcrumb-item active">新增公告</li>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageNews}">商品公告管理</a></li>
+                <li class="breadcrumb-item active">新增商品公告</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -40,53 +42,58 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-	
-		<div align = "center">
-			<h2>新增公告</h2>
-			<h3>
-				<a th:href="@{/news/mainPageNews}">回公告首頁</a>
-			</h3>
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-md-12">
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">新增商品公告</h3>
+			</div>
 		
 		<form th:action="@{insert}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
-			<div>
+			<div class="card-body">
+			<div class="form-group">
 				<label>公告標題:</label>
-					<input type="text" th:field="*{newsTitle}" onclick="hideContent('newsTitle.errors');"/><br>
+					<input type="text" th:field="*{newsTitle}" onclick="hideContent('newsTitle.errors');" class="form-control"/><br>
 					<span th:if="${#fields.hasErrors('newsTitle')}" th:errors="*{newsTitle}" class="error" id="newsTitle.errors"></span>			
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告內容:</label>
-					<input type="text" th:field="*{newsContent}" onclick="hideContent('newsContent.errors');"/><br>
+					<textarea th:field="*{newsContent}" onclick="hideContent('newsContent.errors');" class="form-control" rows="4" cols="50"></textarea><br>
 					<span th:if="${#fields.hasErrors('newsContent')}" th:errors="*{newsContent}" class="error" id="newsContent.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告日期:</label>
-					<input type="date" th:field="*{newsDate}" onclick="hideContent('newsDate.errors');"/><br>
+					<input type="date" th:field="*{newsDate}" onclick="hideContent('newsDate.errors'); this.showPicker();" class="form-control custom-date"/><br>
 					<span class="error" th:text="${errorMessage1}" id="newsDate.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告起始日期:</label>
-					<input type="date" th:field="*{startDt}" onclick="hideContent('startDt.errors');"/><br>
+					<input type="date" th:field="*{startDt}" onclick="hideContent('startDt.errors'); this.showPicker();" class="form-control custom-date"/><br>
 					<span class="error" th:text="${errorMessage2}" id="startDt.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告結束日期:</label>
-					<input type="date" th:field="*{endDt}" onclick="hideContent('endDt.errors');"/><br>
+					<input type="date" th:field="*{endDt}" onclick="hideContent('endDt.errors'); this.showPicker();" class="form-control custom-date"/><br>
 					<span class="error" th:text="${errorMessage3}" id="endDt.errors"></span>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>公告圖片:</label>
-					<input type="file" th:field="*{newsPic}" onclick="previewImage()" multiple="multiple" onchange="hideContent('newsPic.errors');"/><br>
+					<input type="file" th:field="*{newsPic}" onclick="previewImage()" multiple="multiple" onchange="hideContent('newsPic.errors');"  class="form-control custom-file"/><br>
 					<span class="error" th:text="${errorMessage4}" id="newsPic.errors"></span>
 					<div id="blob_holder"></div>
 			</div>
-			<div>
-				<label>建檔者:</label> <input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');" /><br /> 
+			<div class="form-group">
+				<label>建檔者:</label> <input type="text" th:field="*{createdBy}" onclick="hideContent('createdBy.errors');" class="form-control"/><br /> 
 				<span th:if="${#fields.hasErrors('createdBy')}" th:errors="*{createdBy}" class="error" id="createdBy.errors"></span>
 			</div>
-			<div>
-				<button type="submit" id="submit">送出新增</button>
-			</div>
-		</form>
+			<div class="form-group">
+				<input type="hidden" name="action" value="insert">
+				<button type="submit" class="btn btn-primary">送出新增</button>
+				<button type="reset" class="btn btn-secondary" onclick="removepreview()">清除重填</button>
+				<a th:href="@{mainPageNews}"><button type="button" class="btn btn-info">回主頁</button></a>
+			</div></div>
+		</form></div></div></div>
 		</div>
 		<script>
 			function hideContent(d){
@@ -137,6 +144,14 @@
 						+"<br>" + "上傳檔案類型限制: <b><font color=red>image/png、image/jpeg、image/gif </font></b></div>";
 					document.getElementById('submit').disabled = true;
 				}
+			}
+			
+			function removepreview(){
+			    var blob_holder = document.getElementById("blob_holder");
+			    if(blob_holder != null && blob_holder.hasChildNodes()){
+			        blob_holder.removeChild(blob_holder.childNodes[0]);
+			    }
+			    document.getElementById("newsPic").value = ""; // 清除文件輸入框中的值
 			}
 		</script>
 	</section>

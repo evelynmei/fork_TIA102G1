@@ -54,7 +54,7 @@ public class ProductTypeController {
 		
 		model.addAttribute("typeListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/productType/listAllType";
+		return "redirect:/productType/mainPageProductType";
 	}
 	
 	@PostMapping("getOne_For_Display")

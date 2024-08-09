@@ -2,10 +2,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>客服問題類型修改</title>
+		<title>客服問題類型管理</title>
 
 		<!-- header-css etc. -->
 		<head th:insert="~{/comPage1}"></head>
+		<link rel="stylesheet" th:href="@{/css/error.css}">
 		
 	</head>
 	
@@ -22,12 +23,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">客服問題類型修改</h1>
+              <h1 class="m-0">客服問題類型管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
                 <body th:insert="~{/comLogin}"></body>
+                <li class="breadcrumb-item active"><a th:href="@{mainPageQuType}">客服問題類型管理</a></li>
                 <li class="breadcrumb-item active">客服問題類型修改</li>
               </ol>
             </div><!-- /.col -->
@@ -38,36 +40,37 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		<div align="center">
-			<h2>客服問題類型修改</h2>
-		</div>
-		<h3>
-			<a th:href="@{/quType/mainPageQuType}">回客服問題類型頁面</a>
-		</h3>
-		
+		<div class="container-fluid">
+			<div class="row">
+			<div class="col-md-12">
+			<div class="card card-primary">
+				<div class="card-header">	
+					<h3 class="card-title" align=left>客服問題類型修改</h3>
+				</div>
 		<form th:action="@{update}" method="post" th:object="${quTypeVO}">
-			<div>
+			<div class="card-body">
+			<div class="form-group">
 				<label>問題類型編號:</label>
-				<input type="text" th:field="*{quTypeId}" readonly/><br>
+				<span th:utext="*{quTypeId}" style="margin-left: 10px;"></span>
+				<input type="hidden" th:field="*{quTypeId}" readonly/><br>
 			</div>
-			<div>
+			<div class="form-group">
 				<label>問題類型描述:</label>
-				<input type="text" th:field="*{quTypeDesc}" onclick="hideContent('quTypeDesc.errors');"/><br>
+				<input type="text" th:field="*{quTypeDesc}" onclick="hideContent('quTypeDesc.errors');" style="margin-left: 10px;"/><br>
 				<span th:if="${#fields.hasErrors('quTypeDesc')}" th:errors="*{quTypeDesc}" class="error" id="quTypeDesc.errors"></span>
 			</div>
 			<input type="hidden" th:field="*{createdBy}" readonly /> 
 			<input type="hidden" th:field="*{dateCreated}" readonly />
-			<div>
+			<div class="form-group">
 				<label>最後更新者:</label> 
-					<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');" /><br /> 
+					<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');" style="margin-left: 10px;"/><br /> 
 					<span th:if="${#fields.hasErrors('lastUpdatedBy')}"	th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
 			</div>
-			<div>
-				<div>
-					<button type="submit" id="submit">送出修改</button>
-				</div>
-			</div>
-		</form>
+			<div class="form-group">
+					<button type="submit" class="btn btn-primary" id="submit">送出修改</button>
+					<a th:href="@{mainPageQuType}"><button type="button" class="btn btn-info">回主頁</button></a>
+			</div></div>
+		</form></div></div></div></div>
 		<script>
 			function hideContent(d) {
 				document.getElementById(d).style.display = "none";

@@ -1,81 +1,84 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>商品類型修改</title>
-
-<head th:insert="~{/comPage1}"></head>
-
-</head>
-<body class="hold-transition sidebar-mini layout-fixed">
-
-<!-- side bar -->
-	<body th:insert="~{/comPage2}"></body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<title>商品類型修改</title>
+		
+		<head th:insert="~{/comPage1}"></head>
+		<link rel="stylesheet" th:href="@{/css/error.css}">
 	
-	<!-- Content Wrapper. Contains page content -->
-    <!-- 儀錶板上面那排 -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">商品類型管理</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <body th:insert="~{/comLogin}"></body>
-                <li class="breadcrumb-item active">商品類型管理</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content-header -->
+	</head>
+	<body class="hold-transition sidebar-mini layout-fixed">
+	
+	<!-- side bar -->
+		<body th:insert="~{/comPage2}"></body>
+		
+		<!-- Content Wrapper. Contains page content -->
+	    <!-- 儀錶板上面那排 -->
+	    <div class="content-wrapper">
+	      <!-- Content Header (Page header) -->
+	      <div class="content-header">
+	        <div class="container-fluid">
+	          <div class="row mb-2">
+	            <div class="col-sm-6">
+	              <h1 class="m-0">商品類型管理</h1>
+	            </div><!-- /.col -->
+	            <div class="col-sm-6">
+	              <ol class="breadcrumb float-sm-right">
+	                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+	                <body th:insert="~{/comLogin}"></body>
+	                <li class="breadcrumb-item active"><a th:href="@{mainPageProductType}">商品類型管理</a></li>
+	                <li class="breadcrumb-item active">商品類型修改</li>
+	              </ol>
+	            </div><!-- /.col -->
+	          </div><!-- /.row -->
+	        </div><!-- /.container-fluid -->
+	      </div>
+	      <!-- /.content-header -->
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-	<div align="center"><h2>商品類型修改</h2></div>
-<h3><a th:href="@{/productType/mainPageProductType}">回商品種類頁面</a></h3>
-
-<form th:action="@{update}" method="post" th:object="${productTypeVO}">
-	<div>
-	<label>商品類型編號:</label>
-	<input type="text" th:field="*{productTypeId}" readonly/><br>
-	</div>
-	<div>
-	<label>商品類型名稱:</label>
-	<input type="text" th:field="*{typeName}" onclick="hideContent('typeName.errors');" ><br>
-	<span  th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}" class="error" id="typeName.errors"></span>
-	</div>
-	<div>
-	<label>建檔者:</label>
-	<input type="text" th:field="*{createdBy}" readonly/><br/>
-	</div>
-	<div>
-	<label>建檔時間:</label>
-	<input type="text" th:field="*{dateCreated}" readonly/><br/>
-	</div>
-	<div>
-	<label>最後更新者:</label>
-	<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');"/><br/>
-	<span th:if="${#fields.hasErrors('lastUpdatedBy')}" th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy"></span>
-	</div>
-	<div>
-	<div><button type="submit" id="submit">送出修改</button></div>
-	</div>
-</form>
-
-<script>
-function hideContent(d){
-	document.getElementById(d).style.display="none";
-}
-</script>
-
-<body th:insert="~{/comPage3}"></body>
-
-</body>
+		<div class="container-fluid">
+			<div class="row">
+			<div class="col-md-12">
+			<div class="card card-primary">
+				<div class="card-header">	
+					<h3 class="card-title" align=left>商品類型修改</h3>
+				</div>		
+			<form th:action="@{update}" method="post" th:object="${productTypeVO}">
+				<div class="card-body">
+				<div class="form-group">
+					<label>商品類型編號:</label>
+						<span th:utext="*{productTypeId}" style="margin-left: 10px;"></span>
+						<input type="hidden" th:field="*{productTypeId}" readonly/><br>
+				</div>
+				<div class="form-group">
+					<label>商品類型名稱:</label>
+						<input type="text" th:field="*{typeName}" onclick="hideContent('typeName.errors');" ><br>
+						<span  th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}" class="error" id="typeName.errors"></span>
+				</div>
+					<input type="hidden" th:field="*{createdBy}" readonly/>
+					<input type="hidden" th:field="*{dateCreated}" readonly/>
+				<div>
+					<label>最後更新者:</label>
+						<input type="text" th:field="*{lastUpdatedBy}" onclick="hideContent('lastUpdatedBy.errors');"/><br/>
+						<span th:if="${#fields.hasErrors('lastUpdatedBy')}" th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy"></span>
+				</div>
+				<br>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" id="submit">送出修改</button>
+					<a th:href="@{mainPageProductType}"><button type="button" class="btn btn-info">回主頁</button></a>
+				</div></div>
+		</form></div></div></div></div></section>
+		
+		<script>
+			function hideContent(d){
+				document.getElementById(d).style.display="none";
+			}
+		</script>
+		
+		<body th:insert="~{/comPage3}"></body>
+	
+	</body>
 </html>

@@ -47,6 +47,7 @@ public class StaffController {
 	
 	@PostMapping("insert")
 	public String insert(@RequestParam("employDt") String employDt ,@Valid StaffVO staffVO, BindingResult result, ModelMap model) throws IOException{
+		result = removeFieldError(staffVO, result, "employDt");
 		
 		 if (employDt == null || employDt.trim().length() == 0) {
 		     model.addAttribute("errorMessage", "到職日期:請勿空白");
