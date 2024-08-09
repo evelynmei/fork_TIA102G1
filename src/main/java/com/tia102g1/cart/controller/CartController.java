@@ -2,7 +2,6 @@ package com.tia102g1.cart.controller;
 
 import com.tia102g1.cart.model.Cart;
 import com.tia102g1.cart.service.CartService;
-import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,12 +33,12 @@ public class CartController {
         List<Cart> cartList = cartService.getAllItems();
         model.addAttribute("cartList", cartList);
 
-        List<ProductInfo> productInfos = productInfoService.getAll();
-        model.addAttribute("productInfos", productInfos);
+//        List<ProductInfo> productInfos = productInfoService.getAll();
+//        model.addAttribute("productInfos", productInfos);
 
         Map<String, List<?>> map = new HashMap<>();
         map.put("cartList", cartList);
-        map.put("productInfos", productInfos);
+//        map.put("productInfos", productInfos);
         if (cartList != null) {
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } else {

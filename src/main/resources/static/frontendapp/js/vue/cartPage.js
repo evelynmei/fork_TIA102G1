@@ -7,7 +7,8 @@ todo 判斷用戶->
      登入: 透過cookie取得emberId
  */
 let memberId = "1";
-const apiURL = "http://localhost:8080/cart/";
+const cartURL = "http://localhost:8080/cart/";
+const couponURL = "http://localhost:8080/coupon/";
 const productURL = "frontendapp/img/products/";
 
 const dumbProducts = {
@@ -26,6 +27,11 @@ const dumbProducts = {
         price: 500,
         picture: productURL + "07.jpg"
     },
+    1004: {
+        name: "白巧克力餅乾",
+        price: 500,
+        picture: productURL + "08.jpg"
+    },
 }
 const dumbItems = [
     {cartId:1, picture: "圖片", productName: "巧克力餅乾", price: 100, proAmount: 1,},
@@ -36,7 +42,31 @@ let products = dumbProducts;
 
 createApp({
     setup() {
-        let items = ref(dumbItems) ;
+        let items = ref(dumbItems);
+        const isDiscount = ref(false);
+        const codeInput = ref("");
+        const discountAmount = ref(0);
+        const coupons = ref([]);
+        const selectedItems = ref([]); // 選擇的商品
+
+        // 全選狀態的計算屬性
+        const allSelected = computed({
+            get() {
+                return selectedItems.value.length === items.value.length && items.value.length > 0;
+            },
+            set(value) {
+                if (value) {
+                    selectedItems.value = items.value.map(item => item);
+                } else {
+                    selectedItems.value = [];
+                }
+            }
+        });
+        // 選中商品的總金額計算屬性
+        const selectedSum = computed(() => {
+            return selectedItems.value.reduce((acc, item) => acc + (item.price * item.proAmount), 0);
+        });
+
 
         /**
          前端頁面資料推演，購物車，CartViewObject，需要什麼資料？
@@ -49,30 +79,29 @@ createApp({
 
          **/
 
+        /** {
+                response:{
+                    data: {
+                        productsInfos: [],
+                            cartList: [],
+                            coupons:[]
+                    }
+                }
+            }**/
         onMounted( async() => {
-            let { data } = await axios.get( apiURL + memberId);
-            let { productInfos, cartList } = data;   // JavaScript、Python 裡的解構賦值
-            // console.log(productInfos);
+            try {
+                let cartResponse = await axios.get(cartURL + memberId);
+                let couponResponse = await axios.get(couponURL);
 
-            // 用 JavaScript 裡 Array.reduce 方法，把 array 資料轉成一個 JavaScript Object
-            const newProducts = productInfos.reduce(reduceCallback, {});
-            console.log(newProducts);
-            products = newProducts;
-
-            items.value = cartList.map(mapCallback);
-            console.log(toRaw(items.value));
-
-        })
-
-        //計算屬性: 為使前端頁面更新計算結果, 需使用computed()
-        const sum = computed(() => {
-            let sumTemp = 0;
-            for (let i = 0; i < items.value.length; i++) {
-                const subTotal = items.value[i].price * items.value[i].proAmount;
-                sumTemp = sumTemp + subTotal;
+                let { productInfos, cartList } = cartResponse.data;
+                coupons.value.push(...couponResponse.data);
+                console.log("couPonResponse = " + couponResponse);
+                items.value = cartList.map(mapCallback);
+                console.log(toRaw(items.value));
+            } catch (error) {
+                console.error("Error fetching data:", error);
             }
-            return sumTemp;
-        })
+        });
 
         //刪除商品
         const deleteItem = index => {
@@ -80,22 +109,45 @@ createApp({
             let itemToDelete = array[index];
             let cartId = itemToDelete.cartId;
 
-            // array 裡需至少有一項，然後才執行，對 array spice 掉第 index 的一個 item
+            // array 裡需至少有一項才執行，否則短路不繼續運算，不短路則 spice 掉陣列裡第 i 個 item
             array.length > 0 && array.splice(index, 1);
 
             console.log("item = ", toRaw(itemToDelete));
             console.log("cartId =", cartId);
 
-            // 送出刪除購物車的 api 請求
-            axios.delete(apiURL + cartId)
+            // 送出刪除購物車的api請求
+            axios.delete(cartURL + cartId)
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
         };
 
+
+        let couponChecked; // 套用優惠券成功與否的狀態
+        const discountHandler = () => {
+
+            // 檢查輸入的 codeInput.value 跟 coupons 裡的 couponCode 是否符合
+            const isCodeInCoupons = coupons.value.some(coupon => coupon.couponCode === codeInput.value);
+            if(isCodeInCoupons) {
+                couponChecked= coupons.value.find(coupon => coupon.couponCode === codeInput.value);
+                console.log(couponChecked);
+
+                // 計算折價金額
+                discountAmount.value = Math.round(selectedSum.value * (1 - couponChecked.discPercentage));
+                console.log(discountAmount.value);
+                isDiscount.value = !isDiscount.value;
+            }
+        };
+
         return {
             items,
-            sum,
-            deleteItem
+            sum: selectedSum, //選中商品的總金額
+            isDiscount,
+            discountAmount,
+            codeInput,
+            deleteItem,
+            discountHandler,
+            selectedItems,
+            allSelected
         }
     }
 }).mount('#shopping-cart');
@@ -116,6 +168,6 @@ function mapCallback(item){
     item.price = products[id].price;
     item.picture = products[id].picture;
     item.sum = item.price * item.proAmount;
-    item.url = "productDetails/" + item.cartId
+    item.url = "productDetails/" + item.cartId;
     return item;
 }
