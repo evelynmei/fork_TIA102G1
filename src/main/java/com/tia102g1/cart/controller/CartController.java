@@ -25,9 +25,6 @@ public class CartController {
     @Autowired
     private ProductInfoServiceS productInfoService;
 
-    @Autowired
-    private CouponService couponService;
-
     /**
      * 取得購物車內容
      *
@@ -42,13 +39,9 @@ public class CartController {
 //        List<ProductInfo> productInfos = productInfoService.getAll();
 //        model.addAttribute("productInfos", productInfos);
 
-        List<Coupon> coupons = couponService.getAllCoupons();
-        model.addAttribute("coupons", coupons);
-
         Map<String, List<?>> map = new HashMap<>();
         map.put("cartList", cartList);
 //        map.put("productInfos", productInfos);
-        map.put("coupons", coupons);
         if (cartList != null) {
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } else {
