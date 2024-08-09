@@ -2,9 +2,6 @@ package com.tia102g1.cart.controller;
 
 import com.tia102g1.cart.model.Cart;
 import com.tia102g1.cart.service.CartService;
-import com.tia102g1.coupon.Coupon;
-import com.tia102g1.coupon.CouponService;
-import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
