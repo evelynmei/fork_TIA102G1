@@ -1,54 +1,461 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>優惠券管理</title>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>優惠券管理</title>
 
-		<!-- header-css etc. -->
-		<head th:insert="~{/comPage1}"></head>
+    <!-- header-css etc. -->
+    <head th:insert="~{/comPage1}"></head>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
 
-	</head>
-	
-	<body class="hold-transition sidebar-mini layout-fixed">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css'>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js'></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body{
+            margin-top:20px;
+            background:#f8f8f8
+        }
+        .btn-sm {
+            margin-right: 0; /* 移除按鈕之間的 margin */
+        }
+    </style>
 
-	<!-- side bar -->
-	<body th:insert="~{/comPage2}"></body>
-	
-	<!-- Content Wrapper. Contains page content -->
-    <!-- 儀錶板上面那排 -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<!-- side bar -->
+<body th:insert="~{/comPage2}"></body>
+
+<!-- Content Wrapper. Contains page content -->
+<!-- 儀錶板上面那排 -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
         <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">優惠券管理</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                <li class="breadcrumb-item active">優惠券管理</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0" font-style="bold">優惠券管理</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+
+                        <!-- ==============後台人員登入登出用 =============-->
+                        <body th:insert="~{/comLogin}"></body>
+
+                        <!-- ==============寫入你的mainPage名稱 =============-->
+                        <li class="breadcrumb-item active">
+                            <a th:href="@{../coupon/mainPageCoupon}">優惠券管理</a>
+                        </li>
+
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content-header -->
+    </div>
+    <!-- /.content-header -->
 
-	<!-- 功能內容開始 -->
-	<section class="content">
-		
-	<p>優惠券管理 主頁 測試</p>
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	<!-- 把你的內容貼在這裡 -->
-	
-	
-	</section>
-	<!-- 功能內容結束 -->
-	
-	<!-- footer and script link -->
-	<body th:insert="~{/comPage3}"></body>
+    <!-- 功能內容開始 -->
+    <section class="content">
 
-	</body>
+        <div class="container">
+            <div class="row flex-lg-nowrap">
+                <div class="col">
+
+                    <div class="row flex-lg-nowrap">
+                        <div class="col mb-3">
+                            <div class="e-panel card">
+
+                                <div class="card-body">
+                                    <div class="e-table">
+                                        <div class="table-responsive table-lg mt-3">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr class="text-nowrap">
+                                                    <th >名稱</th>
+                                                    <th>優惠碼</th>
+                                                    <!-- 資料庫: 1 現金抵用 2 售價折扣-->
+                                                    <th>類型</th>
+                                                    <th>折數</th>
+                                                    <th>抵用金</th>
+                                                    <th class="sortable">開始</th>
+                                                    <th class="sortable">結束</th>
+                                                    <th>狀態</th>
+                                                    <th class="max-width"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="align-middle text-center">
+                                                        中元節全館95折
+                                                    </td>
+                                                    <td class="text-nowrap align-middle">GHOST95</td>
+                                                    <td class="text-nowrap align-middle">售價折扣</td>
+                                                    <td class="text-nowrap align-middle">0.95</td>
+                                                    <td class="text-nowrap align-middle">0</td>
+                                                    <td class="text-nowrap align-middle"><span>2024-01-01</span></td>
+                                                    <td class="text-nowrap align-middle"><span>2024-01-01</span></td>
+                                                    <td class="text-center align-middle">
+                                                        <!-- 啟用:1 圖示: fa-toggle-on, 停用:0 圖示: fa-toggle-off -->
+                                                        <i class="fa fa-fw fa-toggle-on"></i>
+                                                    </td>
+                                                    <td class="text-center align-middle">
+                                                    <div class="btn-group align-top btn-nowrap">
+                                                        <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#edit-form-modal">Edit</button>
+                                                        <button class="btn btn-sm btn-outline-secondary badge ml-0" type="button"><i class="fa fa-trash"></i></button>
+                                                    </div>
+                                                    </td>
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <ul class="pagination mt-3 mb-0">
+                                                <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>
+                                                <li class="active page-item"><a href="#" class="page-link">1</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">›</a></li>
+                                                <li class="page-item"><a href="#" class="page-link">»</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!-- =================== 右邊欄  ================================-->
+                        <div class="col-12 col-lg-3 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="text-center px-xl-3">
+                                        <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#add-form-modal">
+                                            新增優惠券
+                                        </button>
+                                    </div>
+                                    <hr class="my-3">
+                                    <div>
+                                        <div class="form-group">
+                                            <label>Date from - to:</label>
+                                            <div>
+                                                <input id="dates-range" class="form-control flatpickr-input" placeholder="01 Dec 17 - 27 Jan 18" type="text" readonly="readonly">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>搜尋</label>
+                                            <div><input class="form-control w-100" type="text" placeholder="名稱" value=""></div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-3">
+                                    <div class="">
+                                        <label>顯示</label>
+                                        <div class="px-2">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-disabled">
+                                                <label class="custom-control-label" for="users-status-disabled">停用</label>
+                                            </div>
+                                        </div>
+                                        <div class="px-2">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-active">
+                                                <label class="custom-control-label" for="users-status-active">啟用</label>
+                                            </div>
+                                        </div>
+                                        <div class="px-2">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="user-status" id="users-status-any" checked="">
+                                                <label class="custom-control-label" for="users-status-any">全部</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- =============== 新增優惠券互動視窗 Modal =============== -->
+                    <div class="modal fade" role="dialog" tabindex="-1" id="add-form-modal">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">新增優惠券</h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="py-1">
+                                        <form class="form was-validated">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>開始</label>
+                                                                <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>結束</label>
+                                                                <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>名稱</label>
+                                                                <input class="form-control" type="text" placeholder="XX節全館XX折" required>
+                                                                <div class="invalid-feedback">必填</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>優惠代碼</label>
+                                                                <input class="form-control" type="text" placeholder="XXXX00" required>
+                                                                <div class="invalid-feedback">必填</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <form>
+                                                        <div class="row">
+                                                            <!-- 售價折扣與折數 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="discountOption" id="discountCheck" required>
+                                                                    <label class="form-check-label" for="discountCheck">
+                                                                        售價折扣 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+<!--                                                                    <label for="discountInput">折數</label>-->
+                                                                    <input class="form-control" type="text" id="discountInput" placeholder="輸入折數" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- 現金抵用與抵用金 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="discountOption" id="cashDiscountCheck" required>
+                                                                    <label class="form-check-label" for="cashDiscountCheck">
+                                                                        現金抵用 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+<!--                                                                    <label for="cashDiscountInput">抵用金</label>-->
+                                                                    <input class="form-control" type="text" id="cashDiscountInput" placeholder="輸入抵用金" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="active" required>
+                                                                <label class="form-check-label" for="inlineRadio1">啟用</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="disabled" required>
+                                                                <label class="form-check-label" for="inlineRadio2">停用</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit">儲存</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  js for 新增Modal -->
+                    <script>
+                        // 啟用選項對應的輸入框
+                        document.querySelectorAll('input[name="discountOption"]').forEach(function (radio) {
+                            radio.addEventListener('change', function () {
+                                if (this.id === 'discountCheck') {
+                                    document.getElementById('discountInput').disabled = false;
+                                    document.getElementById('cashDiscountInput').disabled = true;
+                                    document.getElementById('cashDiscountInput').value = ''; // 清除另一個選項的值
+                                } else if (this.id === 'cashDiscountCheck') {
+                                    document.getElementById('cashDiscountInput').disabled = false;
+                                    document.getElementById('discountInput').disabled = true;
+                                    document.getElementById('discountInput').value = ''; // 清除另一個選項的值
+                                }
+                            });
+                        });
+
+                    </script>
+<!-- ================ 編輯優惠券互動視窗 Modal =============== -->
+                    <div class="modal fade" role="dialog" tabindex="-1" id="edit-form-modal">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">編輯優惠券</h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="py-1">
+                                        <form class="form was-validated">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>開始時間</label>
+                                                                <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>結束時間</label>
+                                                                <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>名稱</label>
+                                                                <input class="form-control" type="text" placeholder="XX節全館XX折" required>
+                                                                <div class="invalid-feedback">必填</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>優惠代碼</label>
+                                                                <input class="form-control" type="text" placeholder="XXXX00" required>
+                                                                <div class="invalid-feedback">必填</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>折扣</label>
+                                                                <input class="form-control" type="text" placeholder="0.00" required>
+                                                                <div class="invalid-feedback">必填</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <form>
+                                                        <div class="row">
+                                                            <!-- 售價折扣與折數 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="editDiscountOption" id="editDiscountCheck" required>
+                                                                    <label class="form-check-label" for="discountCheck">
+                                                                        售價折扣 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+                                                                    <!--<label for="discountInput">折數</label>-->
+                                                                    <input class="form-control" type="text" id="editDiscountInput" placeholder="輸入折數" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- 現金抵用與抵用金 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="editDiscountOption" id="editCashDiscountCheck" required>
+                                                                    <label class="form-check-label" for="cashDiscountCheck">
+                                                                        現金抵用 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+                                                                    <!--<label for="cashDiscountInput">抵用金</label>-->
+                                                                    <input class="form-control" type="text" id="editCashDiscountInput" placeholder="輸入抵用金" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="active" required>
+                                                                <label class="form-check-label" for="inlineRadio3">啟用</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="disabled" required>
+                                                                <label class="form-check-label" for="inlineRadio4">停用</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit">儲存</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  js for 新增Modal -->
+                    <script>
+                        // 啟用選項對應的輸入框
+                        document.querySelectorAll('input[name="editDiscountOption"]').forEach(function (radio) {
+                            radio.addEventListener('change', function () {
+                                if (this.id === 'editDiscountCheck') {
+                                    document.getElementById('editDiscountInput').disabled = false;
+                                    document.getElementById('editCashDiscountInput').disabled = true;
+                                    document.getElementById('editCashDiscountInput').value = ''; // 清除另一個選項的值
+                                } else if (this.id === 'editCashDiscountCheck') {
+                                    document.getElementById('editCashDiscountInput').disabled = false;
+                                    document.getElementById('editDiscountInput').disabled = true;
+                                    document.getElementById('editDiscountInput').value = ''; // 清除另一個選項的值
+                                }
+                            });
+                        });
+
+                    </script>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- 功能內容結束 -->
+
+    <!-- footer and script link -->
+    <body th:insert="~{/comPage3}"></body>
+
+    <script type="text/javascript">
+        //清除提示信息
+        function hideContent(d) {
+            document.getElementById(d).style.display = "none";
+        }
+    </script>
+</body>
 </html>
