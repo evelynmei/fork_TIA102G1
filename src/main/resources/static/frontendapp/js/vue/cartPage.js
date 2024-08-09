@@ -44,7 +44,11 @@ createApp({
         let items = ref(dumbItems);
         const isDiscount = ref(false);
         const codeInput = ref("");
+        const discountAmount = ref(0);
         const coupons = [];
+
+        // const returnObject = { }
+
 
 
         /**
@@ -65,9 +69,9 @@ createApp({
             coupons.push(...data.coupons);
 
             // 用 JavaScript 裡 Array.reduce 方法，把 array 資料轉成一個 JavaScript Object
-                // const newProducts = productInfos.reduce(reduceCallback, {});
-                // console.log(newProducts);
-                // products = newProducts;
+            // const newProducts = productInfos.reduce(reduceCallback, {});
+            // console.log(newProducts);
+            // products = newProducts;
 
             items.value = cartList.map(mapCallback);
             console.log(toRaw(items.value));
@@ -103,21 +107,27 @@ createApp({
         };
 
 
+        let couponChecked;
         const discountHandler = () => {
 
             // 檢查輸入的 codeInput.value 跟 coupons 裡的 couponCode 是否符合
-            console.log(codeInput.value);
-            console.log(coupons);
-            const a = coupons.some(coupon => coupon.couponCode === codeInput.value);
-            console.log(a)
+            const isCodeInCoupons = coupons.some(coupon => coupon.couponCode === codeInput.value);
+            if(isCodeInCoupons) {
+                couponChecked= coupons.find(coupon => coupon.couponCode === codeInput.value);
+                console.log(couponChecked);
 
-            isDiscount.value = !isDiscount.value;
+                // 計算折價金額
+                discountAmount.value = Math.round((sum.getter() * (1 - couponChecked.discPercentage)));
+                console.log(discountAmount.value);
+                isDiscount.value = !isDiscount.value;
+            }
+
         }
-
         return {
             items,
             sum,
             isDiscount,
+            discountAmount,
             codeInput,
             deleteItem,
             discountHandler,
@@ -141,6 +151,6 @@ function mapCallback(item){
     item.price = products[id].price;
     item.picture = products[id].picture;
     item.sum = item.price * item.proAmount;
-    item.url = "productDetails/" + item.cartId
+    item.url = "productDetails/" + item.cartId;
     return item;
 }

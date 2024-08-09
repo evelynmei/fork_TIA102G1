@@ -42,13 +42,13 @@
 								<!-- 用v-bind將每個table data中的元素(a,img...)與其對應的item.value做綁定-->
 								<td class="align-middle">
 									<div class="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0">
-										<input type="checkbox" class="custom-control-input" id="item">
-										<label class="custom-control-label" for="item"></label>
+										<input type="checkbox" class="custom-control-input" v-bind:id="itemIndex">
+										<label class="custom-control-label" v-bind:for="itemIndex"></label>
 									</div>
 								</td>
 								<td class="table-image">
 									<a v-bind:href="item.url">
-									<img v-bind:src="item.picture" alt="">
+										<img v-bind:src="item.picture" alt="">
 									</a>
 								</td>
 								<td class="table-p-name text-capitalize">
@@ -83,16 +83,16 @@
 					<div class="table-bottom-wrapper">
 						<div class="table-coupon d-flex d-xs-block d-lg-flex d-sm-flex fix justify-content-start float-left">
 							<input v-model="codeInput" type="text" placeholder="輸入優惠代碼">
-							<button type="submit" class="btn-primary btn" @click="discountHandler">
+							<button type="submit" class="btn-primary btn" @click="discountHandler()">
 								套用優惠券
 							</button>
 						</div>
 						<div class="table-update d-flex d-xs-block d-lg-flex d-sm-flex justify-content-end">
-								<!-- <button type="button" class="btn-primary btn"> -->
-								<a href="productCategory.html" class="btn btn-primary btn">
-									繼續購物
-								</a>
-								<!-- </button> -->
+							<!-- <button type="button" class="btn-primary btn"> -->
+							<a href="productCategory.html" class="btn btn-primary btn">
+								繼續購物
+							</a>
+							<!-- </button> -->
 						</div>
 					</div>
 				</div>
@@ -104,17 +104,17 @@
 								<strong>商品總金額</strong>
 								<span class="c-total-price">{{sum}}</span>
 							</div>
+							<div v-if="isDiscount" class="single-total-content d-flex justify-content-between float-left w-100">
+								<strong>折價卷優惠</strong>
+								<span class="c-total-price">-${{discountAmount}}</span>
+							</div>
 							<div class="single-total-content d-flex justify-content-between float-left w-100">
 								<strong>運費</strong>
 								<span class="c-total-price">$80</span>
 							</div>
-							<div v-if="isDiscount" class="single-total-content d-flex justify-content-between float-left w-100">
-								<strong>折價卷優惠</strong>
-								<span class="c-total-price">-$80</span>
-							</div>
 							<div class="single-total-content tt-total d-flex justify-content-between float-left w-100">
 								<strong>總付款金額</strong>
-								<span class="c-total-price">${{sum + 80}}</span>
+								<span class="c-total-price">${{sum - discountAmount + 80}}</span>
 							</div>
 							<a href="checkout_page.html" class="btn btn-primary float-left w-100 text-center">
 								去買單
