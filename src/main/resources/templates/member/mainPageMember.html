@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>會員管理</title>
 
-    <!-- 引入 Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 引入公共 CSS 和 JS -->
+    <head th:insert="~{/comPage1}"></head>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
 
-    <!-- 引入 jQuery 和 DataTables -->
+    <!-- 引入 DataTables CSS 和 JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css"/>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css"/>
 
     <!-- DataTables 設定 -->
     <script>
@@ -50,30 +51,27 @@
 
     <!-- 自訂 CSS -->
     <style type="text/css">
-        body {
-            margin: 1rem 2rem 2rem 2rem;
-        }
-
-        .content-wrapper {
-            padding: 2rem;
-            background-color: #f8f9fa;
+        .table {
+            font-size: 14px; /* 調整字體大小 */
         }
 
         .table thead th {
             background-color: #343a40;
             color: #ffffff;
+            padding: 4px; /* 減少內邊距 */
+        }
+
+        .table tbody td {
+            padding: 4px; /* 減少內邊距 */
+            line-height: 1.2; /* 縮短行高 */
         }
 
         .table tbody tr:hover {
             background-color: #f1f1f1;
         }
 
-        .breadcrumb-item .auth-link {
-            white-space: nowrap;
-        }
-
         .dataTables_wrapper .dataTables_paginate .paginate_button {
-            padding: 0.5em 1em;
+            padding: 0.5em 0.8em; /* 減少按鈕大小 */
             margin-left: 0.5em;
         }
 
@@ -88,30 +86,31 @@
             color: white !important;
             border-radius: 5px;
         }
+
+        .btn {
+            padding: 4px 8px; /* 減少按鈕內邊距 */
+            font-size: 12px; /* 調整按鈕字體大小 */
+        }
     </style>
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
-<!-- Side bar -->
+<!-- 引入側邊欄 -->
+<body th:insert="~{/comPage2}"></body>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- 儀錶板上面那排 -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">會員管理</h1>
+                    <h1 class="m-0" font-style="bold">會員管理</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
-                        <li class="breadcrumb-item">
-                            <div th:if="${session.staffName == null}">
-                                <a href="staffLogin" class="auth-link">登入</a>
-                            </div>
-                            <div th:if="${session.staffName != null}">
-                                <a href="logout" th:text="${session.staffName}" class="auth-link"></a>
-                            </div>
-                        </li>
+                        <body th:insert="~{/comLogin}"></body>
                         <li class="breadcrumb-item active">會員管理</li>
                     </ol>
                 </div>
@@ -121,65 +120,67 @@
 
     <!-- 功能內容開始 -->
     <section class="content">
-        <div class="card">
-            <div class="card-header">
-            </div>
-            <div class="card-body">
-
-                <table id="example" class="table table-striped table-bordered" style="width: 100%">
-                    <thead>
-                    <tr>
-                        <th>會員編號</th>
-                        <th>會員等級</th>
-                        <th>帳號</th>
-                        <th style="display: none;">密碼</th>
-                        <th>姓名</th>
-<!--                        <th>電話</th>-->
-                        <th>生日</th>
-                        <th>Email</th>
-                        <th>累計消費</th>
-                        <th>購物金餘額</th>
-                        <th>未取貨次數</th>
-                        <th>帳號狀態</th>
-                        <th>加入日期</th>
-                        <th>更新者</th>
-                        <th>操作</th> <!-- 新增的操作欄位 -->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <th:block th:each="member : ${memberList}">
-                        <tr>
-                            <td th:text="${member.memberId}"></td>
-                            <td th:text="${member.memberLvId}"></td>
-                            <td th:text="${member.account}"></td>
-                            <td style="display: none" th:text="${member.password}"></td>
-                            <td th:text="${member.name}"></td>
-<!--                            <td th:text="${member.phone}"></td>-->
-                            <td th:text="${member.birthDt}"></td>
-                            <td th:text="${member.email}"></td>
-                            <td th:text="${member.accumulate}"></td>
-                            <td th:text="${member.coinBalance}"></td>
-                            <td th:text="${member.noShow}"></td>
-                            <td th:text="${member.status}"></td>
-                            <td th:text="${member.joinDate}"></td>
-                            <td th:text="${member.lastUpdatedBy}"></td>
-                            <td>
-                                <a th:href="@{/member/update/{id}(id=${member.memberId})}"
-                                   class="btn btn-primary btn-sm">更新</a>
-                                <a th:href="@{/member/delete/{id}(id=${member.memberId})}"
-                                   class="btn btn-danger btn-sm">刪除</a> <!-- 刪除按鈕 -->
-                            </td>
-                        </tr>
-                    </th:block>
-                    </tbody>
-                </table>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">會員列表</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="example" class="table table-striped table-bordered" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th style="width: 5%;">會員編號</th>
+                                    <th style="width: 5%;">會員等級</th>
+                                    <th style="width: 10%;">帳號</th>
+                                    <th style="display: none;">密碼</th>
+                                    <th style="width: 10%;">姓名</th>
+                                    <th style="width: 10%;">生日</th>
+                                    <th style="width: 20%;">Email</th>
+                                    <th style="width: 10%;">累計消費</th>
+                                    <th style="width: 10%;">購物金餘額</th>
+                                    <th style="width: 8%;">未取貨次數</th>
+                                    <th style="width: 8%;">帳號狀態</th>
+                                    <th style="width: 15%;">加入日期</th>
+                                    <th style="width: 8%;">更新者</th>
+                                    <th style="width: 8%;">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="member : ${memberList}">
+                                    <tr>
+                                        <td th:text="${member.memberId}"></td>
+                                        <td th:text="${member.memberLvId}"></td>
+                                        <td th:text="${member.account}"></td>
+                                        <td style="display: none" th:text="${member.password}"></td>
+                                        <td th:text="${member.name}"></td>
+                                        <td th:text="${member.birthDt}"></td>
+                                        <td th:text="${member.email}"></td>
+                                        <td th:text="${member.accumulate}"></td>
+                                        <td th:text="${member.coinBalance}"></td>
+                                        <td th:text="${member.noShow}"></td>
+                                        <td th:text="${member.status}"></td>
+                                        <td th:text="${member.joinDate}"></td>
+                                        <td th:text="${member.lastUpdatedBy}"></td>
+                                        <td>
+                                            <a th:href="@{/member/update/{id}(id=${member.memberId})}" class="btn btn-primary btn-sm">更新</a>
+                                            <a th:href="@{/member/delete/{id}(id=${member.memberId})}" class="btn btn-danger btn-sm">刪除</a>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     <!-- 功能內容結束 -->
 </div>
 
-<!-- 引入 Bootstrap 和 Popper.js -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- footer and script link -->
+<body th:insert="~{/comPage3}"></body>
 </body>
 </html>
