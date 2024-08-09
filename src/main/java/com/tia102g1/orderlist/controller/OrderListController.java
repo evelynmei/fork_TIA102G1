@@ -24,9 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.tia102g1.county.model.CountyService;
+import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.dist.model.DistService;
+import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.event.model.EventService;
+import com.tia102g1.event.model.EventVO;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.member.model.MemberService;
 import com.tia102g1.orderlist.model.OrderListService;
@@ -53,15 +56,18 @@ public class OrderListController {
 
 	@Autowired
 	DistService distService;
+	
+	@Autowired
+	CountyService countyService;
 
 	@GetMapping({"", "/mainPageOrderList" })
 	public String referenceOrderListData(Model model) {
 		List<OrderListVO> list = orderListService.getAll();
-		model.addAttribute("OrderListData", list);
+		model.addAttribute("orderListData", list);
 		return "/orderList/mainPageOrderList";
 	}
 	
-	@ModelAttribute("OrderListData2")
+	@ModelAttribute("orderListData2")
 	protected List<OrderListVO> referenceListData(Model model) {
 		List<OrderListVO> list = orderListService.getAll();
 		return list;
@@ -80,20 +86,24 @@ public class OrderListController {
 //		List<Coupon> list = couponService.getAll();
 //		return list;
 //	}
+ 
+	@ModelAttribute("eventListData")
+	protected List<EventVO> referenceListData_event(Model model) {
+		List<EventVO> list = eventService.getAll();
+		return list;
+	}
 
-//	// BackendController有了 
-//	@ModelAttribute("EventListData")
-//	protected List<EventVO> referenceListData_event(Model model) {
-//		List<EventVO> list = eventService.getAll();
-//		return list;
-//	}
-
-	// BackendController有了
-//	@ModelAttribute("DistListData")
-//	protected List<DistVO> referenceListData_dist(Model model){
-//		List<DistVO> list = distService.getAll();
-//		return list;
-//	}
+	@ModelAttribute("distListData")
+	protected List<DistVO> referenceListData_dist(Model model){
+		List<DistVO> list = distService.getAll();
+		return list;
+	}
+	
+	@ModelAttribute("countyListData")
+	protected List<CountyVO> referenceListData_county(Model model){
+		List<CountyVO> list = countyService.getAll();
+		return list;
+	}
 	
 	@GetMapping("addOrderList")
 	public String addOrderList(ModelMap model) {
@@ -146,7 +156,7 @@ public class OrderListController {
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("orderListVO", orderListVO);
 
-		return "orderList/updateOrderList";
+		return "/orderList/updateOrderList";
 	}
 	
 	@PostMapping("update")

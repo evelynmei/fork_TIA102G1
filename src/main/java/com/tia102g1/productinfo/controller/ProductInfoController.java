@@ -167,7 +167,7 @@ public class ProductInfoController {
 		productInfo = productInfoServiceS.getOneProductInfo(Integer.valueOf(productInfo.getProductId())); //取出剛更新完的VO物件,顯示在前端頁面上
 		model.addAttribute("productInfo",productInfo);
 			
-		return "/productinfo/listOneProductInfo";
+		return "/productInfo/listOneProductInfo";
 	}
 	
 	
@@ -197,6 +197,6 @@ public class ProductInfoController {
 		Map<String, String[]> map = req.getParameterMap();
 		List<ProductInfo> list = productInfoServiceS.getAll(map);
 		model.addAttribute("productInfoListData", list);
-		return "/productinfo/mainPageProductInfo";
+		return "/productInfo/mainPageProductInfo";
 	}
 }

@@ -197,11 +197,11 @@ public class BackendController {
 //		return "/orderList/mainPageOrderList";
 //	}
 
-	// 訂單商品明細
-	@GetMapping({ "/orderListInfo", "/orderListInfo/mainPageOrderListInfo" })
-	public String mainPageOrderListInfo(Model model) {
-		return "/orderListInfo/mainPageOrderListInfo";
-	}
+//	// 訂單商品明細
+//	@GetMapping({ "/orderListInfo", "/orderListInfo/mainPageOrderListInfo" })
+//	public String mainPageOrderListInfo(Model model) {
+//		return "/orderListInfo/mainPageOrderListInfo";
+//	}
 
 	// 促銷活動
 	@GetMapping({ "/event", "/event/mainPageEvent" })
