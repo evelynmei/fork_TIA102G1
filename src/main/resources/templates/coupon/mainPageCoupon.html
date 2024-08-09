@@ -195,13 +195,13 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="form-group">
-                                                                <label>開始時間</label>
+                                                                <label>開始</label>
                                                                 <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-group">
-                                                                <label>結束時間</label>
+                                                                <label>結束</label>
                                                                 <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>
                                                             </div>
                                                         </div>
@@ -224,30 +224,40 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-check form-check">
-                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="active" required>
-                                                                <label class="form-check-label" for="inlineRadio1">售價折扣</label>
+                                                    <form>
+                                                        <div class="row">
+                                                            <!-- 售價折扣與折數 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="discountOption" id="discountCheck" required>
+                                                                    <label class="form-check-label" for="discountCheck">
+                                                                        售價折扣 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+<!--                                                                    <label for="discountInput">折數</label>-->
+                                                                    <input class="form-control" type="text" id="discountInput" placeholder="輸入折數" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
                                                             </div>
-                                                            <div class="form-check form-check">
-                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="active" required>
-                                                                <label class="form-check-label" for="inlineRadio1">現金抵用</label>
+
+                                                            <!-- 現金抵用與抵用金 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="discountOption" id="cashDiscountCheck" required>
+                                                                    <label class="form-check-label" for="cashDiscountCheck">
+                                                                        現金抵用 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+<!--                                                                    <label for="cashDiscountInput">抵用金</label>-->
+                                                                    <input class="form-control" type="text" id="cashDiscountInput" placeholder="輸入抵用金" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label>折數</label>
-                                                                <input class="form-control" type="text" placeholder="XX節全館XX折" required>
-                                                                <div class="invalid-feedback">必填</div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>抵用金</label>
-                                                                <input class="form-control" type="text" placeholder="XX節全館XX折" required>
-                                                                <div class="invalid-feedback">必填</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    </form>
+
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="form-check form-check-inline">
@@ -275,6 +285,24 @@
                             </div>
                         </div>
                     </div>
+                    <!--  js for 新增Modal -->
+                    <script>
+                        // 啟用選項對應的輸入框
+                        document.querySelectorAll('input[name="discountOption"]').forEach(function (radio) {
+                            radio.addEventListener('change', function () {
+                                if (this.id === 'discountCheck') {
+                                    document.getElementById('discountInput').disabled = false;
+                                    document.getElementById('cashDiscountInput').disabled = true;
+                                    document.getElementById('cashDiscountInput').value = ''; // 清除另一個選項的值
+                                } else if (this.id === 'cashDiscountCheck') {
+                                    document.getElementById('cashDiscountInput').disabled = false;
+                                    document.getElementById('discountInput').disabled = true;
+                                    document.getElementById('discountInput').value = ''; // 清除另一個選項的值
+                                }
+                            });
+                        });
+
+                    </script>
 <!-- ================ 編輯優惠券互動視窗 Modal =============== -->
                     <div class="modal fade" role="dialog" tabindex="-1" id="edit-form-modal">
                         <div class="modal-dialog modal-lg" role="document">
@@ -331,6 +359,39 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <form>
+                                                        <div class="row">
+                                                            <!-- 售價折扣與折數 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="editDiscountOption" id="editDiscountCheck" required>
+                                                                    <label class="form-check-label" for="discountCheck">
+                                                                        售價折扣 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+                                                                    <!--<label for="discountInput">折數</label>-->
+                                                                    <input class="form-control" type="text" id="editDiscountInput" placeholder="輸入折數" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- 現金抵用與抵用金 -->
+                                                            <div class="col-6">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="editDiscountOption" id="editCashDiscountCheck" required>
+                                                                    <label class="form-check-label" for="cashDiscountCheck">
+                                                                        現金抵用 <span class="text-danger">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group mt-2">
+                                                                    <!--<label for="cashDiscountInput">抵用金</label>-->
+                                                                    <input class="form-control" type="text" id="editCashDiscountInput" placeholder="輸入抵用金" required disabled>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="form-check form-check-inline">
@@ -359,11 +420,29 @@
                             </div>
                         </div>
                     </div>
+                    <!--  js for 新增Modal -->
+                    <script>
+                        // 啟用選項對應的輸入框
+                        document.querySelectorAll('input[name="editDiscountOption"]').forEach(function (radio) {
+                            radio.addEventListener('change', function () {
+                                if (this.id === 'editDiscountCheck') {
+                                    document.getElementById('editDiscountInput').disabled = false;
+                                    document.getElementById('editCashDiscountInput').disabled = true;
+                                    document.getElementById('editCashDiscountInput').value = ''; // 清除另一個選項的值
+                                } else if (this.id === 'editCashDiscountCheck') {
+                                    document.getElementById('editCashDiscountInput').disabled = false;
+                                    document.getElementById('editDiscountInput').disabled = true;
+                                    document.getElementById('editDiscountInput').value = ''; // 清除另一個選項的值
+                                }
+                            });
+                        });
+
+                    </script>
+
 
                 </div>
             </div>
         </div>
-
 
 
     </section>
