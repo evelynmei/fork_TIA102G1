@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.tia102g1.county.model.CountyVO;
+import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.membercoin.model.MemberCoinVO;
 
@@ -111,11 +113,17 @@ public class OrderListVO implements Serializable {
 	@Column(name = "recipientPhone")
 	private String recipientPhone;
 	
-	@Column(name = "recipientCnt")
-	private Integer recipientCnt;
-	
-	@Column(name = "recipientDist")
-	private Integer recipientDist;
+	@ManyToOne 
+	@JoinColumn(name = "recipientCnt", referencedColumnName = "cntCode")
+	private CountyVO countyVO;		
+//	@Column(name = "recipientCnt")
+//	private Integer recipientCnt;
+		
+	@ManyToOne 
+	@JoinColumn(name = "recipientDist", referencedColumnName = "distCode")
+	private DistVO distVO;	
+//	@Column(name = "recipientDist")
+//	private Integer recipientDist;
 	
 	@Column(name = "recipientAddress")
 	private String recipientAddress;
@@ -146,9 +154,8 @@ public class OrderListVO implements Serializable {
 			Integer orderStatus, Integer paymentMethod, Integer paymentStatus, Integer pickupMethod, Integer useCoupon,
 			Integer useCoin, String cardHolder, String cardNumber, Integer cardYy, String cardMm, String cardVerifyCode,
 			Integer invoiceWay, String invoiceTaxNo, String invoiceMobileCode, String recipientName,
-			String recipientPhone, Integer recipientCnt, Integer recipientDist, String recipientAddress,
-			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated,
-			Set<MemberCoinVO> memCoins) {
+			String recipientPhone, CountyVO countyVO, DistVO distVO, String recipientAddress, String createdBy,
+			Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated, Set<MemberCoinVO> memCoins) {
 		super();
 		this.orderListId = orderListId;
 		this.member = member;
@@ -175,8 +182,8 @@ public class OrderListVO implements Serializable {
 		this.invoiceMobileCode = invoiceMobileCode;
 		this.recipientName = recipientName;
 		this.recipientPhone = recipientPhone;
-		this.recipientCnt = recipientCnt;
-		this.recipientDist = recipientDist;
+		this.countyVO = countyVO;
+		this.distVO = distVO;
 		this.recipientAddress = recipientAddress;
 		this.createdBy = createdBy;
 		this.dateCreated = dateCreated;
@@ -385,20 +392,20 @@ public class OrderListVO implements Serializable {
 		this.recipientPhone = recipientPhone;
 	}
 
-	public Integer getRecipientCnt() {
-		return recipientCnt;
+	public CountyVO getCountyVO() {
+		return countyVO;
 	}
 
-	public void setRecipientCnt(Integer recipientCnt) {
-		this.recipientCnt = recipientCnt;
+	public void setCountyVO(CountyVO countyVO) {
+		this.countyVO = countyVO;
 	}
 
-	public Integer getRecipientDist() {
-		return recipientDist;
+	public DistVO getDistVO() {
+		return distVO;
 	}
 
-	public void setRecipientDist(Integer recipientDist) {
-		this.recipientDist = recipientDist;
+	public void setDistVO(DistVO distVO) {
+		this.distVO = distVO;
 	}
 
 	public String getRecipientAddress() {
@@ -455,17 +462,17 @@ public class OrderListVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderListVO [orderListId=" + orderListId + ", couponId=" + couponId + ", eventId=" + eventId
-				+ ", orderDt=" + orderDt + ", orderAmount=" + orderAmount + ", couponUsedAmount=" + couponUsedAmount
-				+ ", coinUsedAmount=" + coinUsedAmount + ", payAmount=" + payAmount + ", orderStatus=" + orderStatus
-				+ ", paymentMethod=" + paymentMethod + ", paymentStatus=" + paymentStatus + ", pickupMethod="
-				+ pickupMethod + ", useCoupon=" + useCoupon + ", useCoin=" + useCoin + ", cardHolder=" + cardHolder
-				+ ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm=" + cardMm + ", cardVerifyCode="
-				+ cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo=" + invoiceTaxNo
-				+ ", invoiceMobileCode=" + invoiceMobileCode + ", recipientName=" + recipientName + ", recipientPhone="
-				+ recipientPhone + ", recipientCnt=" + recipientCnt + ", recipientDist=" + recipientDist
+		return "OrderListVO [orderListId=" + orderListId + ", member=" + member + ", couponId=" + couponId
+				+ ", eventId=" + eventId + ", orderDt=" + orderDt + ", orderAmount=" + orderAmount
+				+ ", couponUsedAmount=" + couponUsedAmount + ", coinUsedAmount=" + coinUsedAmount + ", payAmount="
+				+ payAmount + ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
+				+ paymentStatus + ", pickupMethod=" + pickupMethod + ", useCoupon=" + useCoupon + ", useCoin=" + useCoin
+				+ ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm="
+				+ cardMm + ", cardVerifyCode=" + cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo="
+				+ invoiceTaxNo + ", invoiceMobileCode=" + invoiceMobileCode + ", recipientName=" + recipientName
+				+ ", recipientPhone=" + recipientPhone + ", countyVO=" + countyVO + ", distVO=" + distVO
 				+ ", recipientAddress=" + recipientAddress + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated
-				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + "]";
+				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins=" + memCoins + "]";
 	}
 
 	

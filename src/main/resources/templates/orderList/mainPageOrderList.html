@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>MainPage_OrderList</title>
+		<title>訂單管理</title>
 		
 		<style>
 			#form {
@@ -125,7 +125,7 @@
 						<label>訂單編號</label>
 						<br> <select id="roll" name="orderListId">
 							<option value="" disabled selected >選擇編號</option>
-							<option th:each="orderListVO : ${OrderListData2}"
+							<option th:each="orderListVO : ${orderListData2}"
 									th:value="${orderListVO.orderListId}"
 									th:text="${orderListVO.orderListId}">
 							</option></select>
@@ -149,7 +149,7 @@
 						<option value="1" >已確認</option>
 						<option value="2" >已完成</option>
 						<option value="3" >已取消</option>
-						</option></select>				
+						</select>				
 					</div>
 					
 					<div class="form-group select one" style="width: 8% ">
@@ -190,7 +190,7 @@
 					<div class="form-group">
 					<button type="reset" class="btn btn-secondary"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">清&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除</button>
 					<button type="submit" class="btn btn-primary" style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;詢</button>
-					<a th:href="addOrderList"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新增商品</button></a>
+					<a th:href="addOrderList"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新 增 商 品</button></a>
 					</div>
 					</form>
 				</div>
@@ -219,10 +219,23 @@
 						<td th:text="${orderListVO.orderListId}"></td>
 						<td th:text="${orderListVO.member.memberId}"></td>
 						<td th:text="${#dates.format(orderListVO.orderDt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-						<td th:text="${orderListVO.payAmount}"></td>
-						<td th:text="${orderListVO.orderStatus}"></td>
-						<td th:text="${orderListVO.paymentStatus}"></td>
-						<td th:text="${orderListVO.pickupMethod}"></td>
+						<td th:text="'$' + ${orderListVO.payAmount}"></td>
+						<td th:switch="${orderListVO.orderStatus}">
+							<span th:case="0">處理中</span>
+						    <span th:case="1">已確認</span>
+						    <span th:case="2">已完成</span>
+						    <span th:case="3">已取消</span>
+						</td>
+						<td th:switch="${orderListVO.paymentStatus}">
+							<span th:case="0">未付款</span>
+						    <span th:case="1">已付款</span>
+						    <span th:case="2">退款中</span>
+						    <span th:case="3">已退款</span>
+						</td>
+						<td th:switch="${orderListVO.pickupMethod}">
+							<span th:case="1">宅配到府</span>
+						    <span th:case="2">現場取貨</span>
+						</td>
 						<td>
 							<form method="post" th:action="@{getOne_For_Update}">
 							<input type="submit" value="修改"> <input type="hidden" name="orderListId" th:value="${orderListVO.orderListId}">

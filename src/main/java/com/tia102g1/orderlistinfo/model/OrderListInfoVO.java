@@ -2,6 +2,7 @@ package com.tia102g1.orderlistinfo.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,13 +53,13 @@ public class OrderListInfoVO implements Serializable{
 	private String createdBy;
 	
 	@Column(name = "dateCreated", insertable = false, updatable = false)
-	private Date dateCreated;
+	private Timestamp dateCreated;
 	
 	@Column(name = "lastUpdatedBy")
 	private String lastUpdatedBy;
 	
 	@Column(name = "lastUpdated", insertable = false, updatable = false)
-	private Date lastUpdated;
+	private Timestamp lastUpdated;
 
 	public OrderListInfoVO() {
 		super();
@@ -67,7 +68,7 @@ public class OrderListInfoVO implements Serializable{
 
 	public OrderListInfoVO(Integer orderListInfoId, Integer orderListId, Integer productId, Integer purchasedPrice,
 			@DecimalMin(value = "0", message = "商品數量 : 不能小於{value}") Integer proQuantity, String createdBy,
-			Date dateCreated, String lastUpdatedBy, Date lastUpdated) {
+			Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated) {
 		super();
 		this.orderListInfoId = orderListInfoId;
 		this.orderListId = orderListId;
@@ -128,11 +129,11 @@ public class OrderListInfoVO implements Serializable{
 		this.createdBy = createdBy;
 	}
 
-	public Date getDateCreated() {
+	public Timestamp getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(Timestamp dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
@@ -144,18 +145,25 @@ public class OrderListInfoVO implements Serializable{
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
-	public Date getLastUpdated() {
+	public Timestamp getLastUpdated() {
 		return lastUpdated;
 	}
 
-	public void setLastUpdated(Date lastUpdated) {
+	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}	
+	}
 
-	
+	@Override
+	public String toString() {
+		return "OrderListInfoVO [orderListInfoId=" + orderListInfoId + ", orderListId=" + orderListId + ", productId="
+				+ productId + ", purchasedPrice=" + purchasedPrice + ", proQuantity=" + proQuantity + ", createdBy="
+				+ createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated="
+				+ lastUpdated + "]";
+	}
+
 	
 }
