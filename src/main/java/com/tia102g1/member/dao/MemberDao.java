@@ -71,6 +71,7 @@ public interface MemberDao {
 
     /**
      * 查詢會員總數(分頁)
+     *
      * @param memberQueryParams 要查詢的會員參數
      * @return 返回查詢條件下的會員總數
      */
@@ -78,13 +79,15 @@ public interface MemberDao {
 
     /**
      * 查詢黑名單的總數(分頁)
-     * @param memberQueryParams  要查詢的黑名單參數
+     *
+     * @param memberQueryParams 要查詢的黑名單參數
      * @return 返回查詢條件下的黑名單總數
      */
     Integer countBlockedMember(MemberQueryParams memberQueryParams);
 
     /**
      * 解除某會員的黑名單
+     *
      * @param memberId 要解除的會員ID
      * @return 解除的會員ID
      */
@@ -92,17 +95,21 @@ public interface MemberDao {
 
     /**
      * 藉由email查詢會員ID的方法
+     *
      * @param forgetPasswordRequest 會員的email
      * @return 返回該會員的資訊
      */
     Member getMemberByEmail(ForgetPasswordRequest forgetPasswordRequest);
 
+    Member getMemberByEmailForRegister(String email);
+
     /**
      * 更新會員密碼的方法(member)
+     *
      * @param memberId 要更新密碼的會員ID
      * @param password 要更新的密碼
      * @return 返回更新密碼的會員ID
      */
-    Integer updateMemberPassword(Integer memberId,String password);
+    Integer updateMemberPassword(Integer memberId, String password);
 
 }

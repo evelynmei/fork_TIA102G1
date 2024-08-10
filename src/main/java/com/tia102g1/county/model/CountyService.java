@@ -23,7 +23,7 @@ public class CountyService {
 	//單筆查詢
 	public CountyVO getOneCounty(Integer cntCode) {
 		Optional<CountyVO> optional = repository.findById(cntCode);
-		return optional.orElse(null); //如果有查到資料就回傳VO物件,否則就回傳null
+		return optional.orElse(null); //如果有查到資料就回傳VO物件,否則就回傳nu	ll
 	}
 	
 	//全部查詢
@@ -35,5 +35,10 @@ public class CountyService {
 //	public List<CountyVO> getAll(Map<String, String[]> map){
 //		return CompositeQuery_County.getAllC(map, sessionFactory.openSession());
 //	}
+
+	//查詢所有縣市區
+	public List<CountyVO> getAllCounties() {
+		return repository.findAll();
+	}
 	
 }

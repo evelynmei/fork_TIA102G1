@@ -61,8 +61,10 @@ public class MemberDaoImpl implements MemberDao {
         map.put("cardverifycode", member.getCardVerifyCode());
         map.put("status", member.getStatus());
         map.put("blockedreason", member.getBlockReason());
-        map.put("createdby", member.getCreatedBy());
-        map.put("lastupdatedby", member.getLastUpdatedBy());
+        //createdby即會員本人
+        map.put("createdby", member.getName());
+        //註冊完的當下更新的一定是會員本人
+        map.put("lastupdatedby", member.getName());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
@@ -275,6 +277,17 @@ public class MemberDaoImpl implements MemberDao {
                 "       coinbalance,joindate,noshow,cardholder,cardnumber,cardyy,cardmm,cardverifycode,status,blockedtime,blockedreason,\n" +
                 "       createdby,datecreated,lastupdatedby,lastupdated FROM member WHERE email =:email";
         map.put("email", forgetPasswordRequest.getEmail());
+        List<Member> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
+        return memberList.isEmpty() ? null : memberList.get(0);
+    }
+
+    @Override
+    public Member getMemberByEmailForRegister(String email) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "SELECT memberid,memberlvid,staffid,account,password,name,birthdt,phone,email,cntcode,distcode,address,accumulate,\n" +
+                "       coinbalance,joindate,noshow,cardholder,cardnumber,cardyy,cardmm,cardverifycode,status,blockedtime,blockedreason,\n" +
+                "       createdby,datecreated,lastupdatedby,lastupdated FROM member WHERE email =:email";
+        map.put("email", email);
         List<Member> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
         return memberList.isEmpty() ? null : memberList.get(0);
     }

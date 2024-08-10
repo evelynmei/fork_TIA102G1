@@ -37,12 +37,16 @@
                             <input type="password" id="LoginForm-pass" name="password" class="form-control validate" placeholder="請輸入密碼" required>
                         </div>
                         <div class="checkbox-link d-flex justify-content-between">
-                            <div class="left-col">
-                                <input type="checkbox" id="remember_me" name="remember-me">
-                                <label for="remember_me">記住帳號</label>
-                            </div>
+<!--                            <div class="left-col">-->
+<!--                                <input type="checkbox" id="remember_me" name="remember-me">-->
+<!--                                <label for="remember_me">記住帳號</label>-->
+<!--                            </div>-->
                             <!-- 修改這裡 -->
-                            <div class="right-col"><a th:href="@{/forgetPassword}">忘記密碼?</a></div>
+                            <div class="right-col">
+                                <a th:href="@{/forgetPassword}">忘記密碼?</a>
+                                <span> | </span>
+                                    <a th:href="@{/register}" class="ml-2">加入會員</a>
+                            </div>
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary">登入</button>
