@@ -74,7 +74,7 @@ public class BackendController {
 //
 //	@Autowired
 //	NewsService newsSvc;
-
+//
 	@Autowired
 	CouponService couponSvc;
 
@@ -85,20 +85,20 @@ public class BackendController {
 		return "index";
 	}
 
-	/* ======================= mainPage ======================= */
-
-	// 會員資料
+//	/* ======================= mainPage ======================= */
+//
+//	// 會員資料
 //	@GetMapping({ "/member", "/member/mainPageMember" })
 //	public String mainPageMember(Model model) {
 //		return "/member/mainPageMember";
 //	}
-
-//	 會員黑名單
+//
+////	 會員黑名單
 //	@GetMapping("/member/mainPageBlockedMember")
 //	public String mainPageBlockedMember(Model model) {
 //		return "member/mainPageBlockedMember";
 //	}
-
+//
 //	// 會員等級對照
 //	@GetMapping({ "/memberLv", "/memberLv/mainPageMemberLv" })
 //	public String mainPageMemberLv(Model model) {
@@ -110,7 +110,7 @@ public class BackendController {
 //	public String mainPageMemberCoupon(Model model) {
 //		return "/memberCoupon/mainPageMemberCoupon";
 //	}
-
+//
 //	// 購物金持有紀錄
 //	@GetMapping({ "/memberCoin", "/memberCoin/mainPageMemberCoin" })
 //	public String mainPageMemberCoin(Model model) {
@@ -158,7 +158,7 @@ public class BackendController {
 //		List<ProductTypeVO> list = typeSvc.getAll();
 //		return list;
 //	}
-
+//
 //	// 商品基本資料
 //	@GetMapping({ "/productInfo", "/productInfo/mainPageProductInfo" })
 //	public String mainPageProductInfo(Model model) {
@@ -232,8 +232,8 @@ public class BackendController {
 		model.addAttribute("couponList", couponList);
 		return "/coupon/mainPageCoupon";
 	}
-
-	// 問題類型對照
+//
+//	// 問題類型對照
 //	@GetMapping({ "/quType", "/quType/mainPageQuType" })
 //	public String mainPageQuType(Model model) {
 //		return "/quType/mainPageQuType";

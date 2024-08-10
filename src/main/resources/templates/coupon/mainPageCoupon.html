@@ -6,7 +6,7 @@
     <title>優惠券管理</title>
 
     <!-- header-css etc. -->
-    <head th:insert="~{/comPage1}"></head>
+    <th:block th:insert="~{/comPage1}"></th:block>
     <link rel="stylesheet" th:href="@{/css/error.css}">
 
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css'>
@@ -27,7 +27,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 
 <!-- side bar -->
-<body th:insert="~{/comPage2}"></body>
+<th:block th:insert="~{/comPage2}"></th:block>
 
 <!-- Content Wrapper. Contains page content -->
 <!-- 儀錶板上面那排 -->
@@ -89,6 +89,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="coupon : ${couponList}">
+                                                    <input type="hidden" th:value="${coupon.couponId}" id="couponId">
                                                     <td th:text="${coupon.couponName}"  class="align-middle text-center"></td>
                                                     <td th:text="${coupon.couponCode}" class="text-nowrap align-middle"></td>
                                                     <td th:text="${coupon.discType}" class="text-nowrap align-middle"></td>
@@ -102,8 +103,13 @@
                                                     </td>
                                                     <td class="text-center align-middle">
                                                     <div class="btn-group align-top btn-nowrap">
-                                                        <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#edit-form-modal">Edit</button>
-                                                        <button class="btn btn-sm btn-outline-secondary badge ml-0" type="button"><i class="fa fa-trash"></i></button>
+<!--                                                        <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#edit-form-modal">Edit</button>-->
+<!--                                                        <button class="btn btn-sm btn-outline-secondary badge ml-0" type="button"><i class="fa fa-trash"></i></button>-->
+
+                                                        <button class="btn btn-sm btn-outline-secondary badge" type="submit" formaction="" th:value="${coupon.couponId}">Edit</button>
+                                                        <form action="#" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="delete">
+                                                            <button class="btn btn-sm btn-outline-secondary badge ml-0" type="submit"><i class="fa fa-trash"></i></button>
+                                                        </form>
                                                     </div>
                                                     </td>
 
@@ -193,13 +199,15 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label for="startDt" class="form-label">開始</label>
-                                                            <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="2024-01-01" id="startDt" name="startDt" required>
+                                                            <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="2024-01-01"
+                                                                   id="startDt" name="startDt" required>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label for="endDt" class="form-label">結束</label>
-                                                            <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="2024-01-01" id="endDt" name="endDt" required>
+                                                            <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="2024-01-01"
+                                                                   id="endDt" name="endDt" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -207,7 +215,8 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label for="couponName" class="form-label">名稱</label>
-                                                            <input class="form-control" type="text" placeholder="XX節全館XX折" id="couponName" name="couponName"  value="中元節九折"  required>
+                                                            <input class="form-control" type="text" placeholder="XX節全館XX折"
+                                                                   id="couponName" name="couponName"  value="中元節九折"  required>
                                                             <div class="invalid-feedback">必填</div>
                                                         </div>
                                                     </div>
@@ -216,7 +225,8 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label for="couponCode" class="form-label">優惠代碼</label>
-                                                            <input class="form-control" type="text" placeholder="XXXX00" id="couponCode" name="couponCode" maxlength="20" value="hello03" required>
+                                                            <input class="form-control" type="text" placeholder="XXXX00"
+                                                                   id="couponCode" name="couponCode" maxlength="20" value="hello03" required>
                                                             <div class="invalid-feedback">必填</div>
                                                         </div>
                                                     </div>
@@ -267,18 +277,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- 隱藏欄位 -->
+                                                <div>
+<!--                                                    <label class="form-label">-->
+<!--                                                        <input type="hidden" class="form-control" id="couponId" name="couponId" required>-->
+<!--                                                    </label>-->
 
-                                                <div> <!-- 隱藏欄目 -->
                                                     <label class="form-label">
-                                                        <input type="hidden" class="form-control" id="couponId" name="couponId" required>
+                                                        <input type="hidden" class="form-control" id="couponStatus" name="couponStatus" value="0" required>
                                                     </label>
 
                                                     <label class="form-label">
-                                                        <input type="hidden" class="form-control" id="couponStatus" name="couponStatus"  value="0" required>
-                                                    </label>
-
-                                                    <label class="form-label">
-                                                        <input type="hidden" class="form-control" id="discType" name="discType" value="0" required>
+                                                        <input type="hidden" class="form-control" id="discType" name="discType" value="1" required>
                                                     </label>
 
                                                     <label>
@@ -311,7 +321,7 @@
                                     document.getElementById('discPercentage').disabled = false;
                                     document.getElementById('discAmount').disabled = true;
                                     document.getElementById('discAmount').value = ''; // 清除另一個選項的值
-                                } else if (this.id === 'discAmount') {
+                                } else if (this.id === 'cashDiscountCheck') {
                                     document.getElementById('discAmount').disabled = false;
                                     document.getElementById('discPercentage').disabled = true;
                                     document.getElementById('discPercentage').value = ''; // 清除另一個選項的值
@@ -467,9 +477,9 @@
 
     </section>
     <!-- 功能內容結束 -->
-
+</div>
     <!-- footer and script link -->
-    <body th:insert="~{/comPage3}"></body>
+    <th:block th:insert="~{/comPage3}"></th:block>
 
     <script type="text/javascript">
         //清除提示信息
