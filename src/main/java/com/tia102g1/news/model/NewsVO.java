@@ -9,11 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -39,6 +37,9 @@ public class NewsVO {
 	@Column(name = "ENDDT")
 	private Date endDt;
 	
+	@Column(name = "STATUS")
+	private Integer status;
+	
 	@NotEmpty(message = "公告內容:請勿空白")
 	@Pattern(regexp="^[\\u4e00-\\u9fa5a-zA-Z0-9\\p{Punct}\\s\\u3000-\\u303F\\uFF00-\\uFFEF]{2,150}$", message = "公告內容: 只能是中、英文、數字及標點符號 , 且長度必需在2到150之間")
 	@Column(name = "NEWSCONTENT")
@@ -58,6 +59,7 @@ public class NewsVO {
 	
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
+	
 
 	public NewsVO() {
 		super();
@@ -151,7 +153,13 @@ public class NewsVO {
 	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	
-	
-	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 }
