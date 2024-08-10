@@ -29,13 +29,14 @@ public class CouponController {
 
     /**
      * 修改優惠券
-     * @param coupon
-     * @return
+     * @param couponRequest: 修改用的 Coupon.java
+     * @return 重導回 coupon 管理首頁
      */
     @PutMapping("coupon/{couponId}")
-    public String updateCoupon(@PathVariable Integer couponId, @ModelAttribute("coupon") Coupon coupon, RedirectAttributes redirectAttributes) {
-        coupon.setCouponId(couponId);
-        Coupon updatedCoupon = couponService.updateCoupon(coupon);
+    public String updateCoupon(@PathVariable Integer couponId, @ModelAttribute("coupon") CouponRequest couponRequest, RedirectAttributes redirectAttributes) {
+        couponRequest.setEditCouponId(couponId);
+        System.out.println(couponRequest);
+        Coupon updatedCoupon = couponService.updateCoupon(couponRequest);
 
         // 若需要傳遞更新後的優惠券信息到重定向的頁面，可以使用 RedirectAttributes
         redirectAttributes.addFlashAttribute("updatedCoupon", updatedCoupon);

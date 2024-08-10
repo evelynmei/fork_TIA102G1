@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 
-<!-- side bar -->
+<!-- sidebar -->
 <th:block th:insert="~{/comPage2}"></th:block>
 
 <!-- Content Wrapper. Contains page content -->
@@ -44,7 +44,7 @@
                         <li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
 
                         <!-- ==============後台人員登入登出用 =============-->
-                        <body th:insert="~{/comLogin}"></body>
+                        <th:block th:insert="~{/comLogin}"></th:block>
 
                         <!-- ==============寫入你的mainPage名稱 =============-->
                         <li class="breadcrumb-item active">
@@ -103,16 +103,16 @@
                                                     </td>
                                                     <td class="text-center align-middle">
                                                     <div class="btn-group align-top btn-nowrap">
-<!--                                                        <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" data-target="#edit-form-modal">Edit</button>-->
-<!--                                                        <button class="btn btn-sm btn-outline-secondary badge ml-0" type="button"><i class="fa fa-trash"></i></button>-->
-
-                                                        <button class="btn btn-sm btn-outline-secondary badge" type="submit" formaction="" th:value="${coupon.couponId}">Edit</button>
+                                                        <form action="#" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="put">
+                                                            <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" th:data-target="'#editCouponModal'+${coupon.couponId}">Edit</button>
+                                                        </form>
+                                                        <!--                                                        <button class="btn btn-sm btn-outline-secondary badge" type="submit" formaction="" th:value="${coupon.couponId}">Edit</button>-->
+                                                        <!--                                                        <button class="btn btn-sm btn-outline-secondary badge ml-0" type="button"><i class="fa fa-trash"></i></button>-->
                                                         <form action="#" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="delete">
                                                             <button class="btn btn-sm btn-outline-secondary badge ml-0" type="submit"><i class="fa fa-trash"></i></button>
                                                         </form>
                                                     </div>
                                                     </td>
-
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -330,145 +330,202 @@
                         });
 
                     </script>
+                    <th:block th:each="coupon : ${couponList}">
+                        <!-- ================ 編輯優惠券互動視窗 Modal =============== -->
+                        <div class="modal fade" role="dialog" tabindex="-1" th:id="'editCouponModal'+ ${coupon.couponId}">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">編輯優惠券</h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="py-1">
 
+                                            <form class="form was-validated" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="put" th:id="'editCouponForm'+${coupon.couponId}">
+<!--                                            <form class="form was-validated" th:id="'editCouponForm'+${coupon.couponId}">-->
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="editStartDt">開始時間</label>
+                                                                    <input class="form-control" type="date" placeholder="yyyy-mm-dd"
+                                                                           id="editStartDt" name="editStartDt" th:value="${coupon.startDt}" required>  <!-- th:value="${couponList[id].startDt}"-->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="editEndDt">結束時間</label>
+                                                                    <input class="form-control" type="date" placeholder="yyyy-mm-dd"
+                                                                           id="editEndDt" name="editEndDt" th:value="${coupon.endDt}" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="editCouponName">名稱</label>
+                                                                    <input class="form-control" type="text" placeholder="XX節全館XX折"
+                                                                           id="editCouponName" name="editCouponName" th:value="${coupon.couponName}" required>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="editCouponCode">優惠代碼</label>
+                                                                    <input class="form-control" type="text" placeholder="XXXX00"
+                                                                           id="editCouponCode" name="editCouponCode" th:value="${coupon.couponCode}" required>
+                                                                    <div class="invalid-feedback">必填</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--                                                    <div class="row">-->
+                                                        <!--                                                        <div class="col">-->
+                                                        <!--                                                            <div class="form-group">-->
+                                                        <!--                                                                <label>折扣</label>-->
+                                                        <!--                                                                <input class="form-control" type="text" placeholder="0.00" required>-->
+                                                        <!--                                                                <div class="invalid-feedback">必填</div>-->
+                                                        <!--                                                            </div>-->
+                                                        <!--                                                        </div>-->
+                                                        <!--                                                    </div>-->
+                                                        <form>
+                                                            <div class="row">
+                                                                <!-- 售價折扣與折數 -->
+                                                                <div class="col-6">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="editDiscountOption" id="editDiscountCheck" required>
+                                                                        <label class="form-check-label" for="editDiscountCheck">
+                                                                            售價折扣 <span class="text-danger">*</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-group mt-2">
+                                                                        <!--<label for="discountInput">折數</label>-->
+                                                                        <input class="form-control" type="text"
+                                                                               id="editDiscPercentage" name="editDiscPercentage" placeholder="輸入折數" th:value="${coupon.discPercentage}" required disabled>
+                                                                        <div class="invalid-feedback">必填</div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- 現金抵用與抵用金 -->
+                                                                <div class="col-6">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="editDiscountOption" id="editCashDiscountCheck" required>
+                                                                        <label class="form-check-label" for="editCashDiscountCheck">
+                                                                            現金抵用 <span class="text-danger">*</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-group mt-2">
+                                                                        <!--<label for="cashDiscountInput">抵用金</label>-->
+                                                                        <input class="form-control" type="text" placeholder="輸入抵用金"
+                                                                               id="editDiscAmount" name="editDiscAmount"  th:value="${coupon.discAmount}" required disabled>
+                                                                        <div class="invalid-feedback">必填</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
 
-                    <!-- ================ 編輯優惠券互動視窗 Modal =============== -->
-<!--                    <div class="modal fade" role="dialog" tabindex="-1" id="edit-form-modal">-->
-<!--                        <div class="modal-dialog modal-lg" role="document">-->
-<!--                            <div class="modal-content">-->
-<!--                                <div class="modal-header">-->
-<!--                                    <h5 class="modal-title">編輯優惠券</h5>-->
-<!--                                    <button type="button" class="close" data-dismiss="modal">-->
-<!--                                        <span aria-hidden="true">×</span>-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="modal-body">-->
-<!--                                    <div class="py-1">-->
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="active" required>
+                                                                    <label class="form-check-label" for="inlineRadio3">啟用</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="disabled" required>
+                                                                    <label class="form-check-label" for="inlineRadio4">停用</label>
+                                                                </div>
 
-<!--                                        <form class="form was-validated" action="/coupon/edit" method="post">-->
-<!--                                            <div class="row">-->
-<!--                                                <div class="col">-->
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col">-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label>開始時間</label>-->
-<!--                                                                <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="col">-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label>結束時間</label>-->
-<!--                                                                <input class="form-control" type="date" placeholder="yyyy-mm-dd" value="" required>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col">-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label>名稱</label>-->
-<!--                                                                <input class="form-control" type="text" placeholder="XX節全館XX折" required>-->
-<!--                                                                <div class="invalid-feedback">必填</div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col">-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label>優惠代碼</label>-->
-<!--                                                                <input class="form-control" type="text" placeholder="XXXX00" required>-->
-<!--                                                                <div class="invalid-feedback">必填</div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col">-->
-<!--                                                            <div class="form-group">-->
-<!--                                                                <label>折扣</label>-->
-<!--                                                                <input class="form-control" type="text" placeholder="0.00" required>-->
-<!--                                                                <div class="invalid-feedback">必填</div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <form>-->
-<!--                                                        <div class="row">-->
-<!--                                                            &lt;!&ndash; 售價折扣與折數 &ndash;&gt;-->
-<!--                                                            <div class="col-6">-->
-<!--                                                                <div class="form-check">-->
-<!--                                                                    <input class="form-check-input" type="radio" name="editDiscountOption" id="editDiscountCheck" required>-->
-<!--                                                                    <label class="form-check-label" for="discountCheck">-->
-<!--                                                                        售價折扣 <span class="text-danger">*</span>-->
-<!--                                                                    </label>-->
-<!--                                                                </div>-->
-<!--                                                                <div class="form-group mt-2">-->
-<!--                                                                    &lt;!&ndash;<label for="discountInput">折數</label>&ndash;&gt;-->
-<!--                                                                    <input class="form-control" type="text" id="editDiscountInput" placeholder="輸入折數" required disabled>-->
-<!--                                                                    <div class="invalid-feedback">必填</div>-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
-<!--                                                            &lt;!&ndash; 現金抵用與抵用金 &ndash;&gt;-->
-<!--                                                            <div class="col-6">-->
-<!--                                                                <div class="form-check">-->
-<!--                                                                    <input class="form-check-input" type="radio" name="editDiscountOption" id="editCashDiscountCheck" required>-->
-<!--                                                                    <label class="form-check-label" for="cashDiscountCheck">-->
-<!--                                                                        現金抵用 <span class="text-danger">*</span>-->
-<!--                                                                    </label>-->
-<!--                                                                </div>-->
-<!--                                                                <div class="form-group mt-2">-->
-<!--                                                                    &lt;!&ndash;<label for="cashDiscountInput">抵用金</label>&ndash;&gt;-->
-<!--                                                                    <input class="form-control" type="text" id="editCashDiscountInput" placeholder="輸入抵用金" required disabled>-->
-<!--                                                                    <div class="invalid-feedback">必填</div>-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </form>-->
+                                                            </div>
+                                                        </div>
 
-<!--                                                    <div class="row">-->
-<!--                                                        <div class="col">-->
-<!--                                                            <div class="form-check form-check-inline">-->
-<!--                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="active" required>-->
-<!--                                                                <label class="form-check-label" for="inlineRadio3">啟用</label>-->
-<!--                                                            </div>-->
-<!--                                                            <div class="form-check form-check-inline">-->
-<!--                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="disabled" required>-->
-<!--                                                                <label class="form-check-label" for="inlineRadio4">停用</label>-->
-<!--                                                            </div>-->
+                                                        <!-- 隱藏欄位 -->
+                                                        <div>
+                                                            <label>
+                                                                <input type="hidden" class="form-control"
+                                                                       id="editCouponId" name="editCouponId" th:value="${coupon.couponId}" required>
+                                                            </label>
 
-<!--                                                        </div>-->
-<!--                                                    </div>-->
+                                                            <label>
+                                                                <input type="hidden" class="form-control"
+                                                                       id="editCouponStatus" name="editCouponStatus" th:value="${coupon.couponStatus}" required>
+                                                            </label>
 
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="row">-->
-<!--                                                <div class="col d-flex justify-content-end">-->
-<!--                                                    <button class="btn btn-primary" type="submit">儲存</button>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </form>-->
+                                                            <label>
+                                                                <input type="hidden" class="form-control"
+                                                                       id="editDiscType" name="editDiscType" th:value="${coupon.discType}" required>
+                                                            </label>
 
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                                                            <label>
+                                                                <input type="hidden" class="form-control"
+                                                                       id="editCreatedBy" name="editCreatedBy" th:value="${coupon.createdBy}">
+                                                            </label>
+                                                            <label>
+                                                                <input type="hidden" class="form-control"
+                                                                       id="editLastUpdatedBy" name="editLastUpdatedBy" th:value="${coupon.lastUpdatedBy}">
+                                                            </label>
+
+                                                            <label>
+                                                                <input type="hidden" class="form-control"
+                                                                       id="editDateCreated" name="editDateCreated" th:value="${coupon.dateCreated}">
+                                                            </label>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                            <button class="btn btn-primary" type="submit" th:form="'editCouponForm'+${coupon.couponId}">儲存</button>
+<!--                                                        <button class="btn btn-primary" type="button" th:form="'editCouponForm'+${coupon.couponId}" onclick="getEditFormValue(event)">儲存</button>-->
+                                                    </div>
+                                                </div>
+                                            </form>
+<!--                                            <script >-->
+<!--                                                function getEditFormValue(event){-->
+<!--                                                    event.preventDefault();-->
+<!--                                                    const form = document.getElementById("editCouponForm");-->
+<!--                                                    const allInputs = form.querySelectorAll("input, select");-->
+<!--                                                    let formObject = {};-->
+<!--                                                    allInputs.forEach( element => {-->
+<!--                                                        const key = element.getAttribute('name');-->
+<!--                                                        if(key){-->
+<!--                                                            formObject[key] = element.value;-->
+<!--                                                        }-->
+<!--                                                    })-->
+<!--                                                    console.log(formObject);-->
+<!--                                                }-->
+<!--                                            </script>-->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </th:block>
+                    <!-- TODO 這邊有 bug 會導至目前只有第一個 coupon 修改能完全成功，其它的 折扣及金額都暫時失效 -->
                     <!--  js for 新增Modal -->
                     <script>
                         // 啟用選項對應的輸入框
                         document.querySelectorAll('input[name="editDiscountOption"]').forEach(function (radio) {
                             radio.addEventListener('change', function () {
                                 if (this.id === 'editDiscountCheck') {
-                                    document.getElementById('editDiscountInput').disabled = false;
-                                    document.getElementById('editCashDiscountInput').disabled = true;
-                                    document.getElementById('editCashDiscountInput').value = ''; // 清除另一個選項的值
+                                    document.getElementById('editDiscPercentage').disabled = false;
+                                    document.getElementById('editDiscAmount').disabled = true;
+                                    document.getElementById('editDiscAmount').value = ''; // 清除另一個選項的值
                                 } else if (this.id === 'editCashDiscountCheck') {
-                                    document.getElementById('editCashDiscountInput').disabled = false;
-                                    document.getElementById('editDiscountInput').disabled = true;
-                                    document.getElementById('editDiscountInput').value = ''; // 清除另一個選項的值
+                                    document.getElementById('editDiscAmount').disabled = false;
+                                    document.getElementById('editDiscPercentage').disabled = true;
+                                    document.getElementById('editDiscPercentage').value = ''; // 清除另一個選項的值
                                 }
                             });
                         });
 
                     </script>
-
 
                 </div>
             </div>
