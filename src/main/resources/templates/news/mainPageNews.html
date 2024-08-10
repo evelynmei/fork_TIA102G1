@@ -60,6 +60,14 @@
 							<input type="text" name="newsContent" class="form-control" />
 					</div>
 					<div class="form-group">
+						<label>狀態:</label>
+							<select name="status">
+								<option value = " "></option>
+								<option value = "1">生效中</option>
+								<option value = "0">過期</option>
+							</select> 
+					</div>
+					<div class="form-group">
 						<label style="display: inline-block;">日期區間內發布的公告:</label>
 							<input type="date" id="startPublish" name="startPublish" onclick="this.showPicker();" onchange="validateDate()" class="form-control custom-date" style="width: 120px; display: inline-block; margin-left: 10px;margin-right: 10px;">
 							到

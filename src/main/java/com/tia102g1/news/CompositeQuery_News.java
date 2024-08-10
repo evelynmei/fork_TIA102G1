@@ -23,6 +23,8 @@ public class CompositeQuery_News {
 		//查詢公告標題、內容
 		if("newsContent".equals(columnName) || "newsTitle".equals(columnName))
 			predicate = builder.like(root.get(columnName), "%" + value + "%");
+		else if("status".equals(columnName))
+			predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
 		//查詢公告發布日期
 		else if("startPublish".equals(columnName))
 			predicate = builder.greaterThanOrEqualTo(root.get("newsDate"), java.sql.Date.valueOf(LocalDate.parse(value)));
@@ -30,20 +32,6 @@ public class CompositeQuery_News {
 			predicate = builder.lessThanOrEqualTo(root.get("newsDate"), java.sql.Date.valueOf(value));
 		else if("startPublish" != null && "endPublish" != null)
 			predicate = builder.between(root.get("newsDate"), java.sql.Date.valueOf(value), java.sql.Date.valueOf(value));
-        else if ("beginDt".equals(columnName) || "overDt".equals(columnName)) {
-		String[] dates = value.split(",");
-         
-		 if (dates.length == 2) {
-             LocalDate beginDate = LocalDate.parse(dates[0]);
-             LocalDate overDate = LocalDate.parse(dates[1]);
-             
-             Predicate beginDtPredicate = builder.lessThanOrEqualTo(root.get("startDt"), java.sql.Date.valueOf(overDate));
-             Predicate overDtPredicate = builder.greaterThanOrEqualTo(root.get("endDt"), java.sql.Date.valueOf(beginDate));
-             Predicate newsDatePredicate = builder.between(root.get("newsDate"), java.sql.Date.valueOf(beginDate), java.sql.Date.valueOf(overDate));
-             
-             predicate = builder.and(newsDatePredicate, beginDtPredicate, overDtPredicate);
-         }
-     }
 		return predicate;
 	}
 	

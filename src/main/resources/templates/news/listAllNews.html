@@ -86,6 +86,7 @@
 					<th>公告日期</th>
 					<th>公告起始日</th>
 					<th>公告結束日</th>
+					<th>狀態</th>
 					<th>公告圖片</th>
 					<th>修改</th>
 				</tr>
@@ -99,6 +100,9 @@
 						<td th:text="${newsVO.newsDate}"></td>
 						<td th:text="${newsVO.startDt}"></td>
 						<td th:text="${newsVO.endDt}"></td>
+						<td><span th:if="${newsVO.status} == 0">過期</span>
+							<span th:if="${newsVO.status} == 1">生效中</span></td>
+						
 						<td><img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" width="100px"></td>
 						<td>
 							<form method="post" th:action="@{/news/getOne_For_Update}" style="margin-bottom: 0px;">
