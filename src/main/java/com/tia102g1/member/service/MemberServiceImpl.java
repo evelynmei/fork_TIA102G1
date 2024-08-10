@@ -34,15 +34,22 @@ public class MemberServiceImpl implements MemberService {
 
     public Integer register(MemberRegisterRequest memberRegisterRequest) {
         //為什麼service取名register而不是createMember?，因service層會添加其他額外判斷是否register，而不單單只是create而已
+
         //檢查帳號
         //註冊account不可重複，先藉由getMemberByAccount判斷是否有查詢到該帳號，有查到則代表該帳號已經註冊過
         Member member = memberDao.getMemberByAccount(memberRegisterRequest.getAccount());
-
         //判斷不是null，代表該帳號已經註冊過了
         if (member != null) {
             log.warn("該帳號已經被註冊");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "帳號已經被註冊，請更換帳號");
         }
+        // 檢查信箱
+        Member member2 = memberDao.getMemberByEmailForRegister(memberRegisterRequest.getEmail());
+        if (member2 != null && member2.getEmail().equals(memberRegisterRequest.getEmail())) {
+            log.warn("該信箱 {} 已經被註冊，請更換一個信箱", memberRegisterRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "信箱已經被註冊，請更換信箱");
+        }
+
         //使用 BCrypt 加密密碼
         String hashedPassword = passwordEncoder.encode(memberRegisterRequest.getPassword());
         //將加密過後的密碼set到該會員資料
@@ -171,7 +178,6 @@ public class MemberServiceImpl implements MemberService {
         String content = "您的新密碼是，" + newPassword + "，請使用該密碼登入，並修改您的密碼。";
         emailForForgetPassword.sendPlainText(forgetPasswordRequest.getEmail(), subject, content);
     }
-
 
 
     /**
