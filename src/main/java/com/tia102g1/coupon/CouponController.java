@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +21,14 @@ public class CouponController {
      * @return
      */
     @PostMapping("coupon/add")
-    public ResponseEntity<Coupon> addCoupon(@RequestBody Coupon coupon) {
-        Coupon newCoupon = couponService.addCoupon(coupon);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCoupon);
+//    public ResponseEntity<Coupon> addCoupon(@RequestBody Coupon coupon) {
+//        Coupon newCoupon = couponService.addCoupon(coupon);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newCoupon);
+//    }
+
+    public String addCoupon(@ModelAttribute("coupon") Coupon coupon) {
+        couponService.addCoupon(coupon);
+        return "redirect:/coupon/mainPageCoupon";
     }
 
     /**
@@ -63,8 +69,9 @@ public class CouponController {
      * @return
      */
     @GetMapping("coupon")
-    public ResponseEntity<?> getAllCoupons() {
+    public ResponseEntity<?> getAllCoupons(ModelMap modelMap) {
         List<Coupon> couponList = couponService.getAllCoupons();
+        modelMap.addAttribute("couponList", couponList);
         return ResponseEntity.status(HttpStatus.OK).body(couponList);
     }
 }
