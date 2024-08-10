@@ -23,7 +23,7 @@ public class Coupon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COUPONID", columnDefinition = "int UNSIGNED not null")
-    private Integer CouponId;
+    private Integer couponId;
 
     @Size(max = 20)
     @Column(name = "COUPONCODE", nullable = false, length = 20)
@@ -65,4 +65,22 @@ public class Coupon implements Serializable {
     @Column(name = "LASTUPDATED", insertable = false, updatable = false)
     private Timestamp lastUpdated;
 
+    @Override
+    public String toString() {
+        return "Coupon{" +
+                "couponId=" + couponId +
+                ", couponCode='" + couponCode + '\'' +
+                ", couponName='" + couponName + '\'' +
+                ", couponStatus=" + couponStatus +
+                ", startDt=" + startDt +
+                ", endDt=" + endDt +
+                ", discType=" + discType +
+                ", discAmount=" + discAmount +
+                ", discPercentage=" + discPercentage +
+                ", createdBy='" + createdBy + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+                ", lastUpdated=" + lastUpdated +
+                '}';
+    }
 }
