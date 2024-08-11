@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -221,8 +222,6 @@ public class NewsController {
 		
 		out.write(newsSvc.getOneNews(Integer.valueOf(newsId)).getNewsPic());
 	}
-	
-	
 	
 	public BindingResult removeFieldError(NewsVO newsVO, BindingResult result, String removedFieldname) {
 		List<FieldError> errorsListToKeep = result.getFieldErrors().stream().filter(fieldname -> !fieldname.getField().equals(removedFieldname)).collect(Collectors.toList());

@@ -1,12 +1,22 @@
 package com.tia102g1;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tia102g1.news.model.NewsService;
+import com.tia102g1.news.model.NewsVO;
 
 @Controller
 public class FrontendController {
+	
+	@Autowired
+	NewsService newsSvc;
 
 	/* ======================= 前台使用者頁面 ======================= */
 	// 首頁
@@ -14,13 +24,19 @@ public class FrontendController {
 	public String frontendIndex(Model model) {
 		return "/frontendapp/index";
 	}
+	
+	@ModelAttribute("newsListData")
+	protected List<NewsVO> referenceNewsListData(Model model) {
+		List<NewsVO> list = newsSvc.getAll();
+		return list;
+	}
 
 	/* ====== 會員 ====== */
 //	// 註冊
-	@GetMapping({ "/register", "/register.html" })
-	public String frontendRegister(Model model) {
-		return "/frontendapp/register";
-	}
+//	@GetMapping({ "/register", "/register.html" })
+//	public String frontendRegister(Model model) {
+//		return "/frontendapp/register";
+//	}
 	// 登入
 //	@GetMapping({ "/login", "/login.html" })
 //	public String frontendLoginSignup(Model model) {

@@ -94,6 +94,11 @@
 				font-size: 0.9rem;
 			}
 			
+			.dataTables_wrapper {
+			    position: relative;
+			    clear: both;
+			    width: 100%;
+			}
 			
 		</style>
 
@@ -231,30 +236,17 @@
 	<table id="example" class="table table-striped projects display">
 					<thead>
 						<tr style="background-color: #434b52; color: #ffffff">
-							<th style="width: 5%" class="th-productInfo">商品<br>編號
-							</th>
-							<th style="width: 5%" class="th-productInfo">類型<br>編號
-							</th>
-							<th style="width: 5%" class="th-productInfo">品名</th>
-							<th style="width: 5%" class="th-productInfo">單價</th>
-							<th style="width: 5%" class="th-productInfo">安全<br>存量
-							</th>
-							<th style="width: 5%" class="th-productInfo">庫存量</th>
-							<th style="width: 5%" class="th-productInfo">總評價<br>人數
-							</th>
-							<th style="width: 5%" class="th-productInfo">總<br>星星數
-							</th>
-							<th style="width: 5%" class="th-productInfo">圖片</th>
-							<th style="width: 5%" class="th-productInfo">狀態</th>
-							<th style="width: 5%" class="th-productInfo">描述</th>
-							<th style="width: 5%" class="th-productInfo">建檔者</th>
-							<th style="width: 5%" class="th-productInfo">建檔<br>時間
-							</th>
-							<th style="width: 5%" class="th-productInfo">最後<br>更新者
-							</th>
-							<th style="width: 5%" class="th-productInfo">最後更<br>新時間
-							</th>
-							<th style="width: 5%" class="th-productInfo"></th>
+							<th>商品編號</th>
+							<th>類型編號</th>
+							<th>品名</th>
+							<th>單價</th>
+							<th>安全存量</th>
+							<th>庫存量</th>
+							<th>總評價人數</th>
+							<th>總星星數</th>
+							<th>圖片</th>
+							<th>狀態</th>							
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -273,13 +265,6 @@
 									th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}"
 									width="50px"></td>
 								<td th:text="${productInfo.proStatus}"></td>
-								<td th:text="${productInfo.proDesc}"></td>
-								<td th:text="${productInfo.createdBy}"></td>
-								<td
-									th:text="${#dates.format(productInfo.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
-								<td th:text="${productInfo.lastUpdatedBy}"></td>
-								<td
-									th:text="${#dates.format(productInfo.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></td>
 								<td>
 									<form method="post" th:action="@{getOne_For_Update}">
 										<input type="submit" value="修改"> <input type="hidden"

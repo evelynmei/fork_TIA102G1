@@ -207,6 +207,7 @@ public class BackendController {
 //	public String mainPageOrderListInfo(Model model) {
 //		return "/orderListInfo/mainPageOrderListInfo";
 //	}
+
 //
 //	// 促銷活動
 //	@GetMapping({ "/event", "/event/mainPageEvent" })
@@ -225,6 +226,7 @@ public class BackendController {
 //		return list;
 //	}
 //
+
 	// 優惠券
 	@GetMapping({"admin/coupon", "/coupon/mainPageCoupon" })
 	public String mainPageCoupon(Model model) {
