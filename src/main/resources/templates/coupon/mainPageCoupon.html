@@ -91,14 +91,19 @@
                                                 <tr th:each="coupon : ${couponList}">
                                                     <td th:text="${coupon.couponName}"  class="align-middle text-center"></td>
                                                     <td th:text="${coupon.couponCode}" class="text-nowrap align-middle"></td>
-                                                    <td th:text="${coupon.discType}" class="text-nowrap align-middle"></td>
+                                                    <!-- 資料庫: 1 現金抵用 ; 2 售價折扣-->
+                                                    <th:block>
+                                                        <td th:if="${coupon.discType == 1}" th:text="現金抵用" class="text-nowrap align-middle"></td>
+                                                        <td th:if="${coupon.discType == 2}" th:text="售價折扣" class="text-nowrap align-middle"></td>
+                                                    </th:block>
                                                     <td th:text="${coupon.discPercentage}" class="text-nowrap align-middle"></td>
                                                     <td th:text="${coupon.discAmount}" class="text-nowrap align-middle"></td>
                                                     <td th:text="${coupon.startDt}" class="text-nowrap align-middle"></td>
                                                     <td th:text="${coupon.endDt}" class="text-nowrap align-middle"></td>
-                                                    <td th:text="${coupon.couponStatus}" class="text-center align-middle">
+                                                    <td class="text-center align-middle">
                                                         <!-- 啟用:1 圖示: fa-toggle-on, 停用:0 圖示: fa-toggle-off -->
-                                                        <i class="fa fa-fw fa-toggle-on"></i>
+                                                        <i th:if="${coupon.couponStatus == 1}" class="fa fa-fw fa-toggle-on"></i>
+                                                        <i th:if="${coupon.couponStatus == 0}" class="fa fa-fw fa-toggle-off"></i>
                                                     </td>
                                                     <td class="text-center align-middle">
                                                     <div class="btn-group align-top btn-nowrap">
