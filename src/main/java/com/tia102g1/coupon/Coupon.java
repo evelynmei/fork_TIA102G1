@@ -1,9 +1,8 @@
 package com.tia102g1.coupon;
 
+import com.tia102g1.orderlist.model.OrderListVO;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.tia102g1.orderlist.model.OrderListVO;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -13,7 +12,8 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+
+@Data //Getter/Setter/ToString/EqualsAndHashCode/RequiredArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "coupon")
@@ -69,6 +69,5 @@ public class Coupon implements Serializable {
  	@OneToMany(mappedBy = "coupon", fetch = FetchType.EAGER)
  	@OrderBy("orderListId asc")
  	private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
-
 
 }

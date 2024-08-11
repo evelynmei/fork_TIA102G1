@@ -2,7 +2,6 @@ package com.tia102g1.coupon;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 
