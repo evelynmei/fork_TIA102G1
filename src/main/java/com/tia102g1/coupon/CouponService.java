@@ -25,11 +25,22 @@ public class CouponService {
     /**
      * 修改優惠券
      *
-     * @param coupon
-     * @return
+     * @param couponRequest: 修改用的 Coupon.java
+     * @return updateCoupon: 方便在 controller 調用時檢查
      */
-    public Coupon updateCoupon(Coupon coupon) {
-        return repository.save(coupon);
+    public Coupon updateCoupon(CouponRequest couponRequest) {
+        Coupon updateCoupon = new Coupon();
+        updateCoupon.setCouponId(couponRequest.getEditCouponId());
+        updateCoupon.setCouponCode(couponRequest.getEditCouponCode());
+        updateCoupon.setCouponName(couponRequest.getEditCouponName());
+        updateCoupon.setCouponStatus(couponRequest.getEditCouponStatus());
+        updateCoupon.setStartDt(couponRequest.getEditStartDt());
+        updateCoupon.setEndDt(couponRequest.getEditEndDt());
+        updateCoupon.setDiscType(couponRequest.getEditDiscType());
+        if(couponRequest.getEditDiscPercentage() != null) updateCoupon.setDiscPercentage(couponRequest.getEditDiscPercentage());
+        if(couponRequest.getEditDiscAmount() != null) updateCoupon.setDiscAmount(couponRequest.getEditDiscAmount());
+        updateCoupon.setLastUpdatedBy(couponRequest.getEditLastUpdatedBy());
+        return repository.save(updateCoupon);
     }
 
     /**
