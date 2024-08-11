@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ public class Coupon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COUPONID", columnDefinition = "int UNSIGNED not null")
-    private Integer CouponId;
+    private Integer couponId;
 
     @Size(max = 20)
     @Column(name = "COUPONCODE", nullable = false, length = 20)
@@ -40,13 +41,13 @@ public class Coupon implements Serializable {
     private Integer couponStatus;
 
     @Column(name = "STARTDT", nullable = false)
-    private LocalDate startDt;
+    private Date startDt;
 
     @Column(name = "ENDDT", nullable = false)
-    private LocalDate endDt;
+    private Date endDt;
 
     @Column(name = "DISCTYPE", nullable = false)
-    private Integer discDype;
+    private Integer discType;
 
     @Column(name = "DISCAMOUNT")
     private Integer discAmount;
@@ -63,7 +64,7 @@ public class Coupon implements Serializable {
 
     @Size(max = 50)
     @Column(name = "LASTUPDATEDBY")
-    private String lastUpdatedby;
+    private String lastUpdatedBy;
 
     @Column(name = "LASTUPDATED", insertable = false, updatable = false)
     private Timestamp lastUpdated;
@@ -73,122 +74,5 @@ public class Coupon implements Serializable {
  	@OrderBy("orderListId asc")
  	private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
 
-	public Integer getCouponId() {
-		return CouponId;
-	}
 
-	public void setCouponId(Integer couponId) {
-		CouponId = couponId;
-	}
-
-	public String getCouponCode() {
-		return couponCode;
-	}
-
-	public void setCouponCode(String couponCode) {
-		this.couponCode = couponCode;
-	}
-
-	public String getCouponName() {
-		return couponName;
-	}
-
-	public void setCouponName(String couponName) {
-		this.couponName = couponName;
-	}
-
-	public Integer getCouponStatus() {
-		return couponStatus;
-	}
-
-	public void setCouponStatus(Integer couponStatus) {
-		this.couponStatus = couponStatus;
-	}
-
-	public LocalDate getStartDt() {
-		return startDt;
-	}
-
-	public void setStartDt(LocalDate startDt) {
-		this.startDt = startDt;
-	}
-
-	public LocalDate getEndDt() {
-		return endDt;
-	}
-
-	public void setEndDt(LocalDate endDt) {
-		this.endDt = endDt;
-	}
-
-	public Integer getDiscDype() {
-		return discDype;
-	}
-
-	public void setDiscDype(Integer discDype) {
-		this.discDype = discDype;
-	}
-
-	public Integer getDiscAmount() {
-		return discAmount;
-	}
-
-	public void setDiscAmount(Integer discAmount) {
-		this.discAmount = discAmount;
-	}
-
-	public BigDecimal getDiscPercentage() {
-		return discPercentage;
-	}
-
-	public void setDiscPercentage(BigDecimal discPercentage) {
-		this.discPercentage = discPercentage;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Timestamp getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Timestamp dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public String getLastUpdatedby() {
-		return lastUpdatedby;
-	}
-
-	public void setLastUpdatedby(String lastUpdatedby) {
-		this.lastUpdatedby = lastUpdatedby;
-	}
-
-	public Timestamp getLastUpdated() {
-		return lastUpdated;
-	}
-
-	public void setLastUpdated(Timestamp lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
-
-	public Set<OrderListVO> getOrderLists() {
-		return orderLists;
-	}
-
-	public void setOrderLists(Set<OrderListVO> orderLists) {
-		this.orderLists = orderLists;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
-	
 }
