@@ -75,17 +75,17 @@ public class BackendController {
 //	@Autowired
 //	NewsService newsSvc;
 //
-	@Autowired
-	CouponService couponSvc;
-
-	/* ======================= 後台管理頁面 ======================= */
+////	@Autowired
+////	CouponService couponSvc;
+//
+//	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
 	@GetMapping({ "", "/admin", "/admin/index" })
 	public String index(Model model) {
 		return "index";
 	}
-
-//	/* ======================= mainPage ======================= */
+//
+////	/* ======================= mainPage ======================= */
 //
 //	// 會員資料
 //	@GetMapping({ "/member", "/member/mainPageMember" })
@@ -207,7 +207,6 @@ public class BackendController {
 //	public String mainPageOrderListInfo(Model model) {
 //		return "/orderListInfo/mainPageOrderListInfo";
 //	}
-
 //
 //	// 促銷活動
 //	@GetMapping({ "/event", "/event/mainPageEvent" })
@@ -225,15 +224,6 @@ public class BackendController {
 //		List<EventVO> list = eventSvc.getAll();
 //		return list;
 //	}
-//
-
-	// 優惠券
-	@GetMapping({"admin/coupon", "/coupon/mainPageCoupon" })
-	public String mainPageCoupon(Model model) {
-		List<Coupon> couponList = couponSvc.getAllCoupons();
-		model.addAttribute("couponList", couponList);
-		return "/coupon/mainPageCoupon";
-	}
 //
 //	// 問題類型對照
 //	@GetMapping({ "/quType", "/quType/mainPageQuType" })
@@ -362,5 +352,13 @@ public class BackendController {
 //	protected List<StaffVO> referenceStaffListData(Model model) {
 //		List<StaffVO> list = staffSvc.getAll();
 //		return list;
+//	}
+//
+//	// 優惠券
+//	@GetMapping({"admin/coupon", "/coupon/mainPageCoupon" })
+//	public String mainPageCoupon(Model model) {
+//		List<Coupon> couponList = couponSvc.getAllCoupons();
+//		model.addAttribute("couponList", couponList);
+//		return "/coupon/mainPageCoupon";
 //	}
 }

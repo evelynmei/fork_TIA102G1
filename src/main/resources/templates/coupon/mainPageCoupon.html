@@ -64,11 +64,9 @@
         <div class="container">
             <div class="row flex-lg-nowrap">
                 <div class="col">
-
                     <div class="row flex-lg-nowrap">
                         <div class="col mb-3">
                             <div class="e-panel card">
-
                                 <div class="card-body">
                                     <div class="e-table">
                                         <div class="table-responsive table-lg mt-3">
@@ -77,7 +75,6 @@
                                                 <tr class="text-nowrap">
                                                     <th >名稱</th>
                                                     <th>優惠碼</th>
-                                                    <!-- 資料庫: 1 現金抵用 2 售價折扣-->
                                                     <th>類型</th>
                                                     <th>折數</th>
                                                     <th>抵用金</th>
@@ -91,8 +88,8 @@
                                                 <tr th:each="coupon : ${couponList}">
                                                     <td th:text="${coupon.couponName}"  class="align-middle text-center"></td>
                                                     <td th:text="${coupon.couponCode}" class="text-nowrap align-middle"></td>
-                                                    <!-- 資料庫: 1 現金抵用 ; 2 售價折扣-->
                                                     <th:block>
+                                                        <!-- 資料庫: 1=現金抵用; 2=售價折扣-->
                                                         <td th:if="${coupon.discType == 1}" th:text="現金抵用" class="text-nowrap align-middle"></td>
                                                         <td th:if="${coupon.discType == 2}" th:text="售價折扣" class="text-nowrap align-middle"></td>
                                                     </th:block>
@@ -101,17 +98,22 @@
                                                     <td th:text="${coupon.startDt}" class="text-nowrap align-middle"></td>
                                                     <td th:text="${coupon.endDt}" class="text-nowrap align-middle"></td>
                                                     <td class="text-center align-middle">
-                                                        <!-- 啟用:1 圖示: fa-toggle-on, 停用:0 圖示: fa-toggle-off -->
+                                                        <!-- 資料庫: 1=啟用 ; 0=停用 -->
                                                         <i th:if="${coupon.couponStatus == 1}" class="fa fa-fw fa-toggle-on"></i>
                                                         <i th:if="${coupon.couponStatus == 0}" class="fa fa-fw fa-toggle-off"></i>
                                                     </td>
                                                     <td class="text-center align-middle">
                                                     <div class="btn-group align-top btn-nowrap">
                                                         <form action="#" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="put">
-                                                            <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal" th:data-target="'#editCouponModal'+${coupon.couponId}">Edit</button>
+                                                            <button class="btn btn-sm btn-outline-secondary badge" type="button" data-toggle="modal"
+                                                                    th:data-target="'#editCouponModal'+${coupon.couponId}">
+                                                                Edit
+                                                            </button>
                                                         </form>
                                                         <form action="#" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="delete">
-                                                            <button class="btn btn-sm btn-outline-secondary badge ml-0" type="submit"><i class="fa fa-trash"></i></button>
+                                                            <button class="btn btn-sm btn-outline-secondary badge ml-0" type="submit">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
                                                         </form>
                                                     </div>
                                                     </td>
@@ -119,6 +121,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                <!-- ====== 分頁 =========-->
                                         <div class="d-flex justify-content-center">
                                             <ul class="pagination mt-3 mb-0">
                                                 <li class="disabled page-item"><a href="#" class="page-link">‹</a></li>

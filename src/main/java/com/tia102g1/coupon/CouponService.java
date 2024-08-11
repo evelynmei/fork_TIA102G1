@@ -2,16 +2,21 @@ package com.tia102g1.coupon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Service("CouponService")
 public class CouponService {
 
     @Autowired
     CouponRepository repository;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * 新增優惠券
@@ -68,6 +73,17 @@ public class CouponService {
      */
     public List<Coupon> getAllCoupons() {
         return repository.findAll();
+    }
+
+    /**
+     * 搜尋優惠券
+     * @param searchCriteria
+     * @return
+     */
+
+    @Transactional(readOnly = true)
+    public List<Coupon> searchCoupons(Map<String, String> searchCriteria) {
+        return CompositeQuery_Coupon.getAllC(searchCriteria, entityManager);
     }
 }
 
