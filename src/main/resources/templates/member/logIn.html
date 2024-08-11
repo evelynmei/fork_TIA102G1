@@ -5,6 +5,39 @@
     <title>登入</title>
     <!-- 共同引入 headTag-import meta tag-->
     <meta th:replace="~{frontendapp/components/common :: headtag-import}">
+    <style>
+        .social-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            text-decoration: none;
+            border: 1px solid #dee2e6;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-login-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .social-login-btn span {
+            flex-grow: 1;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+
+        .social-login-btn:hover {
+            background-color: #e2e6ea;
+        }
+    </style>
 </head>
 <body>
 <!-- 共用元件 header:圖示按鈕, navbar...-->
@@ -36,22 +69,31 @@
                         <div class="md-form mb-4">
                             <input type="password" id="LoginForm-pass" name="password" class="form-control validate" placeholder="請輸入密碼" required>
                         </div>
-                        <div class="checkbox-link d-flex justify-content-between">
-<!--                            <div class="left-col">-->
-<!--                                <input type="checkbox" id="remember_me" name="remember-me">-->
-<!--                                <label for="remember_me">記住帳號</label>-->
-<!--                            </div>-->
-                            <!-- 修改這裡 -->
+                        <div class="checkbox-link d-flex justify-content-between align-items-center">
                             <div class="right-col">
-                                <a th:href="@{/forgetPassword}">忘記密碼?</a>
+                                <a th:href="@{/forgetPassword}" style="color: #6c757d; font-size: 14px;">忘記密碼?</a>
                                 <span> | </span>
-                                    <a th:href="@{/register}" class="ml-2">加入會員</a>
+                                <a th:href="@{/register}" class="ml-2" style="color: #6c757d; font-size: 14px;">加入會員</a>
                             </div>
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary">登入</button>
                         </div>
                     </form>
+                    <hr>
+                    <!-- 第三方登入 -->
+                    <div class="social-login-group">
+                        <a href="/oauth2/authorization/google" class="social-login-btn">
+                            <img src="/images/sociallogin_icon/google%20_black.png" alt="Google">
+                            <span>使用 Google 登入</span>
+                        </a>
+                        <a href="/oauth2/authorization/facebook" class="social-login-btn">
+                            <img src="/images/sociallogin_icon/facebook%20_black.png" alt="Facebook">
+                            <span>使用 Facebook 登入</span>
+                        </a>
+                        <a href="/oauth2/authorization/line" class="social-login-btn">
+                            <img src="/images/sociallogin_icon/line_black.png" alt="LINE">
+                            <span>使用 LINE 登入</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
