@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MainPage_ProductInfo</title>
+<title>商品管理</title>
 
 
 
@@ -31,7 +31,6 @@ h4 {
 
 div.select {
 	display: inline-block;
-	font-size: 12px;
 	margin-right: 25px;
 }
 
@@ -42,7 +41,7 @@ div.addProductInfo {
 }
 
 th.th-productInfo {
-	font-size: 10px;
+	
 	text-align: center;
 }
 
@@ -72,7 +71,7 @@ a:hover, a:active {
 }
 
 td {
-	font-size: 10px;
+	
 	text-align: center;
 }
 
@@ -86,10 +85,23 @@ td {
 
 #input {
 	width: 80px;
-	font-size: 10px;
+	
 }
 
 #productTypeId {
+	width: 100%;
+}
+
+#form {
+	margin-top: 15px;
+	margin-left: 30px;
+	margin-bottom: 15px;
+				
+}
+			
+.dataTables_wrapper {
+	position: relative;
+	clear: both;
 	width: 100%;
 }
 
@@ -134,71 +146,67 @@ td {
 				<!-- /.row -->
 			</div>
 			<!-- /.container-fluid -->
-			<div class="addProductInfo">
-				<a th:href="addProductInfo">新 增 商 品</a>
-			</div>
 
 			<!-- /.content-header -->
 
 			<!-- 功能內容開始 -->
-			<section class="content">
-				<div class="card">
-					<div class="card-header">
-						<h3 class="card-title">
-							<form id="form" method="post"
-								th:action="@{listProductInfosByCompositeQuery}">
+	<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+		<!-- left column -->
+		<div class="col-md-12">
+		<!-- general form elements -->
+		<div class="card card-primary">
+			<div class="card-header">
+				<h3 class="card-title">查詢資料</h3>
+			</div>
+			<!-- /.card-header -->
+			<!-- form start -->
+			<form id="form" method="post" th:action="@{listProductInfosByCompositeQuery}" style="width: 100%">
 
-								<div class="select one">
-									<label>選擇商品編號</label><br> <select id="roll"
-										name="productId">
+								<div class="select one" style="width: 15%">
+									<label>選擇商品編號</label>
+									<br> <select id="roll" name="productId">
 										<option value="" disabled selected>請選擇商品編號</option>
-										<option th:each="productInfo:${productInfoListData}"
+										<option th:each="productInfo:${productInfoListData2}"
 											th:value="${productInfo.productId}"
 											th:text="${productInfo.productId}"></option>
 									</select>
 								</div>
 
-
-								<div class="select one">
-
-
+								<div class="select one" style="width: 15%">
 									<a><label> 勾選產品狀態</label></a><br> <input name="proStatus"
 										type="radio" value="0"> <a>未上架</a> <input
 										name="proStatus" type="radio" value="1"> <a>上架中</a>
 								</div>
 
-<!-- 								<div class="select one"> -->
-
-<!-- 									<label>選擇商品類型</label><br> <select -->
-<!-- 										th:field="*{productTypeVO.productTypeId}" id="productTypeId" -->
-<!-- 										name="productTypeId"> -->
-<!-- 										<option th:each="productTypeVO : ${typeListData}" -->
-<!-- 											th:value="${productTypeVO.productTypeId}" -->
-<!-- 											th:text="${productTypeVO.typeName}" /> -->
-<!-- 									</select> -->
-<!-- 								</div> -->
-
-<!-- 										th:field="*{productTypeVO.productTypeId}" -->
-								<div class="select one">
-									<label>選擇商品類型</label><br> <select
-										id="productTypeId" name="productTypeId">
+								<div class="select one" style="width: 15%">
+									<label>選擇商品類型</label><br> <select id="productTypeId"
+										name="productTypeId">
+										<option value="" disabled selected>請選擇商品類型</option>
 										<option th:each="productTypeVO : ${typeListData}"
 											th:value="${productTypeVO.productTypeId}"
 											th:text="${productTypeVO.typeName}"></option>
 									</select>
 								</div>
 
-								<div class="select two">
+								<div class="select two" style="width: 35% ">
 									<label>價格區間搜尋</label><br> <a for="priceMin">最小價格:</a> <input
 										type="number" id="priceMin" name="priceMin" step="0" min="0">
 									<a for="priceMax">最大價格:</a> <input type="number" id="priceMax"
 										name="priceMax" step="0" max="1000000">
 								</div>
-								<input id="input" type="submit" value="送出查詢">
+								<br>
+								<br>
+								<div class="form-group">
+								<button type="reset" class="btn btn-secondary"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">清&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除</button>
+								<button type="submit" class="btn btn-primary" style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;詢</button>
+								<a th:href="addProductInfo"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新增商品</button></a>
+								</div>
 							</form>
-						</h3>
-					</div>
-				</div>
+		</div>
+		<!-- /.card -->
+	</div>
 				<table class="table table-striped projects">
 					<thead>
 						<tr>
@@ -218,12 +226,7 @@ td {
 							<th style="width: 5%" class="th-productInfo">圖片</th>
 							<th style="width: 5%" class="th-productInfo">狀態</th>
 							<th style="width: 5%" class="th-productInfo">描述</th>
-							<th style="width: 5%" class="th-productInfo">建檔者</th>
-							<th style="width: 5%" class="th-productInfo">建檔<br>時間
-							</th>
 							<th style="width: 5%" class="th-productInfo">最後<br>更新者
-							</th>
-							<th style="width: 5%" class="th-productInfo">最後更<br>新時間
 							</th>
 							<th style="width: 5%" class="th-productInfo"></th>
 						</tr>
@@ -242,14 +245,12 @@ td {
 								<td><img
 									th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}"
 									width="50px"></td>
-								<td th:text="${productInfo.proStatus}"></td>
+								<td th:switch="${productInfo.proStatus}">
+									<span th:case="0">未上架</span>
+								    <span th:case="1">上架中</span>
+								</td>
 								<td th:text="${productInfo.proDesc}"></td>
-								<td th:text="${productInfo.createdBy}"></td>
-								<td
-									th:text="${#dates.format(productInfo.dateCreated, 'yyyy-MM-dd HH:mm:ss')}"></td>
 								<td th:text="${productInfo.lastUpdatedBy}"></td>
-								<td
-									th:text="${#dates.format(productInfo.lastUpdated, 'yyyy-MM-dd HH:mm:ss')}"></td>
 								<td>
 									<form method="post" th:action="@{getOne_For_Update}">
 										<input type="submit" value="修改"> <input type="hidden"
