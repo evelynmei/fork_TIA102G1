@@ -2,8 +2,12 @@ package com.tia102g1.coupon;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service("CouponService")
@@ -11,7 +15,8 @@ public class CouponService {
 
     @Autowired
     CouponRepository repository;
-
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * 新增優惠券
@@ -25,11 +30,22 @@ public class CouponService {
     /**
      * 修改優惠券
      *
-     * @param coupon
-     * @return
+     * @param couponRequest: 修改用的 Coupon.java
+     * @return updateCoupon: 方便在 controller 調用時檢查
      */
-    public Coupon updateCoupon(Coupon coupon) {
-        return repository.save(coupon);
+    public Coupon updateCoupon(CouponRequest couponRequest) {
+        Coupon updateCoupon = new Coupon();
+        updateCoupon.setCouponId(couponRequest.getEditCouponId());
+        updateCoupon.setCouponCode(couponRequest.getEditCouponCode());
+        updateCoupon.setCouponName(couponRequest.getEditCouponName());
+        updateCoupon.setCouponStatus(couponRequest.getEditCouponStatus());
+        updateCoupon.setStartDt(couponRequest.getEditStartDt());
+        updateCoupon.setEndDt(couponRequest.getEditEndDt());
+        updateCoupon.setDiscType(couponRequest.getEditDiscType());
+        if(couponRequest.getEditDiscPercentage() != null) updateCoupon.setDiscPercentage(couponRequest.getEditDiscPercentage());
+        if(couponRequest.getEditDiscAmount() != null) updateCoupon.setDiscAmount(couponRequest.getEditDiscAmount());
+        updateCoupon.setLastUpdatedBy(couponRequest.getEditLastUpdatedBy());
+        return repository.save(updateCoupon);
     }
 
     /**
@@ -57,6 +73,17 @@ public class CouponService {
      */
     public List<Coupon> getAllCoupons() {
         return repository.findAll();
+    }
+
+    /**
+     * 搜尋優惠券
+     * @param searchCriteria
+     * @return
+     */
+
+    @Transactional(readOnly = true)
+    public List<Coupon> searchCoupons(Map<String, String> searchCriteria) {
+        return CompositeQuery_Coupon.getAllC(searchCriteria, entityManager);
     }
 }
 
