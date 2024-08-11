@@ -1,7 +1,6 @@
 package com.tia102g1.coupon;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.tia102g1.orderlist.model.OrderListVO;
@@ -16,8 +15,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "coupon")
@@ -53,7 +51,7 @@ public class Coupon implements Serializable {
     private Integer discAmount;
 
     @Column(name = "DISCPERCENTAGE", precision = 3, scale = 2)
-    private BigDecimal discPercentage;
+    private Float discPercentage;
 
     @Size(max = 50)
     @Column(name = "CREATEDBY", updatable = false)
@@ -68,7 +66,7 @@ public class Coupon implements Serializable {
 
     @Column(name = "LASTUPDATED", insertable = false, updatable = false)
     private Timestamp lastUpdated;
-    
+
  // 此優惠券下關聯的訂單明細紀錄
  	@OneToMany(mappedBy = "coupon", fetch = FetchType.EAGER)
  	@OrderBy("orderListId asc")
