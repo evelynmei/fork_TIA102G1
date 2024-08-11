@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>MainPage_ProductInfo</title>
+		<title>商品管理</title>
 				
 		<style>
 			table#table-1 {
@@ -39,10 +39,7 @@
 				margin-bottom: 0px;
 			}
 			
-			th.th-productInfo {
-				font-size: 10px;
-				text-align: center;
-			}
+			
 			
 			a:hover, a:active {
 				color: red;
@@ -65,10 +62,7 @@
 				font-weight: normal;
 			}
 					
-			td {
-				font-size: 10px;
-				text-align: center;
-			}
+			
 			
 			.one {
 				width: 120px;
@@ -80,7 +74,7 @@
 			
 			#input {
 				width: 80px;
-				font-size: 10px;
+				
 			}
 			
 			#productTypeId {
@@ -91,7 +85,7 @@
 				margin-top: 15px;
 				margin-left: 30px;
 				margin-bottom: 15px;
-				font-size: 0.9rem;
+				
 			}
 			
 			.dataTables_wrapper {
@@ -264,7 +258,10 @@
 								<td><img
 									th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}"
 									width="50px"></td>
-								<td th:text="${productInfo.proStatus}"></td>
+								<td th:switch="${productInfo.proStatus}">
+									<span th:case="0">未上架</span>
+								    <span th:case="1">上架中</span>
+								</td>
 								<td>
 									<form method="post" th:action="@{getOne_For_Update}">
 										<input type="submit" value="修改"> <input type="hidden"

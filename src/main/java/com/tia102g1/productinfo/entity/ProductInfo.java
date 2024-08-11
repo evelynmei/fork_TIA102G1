@@ -2,87 +2,104 @@ package com.tia102g1.productinfo.entity;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.tia102g1.orderlistinfo.model.OrderListInfoVO;
+import com.tia102g1.productcomment.model.ProductCommentVO;
 import com.tia102g1.producttype.model.ProductTypeVO;
 
-@Entity //要加上@Entity才能成為JPA的一個Entity類別
-@Table(name = "productinfo") //標示此永續類別對應到何Table
+@Entity // 要加上@Entity才能成為JPA的一個Entity類別
+@Table(name = "productinfo") // 標示此永續類別對應到何Table
 public class ProductInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@Id //描述此屬性為表格PK 
-	@GeneratedValue(strategy = GenerationType.IDENTITY) //欄位值為Auto Increatement機制
+
+	@Id // 描述此屬性為表格PK
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // 欄位值為Auto Increatement機制
 	@Column(name = "productId", updatable = false)
 	private Integer productId;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "PRODUCTTYPEID", referencedColumnName = "PRODUCTTYPEID")
-	private ProductTypeVO productTypeVO;		
+	private ProductTypeVO productTypeVO;
 //	@Column(name = "productTypeId")
 //	@NotNull(message="商品類型: 請勿空白")
 //	private Integer productTypeId;
 
 	@Column(name = "proName")
-	@Pattern(regexp="^[\\u4e00-\\u9fa5]+$", message = "商品名稱: 請輸入中文")
-	@NotEmpty(message="商品名稱: 請勿空白")
+	@Pattern(regexp = "^[\\u4e00-\\u9fa5]+$", message = "商品名稱: 請輸入中文")
+	@NotEmpty(message = "商品名稱: 請勿空白")
 	private String proName;
-	
+
 	@Column(name = "proPrice")
-	@NotNull(message="商品單價: 請勿空白")
+	@NotNull(message = "商品單價: 請勿空白")
 	@DecimalMin(value = "1", message = "商品單價: 不能小於{value}")
 	private Integer proPrice;
-	
+
 	@Column(name = "proSafetyStock")
-	@NotNull(message="商品安全存量: 請勿空白")
+	@NotNull(message = "商品安全存量: 請勿空白")
 	private Integer proSafetyStock;
-	
+
 	@Column(name = "totalCount")
-	@NotNull(message="商品結餘量: 請勿空白")
+	@NotNull(message = "商品結餘量: 請勿空白")
 	private Integer totalCount;
-	
+
 	@Column(name = "commentUsers")
 	private Integer commentUsers;
-	
+
 	@Column(name = "commentStars")
 	private Integer commentStars;
-	
-	@Column(name = "proPic" , columnDefinition = "longblob")
+
+	@Column(name = "proPic", columnDefinition = "longblob")
 	private byte[] proPic;
-	
+
 	@Column(name = "proStatus")
-	@NotNull(message="商品狀態: 請勿空白")
+	@NotNull(message = "商品狀態: 請勿空白")
 	private Integer proStatus;
-	
-	@Column(name = "proDesc", columnDefinition = "longtext" )
-	@NotEmpty(message="商品描述: 請勿空白")
+
+	@Column(name = "proDesc", columnDefinition = "longtext")
+	@NotEmpty(message = "商品描述: 請勿空白")
 	private String proDesc;
-	
+
 	@Column(name = "createdBy")
 	private String createdBy;
-	
+
 	@Column(name = "dateCreated")
 	private Timestamp dateCreated;
-	
+
 	@Column(name = "lastUpdatedBy")
+	@NotEmpty(message = "最後更新者: 請勿空白")
 	private String lastUpdatedBy;
-	
+
 	@Column(name = "lastUpdated")
 	private Timestamp lastUpdated;
-	
+
+	// 此商品下關聯的訂單紀錄
+	@OneToMany(mappedBy = "productInfo", fetch = FetchType.EAGER)
+	@OrderBy("orderListInfoId asc")
+	private Set<OrderListInfoVO> orderListInfoVO = new HashSet<OrderListInfoVO>();
+
+	// 此商品下關聯的商品評價紀錄
+	@OneToMany(mappedBy = "productInfo", fetch = FetchType.EAGER)
+	@OrderBy("proCommentId asc")
+	private Set<ProductCommentVO> productCommentVO = new HashSet<ProductCommentVO>();
+
 	public ProductInfo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -95,7 +112,8 @@ public class ProductInfo implements java.io.Serializable {
 			@NotNull(message = "商品結餘量: 請勿空白") Integer totalCount, Integer commentUsers, Integer commentStars,
 			byte[] proPic, @NotNull(message = "商品狀態: 請勿空白") Integer proStatus,
 			@NotEmpty(message = "商品描述: 請勿空白") String proDesc, String createdBy, Timestamp dateCreated,
-			String lastUpdatedBy, Timestamp lastUpdated) {
+			@NotEmpty(message = "最後更新者: 請勿空白") String lastUpdatedBy, Timestamp lastUpdated,
+			Set<OrderListInfoVO> orderListInfoVO, Set<ProductCommentVO> productCommentVO) {
 		super();
 		this.productId = productId;
 		this.productTypeVO = productTypeVO;
@@ -112,6 +130,8 @@ public class ProductInfo implements java.io.Serializable {
 		this.dateCreated = dateCreated;
 		this.lastUpdatedBy = lastUpdatedBy;
 		this.lastUpdated = lastUpdated;
+		this.orderListInfoVO = orderListInfoVO;
+		this.productCommentVO = productCommentVO;
 	}
 
 	public Integer getProductId() {
@@ -234,11 +254,35 @@ public class ProductInfo implements java.io.Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
+	public Set<OrderListInfoVO> getOrderListInfoVO() {
+		return orderListInfoVO;
+	}
+
+	public void setOrderListInfoVO(Set<OrderListInfoVO> orderListInfoVO) {
+		this.orderListInfoVO = orderListInfoVO;
+	}
+
+	public Set<ProductCommentVO> getProductCommentVO() {
+		return productCommentVO;
+	}
+
+	public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
+		this.productCommentVO = productCommentVO;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductInfo [productId=" + productId + ", productTypeVO=" + productTypeVO + ", proName=" + proName
+				+ ", proPrice=" + proPrice + ", proSafetyStock=" + proSafetyStock + ", totalCount=" + totalCount
+				+ ", commentUsers=" + commentUsers + ", commentStars=" + commentStars + ", proPic="
+				+ Arrays.toString(proPic) + ", proStatus=" + proStatus + ", proDesc=" + proDesc + ", createdBy="
+				+ createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated="
+				+ lastUpdated + ", orderListInfoVO=" + orderListInfoVO + ", productCommentVO=" + productCommentVO + "]";
+	}
+
 	
-
-
 }

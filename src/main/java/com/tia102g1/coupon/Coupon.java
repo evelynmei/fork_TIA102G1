@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.tia102g1.orderlist.model.OrderListVO;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -11,6 +13,8 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -64,23 +68,11 @@ public class Coupon implements Serializable {
 
     @Column(name = "LASTUPDATED", insertable = false, updatable = false)
     private Timestamp lastUpdated;
+    
+ // 此優惠券下關聯的訂單明細紀錄
+ 	@OneToMany(mappedBy = "coupon", fetch = FetchType.EAGER)
+ 	@OrderBy("orderListId asc")
+ 	private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
 
-    @Override
-    public String toString() {
-        return "Coupon{" +
-                "couponId=" + couponId +
-                ", couponCode='" + couponCode + '\'' +
-                ", couponName='" + couponName + '\'' +
-                ", couponStatus=" + couponStatus +
-                ", startDt=" + startDt +
-                ", endDt=" + endDt +
-                ", discType=" + discType +
-                ", discAmount=" + discAmount +
-                ", discPercentage=" + discPercentage +
-                ", createdBy='" + createdBy + '\'' +
-                ", dateCreated=" + dateCreated +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", lastUpdated=" + lastUpdated +
-                '}';
-    }
+
 }

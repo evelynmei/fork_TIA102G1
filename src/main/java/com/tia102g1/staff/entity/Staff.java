@@ -2,13 +2,20 @@ package com.tia102g1.staff.entity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.tia102g1.productcomment.model.ProductCommentVO;
 
 @Entity
 @Table(name = "staff")
@@ -17,39 +24,68 @@ public class Staff {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "staffId", updatable = false)
 	private Integer staffId;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "phone")
 	private String phone;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "employDt", updatable = false)
 	private Date employDt;
-	
+
 	@Column(name = "leaveDt")
 	private Date leaveDt;
-	
+
 	@Column(name = "status")
 	private Integer status;
-	
+
 	@Column(name = "createdBy", updatable = false)
 	private String createdBy;
-	
+
 	@Column(name = "dateCreated", updatable = false)
 	private Timestamp dateCreated;
-	
+
 	@Column(name = "lastUpdatedBy")
 	private String lastUpdatedBy;
-	
+
 	@Column(name = "lastUpdated")
 	private Timestamp lastUpdated;
+
+	// 此員工下關聯的商品評價紀錄
+	@OneToMany(mappedBy = "staff", fetch = FetchType.EAGER)
+	@OrderBy("proCommentId asc")
+	private Set<ProductCommentVO> productCommentVO = new HashSet<ProductCommentVO>();
+
+	public Staff() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Staff(Integer staffId, String password, String name, String phone, String email, Date employDt, Date leaveDt,
+			Integer status, String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated,
+			Set<ProductCommentVO> productCommentVO) {
+		super();
+		this.staffId = staffId;
+		this.password = password;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.employDt = employDt;
+		this.leaveDt = leaveDt;
+		this.status = status;
+		this.createdBy = createdBy;
+		this.dateCreated = dateCreated;
+		this.lastUpdatedBy = lastUpdatedBy;
+		this.lastUpdated = lastUpdated;
+		this.productCommentVO = productCommentVO;
+	}
 
 	public Integer getStaffId() {
 		return staffId;
@@ -147,14 +183,22 @@ public class Staff {
 		this.lastUpdated = lastUpdated;
 	}
 
+	public Set<ProductCommentVO> getProductCommentVO() {
+		return productCommentVO;
+	}
+
+	public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
+		this.productCommentVO = productCommentVO;
+	}
+
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", password=" + password + ", name=" + name
-				+ ", phone=" + phone + ", email=" + email + ", employDt=" + employDt + ", leaveDt=" + leaveDt
-				+ ", status=" + status + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated
-				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + "]";
+		return "Staff [staffId=" + staffId + ", password=" + password + ", name=" + name + ", phone=" + phone
+				+ ", email=" + email + ", employDt=" + employDt + ", leaveDt=" + leaveDt + ", status=" + status
+				+ ", createdBy=" + createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy
+				+ ", lastUpdated=" + lastUpdated + ", productCommentVO=" + productCommentVO + "]";
 	}
 
 	
-	
+
 }
