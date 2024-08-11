@@ -4,12 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.tia102g1.orderlist.model.OrderListVO;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -63,6 +67,11 @@ public class Coupon implements Serializable {
 
     @Column(name = "LASTUPDATED", insertable = false, updatable = false)
     private Timestamp lastUpdated;
+    
+ // 此優惠券下關聯的訂單明細紀錄
+ 	@OneToMany(mappedBy = "coupon", fetch = FetchType.EAGER)
+ 	@OrderBy("orderListId asc")
+ 	private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
 
 	public Integer getCouponId() {
 		return CouponId;
@@ -167,7 +176,19 @@ public class Coupon implements Serializable {
 	public void setLastUpdated(Timestamp lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-    
-    
 
+	public Set<OrderListVO> getOrderLists() {
+		return orderLists;
+	}
+
+	public void setOrderLists(Set<OrderListVO> orderLists) {
+		this.orderLists = orderLists;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	
 }

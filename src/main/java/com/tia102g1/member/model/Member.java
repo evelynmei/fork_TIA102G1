@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tia102g1.member.constant.AccountStatus;
 import com.tia102g1.membercoin.model.MemberCoinVO;
 import com.tia102g1.orderlist.model.OrderListVO;
+import com.tia102g1.productcomment.model.ProductCommentVO;
 
 
 @Entity
@@ -125,10 +125,15 @@ public class Member implements Serializable {
 	@OrderBy("memCoinId asc")
 	private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
 	
-	//此訂單主檔下關聯的訂單明細紀錄
+	//此會員下關聯的訂單明細紀錄
 	@OneToMany(mappedBy = "member", fetch=FetchType.EAGER)
 	@OrderBy("orderListId asc")
 	private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
+	
+	//此會員下關聯的商品評價紀錄
+		@OneToMany(mappedBy = "member", fetch=FetchType.EAGER)
+		@OrderBy("proCommentId asc")
+		private Set<ProductCommentVO> productCommentVO = new HashSet<ProductCommentVO>();
 
 
 	public Member() {
@@ -141,7 +146,8 @@ public class Member implements Serializable {
 			Integer distCode, String address, Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow,
 			String cardHolder, String cardNumber, Integer cardYY, Integer cardMM, String cardVerifyCode,
 			AccountStatus status, Timestamp blockedTime, String blockedReason, String createdBy, Timestamp dateCreated,
-			String lastUpdatedBy, Timestamp lastUpdated, Set<MemberCoinVO> memCoins, Set<OrderListVO> orderLists) {
+			String lastUpdatedBy, Timestamp lastUpdated, Set<MemberCoinVO> memCoins, Set<OrderListVO> orderLists,
+			Set<ProductCommentVO> productCommentVO) {
 		super();
 		this.memberId = memberId;
 		this.memberLvId = memberLvId;
@@ -173,6 +179,7 @@ public class Member implements Serializable {
 		this.lastUpdated = lastUpdated;
 		this.memCoins = memCoins;
 		this.orderLists = orderLists;
+		this.productCommentVO = productCommentVO;
 	}
 
 
@@ -476,6 +483,16 @@ public class Member implements Serializable {
 	}
 
 
+	public Set<ProductCommentVO> getProductCommentVO() {
+		return productCommentVO;
+	}
+
+
+	public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
+		this.productCommentVO = productCommentVO;
+	}
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -491,8 +508,9 @@ public class Member implements Serializable {
 				+ ", cardMM=" + cardMM + ", cardVerifyCode=" + cardVerifyCode + ", status=" + status + ", blockedTime="
 				+ blockedTime + ", blockedReason=" + blockedReason + ", createdBy=" + createdBy + ", dateCreated="
 				+ dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins="
-				+ memCoins + ", orderLists=" + orderLists + "]";
+				+ memCoins + ", orderLists=" + orderLists + ", productCommentVO=" + productCommentVO + "]";
 	}
+
 
 	
 }

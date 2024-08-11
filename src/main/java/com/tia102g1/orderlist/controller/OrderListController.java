@@ -26,6 +26,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tia102g1.county.model.CountyService;
 import com.tia102g1.county.model.CountyVO;
+import com.tia102g1.coupon.Coupon;
+import com.tia102g1.coupon.CouponService;
 import com.tia102g1.dist.model.DistService;
 import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.event.model.EventService;
@@ -48,45 +50,44 @@ public class OrderListController {
 	MemberService memberService;
 
 	// 等CouponService出來補上
-//	@Autowired
-//	CouponService couponService;
+	@Autowired
+	CouponService couponService;
 
 	@Autowired
 	EventService eventService;
 
 	@Autowired
 	DistService distService;
-	
+
 	@Autowired
 	CountyService countyService;
 
-	@GetMapping({"", "/mainPageOrderList" })
+	@GetMapping({ "", "/mainPageOrderList" })
 	public String referenceOrderListData(Model model) {
 		List<OrderListVO> list = orderListService.getAll();
 		model.addAttribute("orderListData", list);
 		return "/orderList/mainPageOrderList";
 	}
-	
+
 	@ModelAttribute("orderListData2")
 	protected List<OrderListVO> referenceListData(Model model) {
 		List<OrderListVO> list = orderListService.getAll();
 		return list;
 	}
-	
-	
+
 	@ModelAttribute("memberListData")
 	protected List<Member> referenceListData_member(Model model) {
 		List<Member> list = memberService.getAll();
 		return list;
 	}
 
-	// 等CouponService出來補上
-//	@ModelAttribute("couponListData")
-//	protected List<Coupon> referenceListData_coupon(Model model){
-//		List<Coupon> list = couponService.getAll();
-//		return list;
-//	}
- 
+	
+	@ModelAttribute("couponListData")
+	protected List<Coupon> referenceListData_coupon(Model model){
+		List<Coupon> list = couponService.getAllCoupons();
+		return list;
+	}
+
 	@ModelAttribute("eventListData")
 	protected List<EventVO> referenceListData_event(Model model) {
 		List<EventVO> list = eventService.getAll();
@@ -94,21 +95,34 @@ public class OrderListController {
 	}
 
 	@ModelAttribute("distListData")
-	protected List<DistVO> referenceListData_dist(Model model){
+	protected List<DistVO> referenceListData_dist(Model model) {
 		List<DistVO> list = distService.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("countyListData")
-	protected List<CountyVO> referenceListData_county(Model model){
+	protected List<CountyVO> referenceListData_county(Model model) {
 		List<CountyVO> list = countyService.getAll();
 		return list;
 	}
-	
+
+	@GetMapping("listOneOrderList")
+	public String listOneOrderList(@RequestParam("orderListId") Integer orderListId, Model model) {
+		// 查詢指定的OrderListVO
+		OrderListVO orderListVO = orderListService.getOneOrderList(orderListId);
+		model.addAttribute("orderListVO", orderListVO);
+
+//		// 查詢與此OrderListVO相關的ProductInfo
+//		List<ProductInfoVO> productInfoList = productInfoServiceS.getProductsByOrderListId(orderListId);
+//		model.addAttribute("productInfoList", productInfoList);
+
+		return "/orderList/listOneOrderList";
+	}
+
 	@GetMapping("addOrderList")
 	public String addOrderList(ModelMap model) {
 		OrderListVO orderListVO = new OrderListVO();
-		model.addAttribute("orderListVO",orderListVO);
+		model.addAttribute("orderListVO", orderListVO);
 		return "/orderList/addOrderList";
 	}
 
@@ -122,7 +136,8 @@ public class OrderListController {
 		}
 
 		orderListVO.setOrderDt(now);
-		orderListVO.setPayAmount(orderListVO.getOrderAmount() - orderListVO.getCouponUsedAmount() - orderListVO.getCoinUsedAmount());
+		orderListVO.setPayAmount(
+				orderListVO.getOrderAmount() - orderListVO.getCouponUsedAmount() - orderListVO.getCoinUsedAmount());
 		orderListVO.setDateCreated(now);
 		orderListVO.setLastUpdated(now);
 		orderListVO.setLastUpdatedBy(orderListVO.getCreatedBy());
@@ -151,34 +166,33 @@ public class OrderListController {
 
 		// 先把指定id的VO物件查出來並顯示,準備交給updateEvent頁面做修改
 		OrderListVO orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListId));
-				
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("orderListVO", orderListVO);
 
 		return "/orderList/updateOrderList";
 	}
-	
+
 	@PostMapping("update")
 	public String update(@Valid OrderListVO orderListVO, BindingResult result, ModelMap model) throws IOException {
-		
+
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		
-		if (result.hasErrors()) { //錯誤訊息result
+
+		if (result.hasErrors()) { // 錯誤訊息result
 			return "/orderList/updateOrderList";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
 		orderListVO.setLastUpdated(now);
-		orderListService.updateOrderList(orderListVO); //把更新好屬性的當前VO物件交給Service層做update
+		orderListService.updateOrderList(orderListVO); // 把更新好屬性的當前VO物件交給Service層做update
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
-		orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListVO.getOrderListId())); //取出剛更新完的VO物件,顯示在前端頁面上
+		orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListVO.getOrderListId())); // 取出剛更新完的VO物件,顯示在前端頁面上
 		model.addAttribute("orderListVO", orderListVO);
-			
+
 		return "/orderList/listOneOrderList";
 	}
-	
+
 	@PostMapping("listOrderListByCompositeQuery")
 	public String listAllOrderList(HttpServletRequest req, Model model) {
 		Map<String, String[]> map = req.getParameterMap();

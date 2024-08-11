@@ -1,0 +1,324 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>訂單管理</title>
+
+<style>
+table#table-1 {
+	width: 450px;
+	background-color: #CCCCFF;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 3px ridge Gray;
+	height: 80px;
+	text-align: center;
+}
+
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
+
+h4 {
+	color: blue;
+	display: inline;
+}
+
+.wrapper {
+	min-height: 0 !important;
+}
+
+a:hover, a:active {
+	color: red;
+	font-weight: bold;
+}
+
+.error {
+	color: #ff0000;
+	font-style: italic;
+	font-weight: lighter;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 5px;
+	margin: 5px;
+	width: 100%;
+	font-weight: normal;
+}
+#roll{
+	width: 100%; /* 设置相同的宽度 */
+    height: 30px; /* 设置相同的高度 */
+    padding: 5px; /* 内边距可以根据需要调整 */
+    box-sizing: border-box; /* 确保内边距和边框计算在内 */
+}
+
+</style>
+
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<!-- header-css etc. -->
+	<div th:insert="~{/comPage1}"></div>
+
+	<!-- side bar -->
+	<div th:insert="~{/comPage2}"></div>
+
+	<!-- Content Wrapper. Contains page content -->
+	<!-- 儀錶板上面那排 -->
+	<div class="content-wrapper">
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<div class="container-fluid">
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 class="m-0">查詢訂單</h1>
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a th:href="@{/}">首頁</a></li>
+							<!-- ==============後台人員登入登出用 =============-->
+							<div class="breadcrumb-item"><a th:insert="~{/comLogin}"></div>
+							<li class="breadcrumb-item"><a
+								th:href="@{mainPageOrderList}">訂單總覽</a></li>
+							<li class="breadcrumb-item active">查詢訂單</li>
+						</ol>
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
+		</div>
+		<!-- /.content-header -->
+
+		<!-- 功能內容開始 -->
+		<br>
+		<section class="content">
+				
+					<div class="form-group card-header" style="padding-left: 1.25rem;background-color: #007bff;">
+						<div>
+						<table>
+							<thead>
+							    <tr style="padding-left: 1.25rem; background-color: #007bff;">							    	
+							        <th style="width: 1%"><label style="color:#fff;">訂單狀態</label></th>
+							        <th style="width: 1%"><label style="color:#fff;">付款狀態</label></th>
+							        <th style="width: 10%"><label style="color:#fff;">訂單日期</label></th>								
+							    </tr>								
+							</thead>
+							<tbody>
+							    <tr style="padding-left: 1.25rem; background-color: #007bff;">
+							    
+							        <td th:switch="${orderListVO.orderStatus}">						            
+							                <span th:case="0" style="background-color: white; padding: 2px 20px 2px 2px">處理中</span>
+							                <span th:case="1" style="background-color: white; padding: 2px 20px 2px 2px">已確認</span>
+							                <span th:case="2" style="background-color: white; padding: 2px 20px 2px 2px">已完成</span>
+							                <span th:case="3" style="background-color: white; padding: 2px 20px 2px 2px">已取消</span>							            
+							        </td>
+							        <td th:switch="${orderListVO.paymentStatus}">
+							                <span th:case="0" style="background-color: white; padding: 2px 20px 2px 2px">未付款</span>
+							                <span th:case="1" style="background-color: white; padding: 2px 20px 2px 2px">已付款</span>
+							                <span th:case="2" style="background-color: white; padding: 2px 20px 2px 2px">退款中</span>
+							                <span th:case="3" style="background-color: white; padding: 2px 20px 2px 2px">已退款</span>
+							        </td>
+							        <td>
+							            <input id="orderDate" type="text" th:value="${#dates.format(orderListVO.orderDt, 'yyyy-MM-dd HH:mm:ss')}"
+							                   style="border: 0px;" readonly />
+							        </td>								
+							    </tr>	
+							</tbody>
+						</table>
+						</div>
+					</div>
+				<div style="background-color:#f8f9fa">	
+				<div class="card-body" style="border: 0px; width: 49%; display: inline-block; ">
+					<div class="form-group" >
+						<label>訂單編號</label> <input type="text" class="form-control"
+							th:value="${orderListVO.orderListId}" style="border: 0px; font-weight: bold;"
+							readonly />
+					</div>
+					
+					<div class="form-group">
+						<label>會員編號</label> <input type="text" class="form-control"
+							th:value="${orderListVO.member.memberId}"  style="border: 0px; font-weight: bold;"
+							readonly />
+					</div>
+					
+					<div class="form-group">
+					    <label>優惠券編號</label>
+					    <input type="text" class="form-control"
+					           th:value="${orderListVO.coupon != null && orderListVO.coupon.couponId != null ?  ' ( ' +(orderListVO.coupon.couponId) + ' ) ' +(orderListVO.coupon.couponName) : '無使用優惠券'}" 
+					           style="border: 0px; font-weight: bold;" readonly />
+					</div>
+					
+					<div class="form-group">
+						<label>促銷活動編號</label> 
+							<input type="text" class="form-control"
+							th:value="${orderListVO.eventVO != null && orderListVO.eventVO.eventId != null ?  ' ( ' +(orderListVO.eventVO.eventId) + ' ) ' +(orderListVO.eventVO.eventName) : '無參加促銷活動'}" 
+					        style="border: 0px; font-weight: bold;" readonly />
+					</div>
+				</div>
+				
+				<div class="card-body" style="border: 0px; width: 49%; display: inline-block;">
+					<div class="form-group" >
+						<label>付款方式</label> 
+						<div th:switch="${orderListVO.paymentMethod}" class="form-control" style="background-color: #e9ecef">							
+							<span th:case="1" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">線上刷卡</span>
+							<span th:case="2" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">現場付款</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>取貨方式</label> 
+						<div th:switch="${orderListVO.pickupMethod}" class="form-control" style="background-color: #e9ecef;">
+							<span th:case="1" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">宅配到府</span>
+						    <span th:case="2" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">現場取貨</span>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label>是否使用優惠券</label> 
+							<div th:switch="${orderListVO.useCoupon}" class="form-control" style="background-color: #e9ecef;">
+							<span th:case="0" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">未使用</span>
+							<span th:case="1" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">已使用</span>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label>是否使用購物金</label> 
+							<div th:switch="${orderListVO.useCoin}" class="form-control" style="background-color: #e9ecef;">
+							<span th:case="0" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">未使用</span>
+							<span th:case="1" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">已使用</span>
+						</div>
+					</div>
+				</div>
+				
+				<div style="background-color:#f8f9fa">	
+				<div class="card-body" style="border: 0px; width: 49%; display: inline-block; ">
+					<div class="form-group">
+						<label>收件人姓名</label> 
+							<input type="text" class="form-control"
+							th:value="${orderListVO.recipientName}" style="border: 0px; font-weight: bold;" readonly />
+					</div>
+					
+					<div class="form-group" >
+						<label>發票方式</label> 
+							<div th:switch="${orderListVO.invoiceWay}" class="form-control" style="background-color: #e9ecef;">							
+							<span th:case="1" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">紙本發票</span>
+							<span th:case="2" style="background-color: #e9ecef; padding: 2px 20px 2px 2px">電子發票</span>
+							</div>
+					</div>
+					
+					<div class="form-group">
+						<label>統一編號</label> 
+							<input type="text" class="form-control"
+							th:value="${orderListVO.invoiceTaxNo}"  style="border: 0px; font-weight: bold;" readonly />
+					</div>
+					
+					<div class="form-group">
+						<label>手機載具碼</label> 
+							<input type="text" class="form-control"
+							th:value="${orderListVO.invoiceMobileCode}"  style="border: 0px; font-weight: bold;" readonly />
+					</div>
+					
+				</div>
+				
+				<div class="card-body" style="border: 0px; width: 49%; display: inline-block;">
+					<div class="form-group" >
+						<label>收件人電話</label> 
+						<input type="text" class="form-control"
+							th:value="${orderListVO.recipientPhone}"  style="border: 0px; font-weight: bold;" readonly />
+					</div>
+					
+					<div class="form-group">
+						<label>縣市</label>
+							<div class="form-control"  style="background-color: #e9ecef;">
+								<span th:text="|${orderListVO.countyVO.cntCode}-${orderListVO.countyVO.cntName}|" ></span>
+							</div> 
+					</div>
+					
+					<div class="form-group">
+						<label>鄉鎮區</label>
+							<div class="form-control"  style="background-color: #e9ecef;">
+								<span th:text="|${orderListVO.distVO.distCode}-${orderListVO.distVO.distName}|" ></span>
+							</div> 
+					</div>
+					
+					<div class="form-group">
+						<label>收件人地址</label> 
+							<input type="text" class="form-control"
+							th:value="${orderListVO.recipientAddress}"  style="border: 0px; font-weight: bold;" readonly />
+					</div>
+				</div>
+					
+
+			<!-- 插入商品明細!!!!!!!!!!!!!!!! --><!-- 插入商品明細!!!!!!!!!!!!!!!! --><!-- 插入商品明細!!!!!!!!!!!!!!!! -->
+			<!-- 插入商品明細!!!!!!!!!!!!!!!! --><!-- 插入商品明細!!!!!!!!!!!!!!!! --><!-- 插入商品明細!!!!!!!!!!!!!!!! -->
+			<!-- 插入商品明細!!!!!!!!!!!!!!!! --><!-- 插入商品明細!!!!!!!!!!!!!!!! --><!-- 插入商品明細!!!!!!!!!!!!!!!! -->
+				<div class="card-body" style="border: 0px; width: 49%; display: inline-block;">
+				</div>		
+				<div class="card-body" style="width: 49%; ; padding: 20px;display: inline-block;" >
+				    <table class="table" style="width: 100%; border-collapse: collapse;"> 
+				        <tr>
+				            <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd ; vertical-align: middle;">總金額</th>
+				            <td style="text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+				            <input type="text" class="form-control" name="orderAmount" th:value="${orderListVO.orderAmount}"  readonly/> 
+				            </td>
+				        </tr>
+				        <tr>
+				            <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd; vertical-align: middle;">優惠券折扣金額</th>
+				            <td style="text-align: right; padding: 8px; border-bottom: 1px solid #ddd;" >
+				            <input type="text" class="form-control" name="couponUsedAmount" th:value="${orderListVO.couponUsedAmount}" readonly/> 
+				            </td>
+				        </tr>
+				        <tr>
+				            <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd; vertical-align: middle;">購物金抵用金額</th>
+				            <td style="text-align: right; padding: 8px; border-bottom: 1px solid #ddd;">
+				            <input type="text" class="form-control" name="coinUsedAmount" th:value="${orderListVO.coinUsedAmount}"  readonly/>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd; vertical-align: middle;">總付款金額</th>
+				            <td style="font-size:1.5rem; text-align: right; padding: 8px; border-bottom: 1px solid #ddd; color: red;" >
+				            <input type="text" class="form-control" name="payAmount" th:value="${orderListVO.payAmount}" readonly/>
+				            </td>
+				        </tr>
+				        <tr>
+				            <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd; vertical-align: middle;">最後更新者</th>
+				            <td style="font-size:1.5rem; text-align: right; padding: 8px; border-bottom: 1px solid #ddd; color: red;" >
+				            <input type="text" class="form-control" name="lastUpdatedBy" placeholder="輸入建檔者" th:value="${orderListVO.lastUpdatedBy}"  readonly >
+				            </td>
+				        </tr>
+				        
+				    </table>
+				</div>
+		</div>
+		<div class="card-footer">
+					<a th:href="@{../orderList/mainPageOrderList}"><button type="submit" class="btn btn-primary">返回</button></a>
+		</div>				
+			
+			<!-- 把你的內容貼在這裡 -->
+			<!-- 把你的內容貼在這裡 -->
+			<!-- 把你的內容貼在這裡 -->
+
+
+		</section>
+		<!-- 功能內容結束 -->
+
+		<!-- footer and script link -->
+		<div th:insert="~{/comPage3}"></div>
+
+		<script type="text/javascript">
+			//清除提示信息
+			function hideContent(d) {
+				document.getElementById(d).style.display = "none";
+			}
+
+		</script>
+</body>
+</html>

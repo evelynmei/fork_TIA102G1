@@ -3,18 +3,24 @@ package com.tia102g1.orderlistinfo.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 
 import com.tia102g1.orderlist.model.OrderListVO;
+import com.tia102g1.productcomment.model.ProductCommentVO;
 import com.tia102g1.productinfo.entity.ProductInfo;
 
 
@@ -29,17 +35,17 @@ public class OrderListInfoVO implements Serializable{
 	@Column(name = "orderListInfoId", updatable = false)
 	private Integer orderListInfoId;
 	
-	@Column(name = "orderListId")
-	private Integer orderListId;
-//	@ManyToOne
-//	@JoinColumn(name = "orderListId", referencedColumnName = "orderListId")
-//	private OrderListVO orderListVO;
+//	@Column(name = "orderListId")
+//	private Integer orderListId;
+	@ManyToOne
+	@JoinColumn(name = "orderListId", referencedColumnName = "orderListId")
+	private OrderListVO orderListVO;
 	
-	@Column(name = "productId")
-	private Integer productId;
-//	@ManyToOne
-//	@JoinColumn(name = "productId", referencedColumnName = "productId")
-//	private ProductInfo productInfo;
+//	@Column(name = "productId")
+//	private Integer productId;
+	@ManyToOne
+	@JoinColumn(name = "productId", referencedColumnName = "productId")
+	private ProductInfo productInfo;
 	
 	
 	@Column(name = "purchasedPrice")
@@ -60,25 +66,32 @@ public class OrderListInfoVO implements Serializable{
 	
 	@Column(name = "lastUpdated", insertable = false, updatable = false)
 	private Timestamp lastUpdated;
+	
+	//此訂單商品明細下關聯的商品評價紀錄
+	@OneToMany(mappedBy = "orderListInfoVO", fetch=FetchType.EAGER)
+	@OrderBy("proCommentId asc")
+	private Set<ProductCommentVO> productCommentVO = new HashSet<ProductCommentVO>();
 
 	public OrderListInfoVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderListInfoVO(Integer orderListInfoId, Integer orderListId, Integer productId, Integer purchasedPrice,
-			@DecimalMin(value = "0", message = "商品數量 : 不能小於{value}") Integer proQuantity, String createdBy,
-			Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated) {
+	public OrderListInfoVO(Integer orderListInfoId, OrderListVO orderListVO, ProductInfo productInfo,
+			Integer purchasedPrice, @DecimalMin(value = "0", message = "商品數量 : 不能小於{value}") Integer proQuantity,
+			String createdBy, Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated,
+			Set<ProductCommentVO> productCommentVO) {
 		super();
 		this.orderListInfoId = orderListInfoId;
-		this.orderListId = orderListId;
-		this.productId = productId;
+		this.orderListVO = orderListVO;
+		this.productInfo = productInfo;
 		this.purchasedPrice = purchasedPrice;
 		this.proQuantity = proQuantity;
 		this.createdBy = createdBy;
 		this.dateCreated = dateCreated;
 		this.lastUpdatedBy = lastUpdatedBy;
 		this.lastUpdated = lastUpdated;
+		this.productCommentVO = productCommentVO;
 	}
 
 	public Integer getOrderListInfoId() {
@@ -89,20 +102,20 @@ public class OrderListInfoVO implements Serializable{
 		this.orderListInfoId = orderListInfoId;
 	}
 
-	public Integer getOrderListId() {
-		return orderListId;
+	public OrderListVO getOrderListVO() {
+		return orderListVO;
 	}
 
-	public void setOrderListId(Integer orderListId) {
-		this.orderListId = orderListId;
+	public void setOrderListVO(OrderListVO orderListVO) {
+		this.orderListVO = orderListVO;
 	}
 
-	public Integer getProductId() {
-		return productId;
+	public ProductInfo getProductInfo() {
+		return productInfo;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setProductInfo(ProductInfo productInfo) {
+		this.productInfo = productInfo;
 	}
 
 	public Integer getPurchasedPrice() {
@@ -153,17 +166,24 @@ public class OrderListInfoVO implements Serializable{
 		this.lastUpdated = lastUpdated;
 	}
 
+	public Set<ProductCommentVO> getProductCommentVO() {
+		return productCommentVO;
+	}
+
+	public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
+		this.productCommentVO = productCommentVO;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderListInfoVO [orderListInfoId=" + orderListInfoId + ", orderListId=" + orderListId + ", productId="
-				+ productId + ", purchasedPrice=" + purchasedPrice + ", proQuantity=" + proQuantity + ", createdBy="
+		return "OrderListInfoVO [orderListInfoId=" + orderListInfoId + ", orderListVO=" + orderListVO + ", productInfo="
+				+ productInfo + ", purchasedPrice=" + purchasedPrice + ", proQuantity=" + proQuantity + ", createdBy="
 				+ createdBy + ", dateCreated=" + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated="
-				+ lastUpdated + "]";
+				+ lastUpdated + ", productCommentVO=" + productCommentVO + "]";
 	}
 
-	
 }

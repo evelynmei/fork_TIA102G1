@@ -16,151 +16,170 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import com.tia102g1.county.model.CountyVO;
+import com.tia102g1.coupon.Coupon;
 import com.tia102g1.dist.model.DistVO;
+import com.tia102g1.event.model.EventVO;
 import com.tia102g1.member.model.Member;
 import com.tia102g1.membercoin.model.MemberCoinVO;
+import com.tia102g1.orderlistinfo.model.OrderListInfoVO;
 
 @Entity
 @Table(name = "OrderList")
 public class OrderListVO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "orderListId")
 	private Integer orderListId;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
-	private Member member;	
+	private Member member;
 //	@Column(name = "memberId")
 //	private Integer memberId;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "couponId", referencedColumnName = "couponId")
-//	private Coupon coupon;
-	@Column(name = "couponId")
-	private Integer couponId;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
-//	private EventVO eventVO;
-	@Column(name = "eventId")
-	private Integer eventId;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "couponId", referencedColumnName = "couponId")
+	private Coupon coupon;
+//	@Column(name = "couponId")
+//	private Integer couponId;
+
+	@ManyToOne
+	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
+	private EventVO eventVO;
+//	@Column(name = "eventId")
+//	private Integer eventId;
+
 	@Column(name = "orderDt")
 	private Timestamp orderDt;
-	
+
 	@Column(name = "orderAmount")
 	private Integer orderAmount;
-	
+
 	@Column(name = "couponUsedAmount")
 	private Integer couponUsedAmount;
-	
+
 	@Column(name = "coinUsedAmount")
 	private Integer coinUsedAmount;
-	
+
 	@Column(name = "payAmount")
 	private Integer payAmount;
-	
+
 	@Column(name = "orderStatus")
 	private Integer orderStatus;
-	
+
 	@Column(name = "paymentMethod")
 	private Integer paymentMethod;
-	
+
 	@Column(name = "paymentStatus")
 	private Integer paymentStatus;
-	
+
 	@Column(name = "pickupMethod")
 	private Integer pickupMethod;
-	
+
 	@Column(name = "useCoupon")
 	private Integer useCoupon;
-	
+
 	@Column(name = "useCoin")
 	private Integer useCoin;
-	
+
 	@Column(name = "cardHolder")
 	private String cardHolder;
-	
+
 	@Column(name = "cardNumber")
 	private String cardNumber;
-	
+
 	@Column(name = "cardYy")
 	private Integer cardYy;
-	
+
 	@Column(name = "cardMm")
 	private String cardMm;
-	
+
 	@Column(name = "cardVerifyCode")
 	private String cardVerifyCode;
-	
+
 	@Column(name = "invoiceWay")
 	private Integer invoiceWay;
-	
+
 	@Column(name = "invoiceTaxNo")
 	private String invoiceTaxNo;
-	
+
 	@Column(name = "invoiceMobileCode")
 	private String invoiceMobileCode;
-	
+
 	@Column(name = "recipientName")
+	@NotEmpty(message = "收件人姓名: 請勿空白")
 	private String recipientName;
-	
+
 	@Column(name = "recipientPhone")
+	@Pattern(regexp = "\\d+", message = "收件人電話: 請輸入數字")
 	private String recipientPhone;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "recipientCnt", referencedColumnName = "cntCode")
-	private CountyVO countyVO;		
+	private CountyVO countyVO;
 //	@Column(name = "recipientCnt")
 //	private Integer recipientCnt;
-		
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "recipientDist", referencedColumnName = "distCode")
-	private DistVO distVO;	
+	private DistVO distVO;
 //	@Column(name = "recipientDist")
 //	private Integer recipientDist;
-	
+
+	@NotBlank(message = "收件人地址: 請勿空白")
 	@Column(name = "recipientAddress")
 	private String recipientAddress;
-	
+
 	@Column(name = "createdBy")
 	private String createdBy;
-	
+
 	@Column(name = "dateCreated")
 	private Timestamp dateCreated;
-	
+
 	@Column(name = "lastUpdatedBy")
+	@NotEmpty(message = "最後更新者: 請勿空白")
 	private String lastUpdatedBy;
-	
+
 	@Column(name = "lastUpdated")
+
 	private Timestamp lastUpdated;
-	
-	//此訂單主檔下關聯的購物金持有紀錄
-	@OneToMany(mappedBy = "orderListVO", fetch=FetchType.EAGER)
+
+	// 此訂單主檔下關聯的購物金持有紀錄
+	@OneToMany(mappedBy = "orderListVO", fetch = FetchType.EAGER)
 	@OrderBy("memCoinId asc")
 	private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
+
+	// 此訂單主檔下關聯的訂單紀錄
+	@OneToMany(mappedBy = "orderListVO", fetch = FetchType.EAGER)
+	@OrderBy("orderListInfoId asc")
+	private Set<OrderListInfoVO> orderListInfoVO = new HashSet<OrderListInfoVO>();
 
 	public OrderListVO() {
 		super();
 	}
 
-	public OrderListVO(Integer orderListId, Member member, Integer couponId, Integer eventId, Timestamp orderDt,
+	public OrderListVO(Integer orderListId, Member member, Coupon coupon, EventVO eventVO, Timestamp orderDt,
 			Integer orderAmount, Integer couponUsedAmount, Integer coinUsedAmount, Integer payAmount,
 			Integer orderStatus, Integer paymentMethod, Integer paymentStatus, Integer pickupMethod, Integer useCoupon,
 			Integer useCoin, String cardHolder, String cardNumber, Integer cardYy, String cardMm, String cardVerifyCode,
-			Integer invoiceWay, String invoiceTaxNo, String invoiceMobileCode, String recipientName,
-			String recipientPhone, CountyVO countyVO, DistVO distVO, String recipientAddress, String createdBy,
-			Timestamp dateCreated, String lastUpdatedBy, Timestamp lastUpdated, Set<MemberCoinVO> memCoins) {
+			Integer invoiceWay, String invoiceTaxNo, String invoiceMobileCode,
+			@NotEmpty(message = "收件人姓名: 請勿空白") String recipientName,
+			@Pattern(regexp = "\\d+", message = "收件人電話: 請輸入數字") String recipientPhone, CountyVO countyVO, DistVO distVO,
+			@NotBlank(message = "收件人地址: 請勿空白") String recipientAddress, String createdBy, Timestamp dateCreated,
+			@NotEmpty(message = "最後更新者: 請勿空白") String lastUpdatedBy, Timestamp lastUpdated,
+			Set<MemberCoinVO> memCoins) {
 		super();
 		this.orderListId = orderListId;
 		this.member = member;
-		this.couponId = couponId;
-		this.eventId = eventId;
+		this.coupon = coupon;
+		this.eventVO = eventVO;
 		this.orderDt = orderDt;
 		this.orderAmount = orderAmount;
 		this.couponUsedAmount = couponUsedAmount;
@@ -208,20 +227,20 @@ public class OrderListVO implements Serializable {
 		this.member = member;
 	}
 
-	public Integer getCouponId() {
-		return couponId;
+	public Coupon getCoupon() {
+		return coupon;
 	}
 
-	public void setCouponId(Integer couponId) {
-		this.couponId = couponId;
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
 	}
 
-	public Integer getEventId() {
-		return eventId;
+	public EventVO getEventVO() {
+		return eventVO;
 	}
 
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
+	public void setEventVO(EventVO eventVO) {
+		this.eventVO = eventVO;
 	}
 
 	public Timestamp getOrderDt() {
@@ -462,10 +481,10 @@ public class OrderListVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OrderListVO [orderListId=" + orderListId + ", member=" + member + ", couponId=" + couponId
-				+ ", eventId=" + eventId + ", orderDt=" + orderDt + ", orderAmount=" + orderAmount
-				+ ", couponUsedAmount=" + couponUsedAmount + ", coinUsedAmount=" + coinUsedAmount + ", payAmount="
-				+ payAmount + ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
+		return "OrderListVO [orderListId=" + orderListId + ", member=" + member + ", coupon=" + coupon + ", eventVO="
+				+ eventVO + ", orderDt=" + orderDt + ", orderAmount=" + orderAmount + ", couponUsedAmount="
+				+ couponUsedAmount + ", coinUsedAmount=" + coinUsedAmount + ", payAmount=" + payAmount
+				+ ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
 				+ paymentStatus + ", pickupMethod=" + pickupMethod + ", useCoupon=" + useCoupon + ", useCoin=" + useCoin
 				+ ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm="
 				+ cardMm + ", cardVerifyCode=" + cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo="
@@ -475,5 +494,4 @@ public class OrderListVO implements Serializable {
 				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins=" + memCoins + "]";
 	}
 
-	
 }
