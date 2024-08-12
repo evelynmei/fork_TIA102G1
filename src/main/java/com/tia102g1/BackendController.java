@@ -88,16 +88,16 @@ public class BackendController {
 ////	/* ======================= mainPage ======================= */
 
 	// 會員資料
-	@GetMapping({ "/member", "/member/mainPageMember" })
-	public String mainPageMember(Model model) {
-		return "/member/mainPageMember";
-	}
+//	@GetMapping({ "/member", "/member/mainPageMember" })
+//	public String mainPageMember(Model model) {
+//		return "/member/mainPageMember";
+//	}
 
 //	 會員黑名單
-	@GetMapping("/member/mainPageBlockedMember")
-	public String mainPageBlockedMember(Model model) {
-		return "member/mainPageBlockedMember";
-	}
+//	@GetMapping("/member/mainPageBlockedMember")
+//	public String mainPageBlockedMember(Model model) {
+//		return "member/mainPageBlockedMember";
+//	}
 
 	// 會員等級對照
 	@GetMapping({ "/memberLv", "/memberLv/mainPageMemberLv" })
@@ -160,10 +160,10 @@ public class BackendController {
 	}
 
 	// 商品基本資料
-	@GetMapping({ "/productInfo", "/productInfo/mainPageProductInfo" })
-	public String mainPageProductInfo(Model model) {
-		return "/productInfo/mainPageProductInfo";
-	}
+//	@GetMapping({ "/productInfo", "/productInfo/mainPageProductInfo" })
+//	public String mainPageProductInfo(Model model) {
+//		return "/productInfo/mainPageProductInfo";
+//	}
 
 	// 商品入庫紀錄
 	@GetMapping({ "/productStock", "/productStock/mainPageProductStock" })
@@ -172,10 +172,10 @@ public class BackendController {
 	}
 
 	// 商品評價紀錄
-	@GetMapping({ "/productComment", "/productComment/mainPageProductComment" })
-	public String mainPageProductComment(Model model) {
-		return "/productComment/mainPageProductComment";
-	}
+//	@GetMapping({ "/productComment", "/productComment/mainPageProductComment" })
+//	public String mainPageProductComment(Model model) {
+//		return "/productComment/mainPageProductComment";
+//	}
 
 	// 最愛商品紀錄
 	@GetMapping({ "/favProduct", "/favProduct/mainPageFavProduct" })
@@ -197,16 +197,16 @@ public class BackendController {
 
 
 	// 訂單紀錄
-	@GetMapping({ "/orderList", "/orderList/mainPageOrderList" })
-	public String mainPageOrderList(Model model) {
-		return "/orderList/mainPageOrderList";
-	}
+//	@GetMapping({ "/orderList", "/orderList/mainPageOrderList" })
+//	public String mainPageOrderList(Model model) {
+//		return "/orderList/mainPageOrderList";
+//	}
 
 	// 訂單商品明細
-	@GetMapping({ "/orderListInfo", "/orderListInfo/mainPageOrderListInfo" })
-	public String mainPageOrderListInfo(Model model) {
-		return "/orderListInfo/mainPageOrderListInfo";
-	}
+//	@GetMapping({ "/orderListInfo", "/orderListInfo/mainPageOrderListInfo" })
+//	public String mainPageOrderListInfo(Model model) {
+//		return "/orderListInfo/mainPageOrderListInfo";
+//	}
 
 	// 促銷活動
 	@GetMapping({ "/event", "/event/mainPageEvent" })
