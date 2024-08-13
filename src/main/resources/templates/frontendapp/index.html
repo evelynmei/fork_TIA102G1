@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="slider slider-for owl-carousel" data-autoplay="true" data-autoplay-timeout="5000">
 <!-- 				讀取newsVO資料庫 -->
-				<th:block th:each="newsVO : ${newsListData}">
+				<th:block th:each="newsVO : ${newsListData}"> 
 				 <div th:if="${newsVO.status == 1}">
 				<div>
 					<a href="#" data-toggle="modal" th:data-target="'#newsModal' + ${newsVO.newsId}"
