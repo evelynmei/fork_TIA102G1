@@ -5,6 +5,13 @@
 	<title>首頁</title>
 	<!-- 共同引入 headTag-import meta tag-->
 	<meta th:replace="~{frontendapp/components/common :: headtag-import}">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
 </head>
 <body class="index layout1">
 <!-- 共用元件 header:圖示按鈕, navbar...-->
@@ -20,31 +27,40 @@
 				<th:block th:each="newsVO : ${newsListData}">
 				 <div th:if="${newsVO.status == 1}">
 				<div>
-					<a href="#">
-						<img th:src="@{/news/DBGifReader} + '?newsId=' + ${newsVO.newsId}" style="width: 100%; height: 750px; object-fit: cover;" />
+					<a href="#" data-toggle="modal" th:data-target="'#newsModal' + ${newsVO.newsId}"
+						th:data-img="@{'/news/DBGifReader?newsId=' + ${newsVO.newsId}}"
+						th:data-title="${newsVO.newsTitle}"
+						th:data-content="${newsVO.newsContent}">
+						<img th:src="@{'/news/DBGifReader?newsId=' + ${newsVO.newsId}}" style="width: 100%; height: 750px; object-fit: cover; vertical-align: middle;" />
 					</a>
-					<div class="slider-content-wrap center effect_top">
-						<div class="slider-title mb-20 text-capitalize float-left w-100">Desserter</div>
-						<div class="slider-subtitle mb-50 text-capitalize float-left w-100" th:text="${newsVO.newsTitle}"></div>
-						<div class="slider-button text-uppercase float-left w-100"><a href="#">Shop Now</a></div>
-					</div>
-					</div>
 				</div>
+				<div class="slider-content-wrap center effect_top">
+					<div class="slider-title mb-20 text-capitalize float-left w-100">Desserter</div>
+					<div class="slider-subtitle mb-50 text-capitalize float-left w-100" th:text="${newsVO.newsTitle}"></div>
+				</div>
+				</div>
+				</th:block></div></div></div>
+				<!--公告燈箱 -->
+					<th:block th:each="newsVO : ${newsListData}">
+						<div th:if="${newsVO.status == 1}" class="modal fade" th:id="'newsModal' + ${newsVO.newsId}" tabindex="-1" role="dialog" aria-labelledby="'newsModalLabel' + ${newsVO.newsId}" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content" style="width: 100%;">
+									<div class="modal-header">
+										<h5 class="modal-title" th:text="${newsVO.newsTitle}" style="font-weight: bold; font-size: 30px; text-align: center;"></h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<img th:src="@{'/news/DBGifReader?newsId=' + ${newsVO.newsId}}" style="width: 100%;"/>
+										<p th:text="${newsVO.newsContent}" style="font-size: 18px; line-height: 1.6; text-align: justify;"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</th:block>
+					
 <!-- 				============================================== -->
-<!-- 				<div> -->
-<!-- 					<a href="#"> -->
-<!-- 						<img src="/frontendapp/img/slider/sample-02.jpg" alt="" height="800" width="1600" /> -->
-<!-- 					</a> -->
-<!-- 					<div class="slider-content-wrap center effect_bottom"> -->
-<!-- 						<div class="slider-title mb-20 text-capitalize float-left w-100">about us</div> -->
-<!-- 						<div class="slider-subtitle mb-50 text-capitalize float-left w-100">fashion style</div> -->
-<!-- 						<div class="slider-button text-uppercase float-left w-100"><a href="#">Shop Now</a></div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				</th:block>
-				</div>
-			</div>
-		</div>
 	<!--二欄式商品分類-->
 	<div class="main-content">
 		<div id="ttcmsbanner" class="ttcmsbanner my-40 my-sm-25">
@@ -2061,7 +2077,6 @@
 	</div>
 
 </main>
-
 
 <!-- 共用元件 footer和一些按鈕功能 -->
 <div th:replace="~{frontendapp/components/common :: app-footer}"></div>
