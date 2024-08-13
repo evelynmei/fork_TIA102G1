@@ -1,13 +1,5 @@
 package com.tia102g1;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 import com.tia102g1.county.model.CountyService;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.csform.model.CsFormService;
@@ -34,11 +26,18 @@ import com.tia102g1.store.model.StoreService;
 import com.tia102g1.store.model.StoreVO;
 import com.tia102g1.sysmsg.model.SysMsgService;
 import com.tia102g1.sysmsg.model.SysMsgVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 @Controller
 public class BackendController {
-    @Autowired
-    MemberService memberService;
+	@Autowired
+	MemberService memberService;
 
 	@Autowired
 	MemberService memberSvc;
@@ -82,7 +81,7 @@ public class BackendController {
 //	@Autowired
 //	CouponService couponSvc;
 
-//	/* ======================= 後台管理頁面 ======================= */
+	//	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
 	@GetMapping({ "", "/admin", "/admin/index" })
 	public String index(Model model) {
@@ -188,10 +187,10 @@ public class BackendController {
 	}
 
 	// 購物車紀錄
-	@GetMapping({ "/cart", "/cart/mainPageCart" })
-	public String mainPageCart(Model model) {
-		return "/cart/mainPageCart";
-	}
+//	@GetMapping({ "/cart", "/cart/mainPageCart" })
+//	public String mainPageCart(Model model) {
+//		return "/cart/mainPageCart";
+//	}
 
 	// 加購商品關係
 	@GetMapping({ "/addOn", "/addOn/mainPageAddOn" })
@@ -251,7 +250,7 @@ public class BackendController {
 	public String mainPageCsForm(Model model) {
 		return "/csForm/mainPageCsForm";
 	}
-	
+
 	@GetMapping("/csForm/listAllCsForm")
 	public String listAllCsForm(Model model) {
 		return "csForm/listAllCsForm";
@@ -262,35 +261,35 @@ public class BackendController {
 		List<CsFormVO> list = csFormSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("memberListData")
 	protected List<Member> referenceListData_MemberCS(Model model) {
 		model.addAttribute("member", new Member());
 		List<Member> list = memberSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("orderListListData")
 	protected List<OrderListVO> referenceListData_OrderListCS(Model model) {
 		model.addAttribute("orderListVO", new OrderListVO());
 		List<OrderListVO> list = orderListSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("staffListData_cs")
 	protected List<StaffVO> referenceListData_Staff(Model model) {
 		model.addAttribute("staffVO", new StaffVO());
 		List<StaffVO> list = staffSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("quTypeListData_cs")
 	protected List<QuTypeVO> referenceListData_QuType(Model model) {
 		model.addAttribute("quTypeVO", new QuTypeVO());
 		List<QuTypeVO> list = quTypeSvc.getAll();
 		return list;
 	}
-	
+
 
 	// 報表分析管理
 	@GetMapping({ "/report", "report/mainPageReport" })
