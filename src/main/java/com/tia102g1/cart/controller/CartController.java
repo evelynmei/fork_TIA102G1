@@ -3,6 +3,7 @@ package com.tia102g1.cart.controller;
 import com.tia102g1.cart.model.Cart;
 import com.tia102g1.cart.service.CartService;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class CartController {
      */
     @GetMapping("cart/{memberId}")
     public ResponseEntity<?> getAllItems(@PathVariable Integer memberId, Model model) {
-        List<Cart> cartList = cartService.getAllItems();
+        List<Cart> cartList = cartService.getAllItems(memberId);
         model.addAttribute("cartList", cartList);
 
 //        List<ProductInfo> productInfos = productInfoService.getAll();
@@ -49,13 +50,12 @@ public class CartController {
     /**
      * 新增商品至購物車
      *
-     * @param cart
+     * @param
      * @return newCart
      */
     @PostMapping("/cart/{memberId}")
-    public ResponseEntity<Cart> addItem(@RequestBody Cart cart) {
-        Cart newCart = cartService.addItem(cart);
-
+    public ResponseEntity<?> addItem(@RequestBody Cart cart) {
+        val newCart = cartService.addItem(cart);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCart);
     }
 
@@ -68,8 +68,8 @@ public class CartController {
      */
     @PutMapping("/cart/{cartId}")
     public ResponseEntity<Cart> updateCart(@PathVariable Integer cartId, @RequestBody Cart cart) {
-
-        Cart item = cartService.getCartByPK(cartId);
+        Integer memberId = cart.getMemberId();
+        Cart item = cartService.getCartByPK(cartId, memberId);
         //判斷購物車是否有此商品
         if (item == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -77,7 +77,7 @@ public class CartController {
         //修改數量
         cartService.updateCart(cartId, cart);
 
-        Cart updateItem = cartService.getCartByPK(cartId);
+        Cart updateItem = cartService.getCartByPK(cartId, memberId);
         return ResponseEntity.status(HttpStatus.OK).body(updateItem);
     }
 
