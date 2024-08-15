@@ -90,10 +90,16 @@
                                 <a>
                                     <i class="material-icons search">search</i>
                                     <i class="material-icons close">close</i> </a>
-                                <form autocomplete="on" class="search-form">
-                                    <div class="autocomplete">
-                                        <input id="myInput" type="text" name="myCountry" placeholder="搜尋">
-                                        <button type="button"><i class="material-icons">search</i></button>
+                                <form autocomplete="on" class="search-form" method="post" th:action="@{listProductInfosByCompositeQuery}">
+                                   <div class="select one" style="width: 100%">
+									<label>選擇商品類型</label>
+									 <select id="productTypeId" name="productTypeId">
+										<option value="" disabled selected style="width: 100%">請選擇商品類型</option>
+										<option th:each="productTypeVO : ${typeListData}"										    
+											th:value="${productTypeVO.productTypeId}"
+											th:text="${productTypeVO.typeName}" style="width: 100%"></option>
+									</select>
+                                        <button type="submit"><i class="material-icons">search</i></button>
                                     </div>
                                 </form>
                             </div>
@@ -179,26 +185,10 @@
                             <div class="collapse navbar-collapse">
                                 <ul class="navbar-nav m-auto justify-content-center">
                                     <li class="nav-item dropdown active">
-                                        <a class="nav-link dropdown-toggle text-uppercase" th:href="@{/productcategory}">
-                                            商品總覽
-                                            <span class="sr-only">(current)</span>
+                                        <a class="nav-link text-uppercase" th:href="@{/productcategory}">
+                                            商品總覽                                          
                                         </a>
-<!--                                         <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3"> -->
-<!--                                             <div class="sub-menu mb-xl-0 mb-4"> -->
-<!--                                                 <ul class="list-unstyled"> -->
-<!--                                                     <li> -->
-<!--                                                         <a class="menu-item pl-0" href="index.html"> -->
-<!--                                                             手工餅乾 -->
-<!--                                                         </a> -->
-<!--                                                     </li> -->
-<!--                                                     <li> -->
-<!--                                                         <a class="menu-item pl-0" href="index.html"> -->
-<!--                                                             英式司康 -->
-<!--                                                         </a> -->
-<!--                                                     </li> -->
-<!--                                                 </ul> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
+ 
                                     </li>
                                     <li class="nav-item dropdown mega-dropdown">
                                         <a class="nav-link text-uppercase" href="index.html">
@@ -261,103 +251,7 @@
                             </div>
                         </nav>
 
-                        <!-- RWD漢堡選單 Collapsible content -->
-                        <nav class="navbar navbar-expand-lg navbar-light d-lg-none navbar-responsive">
-                            <!-- Navbar brand -->
-                            <a class="navbar-brand text-uppercase d-none" href="#">Navbar</a>
-                            <!-- Collapse button -->
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"><i class='material-icons'>sort</i></span>
-                            </button>
-                            <!-- Features 首頁功能主選單 Collapsible content -->
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-                                <ul class="navbar-nav m-auto justify-content-center">
-                                    <li class="nav-item dropdown active">
-                                        <a class="nav-link text-uppercase" data-toggle="collapse"
-                                            data-target="#menu1" aria-controls="menu1" aria-expanded="false"
-                                            aria-label="Toggle navigation" href="#menu1">
-                                            精選商品
-                                        </a>
-                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3" id="menu1">
-                                            <div class="sub-menu">
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="productCategory.html">
-                                                            手工餅乾
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="productCategory.html">
-                                                            英式司康
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="index.html">
-                                            優惠活動
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown active">
-                                        <a class="nav-link text-uppercase" data-toggle="collapse"
-                                           data-target="#menu2" aria-controls="menu2" aria-expanded="false"
-                                           aria-label="Toggle navigation" href="#menu2">
-                                            會員中心
-                                        </a>
-                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3" id="menu2">
-                                            <div class="sub-menu">
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            查詢訂單
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="favProduct.html">
-                                                            我的最愛
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            商品評論
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="memberInfo.html">
-                                                            會員資料
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            訊息
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="commonAsk.html">
-                                            常見問題
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="store.html">
-                                            門市資訊
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link text-uppercase" href="contactUs.html">
-                                            聯絡我們
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
+                       
                     </div>
                 </div>
             </div>

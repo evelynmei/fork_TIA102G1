@@ -40,5 +40,9 @@ public class ProductInfoServiceS {
 	public List<ProductInfo> getAll(Map<String, String[]> map) {
 		return CompositeQuery_ProductInfo.getAllC(map,sessionFactory.openSession());
 	}
+	
+	public List<ProductInfo> findProductsByStatus(Integer proStatus) {
+        return repository.findByProStatus(proStatus);
+    }
 
 }
