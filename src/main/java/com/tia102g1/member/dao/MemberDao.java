@@ -5,6 +5,7 @@ import com.tia102g1.member.dto.MemberQueryParams;
 import com.tia102g1.member.dto.MemberRegisterRequest;
 import com.tia102g1.member.dto.MemberUpdateDto;
 import com.tia102g1.member.model.Member;
+import com.tia102g1.role.model.Role;
 
 import java.util.List;
 
@@ -111,5 +112,12 @@ public interface MemberDao {
      * @return 返回更新密碼的會員ID
      */
     Integer updateMemberPassword(Integer memberId, String password);
+
+    /**
+     * 查詢會員ID的Role
+     * @param memberId 要查詢的id
+     * @return 返回的role
+     */
+    List<Role> getRolesByMemberId(Integer memberId);
 
 }

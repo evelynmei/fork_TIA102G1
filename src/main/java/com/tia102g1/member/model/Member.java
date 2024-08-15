@@ -1,516 +1,522 @@
 package com.tia102g1.member.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tia102g1.member.constant.AccountStatus;
+import com.tia102g1.membercoin.model.MemberCoinVO;
+import com.tia102g1.orderlist.model.OrderListVO;
+import com.tia102g1.productcomment.model.ProductCommentVO;
+import com.tia102g1.role.model.Role;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tia102g1.member.constant.AccountStatus;
-import com.tia102g1.membercoin.model.MemberCoinVO;
-import com.tia102g1.orderlist.model.OrderListVO;
-import com.tia102g1.productcomment.model.ProductCommentVO;
-
 
 @Entity
 @Table(name = "MEMBER")
 public class Member implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "MEMBERID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer memberId;
+    @Id
+    @Column(name = "MEMBERID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer memberId;
 
-	@Column(name = "MEMBERLVID")
-	private Integer memberLvId;
+    @Column(name = "MEMBERLVID")
+    private Integer memberLvId;
 
-	@Column(name = "STAFFID")
-	private Integer staffId;
+    @Column(name = "STAFFID")
+    private Integer staffId;
 
-	@Column(name = "ACCOUNT")
-	private String account;
+    @Column(name = "ACCOUNT")
+    private String account;
 
-	@JsonIgnore //必須隱藏起來不能再request body顯示給任何人看到
-	@Column(name = "PASSWORD")
-	private String password;
+    @JsonIgnore //必須隱藏起來不能再request body顯示給任何人看到
+    @Column(name = "PASSWORD")
+    private String password;
 
-	@NotEmpty(message = "姓名: 請勿空白")
-	@Column(name = "NAME")
-	private String name;
+    @NotEmpty(message = "姓名: 請勿空白")
+    @Column(name = "NAME")
+    private String name;
 
-	@Column(name = "BIRTHDT")
-	private Date birthDt;
+    @Column(name = "BIRTHDT")
+    private Date birthDt;
 
-	@Column(name = "PHONE")
-	private String phone;
-
-	@Column(name = "EMAIL")
-	private String email;
-
-	@Column(name = "CNTCODE")
-	private Integer cntCode;
-
-	@Column(name = "DISTCODE")
-	private Integer distCode;
-
-	@Column(name = "ADDRESS")
-	private String address;
-
-	@Column(name = "ACCUMULATE")
-	private Integer accumulate;
-
-	@Column(name = "COINBALANCE")
-	private Integer coinBalance;
-
-	@Column(name = "JOINDATE")
-	private Date joinDate;
-
-	@Column(name = "NOSHOW")
-	private Integer noShow;
-
-	@Column(name = "CARDHOLDER")
-	private String cardHolder;
-
-	@Column(name = "CARDNUMBER")
-	private String cardNumber;
-
-	@Column(name = "CARDYY")
-	private Integer cardYY;
-
-	@Column(name = "CARDMM")
-	private Integer cardMM;
-
-	@Column(name = "CARDVERIFYCODE")
-	private String cardVerifyCode;
-
-	@Column(name = "STATUS")
-	@Enumerated(EnumType.ORDINAL)
-	private AccountStatus status;
-
-	@Column(name = "BLOCKEDTIME")
-	private Timestamp blockedTime;
-
-	@Column(name = "BLOCKEDREASON")
-	private String blockedReason;
-
-	@Column(name = "CREATEDBY")
-	private String createdBy;
-
-	@Column(name = "DATECREATED")
-	private Timestamp dateCreated;
+    @Column(name = "PHONE")
+    private String phone;
 
-	@Column(name = "LASTUPDATEDBY")
-	private String lastUpdatedBy;
-
-	@Column(name = "LASTUPDATED")
-	private Timestamp lastUpdated;
-	
-	//此會員下的購物金持有紀錄
-	@OneToMany(mappedBy = "member", fetch=FetchType.EAGER)
-	@OrderBy("memCoinId asc")
-	private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
-	
-	//此會員下關聯的訂單明細紀錄
-	@OneToMany(mappedBy = "member", fetch=FetchType.EAGER)
-	@OrderBy("orderListId asc")
-	private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
-	
-	//此會員下關聯的商品評價紀錄
-		@OneToMany(mappedBy = "member", fetch=FetchType.EAGER)
-		@OrderBy("proCommentId asc")
-		private Set<ProductCommentVO> productCommentVO = new HashSet<ProductCommentVO>();
-
-
-	public Member() {
-		super();
-	}
+    @Column(name = "EMAIL")
+    private String email;
 
+    @Column(name = "CNTCODE")
+    private Integer cntCode;
 
-	public Member(Integer memberId, Integer memberLvId, Integer staffId, String account, String password,
-			@NotEmpty(message = "姓名: 請勿空白") String name, Date birthDt, String phone, String email, Integer cntCode,
-			Integer distCode, String address, Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow,
-			String cardHolder, String cardNumber, Integer cardYY, Integer cardMM, String cardVerifyCode,
-			AccountStatus status, Timestamp blockedTime, String blockedReason, String createdBy, Timestamp dateCreated,
-			String lastUpdatedBy, Timestamp lastUpdated, Set<MemberCoinVO> memCoins, Set<OrderListVO> orderLists,
-			Set<ProductCommentVO> productCommentVO) {
-		super();
-		this.memberId = memberId;
-		this.memberLvId = memberLvId;
-		this.staffId = staffId;
-		this.account = account;
-		this.password = password;
-		this.name = name;
-		this.birthDt = birthDt;
-		this.phone = phone;
-		this.email = email;
-		this.cntCode = cntCode;
-		this.distCode = distCode;
-		this.address = address;
-		this.accumulate = accumulate;
-		this.coinBalance = coinBalance;
-		this.joinDate = joinDate;
-		this.noShow = noShow;
-		this.cardHolder = cardHolder;
-		this.cardNumber = cardNumber;
-		this.cardYY = cardYY;
-		this.cardMM = cardMM;
-		this.cardVerifyCode = cardVerifyCode;
-		this.status = status;
-		this.blockedTime = blockedTime;
-		this.blockedReason = blockedReason;
-		this.createdBy = createdBy;
-		this.dateCreated = dateCreated;
-		this.lastUpdatedBy = lastUpdatedBy;
-		this.lastUpdated = lastUpdated;
-		this.memCoins = memCoins;
-		this.orderLists = orderLists;
-		this.productCommentVO = productCommentVO;
-	}
+    @Column(name = "DISTCODE")
+    private Integer distCode;
 
+    @Column(name = "ADDRESS")
+    private String address;
 
-	public Integer getMemberId() {
-		return memberId;
-	}
+    @Column(name = "ACCUMULATE")
+    private Integer accumulate;
 
+    @Column(name = "COINBALANCE")
+    private Integer coinBalance;
+
+    @Column(name = "JOINDATE")
+    private Date joinDate;
+
+    @Column(name = "NOSHOW")
+    private Integer noShow;
+
+    @Column(name = "CARDHOLDER")
+    private String cardHolder;
+
+    @Column(name = "CARDNUMBER")
+    private String cardNumber;
+
+    @Column(name = "CARDYY")
+    private Integer cardYY;
+
+    @Column(name = "CARDMM")
+    private Integer cardMM;
+
+    @Column(name = "CARDVERIFYCODE")
+    private String cardVerifyCode;
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.ORDINAL)
+    private AccountStatus status;
+
+    @Column(name = "BLOCKEDTIME")
+    private Timestamp blockedTime;
+
+    @Column(name = "BLOCKEDREASON")
+    private String blockedReason;
+
+    @Column(name = "CREATEDBY")
+    private String createdBy;
+
+    @Column(name = "DATECREATED")
+    private Timestamp dateCreated;
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
+    @Column(name = "LASTUPDATEDBY")
+    private String lastUpdatedBy;
 
+    @Column(name = "LASTUPDATED")
+    private Timestamp lastUpdated;
 
-	public Integer getMemberLvId() {
-		return memberLvId;
-	}
+    //memberhasrole中權限多對多
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "MEMBERHASROLE",
+            joinColumns = @JoinColumn(name = "MEMBERID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLEID")
+    )
+    private Set<Role> roles = new HashSet<>();
 
+    //此會員下的購物金持有紀錄
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OrderBy("memCoinId asc")
+    private Set<MemberCoinVO> memCoins = new HashSet<MemberCoinVO>();
+
+    //此會員下關聯的訂單明細紀錄
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OrderBy("orderListId asc")
+    private Set<OrderListVO> orderLists = new HashSet<OrderListVO>();
+
+    //此會員下關聯的商品評價紀錄
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OrderBy("proCommentId asc")
+    private Set<ProductCommentVO> productCommentVO = new HashSet<ProductCommentVO>();
+
+
+    public Member() {
+        super();
+    }
 
-	public void setMemberLvId(Integer memberLvId) {
-		this.memberLvId = memberLvId;
-	}
 
+    public Member(Integer memberId, Integer memberLvId, Integer staffId, String account, String password,
+                  @NotEmpty(message = "姓名: 請勿空白") String name, Date birthDt, String phone, String email, Integer cntCode,
+                  Integer distCode, String address, Integer accumulate, Integer coinBalance, Date joinDate, Integer noShow,
+                  String cardHolder, String cardNumber, Integer cardYY, Integer cardMM, String cardVerifyCode,
+                  AccountStatus status, Timestamp blockedTime, String blockedReason, String createdBy, Timestamp dateCreated,
+                  String lastUpdatedBy, Timestamp lastUpdated, Set<MemberCoinVO> memCoins, Set<OrderListVO> orderLists,
+                  Set<ProductCommentVO> productCommentVO) {
+        super();
+        this.memberId = memberId;
+        this.memberLvId = memberLvId;
+        this.staffId = staffId;
+        this.account = account;
+        this.password = password;
+        this.name = name;
+        this.birthDt = birthDt;
+        this.phone = phone;
+        this.email = email;
+        this.cntCode = cntCode;
+        this.distCode = distCode;
+        this.address = address;
+        this.accumulate = accumulate;
+        this.coinBalance = coinBalance;
+        this.joinDate = joinDate;
+        this.noShow = noShow;
+        this.cardHolder = cardHolder;
+        this.cardNumber = cardNumber;
+        this.cardYY = cardYY;
+        this.cardMM = cardMM;
+        this.cardVerifyCode = cardVerifyCode;
+        this.status = status;
+        this.blockedTime = blockedTime;
+        this.blockedReason = blockedReason;
+        this.createdBy = createdBy;
+        this.dateCreated = dateCreated;
+        this.lastUpdatedBy = lastUpdatedBy;
+        this.lastUpdated = lastUpdated;
+        this.memCoins = memCoins;
+        this.orderLists = orderLists;
+        this.productCommentVO = productCommentVO;
+    }
 
-	public Integer getStaffId() {
-		return staffId;
-	}
 
+    public Integer getMemberId() {
+        return memberId;
+    }
 
-	public void setStaffId(Integer staffId) {
-		this.staffId = staffId;
-	}
 
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
 
-	public String getAccount() {
-		return account;
-	}
 
+    public Integer getMemberLvId() {
+        return memberLvId;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
 
+    public void setMemberLvId(Integer memberLvId) {
+        this.memberLvId = memberLvId;
+    }
 
-	public String getPassword() {
-		return password;
-	}
 
+    public Integer getStaffId() {
+        return staffId;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
+    }
 
-	public String getName() {
-		return name;
-	}
 
+    public String getAccount() {
+        return account;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
-	public Date getBirthDt() {
-		return birthDt;
-	}
 
+    public String getPassword() {
+        return password;
+    }
 
-	public void setBirthDt(Date birthDt) {
-		this.birthDt = birthDt;
-	}
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
 
+    public String getName() {
+        return name;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
 
+    public Date getBirthDt() {
+        return birthDt;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
+    public void setBirthDt(Date birthDt) {
+        this.birthDt = birthDt;
+    }
 
-	public Integer getCntCode() {
-		return cntCode;
-	}
 
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setCntCode(Integer cntCode) {
-		this.cntCode = cntCode;
-	}
 
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public Integer getDistCode() {
-		return distCode;
-	}
 
+    public String getEmail() {
+        return email;
+    }
 
-	public void setDistCode(Integer distCode) {
-		this.distCode = distCode;
-	}
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getAddress() {
-		return address;
-	}
 
+    public Integer getCntCode() {
+        return cntCode;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
+    public void setCntCode(Integer cntCode) {
+        this.cntCode = cntCode;
+    }
 
-	public Integer getAccumulate() {
-		return accumulate;
-	}
 
+    public Integer getDistCode() {
+        return distCode;
+    }
 
-	public void setAccumulate(Integer accumulate) {
-		this.accumulate = accumulate;
-	}
 
+    public void setDistCode(Integer distCode) {
+        this.distCode = distCode;
+    }
 
-	public Integer getCoinBalance() {
-		return coinBalance;
-	}
 
+    public String getAddress() {
+        return address;
+    }
 
-	public void setCoinBalance(Integer coinBalance) {
-		this.coinBalance = coinBalance;
-	}
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public Date getJoinDate() {
-		return joinDate;
-	}
 
+    public Integer getAccumulate() {
+        return accumulate;
+    }
 
-	public void setJoinDate(Date joinDate) {
-		this.joinDate = joinDate;
-	}
 
+    public void setAccumulate(Integer accumulate) {
+        this.accumulate = accumulate;
+    }
 
-	public Integer getNoShow() {
-		return noShow;
-	}
 
+    public Integer getCoinBalance() {
+        return coinBalance;
+    }
 
-	public void setNoShow(Integer noShow) {
-		this.noShow = noShow;
-	}
 
+    public void setCoinBalance(Integer coinBalance) {
+        this.coinBalance = coinBalance;
+    }
 
-	public String getCardHolder() {
-		return cardHolder;
-	}
 
+    public Date getJoinDate() {
+        return joinDate;
+    }
 
-	public void setCardHolder(String cardHolder) {
-		this.cardHolder = cardHolder;
-	}
 
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
 
-	public String getCardNumber() {
-		return cardNumber;
-	}
 
+    public Integer getNoShow() {
+        return noShow;
+    }
 
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
-	}
 
+    public void setNoShow(Integer noShow) {
+        this.noShow = noShow;
+    }
 
-	public Integer getCardYY() {
-		return cardYY;
-	}
 
+    public String getCardHolder() {
+        return cardHolder;
+    }
 
-	public void setCardYY(Integer cardYY) {
-		this.cardYY = cardYY;
-	}
 
+    public void setCardHolder(String cardHolder) {
+        this.cardHolder = cardHolder;
+    }
 
-	public Integer getCardMM() {
-		return cardMM;
-	}
 
+    public String getCardNumber() {
+        return cardNumber;
+    }
 
-	public void setCardMM(Integer cardMM) {
-		this.cardMM = cardMM;
-	}
 
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
 
-	public String getCardVerifyCode() {
-		return cardVerifyCode;
-	}
 
+    public Integer getCardYY() {
+        return cardYY;
+    }
 
-	public void setCardVerifyCode(String cardVerifyCode) {
-		this.cardVerifyCode = cardVerifyCode;
-	}
 
+    public void setCardYY(Integer cardYY) {
+        this.cardYY = cardYY;
+    }
 
-	public AccountStatus getStatus() {
-		return status;
-	}
 
+    public Integer getCardMM() {
+        return cardMM;
+    }
 
-	public void setStatus(AccountStatus status) {
-		this.status = status;
-	}
 
+    public void setCardMM(Integer cardMM) {
+        this.cardMM = cardMM;
+    }
 
-	public Timestamp getBlockedTime() {
-		return blockedTime;
-	}
 
+    public String getCardVerifyCode() {
+        return cardVerifyCode;
+    }
 
-	public void setBlockedTime(Timestamp blockedTime) {
-		this.blockedTime = blockedTime;
-	}
 
+    public void setCardVerifyCode(String cardVerifyCode) {
+        this.cardVerifyCode = cardVerifyCode;
+    }
 
-	public String getBlockedReason() {
-		return blockedReason;
-	}
 
+    public AccountStatus getStatus() {
+        return status;
+    }
 
-	public void setBlockedReason(String blockedReason) {
-		this.blockedReason = blockedReason;
-	}
 
+    public void setStatus(AccountStatus status) {
+        this.status = status;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
 
+    public Timestamp getBlockedTime() {
+        return blockedTime;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
 
+    public void setBlockedTime(Timestamp blockedTime) {
+        this.blockedTime = blockedTime;
+    }
 
-	public Timestamp getDateCreated() {
-		return dateCreated;
-	}
 
+    public String getBlockedReason() {
+        return blockedReason;
+    }
 
-	public void setDateCreated(Timestamp dateCreated) {
-		this.dateCreated = dateCreated;
-	}
 
+    public void setBlockedReason(String blockedReason) {
+        this.blockedReason = blockedReason;
+    }
 
-	public String getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public void setLastUpdatedBy(String lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
-	}
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
-	public Timestamp getLastUpdated() {
-		return lastUpdated;
-	}
 
+    public Timestamp getDateCreated() {
+        return dateCreated;
+    }
 
-	public void setLastUpdated(Timestamp lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
 
+    public void setDateCreated(Timestamp dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 
-	public Set<MemberCoinVO> getMemCoins() {
-		return memCoins;
-	}
 
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
 
-	public void setMemCoins(Set<MemberCoinVO> memCoins) {
-		this.memCoins = memCoins;
-	}
 
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
 
-	public Set<OrderListVO> getOrderLists() {
-		return orderLists;
-	}
 
+    public Timestamp getLastUpdated() {
+        return lastUpdated;
+    }
 
-	public void setOrderLists(Set<OrderListVO> orderLists) {
-		this.orderLists = orderLists;
-	}
 
+    public void setLastUpdated(Timestamp lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 
-	public Set<ProductCommentVO> getProductCommentVO() {
-		return productCommentVO;
-	}
 
+    public Set<MemberCoinVO> getMemCoins() {
+        return memCoins;
+    }
 
-	public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
-		this.productCommentVO = productCommentVO;
-	}
 
+    public void setMemCoins(Set<MemberCoinVO> memCoins) {
+        this.memCoins = memCoins;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
+    public Set<OrderListVO> getOrderLists() {
+        return orderLists;
+    }
 
-	@Override
-	public String toString() {
-		return "Member [memberId=" + memberId + ", memberLvId=" + memberLvId + ", staffId=" + staffId + ", account="
-				+ account + ", password=" + password + ", name=" + name + ", birthDt=" + birthDt + ", phone=" + phone
-				+ ", email=" + email + ", cntCode=" + cntCode + ", distCode=" + distCode + ", address=" + address
-				+ ", accumulate=" + accumulate + ", coinBalance=" + coinBalance + ", joinDate=" + joinDate + ", noShow="
-				+ noShow + ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYY=" + cardYY
-				+ ", cardMM=" + cardMM + ", cardVerifyCode=" + cardVerifyCode + ", status=" + status + ", blockedTime="
-				+ blockedTime + ", blockedReason=" + blockedReason + ", createdBy=" + createdBy + ", dateCreated="
-				+ dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins="
-				+ memCoins + ", orderLists=" + orderLists + ", productCommentVO=" + productCommentVO + "]";
-	}
 
+    public void setOrderLists(Set<OrderListVO> orderLists) {
+        this.orderLists = orderLists;
+    }
 
-	
+
+    public Set<ProductCommentVO> getProductCommentVO() {
+        return productCommentVO;
+    }
+
+
+    public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
+        this.productCommentVO = productCommentVO;
+    }
+
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Member [memberId=" + memberId + ", memberLvId=" + memberLvId + ", staffId=" + staffId + ", account="
+                + account + ", password=" + password + ", name=" + name + ", birthDt=" + birthDt + ", phone=" + phone
+                + ", email=" + email + ", cntCode=" + cntCode + ", distCode=" + distCode + ", address=" + address
+                + ", accumulate=" + accumulate + ", coinBalance=" + coinBalance + ", joinDate=" + joinDate + ", noShow="
+                + noShow + ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYY=" + cardYY
+                + ", cardMM=" + cardMM + ", cardVerifyCode=" + cardVerifyCode + ", status=" + status + ", blockedTime="
+                + blockedTime + ", blockedReason=" + blockedReason + ", createdBy=" + createdBy + ", dateCreated="
+                + dateCreated + ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins="
+                + memCoins + ", orderLists=" + orderLists + ", productCommentVO=" + productCommentVO + "]";
+    }
+
+
 }
