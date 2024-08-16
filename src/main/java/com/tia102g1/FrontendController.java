@@ -6,6 +6,17 @@ import com.tia102g1.member.model.Member;
 import com.tia102g1.member.service.MemberService;
 import com.tia102g1.news.model.NewsService;
 import com.tia102g1.news.model.NewsVO;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.tia102g1.coupon.Coupon;
+import com.tia102g1.coupon.CouponService;
+import com.tia102g1.member.model.Member;
+import com.tia102g1.member.service.MemberService;
+import com.tia102g1.news.model.NewsService;
+import com.tia102g1.news.model.NewsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,19 +24,38 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.List;
+import com.tia102g1.coupon.Coupon;
+import com.tia102g1.coupon.CouponService;
+import com.tia102g1.news.model.NewsService;
+import com.tia102g1.news.model.NewsVO;
+import com.tia102g1.productcomment.model.ProductCommentService;
+import com.tia102g1.productinfo.entity.ProductInfo;
+import com.tia102g1.productinfo.model.ProductInfoServiceS;
+import com.tia102g1.producttype.model.ProductTypeService;
+import com.tia102g1.producttype.model.ProductTypeVO;
 
 @Controller
 public class FrontendController {
 
     @Autowired
     NewsService newsSvc;
+
+    @Autowired
+    CouponService couponService;
     @Autowired
     MemberService memberService;
     @Autowired
-    CouponService couponService;
+    ProductInfoServiceS productInfoServiceS;
+
+    @Autowired
+    ProductTypeService productTypeService;
+
 
     /* ======================= 前台使用者頁面 ======================= */
     // 首頁
@@ -56,6 +86,36 @@ public class FrontendController {
     public List<Coupon> getAllCoupons(ModelMap modelMap) {
         List<Coupon> couponList = couponService.getAllCoupons();
         return couponList;
+    }
+
+    @ModelAttribute("productInfoListData")
+    protected List<ProductInfo> referenceListData(Model model){
+        List<ProductInfo> list = productInfoServiceS.getAll();
+        return list;
+    }
+
+    @ModelAttribute("typeListData")
+    protected List<ProductTypeVO> referenceListData_type(Model model){
+        List<ProductTypeVO> list = productTypeService.getAll();
+        return list;
+    }
+
+    @PostMapping("listProductInfosByCompositeQuery")
+    public String listAllProductInfo(HttpServletRequest req, Model model) {
+        Map<String, String[]> map = req.getParameterMap();
+        List<ProductInfo> list = productInfoServiceS.getAll(map);
+        model.addAttribute("productInfoListData", list);
+        return "/frontendapp/productCategory";
+    }
+
+    @PostMapping("listProductInfosByStatus")
+    public String listProductInfosByStatus(
+            @RequestParam Integer proStatus, Model model) {
+        // 使用 findProductsByStatus 來獲取符合狀態的商品
+        List<ProductInfo> filteredProducts = productInfoServiceS.findProductsByStatus(proStatus);
+        // 將商品列表添加到模型中以便在視圖中顯示
+        model.addAttribute("products", filteredProducts);
+        return "/frontendapp/productCategory";  // 替換為你的視圖名稱
     }
 
     /* ====== 會員 ====== */
