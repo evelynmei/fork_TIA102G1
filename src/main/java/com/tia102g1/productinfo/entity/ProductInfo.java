@@ -22,10 +22,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.tia102g1.addon.model.AddOn;
+import com.tia102g1.fav_product.FavProduct;
 import com.tia102g1.orderlistinfo.model.OrderListInfoVO;
 import com.tia102g1.productcomment.model.ProductCommentVO;
 import com.tia102g1.producttype.model.ProductTypeVO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity // 要加上@Entity才能成為JPA的一個Entity類別
 @Table(name = "productinfo") // 標示此永續類別對應到何Table
 public class ProductInfo implements java.io.Serializable {
@@ -110,6 +116,10 @@ public class ProductInfo implements java.io.Serializable {
 	@OneToMany(mappedBy = "productInfoAdd", fetch = FetchType.EAGER)
 	@OrderBy("addOnId asc")
 	private Set<AddOn> addOnAdd = new HashSet<AddOn>();
+	
+	@OneToMany(mappedBy = "productInfo", fetch = FetchType.EAGER)
+	@OrderBy("favProductId asc")
+	private Set<FavProduct> favProduct = new HashSet<FavProduct>();
 
 	//商品資訊RowMapper中的相關擴充欄位
 	//商品類型id(無關聯的)
