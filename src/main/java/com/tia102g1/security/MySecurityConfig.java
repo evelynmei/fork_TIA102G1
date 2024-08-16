@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -30,7 +31,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     // 設定密碼的加密機制為 BCrypt 方式
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        //測試環境密碼不加密
+        return NoOpPasswordEncoder.getInstance();
+//        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -39,7 +42,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // 關閉 CSRF 保護
                 .authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/frontendapp/**", "/plungins/**").permitAll()
-                .mvcMatchers( "/index", "/register/**", "/login/**").permitAll()
+                .mvcMatchers("/index", "/register/**", "/login/**").permitAll()
                 .mvcMatchers("/member/{memberId}/account/**").authenticated()
 //                .mvcMatchers("/member/mainPageMember").hasAnyRole("STAFF","ADMIN")
                 .anyRequest().permitAll()
