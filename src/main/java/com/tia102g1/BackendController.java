@@ -1,5 +1,13 @@
 package com.tia102g1;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import com.tia102g1.county.model.CountyService;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.csform.model.CsFormService;
@@ -16,6 +24,8 @@ import com.tia102g1.news.model.NewsService;
 import com.tia102g1.news.model.NewsVO;
 import com.tia102g1.orderlist.model.OrderListService;
 import com.tia102g1.orderlist.model.OrderListVO;
+import com.tia102g1.productinfo.entity.ProductInfo;
+import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
 import com.tia102g1.qutype.model.QuTypeService;
@@ -26,13 +36,6 @@ import com.tia102g1.store.model.StoreService;
 import com.tia102g1.store.model.StoreVO;
 import com.tia102g1.sysmsg.model.SysMsgService;
 import com.tia102g1.sysmsg.model.SysMsgVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import java.util.List;
 
 @Controller
 public class BackendController {
@@ -77,6 +80,9 @@ public class BackendController {
 
 	@Autowired
 	NewsService newsSvc;
+	
+	@Autowired
+	ProductInfoServiceS productInfoServiceS;
 
 //	@Autowired
 //	CouponService couponSvc;
@@ -167,6 +173,12 @@ public class BackendController {
 //	public String mainPageProductInfo(Model model) {
 //		return "/productInfo/mainPageProductInfo";
 //	}
+	
+	@ModelAttribute("productInfoListData2")
+	protected List<ProductInfo> referenceInfoData(Model model){
+		List<ProductInfo> list = productInfoServiceS.getAll();
+		return list;
+	}
 
 	// 商品入庫紀錄
 	@GetMapping({ "/productStock", "/productStock/mainPageProductStock" })
@@ -292,10 +304,10 @@ public class BackendController {
 
 
 	// 報表分析管理
-	@GetMapping({ "/report", "report/mainPageReport" })
-	public String mainPageReport(Model model) {
-		return "report/mainPageReport";
-	}
+//	@GetMapping({ "/report", "report/mainPageReport" })
+//	public String mainPageReport(Model model) {
+//		return "report/mainPageReport";
+//	}
 
 	// 常見問題
 	@GetMapping({ "/commonAsk", "/commonAsk/mainPageCommonAsk" })

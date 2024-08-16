@@ -249,7 +249,7 @@
 						</td>
 						<td>
 							<form method="post" th:action="@{getOne_For_Update}">
-							<input type="submit" value="修改"> <input type="hidden" name="orderListId" th:value="${orderListVO.orderListId}">
+							<input type="submit" value="修改" th:if="${session.permission != null}"> <input type="hidden" name="orderListId" th:value="${orderListVO.orderListId}">
 							</form>
 						</td>
 					</tr>

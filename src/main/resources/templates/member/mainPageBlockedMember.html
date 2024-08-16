@@ -162,7 +162,7 @@
                                         <td>
                                             <form th:action="@{/member/unblock/{memberId}(memberId=${member.memberId})}" method="put">
                                                 <input type="hidden" name="_method" value="PUT">
-                                                <button type="submit" class="btn btn-primary btn-sm">解除黑名單</button>
+                                                <button type="submit" class="btn btn-primary btn-sm" th:if="${session.permission != null}">解除黑名單</button>
                                             </form>
                                         </td>
                                     </tr>

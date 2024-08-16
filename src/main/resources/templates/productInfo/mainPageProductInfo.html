@@ -221,7 +221,7 @@
 								<div class="form-group">
 								<button type="reset" class="btn btn-secondary"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">清&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除</button>
 								<button type="submit" class="btn btn-primary" style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;詢</button>
-								<a th:href="addProductInfo"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新增商品</button></a>
+								<a th:href="addProductInfo"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;" th:if="${session.permission != null}">新增商品</button></a>
 								</div>
 							</form>
 		</div>
@@ -264,7 +264,7 @@
 								</td>
 								<td>
 									<form method="post" th:action="@{getOne_For_Update}">
-										<input type="submit" value="修改"> <input type="hidden"
+										<input type="submit" value="修改" th:if="${session.permission != null}"> <input type="hidden"
 											name="productId" th:value="${productInfo.productId}">
 									</form>
 								</td>
