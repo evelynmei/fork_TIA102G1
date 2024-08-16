@@ -33,8 +33,9 @@ public class CartServiceImpl implements CartService {
 
     //修改商品數量
     @Override
-    public void updateCart(Integer cartId, Cart cart) {
+    public Cart updateCart(Integer cartId, Cart cart) {
         cartDao.updateCart(cartId, cart);
+        return cart;
     }
 
     //刪除一項商品
