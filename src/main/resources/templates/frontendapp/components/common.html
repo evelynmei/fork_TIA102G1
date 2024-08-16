@@ -40,6 +40,16 @@
                 line-height: 1;
                 vertical-align: middle;
             }
+            .welcome-message {
+                display: flex;
+                align-items: center; /* 垂直置中 */
+                margin-left: 10px; /* 與圖標保持一定距離 */
+                margin-top: 5px; /* 向下移動 */
+                font-size: 16px;
+                font-weight: bold;
+                color: #666; /* 接近圖標的灰色 */
+                white-space: nowrap; /* 防止文字換行 */
+            }
 
         </style>
         
@@ -80,11 +90,17 @@
                         </div>
                         <div class="header-middle float-lg-left float-md-left float-sm-left float-xs-none">
                             <div class="logo">
-                                <a href="../index.html"><img src="/frontendapp/img/logos/logo.png" alt="logo" width="400" height="100">
+                                <a th:href="@{/index.html}"><img src="/frontendapp/img/logos/logo.png" alt="logo" width="400" height="100">
                                 </a>
                             </div>
                         </div>
                         <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
+                            <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
+                                <!-- 歡迎訊息 -->
+                                <div class="welcome-message" th:if="${memberName != null}">
+                                    Hi! [[${memberName}]]，您好！
+                                </div>
+                            </div>
                             <!-- 搜尋商品列 -->
                             <div class="search-wrapper">
                                 <a>
@@ -99,10 +115,12 @@
                             </div>
                             <!--  memeber 會員中心  -->
                             <div class="user-info">
-                                <button type="button" class="btn">
+                                <a th:href="@{'/member/' + ${memberId} + '/account'}" >
                                     <i class="material-icons">perm_identity</i>
-                                </button>
+                                </a>
+
                             </div>
+
                             <!--  cart 購物車  -->
                             <div class="cart-wrapper">
                                 <button type="button" class="btn">
@@ -206,41 +224,42 @@
                                         </a>
                                     </li>
                                     <li class="nav-item dropdown active">
-                                        <a class="nav-link dropdown-toggle text-uppercase" href="index.html">
+                                        <a class="nav-link dropdown-toggle text-uppercase" th:href="@{'/member/' + ${memberId} + '/account'}">
                                             會員中心
                                             <span class="sr-only">(current)</span>
                                         </a>
-                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
-                                            <div class="sub-menu mb-xl-0 mb-4">
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            查詢訂單
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="favProduct.html">
-                                                            我的最愛
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            商品評論
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            會員資料
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            訊息
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+
+                                        <!--                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">-->
+<!--                                            <div class="sub-menu mb-xl-0 mb-4">-->
+<!--                                                <ul class="list-unstyled">-->
+<!--                                                    <li>-->
+<!--                                                        <a class="menu-item pl-0" href="index.html">-->
+<!--                                                            查詢訂單-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        <a class="menu-item pl-0" href="favProduct.html">-->
+<!--                                                            我的最愛-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        <a class="menu-item pl-0" href="index.html">-->
+<!--                                                            商品評論-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        <a class="menu-item pl-0" href="index.html">-->
+<!--                                                            會員資料-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        <a class="menu-item pl-0" href="index.html">-->
+<!--                                                            訊息-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </li>
                                     <li class="nav-item dropdown mega-dropdown">
                                         <a class="nav-link text-uppercase" href="commonAsk.html">

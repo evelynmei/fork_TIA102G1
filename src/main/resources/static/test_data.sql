@@ -811,82 +811,82 @@ insert into district (distCode, cntCode, distName, createdBy, lastUpdatedBy)
 values (212, 22, '東引鄉', 'chris', 'chris');
 
 #會員資料
-insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status, createdBy, lastUpdatedBy) values (1, 'test01', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '陳沛聖', '1992-12-29', '0952780126', 'alexis9984@gmail.com', 14, 643, '公園79號', 0, 'chris', 'chris');
+insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status, createdBy, lastUpdatedBy) values (1, 'test01', 'd8x6a', '陳沛聖', '1992-12-29', '0952780126', 'alexis9984@gmail.com', 14, 643, '公園79號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (2, 'test02', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '黎拓苑', '1991-07-13',
+values (2, 'test02', 'f5t6v2', '黎拓苑', '1991-07-13',
         '0987448924', 'parker5394@gmail.com', 16, 829, '忠孝街19號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (3, 'test03', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '廖嘉銀', '1988-09-04',
+values (3, 'test03', '6r45az', '廖嘉銀', '1988-09-04',
         '0913556230', 'christina4998@outlook.com', 8, 350, '福德路22號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (4, 'test04', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '宋愛永', '1995-07-15',
+values (4, 'test04', 'bta85d', '宋愛永', '1995-07-15',
         '0923443082', 'maria5390@gmail.com', 9, 408, '龍富十一街90號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (1, 'test05', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '鄒巖風', '1965-10-30',
+values (1, 'test05', '8u96jd', '鄒巖風', '1965-10-30',
         '0912639012', 'schuyler6816@yahoo.com', 1, 103, '市民大道1段39號之8', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (2, 'test06', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '王小明', '1986-04-06',
+values (2, 'test06', 'a6g2es', '王小明', '1986-04-06',
         '0912410805', 'hart9626@gmail.com', 16, 813, '軍校路66號之6', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (3, 'test07', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '呂靖駱', '2010-01-04',
+values (3, 'test07', 'b8h9ws', '呂靖駱', '2010-01-04',
         '0932086114', 'reynes5203@gmail.com', 13, 621, '江厝店42號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (4, 'test08', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '曾盧碧', '1999-10-22',
+values (4, 'test08', 'w8964s', '曾盧碧', '1999-10-22',
         '0915121211', 'erin607@gmail.com', 19, 983, '吳江8號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (1, 'test09', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '陳慶方', '1986-01-26',
+values (1, 'test09', '2g4d9s', '陳慶方', '1986-01-26',
         '0971533998', 'rodney9753@outlook.com', 2, 227, '聖南89號6樓', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (2, 'test10', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '李真鈺', '1961-06-11',
+values (2, 'test10', 'd8y735', '李真鈺', '1961-06-11',
         '0986509620', 'selina3163@gmail.com', 17, 909, '信義路22號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (3, 'test11', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '張小明', '2013-09-20',
+values (3, 'test11', 'gu5s6s', '張小明', '2013-09-20',
         '0919788045', 'bates2631@gmail.com', 7, 326, '新農街24號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (4, 'test12', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '郭汶瑋', '2019-10-30',
+values (4, 'test12', '5t89da', '郭汶瑋', '2019-10-30',
         '0934960786', 'riperton4256@outlook.com', 7, 338, '上竹四街66號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (1, 'test13', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '溫冠琦', '1995-03-15',
+values (1, 'test13', '5y9d5x', '溫冠琦', '1995-03-15',
         '0987408646', 'maria8056@yahoo.com', 16, 842, '竹箋寮巷81號之12', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (2, 'test14', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '劉山杉', '1966-06-07',
+values (2, 'test14', 'mt8aq9', '劉山杉', '1966-06-07',
         '0956902732', 'chet8352@gmail.com', 7, 334, '豐田三路64號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (3, 'test15', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '蘇以冠', '1995-01-01',
+values (3, 'test15', 'j8r6ss', '蘇以冠', '1995-01-01',
         '0989153074', 'cassidy975@hotmail.com', 11, 557, '大明路36號3樓', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (4, 'test16', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '張嬋艾', '2002-12-11',
+values (4, 'test16', 'lgie6s', '張嬋艾', '2002-12-11',
         '0923010423', 'anna5108@outlook.com', 18, 961, '民富路30號之4', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (1, 'test17', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '林森楚', '1987-01-13',
+values (1, 'test17', 'kg89az', '林森楚', '1987-01-13',
         '0933318243', 'bailey5829@hotmail.com', 9, 411, '大源十六街26號3樓', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (2, 'test18', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '張泓鑾', '1976-03-12',
+values (2, 'test18', '85ea6w', '張泓鑾', '1976-03-12',
         '0927778560', 'jalen2425@gmail.com', 12, 300031, '後厝仔67號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (3, 'test19', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '巫月樹', '1996-08-19',
+values (3, 'test19', '8g5we9', '巫月樹', '1996-08-19',
         '0963280161', 'donovan8470@gmail.com', 15, 712, '茄冬坑78號', 0, 'chris', 'chris');
 insert into member (memberLvId, account, password, name, birthDt, phone, email, cntCode, distCode, address, status,
                     createdBy, lastUpdatedBy)
-values (4, 'test20', '$2a$10$gAQgAnAgGk.e1o0QqC14JOD.Ss8xO8ntqN1ipzzCbeCf70YGps3V2', '黎天洪', '1982-10-09',
+values (4, 'test20', 'fpwz89', '黎天洪', '1982-10-09',
         '0970521356', 'morgan7795@yahoo.com', 2, 231, '直潭六街17號', 0, 'chris', 'chris');
 
 #測試資料新增會員權限
