@@ -39,6 +39,7 @@ import com.tia102g1.orderlist.model.OrderListService;
 import com.tia102g1.orderlist.model.OrderListVO;
 import com.tia102g1.orderlistinfo.model.OrderListInfoService;
 import com.tia102g1.orderlistinfo.model.OrderListInfoVO;
+import com.tia102g1.productcomment.model.ProductCommentVO;
 
 @Controller
 @RequestMapping("/orderList")
@@ -223,6 +224,28 @@ public class OrderListController {
 		List<OrderListVO> list = orderListService.getAll(map);
 		model.addAttribute("orderListData", list);
 		return "/orderlist/mainPageOrderList";
+	}
+	
+	@PostMapping("listOrderListByOrderStatusZero")
+	public String listOrderListByOrderStatusZero(@RequestParam("orderStatus") String orderStatus, Model model) {
+		List<OrderListVO> list = orderListService.getOneOrderStatus(Integer.valueOf(0));				
+		model.addAttribute("orderListData", list);
+		return "/orderlist/selectOrderStatusIsZero";
+	}
+	
+	@PostMapping("listOrderListByOrderStatusOne")
+	public String listOrderListByOrderStatusOne(@RequestParam("orderStatus") String orderStatus, Model model) {
+		List<OrderListVO> list = orderListService.getOneOrderStatus(Integer.valueOf(1));				
+		model.addAttribute("orderListData", list);
+		return "/orderlist/selectOrderStatusIsOne";
+	}
+	
+	@PostMapping("listOrderListByPaymentStatus")
+	public String listOrderListByPaymentStatus(@RequestParam("paymentStatus") String paymentStatus, Model model) {
+		List<OrderListVO> list = orderListService.getOnePaymentStatus(Integer.valueOf(0));
+		System.out.println(paymentStatus = "paymentStatus");
+		model.addAttribute("orderListData", list);
+		return "/orderlist/selectPaymentStatusIsZero";
 	}
 
 }

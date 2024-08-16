@@ -63,4 +63,14 @@ public class OrderListService {
 
 		return List.of(); // 如果訂單主檔不存在，返回空列表
 	}
+	
+	
+	public List<OrderListVO> getOneOrderStatus(Integer orderStatus){
+		return repository.findByOrderStatus(orderStatus);
+	}
+	
+	public List<OrderListVO> getOnePaymentStatus(Integer paymentStatus){
+		return repository.findByPaymentStatus(paymentStatus);
+	}
+	
 }
