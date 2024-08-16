@@ -111,13 +111,7 @@ public class OrderListController {
 	protected List<CountyVO> referenceListData_county(Model model) {
 		List<CountyVO> list = countyService.getAll();
 		return list;
-	}
-	
-	@ModelAttribute("orderListInfoListData")
-	protected List<OrderListInfoVO> referenceorderListInfoListListData(Model model) {
-		List<OrderListInfoVO> list = orderListInfoService.getAll();
-		return list;
-	}
+	}	
 	
 
 	@GetMapping("listOneOrderList")
@@ -194,6 +188,10 @@ public class OrderListController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("orderListVO", orderListVO);
+		
+		List<OrderListInfoVO> orderListInfoList = orderListService.getOrderListInfos(Integer.valueOf(orderListId));
+		model.addAttribute("orderListInfoListData", orderListInfoList);
+
 
 		return "orderList/updateOrderList";
 	}
@@ -209,7 +207,7 @@ public class OrderListController {
 		/*************************** 2.開始修改資料 *****************************************/
 		orderListVO.setLastUpdated(now);
 		orderListService.updateOrderList(orderListVO); // 把更新好屬性的當前VO物件交給Service層做update
-
+		
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
 		orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListVO.getOrderListId())); // 取出剛更新完的VO物件,顯示在前端頁面上
@@ -218,29 +216,23 @@ public class OrderListController {
 		return "/orderList/listOneOrderList";
 	}
 
-	@PostMapping("listOrderListByCompositeQuery")
-	public String listAllOrderList(HttpServletRequest req, Model model) {
-		Map<String, String[]> map = req.getParameterMap();
-		List<OrderListVO> list = orderListService.getAll(map);
-		model.addAttribute("orderListData", list);
-		return "/orderlist/mainPageOrderList";
-	}
 	
-	@PostMapping("listOrderListByOrderStatusZero")
+	
+	@PostMapping("/listOrderListByOrderStatusZero")
 	public String listOrderListByOrderStatusZero(@RequestParam("orderStatus") String orderStatus, Model model) {
 		List<OrderListVO> list = orderListService.getOneOrderStatus(Integer.valueOf(0));				
 		model.addAttribute("orderListData", list);
 		return "/orderlist/selectOrderStatusIsZero";
 	}
 	
-	@PostMapping("listOrderListByOrderStatusOne")
+	@PostMapping("/listOrderListByOrderStatusOne")
 	public String listOrderListByOrderStatusOne(@RequestParam("orderStatus") String orderStatus, Model model) {
 		List<OrderListVO> list = orderListService.getOneOrderStatus(Integer.valueOf(1));				
 		model.addAttribute("orderListData", list);
 		return "/orderlist/selectOrderStatusIsOne";
 	}
 	
-	@PostMapping("listOrderListByPaymentStatus")
+	@PostMapping("/listOrderListByPaymentStatus")
 	public String listOrderListByPaymentStatus(@RequestParam("paymentStatus") String paymentStatus, Model model) {
 		List<OrderListVO> list = orderListService.getOnePaymentStatus(Integer.valueOf(0));
 		System.out.println(paymentStatus = "paymentStatus");
