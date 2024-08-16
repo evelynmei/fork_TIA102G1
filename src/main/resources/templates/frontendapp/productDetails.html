@@ -132,34 +132,32 @@
 			
 
 <!-- =========== todo 商品評價紀錄 資料庫table: productComment ============= -->
-				<div class="tab-pane" id="product-tab2" role="tabpanel" aria-labelledby="tab2">
+				<div class="tab-pane" id="product-tab2" role="tabpanel" aria-labelledby="tab2" th:each="productCommentVO:${productCommentVO}">
 					<div class="reviews-tab  float-left w-100">
-<!--						總評價人數 commentUsers 動態產生div數量-->
+
 						<div class="ttreview-tab float-left w-100 p-30">
 
 							<div class="rating float-left w-100">
 								<div class="product-ratings d-inline-block align-middle">
 <!--									滿意度 commentRate-->
-									<span class="fa fa-stack"><i class="material-icons">star</i></span>
-									<span class="fa fa-stack"><i class="material-icons">star</i></span>
-									<span class="fa fa-stack"><i class="material-icons">star</i></span>
-									<span class="fa fa-stack"><i class="material-icons off">star</i></span>
-									<span class="fa fa-stack"><i class="material-icons off">star</i></span>
+									<span th:text="${productCommentVO.commentRate}"></span>
+									
+									<span class="fa fa-stack" th:each="i : ${#numbers.sequence(1, 5)}">
+										<i class="material-icons" th:classappend="${i <= productCommentVO.commentRate} ? '' : 'off'">star</i>
+									</span>
 								</div>
-							</div>
+							</div> 
 
 							<div class="review-title float-left w-100">
-<!--								會員帳號 account 資料庫table: member-->
-								<span class="user">admin</span>
+<!--								
 
 <!--								評論時間 commentDate	-->
-								<span class="date">– February 14, 2019</span>
+								<span class="date" th:text="${productCommentVO.commentDate}">– February 14, 2019</span>
 							</div>
 
 <!--							評論內容 commentText-->
-							<div class="review-desc  float-left w-100">
-								Aliquam at ipsum tellus. Donec arcu est, posuere quis
-								orci vel, commodo cursus augue.
+							<div class="review-desc  float-left w-100" th:text="${productCommentVO.commentText}">
+								
 							</div>
 						</div>
 					</div>
@@ -167,6 +165,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<div id="product-accessories" class="product-accessories my-40 w-100 float-left">
 		<div class="container">

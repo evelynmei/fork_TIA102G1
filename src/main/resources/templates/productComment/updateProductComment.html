@@ -84,7 +84,7 @@
 					<div class="form-group">
 						<label for="exampleInputFile">評論圖片</label>
 						<div class="input-group">
-							<input type="file" th:field="*{commentPic}" onclick="previewImage()"
+							<input type="hidden" th:field="*{commentPic}" onclick="previewImage()"
 								multiple="multiple"  />
 							<div id="blob_holder"></div>
 					</div>
