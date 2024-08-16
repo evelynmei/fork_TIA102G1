@@ -5,18 +5,11 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.tia102g1.role.model.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.tia102g1.productcomment.model.ProductCommentVO;
@@ -70,6 +63,15 @@ public class StaffVO {
 	
 	@Column(name = "LASTUPDATED")
 	private Timestamp lastUpdated;
+
+	// staff和role的多對多關係
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "STAFFHASROLE", // 關聯表名稱
+			joinColumns = @JoinColumn(name = "STAFFID"), // 這個表中的外鍵
+			inverseJoinColumns = @JoinColumn(name = "ROLEID") // 關聯表中的外鍵
+	)
+	private Set<Role> roles = new HashSet<>();
 	
 	// 此員工下關聯的商品評價紀錄
 		@OneToMany(mappedBy = "staffVO", fetch = FetchType.EAGER)
@@ -192,5 +194,12 @@ public class StaffVO {
 	public void setProductCommentVO(Set<ProductCommentVO> productCommentVO) {
 		this.productCommentVO = productCommentVO;
 	}
-	
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 }

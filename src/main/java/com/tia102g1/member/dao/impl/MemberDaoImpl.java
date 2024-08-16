@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import com.tia102g1.role.model.Role;
+import com.tia102g1.role.rowmapper.RoleRowMapper;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -305,5 +307,18 @@ public class MemberDaoImpl implements MemberDao {
 
         int id = namedParameterJdbcTemplate.update(sql, map);
         return id;
+    }
+
+    @Override
+    public List<Role> getRolesByMemberId(Integer memberId) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "  SELECT role.roleid, role.rolename FROM role\n" +
+                "                    JOIN memberhasrole ON role.roleid = memberhasrole.roleid\n" +
+                "                    WHERE memberhasrole.memberid = :memberId";
+
+        map.put("memberId", memberId);
+        List<Role> roleList = namedParameterJdbcTemplate.query(sql, map, new RoleRowMapper());
+        return roleList;
+
     }
 }
