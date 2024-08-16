@@ -114,85 +114,85 @@
 		<!-- general form elements -->
 		<div class="card card-primary">
 <!-- 發生堆疊溢位錯誤-->
-<!-- 			<div class="card-header"> -->
-<!-- 				<h3 class="card-title">查詢資料</h3> -->
-<!-- 			</div> -->
-			<!-- /.card-header -->
-			<!-- form start --> 
-<!-- 			<form id="form" th:action="@{/orderList/listOrderListByCompositeQuery}"  style="width: 100%" method="post"> -->
+			<div class="card-header">
+				<h3 class="card-title">查詢資料</h3>
+			</div>
+<!-- /.card-header -->
+<!-- 			form start  -->
+			<form id="form" th:action="@{/orderList/listOrderListByCompositeQuery}"  style="width: 100%" method="post">
 				
-<!-- 					<div class="form-group select one" style="width: 8% "> -->
-<!-- 						<label>訂單編號</label> -->
-<!-- 						<br> <select id="roll" name="orderListId"> -->
-<!-- 							<option value="" disabled selected >選擇編號</option> -->
-<!-- 							<option th:each="orderListVO : ${orderListData2}" -->
-<!-- 									th:value="${orderListVO.orderListId}" -->
-<!-- 									th:text="${orderListVO.orderListId}"> -->
-<!-- 							</option></select> -->
-<!-- 					</div> -->
+					<div class="form-group select one" style="width: 8% ">
+						<label>訂單編號</label>
+						<br> <select id="roll" name="orderListId">
+							<option value="" disabled selected >選擇編號</option>
+							<option th:each="orderListVO : ${orderListData2}"
+									th:value="${orderListVO.orderListId}"
+									th:text="${orderListVO.orderListId}">
+							</option></select>
+					</div>
 				
-<!-- 					<div class="form-group select one" style="width: 8% "> -->
-<!-- 						<label>會員編號</label> -->
-<!-- 						<br> <select id="roll" name="memberId"> -->
-<!-- 							<option value="" disabled selected >選擇編號</option> -->
-<!-- 							<option th:each="member : ${memberListData}" -->
-<!-- 									th:value="${member.memberId}" -->
-<!-- 									th:text="${member.memberId}"> -->
-<!-- 							</option></select> -->
-<!-- 					</div> -->
+					<div class="form-group select one" style="width: 8% ">
+						<label>會員編號</label>
+						<br> <select id="roll" name="memberId">
+							<option value="" disabled selected >選擇編號</option>
+							<option th:each="member : ${memberListData}"
+									th:value="${member.memberId}"
+									th:text="${member.memberId}">
+							</option></select>
+					</div>
 					
-<!-- 					<div class="form-group select one" style="width: 8% "> -->
-<!-- 					<label>訂單狀態</label> -->
-<!-- 					<br> <select id="roll" name="orderStatus"> -->
-<!-- 						<option value="" disabled selected >選擇狀態</option> -->
-<!-- 						<option value="0" >處理中</option> -->
-<!-- 						<option value="1" >已確認</option> -->
-<!-- 						<option value="2" >已完成</option> -->
-<!-- 						<option value="3" >已取消</option> -->
-<!-- 						</select>				 -->
-<!-- 					</div> -->
+					<div class="form-group select one" style="width: 8% ">
+					<label>訂單狀態</label>
+					<br> <select id="roll" name="orderStatus">
+						<option value="" disabled selected >選擇狀態</option>
+						<option value="0" >處理中</option>
+						<option value="1" >已確認</option>
+						<option value="2" >已完成</option>
+						<option value="3" >已取消</option>
+						</select>				
+					</div>
 					
-<!-- 					<div class="form-group select one" style="width: 8% "> -->
-<!-- 					<label>付款狀態</label> -->
-<!-- 					<br> <select id="roll" name="paymentStatus"> -->
-<!-- 						<option value="" disabled selected >選擇狀態</option> -->
-<!-- 						<option value="0" >未付款</option> -->
-<!-- 						<option value="1" >已付款</option> -->
-<!-- 						<option value="2" >退款中</option> -->
-<!-- 						<option value="3" >已退款</option> -->
-<!-- 						</option></select> -->
-<!-- 					</div> -->
+					<div class="form-group select one" style="width: 8% ">
+					<label>付款狀態</label>
+					<br> <select id="roll" name="paymentStatus">
+						<option value="" disabled selected >選擇狀態</option>
+						<option value="0" >未付款</option>
+						<option value="1" >已付款</option>
+						<option value="2" >退款中</option>
+						<option value="3" >已退款</option>
+						</option></select>
+					</div>
 					
-<!-- 					<div class="form-group select one" style="width: 8% "> -->
-<!-- 					<label>取貨方式</label> -->
-<!-- 					<br> <select id="roll" name="pickupMethod"> -->
-<!-- 						<option value="" disabled selected >選擇方式</option> -->
-<!-- 						<option value="1" >宅配到府</option> -->
-<!-- 						<option value="2" >現場取貨</option> -->
-<!-- 						</option></select> -->
-<!-- 					</div> -->
+					<div class="form-group select one" style="width: 8% ">
+					<label>取貨方式</label>
+					<br> <select id="roll" name="pickupMethod">
+						<option value="" disabled selected >選擇方式</option>
+						<option value="1" >宅配到府</option>
+						<option value="2" >現場取貨</option>
+						</option></select>
+					</div>
 
-<!-- 					<div class="select two" style="width: 35% "> -->
-<!-- 							<label>訂單日期</label><br>									 -->
-<!-- 							起始日期 -->
-<!-- 							<label style="cursor: pointer;" onclick="document.getElementById('startorderDt').click();"> -->
-<!-- 							起始日期: -->
-<!-- 							</label> -->
-<!-- 							<input type="date" id="startorderDt" name="startorderDt" style="cursor: pointer;" onclick="this.showPicker();">									 -->
-<!-- 							最終日期 -->
-<!-- 							<label style="cursor: pointer;" onclick="document.getElementById('endorderDt').click();"> -->
-<!-- 							最終日期: -->
-<!-- 							</label> -->
-<!-- 							<input type="date" id="endorderDt" name="endorderDt" style="cursor: pointer;" onclick="this.showPicker();"> -->
-<!-- 					</div> -->
+					<div class="select two" style="width: 35% ">
+							<label>訂單日期</label><br>									
+							起始日期
+							<label style="cursor: pointer;" onclick="document.getElementById('startorderDt').click();">
+							起始日期:
+							</label>
+							<input type="date" id="startorderDt" name="startorderDt" style="cursor: pointer;" onclick="this.showPicker();">									
+							最終日期
+							<label style="cursor: pointer;" onclick="document.getElementById('endorderDt').click();">
+							最終日期:
+							</label>
+							<input type="date" id="endorderDt" name="endorderDt" style="cursor: pointer;" onclick="this.showPicker();">
+					</div>
 					
-<!-- 					<br> -->
-<!-- 					<div class="form-group"> -->
-<!-- 					<button type="reset" class="btn btn-secondary"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">清&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除</button> -->
-<!-- 					<button type="submit" class="btn btn-primary" style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;詢</button> -->
-<!-- 					<a th:href="addOrderList"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新 增 商 品</button></a> -->
-<!-- 					</div> -->
-<!-- 					</form> -->
+					<br>
+					<div class="form-group">
+					<button type="reset" class="btn btn-secondary"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">清&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除</button>
+					<button type="submit" class="btn btn-primary" style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;詢</button>
+					<a th:href="addOrderList"><button type="button" class="btn btn-success"style="padding: 3px 4px; border: none; border-radius: 5px; cursor: pointer;  font-size: 0.8rem;">新 增 商 品</button></a>
+					</div>
+					</form>
 				</div>
 				<!-- /.card-body -->
 				

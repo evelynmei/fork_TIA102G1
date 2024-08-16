@@ -118,24 +118,16 @@
 <!--		切換商品資訊和評價-->
 			<div class="tabs">
 				<ul class="nav nav-tabs justify-content-start">
+					
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="#product-tab1" id="tab1">
-						<div class="tab-title">詳細資訊</div>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#product-tab2" id="tab2">
+						<a class="nav-link active" data-toggle="tab" href="#product-tab2" id="tab2">
 						<div class="tab-title">顧客評價</div>
 						</a>
 					</li>
 				</ul>
 			</div>
 
-			<div class="tab-content float-left w-100">
-				<div class="tab-pane active" id="product-tab1" role="tabpanel" aria-labelledby="tab1">
-<!--					商品描述 proDesc-->
-					<div th:text="${product.proDesc}" class="description"></div>
-				</div>
+			
 
 <!-- =========== todo 商品評價紀錄 資料庫table: productComment ============= -->
 				<div class="tab-pane" id="product-tab2" role="tabpanel" aria-labelledby="tab2">
