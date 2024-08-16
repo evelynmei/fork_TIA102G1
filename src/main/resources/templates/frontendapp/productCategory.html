@@ -31,6 +31,8 @@
     
 </head>
 <body id="category" class="category-col-5">
+<!-- <input type="hidden" id="username" th:value="j05011993"> 測試用的靜態值 -->
+
 <!-- 共用元件 header:圖示按鈕, navbar...-->
 <div th:replace="~{frontendapp/components/common :: app-header}"></div>
 <!-- 共用元件(index除外) bread crumb -->
@@ -69,9 +71,10 @@
                                                         data-target="#cart-pop" data-toggle="modal"><i
                                                         class="material-icons">加入購物車</i>
                                                 </button>
-                                                <a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
-                                                        class="material-icons">加入收藏</i></a>
-                                  
+                                                <button type="button" class="btn btn-primary btn-wishlist"
+												        th:data-product-id="${productInfo.productId}"
+												        onclick="toggleFavorite(this)"><i class="material-icons">加入最愛</i>
+                                                </button>
                                                 <button type="button" class="btn btn-primary btn-quickview"
                                                         data-toggle="modal" data-target="#product_view"><i
                                                         class="material-icons">visibility</i>
@@ -104,6 +107,9 @@
 <div th:replace="~{frontendapp/components/common :: app-modals}"></div>
 <!-- 共同引入 置底 import-in-the-end -->
 <div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
+
+<script src="/frontendapp/js/favorites.js"></script>
+
 </body>
 
 </html>

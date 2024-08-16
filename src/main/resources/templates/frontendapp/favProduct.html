@@ -7,6 +7,7 @@
 	<meta th:replace="~{frontendapp/components/common :: headtag-import}">
 </head>
 <body>
+
 <!-- 共用元件 header:圖示按鈕, navbar...-->
 <div th:replace="~{frontendapp/components/common :: app-header}"></div>
 <!-- 共用元件(index除外) bread crumb -->
@@ -30,32 +31,25 @@
 						</tr>
 						</thead>
 						<tbody>
+						<th:block th:each="productInfo : ${favProducts}">
+						
 						<tr>
-							<td class="table-remove"><button><i class="material-icons">delete</i></button></td>
-							<td class="table-image"><a href="productDetails.html"><img src="frontendapp/img/products/02.jpg"
-																					   alt=""></a></td>
-							<td class="table-p-name text-capitalize"><a href="productDetails.html">aspetur autodit
-								autfugit</a></td>
-							<td class="table-p-price">
-								<p>$100.00</p>
-							</td>
-							<td class="table-p-qty">in stock</td>
+							<td class="table-remove">
+						        <button th:data-product-id="${productInfo.productId}" onclick="removeFavorite(this)">
+						            <i class="material-icons">delete</i>
+						        </button>
+						    </td>							
+						    <td><img th:src="@{/productInfo/ProductInfoReader} + '?productId' + ${productInfo.productId}"></td>
+							<td th:text="${productInfo.proName}"></td>
+							<td th:text="${productInfo.proPrice}"></td>
+							<td th:switch="${productInfo.proStatus}">
+									<span th:case="0">未上架</span>
+								    <span th:case="1">上架中</span>
+							</td>							
 							<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
-								cart</a></td>
+							cart</a></td>
 						</tr>
-						<tr>
-							<td class="table-remove"><button><i class="material-icons">delete</i></button></td>
-							<td class="table-image"><a href="productDetails.html"><img src="frontendapp/img/products/03.jpg"
-																					   alt=""></a></td>
-							<td class="table-p-name text-capitalize"><a href="productDetails.html">magni dolores
-								eosquies</a></td>
-							<td class="table-p-price">
-								<p>$100.00</p>
-							</td>
-							<td class="table-p-qty">in stock</td>
-							<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
-								cart</a></td>
-						</tr>
+						</th:block>
 						</tbody>
 					</table>
 				</div>
@@ -67,13 +61,15 @@
 
 	<!-- 把你的內容貼在這裡-->
 </main>
-
 <!-- 共用元件 footer和一些按鈕功能 -->
 <div th:replace="~{frontendapp/components/common :: app-footer}"></div>
 <!-- 選用元件 app-modals互動視窗 -->
 <div th:replace="~{frontendapp/components/common :: app-modals}"></div>
 <!-- 共同引入 置底 import-in-the-end -->
 <div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
+
+<script src="/frontendapp/js/removeFavorite.js"></script>
+
 </body>
 
 </html>

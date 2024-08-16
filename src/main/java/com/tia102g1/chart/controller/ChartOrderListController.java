@@ -22,9 +22,6 @@ import com.tia102g1.chart.model.ChartService;
 @RequestMapping("/report")
 public class ChartOrderListController {
 	
-//	@Autowired
-//	private ChartDataService dataSvc;
-	
 	@Autowired
 	private ChartService chartSvc;
 	

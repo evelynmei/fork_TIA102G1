@@ -180,11 +180,11 @@ public class BackendController {
 //		return "/productComment/mainPageProductComment";
 //	}
 
-	// 最愛商品紀錄
-	@GetMapping({ "/favProduct", "/favProduct/mainPageFavProduct" })
-	public String mainPageFavProduct(Model model) {
-		return "/favProduct/mainPageFavProduct";
-	}
+//	// 最愛商品紀錄
+//	@GetMapping({ "/favProduct", "/favProduct/mainPageFavProduct" })
+//	public String mainPageFavProduct(Model model) {
+//		return "/favProduct/mainPageFavProduct";
+//	}
 
 	// 購物車紀錄
 //	@GetMapping({ "/cart", "/cart/mainPageCart" })
