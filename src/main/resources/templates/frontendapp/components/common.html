@@ -23,7 +23,7 @@
 </th:block>
 
     <!-- 共用元件 header:圖示按鈕, navbar...-->
-    <header th:fragment="app-header" class="header-area header-sticky text-center header-default">
+    <header th:fragment="app-header" class="header-area header-sticky text-center header-default" id="vue-header">
 
         <style>
 
@@ -52,7 +52,8 @@
             }
 
         </style>
-        
+        <script src="/frontendapp/js/vue.global.prod.js"></script>
+        <script src="/frontendapp/js/axios.min.js"></script>
         <!-- loader icon (ajax-loader.gif)-->
         <div class="ttloading-bg"></div>
         <div class="header-main-sticky">
@@ -69,7 +70,7 @@
                                     <i class="material-symbols-outlined">content_copy</i>
                                 </a>
                                 </div>
-                                </th:block>
+                        </th:block>
                     </div>
                     <div class="nav-right float-right d-flex">
                         <div class="ttheader-mail">
@@ -101,6 +102,7 @@
                                     Hi! [[${memberName}]]，您好！
                                 </div>
                             </div>
+                            <!-- TODO 跳轉到所有商品頁，並加上 filter 效果 -->
                             <!-- 搜尋商品列 -->
                             <div class="search-wrapper">
                                 <a>
@@ -121,12 +123,12 @@
 
                             </div>
 
-                            <!--  cart 購物車  -->
+                            <!--  購物車dropdown預覽  -->
                             <div class="cart-wrapper">
                                 <button type="button" class="btn">
                                     <i class="material-icons">shopping_cart</i>
-                                    <!-- todo 購物車旁的數字綁定 -->
-                                    <span class="ttcount">2</span> </button>
+                                    <!-- 購物車旁的數字綁定 -->
+                                    <span class="ttcount">{{ttcount}}</span> </button>
                                 <div id="cart-dropdown" class="cart-menu">
                                     <ul class="w-100 float-left">
                                         <li>
@@ -138,15 +140,16 @@
                                                                 src="/frontendapp/img/products/01.jpg" alt="01" title="01"
                                                                 height="104" width="80"></a></td>
                                                         <td class="text-left product-name"><a href="#">商品總共</a>
-                                                            <div class="quantity float-left w-100">
-                                                                <span class="cart-qty">1 × </span>
-                                                                <span class="text-left price"> $20.00</span>
+                                                            <div class="quantity float-left w-100" v-for="cart in carts">
+                                                                <span class="cart-qty float-none">{{cart.proAmount}} × </span>
+                                                                <span class=" text-left price"> ${{cart.proPrice}}</span>
                                                             </div>
                                                         </td>
-                                                        <!-- fixme close按鍵無效 -->
                                                         <td class="text-center close">
                                                             <a class="close-cart">
-                                                                <i class="material-icons">close</i>
+                                                                <div onclick="$('#cart-dropdown').hide()">
+                                                                    <i class="material-icons">close</i>
+                                                                </div>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -158,8 +161,8 @@
                                                 <tbody>
                                                     <tr>
                                                         <td class="text-left"><strong>總金額</strong></td>
-                                                        <!-- todo 跟購物車綁定，動態資料 -->
-                                                        <td class="text-right"><strong>$2,122.00</strong></td>
+                                                        <!-- 跟購物車綁定，動態資料 -->
+                                                        <td class="text-right"><strong>${{sum}}.00</strong></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -169,9 +172,9 @@
                                                 <input class="btn pull-left mt_10 btn-primary btn-rounded w-100"
                                                     value="查看購物車" type="submit">
                                             </form>
-                                            <form action="checkout_page.html">
+                                            <form action="../checkOut.html">
                                                 <input class="btn pull-right mt_10 btn-primary btn-rounded w-100"
-                                                    value="去買單" type="submit">
+                                                    value="去買單" type="submit"  @click="checkoutHandler">
                                             </form>
                                         </li>
                                     </ul>
@@ -201,22 +204,6 @@
                                             商品總覽
                                             <span class="sr-only">(current)</span>
                                         </a>
-<!--                                         <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3"> -->
-<!--                                             <div class="sub-menu mb-xl-0 mb-4"> -->
-<!--                                                 <ul class="list-unstyled"> -->
-<!--                                                     <li> -->
-<!--                                                         <a class="menu-item pl-0" href="index.html"> -->
-<!--                                                             手工餅乾 -->
-<!--                                                         </a> -->
-<!--                                                     </li> -->
-<!--                                                     <li> -->
-<!--                                                         <a class="menu-item pl-0" href="index.html"> -->
-<!--                                                             英式司康 -->
-<!--                                                         </a> -->
-<!--                                                     </li> -->
-<!--                                                 </ul> -->
-<!--                                             </div> -->
-<!--                                         </div> -->
                                     </li>
                                     <li class="nav-item dropdown mega-dropdown">
                                         <a class="nav-link text-uppercase" href="index.html">
@@ -229,7 +216,7 @@
                                             <span class="sr-only">(current)</span>
                                         </a>
 
-                                                                                <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
+                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
                                             <div class="sub-menu mb-xl-0 mb-4">
                                                 <ul class="list-unstyled">
                                                     <li>
@@ -381,7 +368,7 @@
                 </div>
             </div>
         </div>
-
+        <script src="/frontendapp/js/shopping/header.js"></script>
     </header>
 
     <!-- 共用元件(index除外) bread crumb -->
@@ -596,7 +583,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title w-100w-100w-100 font-weight-bold d-none">Quick view</h4>
+                        <h4 class="modal-title w-100w-100w-100 font-weight-bold d-none">預覽</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -730,67 +717,6 @@
             </div>
         </div>
 
-        <!-- cart-pop加入購物車提示 -->
-        <div class="modal fade" id="cart-pop" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header alert-success">
-                        <h4 class="modal-title w-100w-100w-100">Product successfully added to your shopping cart</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6 divide-right">
-                                <div class="row">
-                                    <div class="col-md-5 col-xs-4 product-img float-left">
-                                        <img src="/frontendapp/img/products/01.jpg" class="img-responsive" alt="01">
-                                    </div>
-                                    <div class="col-md-7 col-xs-8 product-desc float-left">
-                                        <h4 class="product-title text-capitalize">aliquam quaerat voluptatem</h4>
-                                        <div class="rating">
-                                            <div class="product-ratings">
-                                                <span class="fa fa-stack"><i class="material-icons">star</i></span>
-                                                <span class="fa fa-stack"><i class="material-icons">star</i></span>
-                                                <span class="fa fa-stack"><i class="material-icons">star</i></span>
-                                                <span class="fa fa-stack"><i class="material-icons off">star</i></span>
-                                                <span class="fa fa-stack"><i class="material-icons off">star</i></span>
-                                            </div>
-                                        </div>
-                                        <h3 class="price float-left w-100"><span
-                                                class="regular-price align-middle">$75.00</span><span
-                                                class="old-price align-middle">$60.00</span></h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 divide-left">
-                                <p class="cart-products-count">There are 2 items in your cart.</p>
-                                <p class="total-products float-left w-100">
-                                    <strong>Total products:</strong> $150.00
-                                </p>
-                                <p class="shipping float-left w-100">
-                                    <strong>Total shipping:</strong> free
-                                </p>
-                                <p class="total-price float-left w-100">
-                                    <strong>Total:</strong> $150.00(tax incl.)
-                                </p>
-                                <div class="cart-content-btn float-left w-100">
-                                    <form action="#">
-                                        <input class="btn pull-right mt_10 btn-primary" value="Continue shopping"
-                                            type="submit">
-                                    </form>
-                                    <form action="checkout_page.html">
-                                        <input class="btn pull-right mt_10 btn-primary" value="Proceed to checkout"
-                                            type="submit">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- 共同引入 置底 import-in-the-end -->

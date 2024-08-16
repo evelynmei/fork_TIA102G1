@@ -31,8 +31,6 @@
     
 </head>
 <body id="category" class="category-col-5">
-<!-- <input type="hidden" id="username" th:value="j05011993"> 測試用的靜態值 -->
-
 <!-- 共用元件 header:圖示按鈕, navbar...-->
 <div th:replace="~{frontendapp/components/common :: app-header}"></div>
 <!-- 共用元件(index除外) bread crumb -->
@@ -56,8 +54,8 @@
                     
                     <div class="container">
 					    <div class="row">
-					        <div class="col-4" th:each="productInfo : ${productInfoListData}" th:if="${productInfo.proStatus == 1}" style="margin-bottom: 20px;">
-					            <div class="card" >
+					        <div class="col-4" th:each="productInfo, pIndex : ${productInfoListData}" style="margin-bottom: 20px;">
+					            <div class="card">
 									<a th:href="@{/product/{productId}(productId=${productInfo.productId})}">
 									
 									     <img th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}" class="card-img-top" alt="..." style="height: 200px; object-fit: cover;">
@@ -67,14 +65,16 @@
 					                    <p class="card-text"><small class="text-muted" th:text="${productInfo.proPrice}">Price</small></p>
 										 <div class="button-wrapper" >
                                             <div class="button-group text-center">
+                                                <!-- todo 按鈕無效 -->
                                                 <button type="button" class="btn btn-primary btn-cart"
-                                                        data-target="#cart-pop" data-toggle="modal"><i
-                                                        class="material-icons">加入購物車</i>
+                                                        id="addToCartBtn"
+                                                        data-target="#cart-pop" data-toggle="modal">
+                                                    <input type="hidden" id="memberId" value="10">
+                                                    <i class="material-icons">加入購物車</i>
                                                 </button>
-                                                <button type="button" class="btn btn-primary btn-wishlist"
-												        th:data-product-id="${productInfo.productId}"
-												        onclick="toggleFavorite(this)"><i class="material-icons">加入最愛</i>
-                                                </button>
+                                                <a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
+                                                        class="material-icons">加入收藏</i></a>
+                                  
                                                 <button type="button" class="btn btn-primary btn-quickview"
                                                         data-toggle="modal" data-target="#product_view"><i
                                                         class="material-icons">visibility</i>
@@ -100,6 +100,8 @@
 
     <!-- 把你的內容貼在這裡-->
 </main>
+<!--加入購物車按鈕-->
+<script src="/frontendapp/js/shopping/addToCart.js"></script>
 
 <!-- 共用元件 footer和一些按鈕功能 -->
 <div th:replace="~{frontendapp/components/common :: app-footer}"></div>
@@ -107,9 +109,6 @@
 <div th:replace="~{frontendapp/components/common :: app-modals}"></div>
 <!-- 共同引入 置底 import-in-the-end -->
 <div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
-
-<script src="/frontendapp/js/favorites.js"></script>
-
 </body>
 
 </html>

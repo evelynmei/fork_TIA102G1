@@ -1,10 +1,7 @@
-import { createApp, ref, computed, onMounted, toRaw } from 'https://unpkg.com/shopping@3/dist/shopping.esm-browser.prod.js';
-import axios from 'https://unpkg.com/axios@1.7.2/dist/esm/axios.min.js';
+let { createApp, ref, computed, onMounted, toRaw } = Vue;
 
 /*
-todo 判斷用戶->
-     未登入: 存入sessionStorage
-     登入: 透過cookie取得emberId
+todo 存入localStorage
  */
 let memberId = "1";
 const cartURL = "http://localhost:8080/cart/";
@@ -49,6 +46,25 @@ createApp({
         const coupons = ref([]);
         const selectedItems = ref([]); // 選擇的商品
 
+        // // 取得localStorage內的購物車資料
+        // let localCartItems = JSON.parse(localStorage.getItem("localCartItems")) || [];
+        // // 查找是否已存在相同商品
+        // let existingItem = localCartItems.find(item => item.productId === productId);
+        //
+        // if (existingItem) {
+        //     // 如果商品已存在，增加數量
+        //     existingItem.proAmount += proAmount;
+        // } else {
+        //     // 如果商品不存在，添加新項目
+        //     localCartItems.push({
+        //         productId: productId,
+        //         proAmount: proAmount
+        //     });
+        // }
+        // // 存入localStorage
+        // localStorage.setItem("localCartItems", JSON.stringify(localCartItems));
+        // console.log(localCartItems);
+
         // 全選狀態的計算屬性
         const allSelected = computed({
             get() {
@@ -76,28 +92,49 @@ createApp({
          CartViewObject:
          購物車項目 Id CartId、商品圖片、商品品項名、商品單價、商品數量、總計
          所屬會員 Id
-
+         {
+            response:{
+            data: {
+            productsInfos: [],
+            cartList: [],
+            coupons:[]
+            }
+            }
+         }
          **/
 
-        /** {
-                response:{
-                    data: {
-                        productsInfos: [],
-                            cartList: [],
-                            coupons:[]
-                    }
-                }
-            }**/
         onMounted( async() => {
             try {
                 let cartResponse = await axios.get(cartURL + memberId);
                 let couponResponse = await axios.get(couponURL);
 
-                let { productInfos, cartList } = cartResponse.data;
+                let { cartPrdList, cartList } = cartResponse.data;
                 coupons.value.push(...couponResponse.data);
                 console.log("couPonResponse = " + couponResponse);
-                items.value = cartList.map(mapCallback);
+                // console.log("cartPrdList = " + JSON.stringify(cartPrdList));
+
+                // 把 cartPrdList 轉成 products 格式
+                products = cartPrdList.reduce((acc, item) => {
+                    let id = item.prdId;
+                    acc[id] = {
+                        name: item.prdName,
+                        picture: productURL + "0" + (id-1000) + ".jpg",
+                        price: item.prdPrice,
+                        others: item
+                    };
+                    return acc;
+                }, {});
+                console.log("products = " + JSON.stringify(products));
+
+
+
+
+                if(cartResponse.data !== null)
+                    console.log("api串接成功, cartList資料為:" + cartResponse.data);
+
+                items.value = cartList.map(cartView);
                 console.log(toRaw(items.value));
+
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -138,6 +175,16 @@ createApp({
             }
         };
 
+
+        async function checkOutHandler(){
+            // items.value.forEach(item => console.log(toRaw(item)))
+            const buyItemList = items.value.map(item => ( {"productId": item.productId, "quantity": item.proAmount} ));
+            const postData = {buyItemList};
+
+            const response = await axios.post("http://localhost:8080/checkout",postData)
+            console.log(response);
+        }
+
         return {
             items,
             sum: selectedSum, //選中商品的總金額
@@ -146,6 +193,7 @@ createApp({
             codeInput,
             deleteItem,
             discountHandler,
+            checkOut: checkOutHandler,
             selectedItems,
             allSelected
         }
@@ -162,12 +210,12 @@ function reduceCallback(accumulator, current){
     return accumulator;
 }
 
-function mapCallback(item){
+function cartView(item){
     let id = item.productId;
     item.productName = products[id].name;
     item.price = products[id].price;
     item.picture = products[id].picture;
     item.sum = item.price * item.proAmount;
-    item.url = "productDetails/" + item.cartId;
+    item.url = "product/" + item.productId;
     return item;
 }
