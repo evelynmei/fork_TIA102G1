@@ -10,6 +10,7 @@ import com.tia102g1.member.model.Member;
 import com.tia102g1.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -244,6 +245,7 @@ public class ThymeleafMemberController {
      */
     @GetMapping("/{memberId}/memberInfo")
     public String showMemberInfo(@PathVariable Integer memberId, Model model) {
+
         Member member = memberService.getMemberById(memberId);
         if (member == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "會員不存在");
@@ -266,6 +268,7 @@ public class ThymeleafMemberController {
     @PostMapping("/{memberId}/updateMemberInfo")
     public String updateMemberInfo(@PathVariable Integer memberId,
                                    @Validated @ModelAttribute("member") MemberUpdateDto memberUpdateDto,
+                                   Authentication authentication,
                                    BindingResult bindingResult,
                                    Model model) {
 
@@ -276,7 +279,6 @@ public class ThymeleafMemberController {
             model.addAttribute("member", memberUpdateDto);
             return "frontendapp/memberInfo";  // 返回更新頁面並顯示錯誤訊息
         }
-
         try {
             // 檢查並更新會員資料，並拋出自定義異常
             memberService.updateMember(memberId, memberUpdateDto);

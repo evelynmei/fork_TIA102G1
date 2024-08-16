@@ -39,8 +39,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // 關閉 CSRF 保護
                 .authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/frontendapp/**", "/plungins/**").permitAll()
-                .mvcMatchers("/members/register", "/index", "/register", "/login/**").permitAll()
+                .mvcMatchers( "/index", "/register/**", "/login/**").permitAll()
                 .mvcMatchers("/member/{memberId}/account/**").authenticated()
+//                .mvcMatchers("/member/mainPageMember").hasAnyRole("STAFF","ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -50,11 +51,14 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/index", false) // 登入成功後的響應的 URL
                 .failureHandler(customAuthenticationFailureHandler)
                 .and()
+                //OAuth2.0授權認證方法
                 .oauth2Login()
                 .loginPage("/login")
                 .defaultSuccessUrl("/index", false)
                 .userInfoEndpoint()
                 .userService(myOAuth2UserService)
                 .oidcUserService(myOidcUserService);
+
+
     }
 }
