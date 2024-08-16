@@ -102,11 +102,13 @@
 
 <!--                 todo 加入最愛, 不跳轉, 顯示popout, 前端渲染-->
 						<div class="tt-links d-flex align-items-center float-left w-100 mb-15">
-							<a href="wishlist.html" class="link btn-wishlist">
-								<i class="material-icons">favorite</i>
-								<span>加入最愛</span>
-							</a>
-						</div>
+                                <button type="button" class="btn btn-primary btn-wishlist"
+                                        th:data-product-id="${product.productId}"
+                                        onclick="toggleFavorite(this)">
+                                    <i class="material-icons" id="favorite-icon-${product.productId}">favorite_border</i>
+                                    <span id="favorite-text-${product.productId}">加入最愛</span>
+                                </button>
+                            </div>
 					</div>
 				</div>
 			</div>
@@ -275,6 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
 <script src="/frontendapp/js/jquery-ui.min.js"></script>
 <script src="/frontendapp/js/jquery.sticky-kit.min.js"></script>
+<script src="/frontendapp/js/favorites.js"></script>
+
 
 </body>
 

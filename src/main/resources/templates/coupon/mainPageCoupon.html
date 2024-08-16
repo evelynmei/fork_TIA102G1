@@ -113,7 +113,7 @@
                                                     <td class="text-center align-middle">
                                                         <div class="btn-group align-top btn-nowrap">
                                                             <form action="#" th:action="@{'/coupon/edit/{id}'(id=${coupon.couponId})}" th:method="get">
-                                                                <button class="btn btn-sm btn-outline-secondary badge" type="submit">
+                                                                <button class="btn btn-sm btn-outline-secondary badge" type="submit" th:if="${session.permission != null}">
                                                                     <a th:href="@{'/coupon/edit/' + ${coupon.couponId} }"></a>
                                                                     Edit
                                                                 </button>
@@ -140,7 +140,7 @@
                         <div class="col-12 col-lg-3 mb-3">
                                 <div class="card-body">
                                     <div class="text-center px-xl-3">
-                                        <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#addCouponModal">
+                                        <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#addCouponModal" th:if="${session.permission != null}">
                                             新增優惠券
                                         </button>
                                     </div>

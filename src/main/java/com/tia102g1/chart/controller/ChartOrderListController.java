@@ -28,8 +28,8 @@ public class ChartOrderListController {
 	@Autowired
 	private ChartOrderListRepository repo;
 	
-	@GetMapping("generateChart")
-	public String generateChart(Model model) {
+	@GetMapping("mainPageReport")
+	public String mainPageReport(Model model) {
 		List<Object[]> orderList = repo.findOrderSummary();
 		
 		String outputFilePath = "upload/salesChart.png";

@@ -108,13 +108,13 @@
 
 					<td>
 					  <form method="post" th:action="@{/csForm/getOne_For_Update}" style="margin-bottom: 0px;">
-					     <button type="submit" class="btn btn-primary btn-sm">編輯</button>
+					     <button type="submit" class="btn btn-primary btn-sm" th:if="${session.permission != null}">編輯</button>
 					     <input type="hidden" name="csFormId" th:value="${csFormVO.csFormId}"></form>
 					</td>
 					
 					<td>
 					  <form method="post" th:action="@{/csForm/delete}" style="margin-bottom: 0px;">
-					     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('是否要刪除資料?');">刪除</button>
+					     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('是否要刪除資料?');" th:if="${session.permission != null}">刪除</button>
 					     <input type="hidden" name="csFormId" th:value="${csFormVO.csFormId}"></form>
 					</td>
 					</tr>

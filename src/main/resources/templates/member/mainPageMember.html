@@ -164,8 +164,8 @@
                                         <td th:text="${member.joinDate}"></td>
                                         <td th:text="${member.lastUpdatedBy}"></td>
                                         <td>
-                                            <a th:href="@{/member/update/{id}(id=${member.memberId})}" class="btn btn-primary btn-sm">更新</a>
-                                            <a th:href="@{/member/delete/{id}(id=${member.memberId})}" class="btn btn-danger btn-sm">刪除</a>
+                                            <a th:href="@{/member/update/{id}(id=${member.memberId})}" class="btn btn-primary btn-sm" th:if="${session.permission != null}">更新</a>
+                                            <a th:href="@{/member/delete/{id}(id=${member.memberId})}" class="btn btn-danger btn-sm" th:if="${session.permission != null}">刪除</a>
                                         </td>
                                     </tr>
                                 </th:block>

@@ -39,7 +39,7 @@
 						            <i class="material-icons">delete</i>
 						        </button>
 						    </td>							
-						    <td><img th:src="@{/productInfo/ProductInfoReader} + '?productId' + ${productInfo.productId}"></td>
+						    <td><img th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}" style="width: 150px; height: 100px;"></td>
 							<td th:text="${productInfo.proName}"></td>
 							<td th:text="${productInfo.proPrice}"></td>
 							<td th:switch="${productInfo.proStatus}">

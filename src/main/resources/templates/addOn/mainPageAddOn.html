@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -149,7 +149,7 @@
 			</form>
 			</div>
 			<div style="border: 0px; width: 10%; display: inline-block;">
-			    <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#addAddOnModal">
+			    <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#addAddOnModal" th:if="${session.permission != null}">
 			        新增加購商品
 			    </button>				 
 			</div>

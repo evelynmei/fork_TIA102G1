@@ -38,10 +38,7 @@
 	<!-- 功能內容開始 -->
 	<section class="content">
 		
-	<p>報表分析管理 主頁 測試</p>
 	<div class="container">
-        <h1>主頁面</h1>
-        <a class="button" href="/report/generateChart">生成圖表</a>
 		<img th:if="${chartPath != null and chartPath != ''}" th:src="${chartPath}" alt="Sales Chart">			
     </div>  
 	<div th:if="${errorMessage}" class="alert alert-danger">
