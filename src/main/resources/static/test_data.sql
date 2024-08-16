@@ -937,61 +937,61 @@ VALUES (20, 2);
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars, proStatus, proDesc, createdBy, lastUpdatedBy) values (2, '巧克力慕斯蛋糕', 350, 5, 10, 0, 0, 0, '濃郁巧克力口感，入口即化，帶來無與倫比的甜蜜享受。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '草莓奶油蛋糕', 400, 5, 20, 0, 0, 0, '新鮮草莓搭配香濃奶油，甜美可口，讓人一試成主顧。', 'chris', 'chris');
+values (2, '草莓奶油蛋糕', 400, 5, 20, 0, 0, 1, '新鮮草莓搭配香濃奶油，甜美可口，讓人一試成主顧。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '綜合水果蛋糕', 450, 5, 30, 0, 0, 0, '多種新鮮水果搭配，清新美味，帶來豐富的口感層次。', 'chris', 'chris');
+values (2, '綜合水果蛋糕', 450, 5, 30, 0, 0, 1, '多種新鮮水果搭配，清新美味，帶來豐富的口感層次。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
 values (3, '檸檬塔', 250, 5, 15, 0, 0, 0, '酸甜檸檬餡，搭配酥脆塔皮，每一口都是酸甜爽口的享受。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '芒果乳酪蛋糕', 380, 5, 25, 0, 0, 0, '芒果香甜，乳酪濃郁滑順，讓人無法抗拒的美味組合。', 'chris', 'chris');
+values (2, '芒果乳酪蛋糕', 380, 5, 25, 0, 0, 1, '芒果香甜，乳酪濃郁滑順，讓人無法抗拒的美味組合。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '藍莓起司蛋糕', 420, 5, 5, 0, 0, 0, '藍莓酸甜，起司香濃，口感豐富，讓人一口接一口。', 'chris', 'chris');
+values (2, '藍莓起司蛋糕', 420, 5, 5, 0, 0, 1, '藍莓酸甜，起司香濃，口感豐富，讓人一口接一口。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
 values (2, '綠茶紅豆蛋糕', 360, 5, 10, 0, 0, 0, '綠茶濃郁，紅豆香甜，日式風味，獨特又美味。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '核桃咖啡蛋糕', 320, 5, 20, 0, 0, 0, '核桃脆口，咖啡香氣濃郁，完美搭配。', 'chris', 'chris');
+values (2, '核桃咖啡蛋糕', 320, 5, 20, 0, 0, 1, '核桃脆口，咖啡香氣濃郁，完美搭配。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '抹茶生巧克力蛋糕', 370, 5, 30, 0, 0, 0, '抹茶濃郁，巧克力滑順，帶來雙重口感享受。', 'chris', 'chris');
+values (2, '抹茶生巧克力蛋糕', 370, 5, 30, 0, 0, 1, '抹茶濃郁，巧克力滑順，帶來雙重口感享受。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '玫瑰香草蛋糕', 430, 5, 10, 0, 0, 0, '玫瑰香氣撲鼻，香草細膩柔和，口感豐富。', 'chris', 'chris');
+values (2, '玫瑰香草蛋糕', 430, 5, 10, 0, 0, 1, '玫瑰香氣撲鼻，香草細膩柔和，口感豐富。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (1, '奶油酥餅', 180, 5, 20, 0, 0, 0, '奶油香濃，酥脆可口，每一口都令人回味無窮。', 'chris', 'chris');
+values (1, '奶油酥餅', 180, 5, 20, 0, 0, 1, '奶油香濃，酥脆可口，每一口都令人回味無窮。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (1, '杏仁餅乾', 150, 5, 30, 0, 0, 0, '杏仁香氣濃郁，口感酥脆，讓人一吃就停不下來。', 'chris', 'chris');
+values (1, '杏仁餅乾', 150, 5, 30, 0, 0, 1, '杏仁香氣濃郁，口感酥脆，讓人一吃就停不下來。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (1, '花生奶油餅乾', 160, 5, 30, 0, 0, 0, '花生香濃，奶油滑順，口感豐富，是茶點的最佳選擇。', 'chris', 'chris');
+values (1, '花生奶油餅乾', 160, 5, 30, 0, 0, 1, '花生香濃，奶油滑順，口感豐富，是茶點的最佳選擇。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
 values (1, '可可曲奇餅', 200, 5, 15, 0, 0, 0, '可可香濃，酥脆可口，每一口都是濃郁的可可享受。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (4, '香草馬卡龍', 220, 5, 25, 0, 0, 0, '馬卡龍香脆，香草濃郁，甜而不膩，令人愛不釋手。', 'chris', 'chris');
+values (4, '香草馬卡龍', 220, 5, 25, 0, 0, 1, '馬卡龍香脆，香草濃郁，甜而不膩，令人愛不釋手。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (1, '檸檬酥餅', 190, 5, 30, 0, 0, 0, '檸檬清新，酥脆爽口，帶來清爽的味蕾享受。', 'chris', 'chris');
+values (1, '檸檬酥餅', 190, 5, 30, 0, 0, 1, '檸檬清新，酥脆爽口，帶來清爽的味蕾享受。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
 values (1, '蔓越莓餅乾', 170, 5, 15, 0, 0, 0, '蔓越莓酸甜，餅乾酥脆，口感豐富，是下午茶的絕佳搭配。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '巧克力布朗尼', 300, 5, 25, 0, 0, 0, '濃郁巧克力，口感濕潤，每一口都是絕佳的巧克力體驗。', 'chris', 'chris');
+values (2, '巧克力布朗尼', 300, 5, 25, 0, 0, 1, '濃郁巧克力，口感濕潤，每一口都是絕佳的巧克力體驗。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '太妃糖核桃蛋糕', 40, 5, 20, 0, 0, 0, '太妃糖香甜，核桃香脆，甜而不膩，讓人回味無窮。', 'chris', 'chris');
+values (2, '太妃糖核桃蛋糕', 40, 5, 20, 0, 0, 1, '太妃糖香甜，核桃香脆，甜而不膩，讓人回味無窮。', 'chris', 'chris');
 insert into productInfo (productTypeId, proName, proPrice, proSafetyStock, totalCount, commentUsers, commentStars,
                          proStatus, proDesc, createdBy, lastUpdatedBy)
-values (2, '紅絲絨蛋糕', 410, 5, 30, 0, 0, 0, '絲絨般細膩，奶油濃郁，每一口都是甜蜜的享受。', 'chris', 'chris');
+values (2, '紅絲絨蛋糕', 410, 5, 30, 0, 0, 1, '絲絨般細膩，奶油濃郁，每一口都是甜蜜的享受。', 'chris', 'chris');
 
 #促銷活動
 insert into event (eventName, startDt, endDt, eventDiscount, status, eventContent, createdBy, lastUpdatedBy) values ('元旦迎新甜點禮', '2024-1-1', '2024-1-5', 8.00, 2, '元旦期間推出特別組合禮盒，餅乾與蛋糕組合特價8折優惠，讓您迎接新年更添甜美滋味。', 'chris', 'chris');
