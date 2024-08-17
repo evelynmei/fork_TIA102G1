@@ -29,9 +29,9 @@ public class CartController {
      * 取得購物車全部內容
      * @param memberId
      * @param model
-     * @return
+     * @return api
      */
-    @GetMapping("cart/{memberId}")
+    @GetMapping("api/cart/{memberId}")
     public ResponseEntity<?> getAllItems(@PathVariable Integer memberId, Model model) {
         List<Cart> cartList = cartService.getAllItems(memberId);
         model.addAttribute("cartList", cartList);
@@ -64,7 +64,7 @@ public class CartController {
      * @return api
      * 購物車內如果存在相同會員和商品的購物車項目，則更新數量，否則新增購物車項目
      */
-    @PostMapping("/cart/{memberId}")
+    @PostMapping("api/cart/{memberId}")
     public ResponseEntity<?> addItem(@RequestBody Cart cart) {
         Integer memberId = cart.getMemberId();
         Integer productId = cart.getProductId();
@@ -89,24 +89,34 @@ public class CartController {
 
     /**
      * 更新商品數量
-     *
      * @param cartId
-     * @param cart
+     * @param proAmount
      * @return api
+     * 前端用put請求時, 傳入cartId以及要更新的數量
+     * 後端更新資料庫後回傳api
      */
-    @PutMapping("/cart/{cartId}")
-    public ResponseEntity<Cart> updateCart(@PathVariable Integer cartId, @RequestBody Cart cart) {
-        Integer memberId = cart.getMemberId();
+    @PutMapping("api/cart/{cartId}")
+    public ResponseEntity<Cart> updateCart(@PathVariable Integer cartId, @RequestBody Integer proAmount, Model model) {
+        System.out.println("====================購物車更新===================");
+
+        //從前端取得的memberId
+        Integer memberId = (Integer) model.getAttribute("memberId");
+
+        //前端按下去買單後, 傳入cartId以及更新後的數量
+        Cart checkOutCart = new Cart();
+        checkOutCart.setProAmount(proAmount);
+        checkOutCart.setCartId(cartId);
+
+        //檢查購物車內品項
         Cart item = cartService.getCartByPK(cartId, memberId);
-        //判斷購物車是否有此商品
         if (item == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        //修改數量
-        cartService.updateCart(cartId, cart);
-
-        Cart updateItem = cartService.getCartByPK(cartId, memberId);
+        //更新數量
+        Cart updateItem = cartService.updateCart(cartId, checkOutCart);
+        System.out.println("====================更新成功====================" + proAmount);
         return ResponseEntity.status(HttpStatus.OK).body(updateItem);
+
     }
 
     /**
@@ -114,7 +124,7 @@ public class CartController {
      * @param cartId
      * @return api
      */
-    @DeleteMapping("/cart/{cartId}")
+    @DeleteMapping("api/cart/{cartId}")
     public ResponseEntity<?> deleteItem(@PathVariable Integer cartId) {
         cartService.deleteItem(cartId);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -122,16 +132,24 @@ public class CartController {
 
     /**
      * 買單商品
-     *
      * @param obj: 從前端拿到的資料，結構為 obj= {"buyItemList"= [
      *           {productId=1001, quantity=2},{productId=1002, quantity=3} ]}。
      * @return: 將資料存進 model 中的 buyItemList 屬性，然後重導到結帳頁面
      */
-    @PostMapping("api/checkout")  // 暫定 url
-    public String checkout(@RequestBody Object obj, Model model) {
-        model.addAttribute("buyItemList", obj);
-        System.out.println(obj);
-        return "redirect:/checkout";
-    }
+//    @ResponseBody
+//    @PostMapping("api/checkout")  // 暫定 url
+//    public String checkout(@RequestBody Object obj, Model model) {
+//        model.addAttribute("buyItemList", obj);
+//        System.out.println(obj);
+//        String message;
+//
+//        if (obj == null) {
+//            message = "請選擇要購買的商品";
+//        } else {
+//            message = "購買成功";
+//        }
+//
+//        return message;
+//    }
 
 }

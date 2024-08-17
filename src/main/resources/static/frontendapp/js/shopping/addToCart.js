@@ -20,15 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // 取得memberId
         const memberId = document.getElementById('memberId').value;
 
-        // 更新localStorage
-        const updatedAmount = updateLocalStorage(productId, proAmount);
-
         // 準備發送到後端的數據
         const cartData = {
             cartId: null,
             memberId: parseInt(memberId),
             productId: productId,
-            proAmount: updatedAmount,
+            proAmount: proAmount,
             joinDt: null
         };
 
@@ -37,32 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function updateLocalStorage(productId, proAmount) {
-
-    // 取得localStorage內的購物車資料
-    let localCartItems = JSON.parse(localStorage.getItem("localCartItems")) || [];
-
-    // 查找是否已存在相同商品
-    const existingItemIndex = localCartItems.findIndex(item => item.productId === productId);
-
-    if (existingItemIndex >= 0) {
-        // 如果商品已存在，增加數量
-        localCartItems[existingItemIndex].proAmount += proAmount;
-        proAmount = localCartItems[existingItemIndex].proAmount; // 更新為總數量
-    } else {
-        // 如果商品不存在，添加新項目
-        localCartItems.push({ productId, proAmount });
-    }
-    // 存入localStorage
-    localStorage.setItem("localCartItems", JSON.stringify(localCartItems));
-    console.log('本地購物車更新：', localCartItems);
-
-    return proAmount; // 返回更新後的數量
-}
-
-
+// 發送 POST 請求至後端
 function sendCartDataToServer(memberId, cartData) {
-    fetch(`/cart/${memberId}`, {
+    fetch(`/api/cart/${memberId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -71,6 +45,7 @@ function sendCartDataToServer(memberId, cartData) {
     })
         .then(response => response.json())
         .then(data => {
+            console.log("會員:" + memberId);
             console.log('伺服器回應：', data);
             alert('商品已成功加入購物車！');
         })

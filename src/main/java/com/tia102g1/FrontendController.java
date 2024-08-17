@@ -6,39 +6,20 @@ import com.tia102g1.member.model.Member;
 import com.tia102g1.member.service.MemberService;
 import com.tia102g1.news.model.NewsService;
 import com.tia102g1.news.model.NewsVO;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.tia102g1.coupon.Coupon;
-import com.tia102g1.coupon.CouponService;
-import com.tia102g1.member.model.Member;
-import com.tia102g1.member.service.MemberService;
-import com.tia102g1.news.model.NewsService;
-import com.tia102g1.news.model.NewsVO;
+import com.tia102g1.productinfo.entity.ProductInfo;
+import com.tia102g1.productinfo.model.ProductInfoServiceS;
+import com.tia102g1.producttype.model.ProductTypeService;
+import com.tia102g1.producttype.model.ProductTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.List;
-import com.tia102g1.coupon.Coupon;
-import com.tia102g1.coupon.CouponService;
-import com.tia102g1.news.model.NewsService;
-import com.tia102g1.news.model.NewsVO;
-import com.tia102g1.productcomment.model.ProductCommentService;
-import com.tia102g1.productinfo.entity.ProductInfo;
-import com.tia102g1.productinfo.model.ProductInfoServiceS;
-import com.tia102g1.producttype.model.ProductTypeService;
-import com.tia102g1.producttype.model.ProductTypeVO;
+import java.util.Map;
 
 @Controller
 public class FrontendController {

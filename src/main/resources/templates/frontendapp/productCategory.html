@@ -50,8 +50,9 @@
                         <div class="category-description">以新鮮食材為基礎，融合傳統與創新的技術，提供精緻、美味的手工甜點。店內環境舒適、溫馨，適合與親友共享美好時光。我們每日新鮮現做，讓每位顧客都能品味到最純粹的甜點美味。歡迎光臨，一同感受甜蜜的幸福滋味！
                         </div>
                     </div>
-                   
-                    
+<!--                    隱藏欄位 memberId-->
+                    <input th:value="${memberId}" id="memberId" type="hidden">
+
                     <div class="container">
 					    <div class="row">
 					        <div class="col-4" th:each="productInfo, pIndex : ${productInfoListData}" style="margin-bottom: 20px;">
@@ -65,20 +66,19 @@
 					                    <p class="card-text"><small class="text-muted" th:text="${productInfo.proPrice}">Price</small></p>
 										 <div class="button-wrapper" >
                                             <div class="button-group text-center">
-                                                <!-- todo 按鈕無效 -->
+
                                                 <button type="button" class="btn btn-primary btn-cart"
-                                                        id="addToCartBtn"
-                                                        data-target="#cart-pop" data-toggle="modal">
-                                                    <input type="hidden" id="memberId" value="10">
+                                                        th:value="${productInfo.productId}">
                                                     <i class="material-icons">加入購物車</i>
                                                 </button>
                                                 <a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
                                                         class="material-icons">加入收藏</i></a>
-                                  
+
                                                 <button type="button" class="btn btn-primary btn-quickview"
                                                         data-toggle="modal" data-target="#product_view"><i
                                                         class="material-icons">visibility</i>
                                                 </button>
+
                                             </div>
                                         </div>					                
 					                </div>
@@ -86,7 +86,6 @@
 					        </div>
 					    </div>
 					</div>
-  
 
                         </div>
                     </div>
@@ -101,7 +100,7 @@
     <!-- 把你的內容貼在這裡-->
 </main>
 <!--加入購物車按鈕-->
-<script src="/frontendapp/js/shopping/addToCart.js"></script>
+<script src="/frontendapp/js/shopping/addToCartBtns.js"></script>
 
 <!-- 共用元件 footer和一些按鈕功能 -->
 <div th:replace="~{frontendapp/components/common :: app-footer}"></div>

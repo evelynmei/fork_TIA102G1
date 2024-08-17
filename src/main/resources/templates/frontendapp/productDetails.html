@@ -92,15 +92,14 @@
 								<button type="button" class="btn btn-primary btn-cart m-0" data-target="#cart-pop"
 										data-toggle="modal" th:value="${product.productId}"
 										id="addToCartBtn">
-<!--									todo 會員id先假設 value="10"-->
-									<input type="hidden" id="memberId" value="10">
+<!--									隱藏欄位 memberId -->
+									<input th:value="${memberId}" type="hidden" id="memberId">
 									<i class="material-icons">shopping_cart</i>
 									加入購物車
 								</button>
 							</form>
 						</div>
 
-<!--                 todo 加入最愛, 不跳轉, 顯示popout, 前端渲染-->
 						<div class="tt-links d-flex align-items-center float-left w-100 mb-15">
                                 <button type="button" class="btn btn-primary btn-wishlist"
                                         th:data-product-id="${product.productId}"
