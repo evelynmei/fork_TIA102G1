@@ -1,14 +1,10 @@
 let { createApp, ref, computed, onMounted, toRaw } = Vue;
 
-/*
-todo 存入localStorage
- */
-let memberId = "1";
-const cartURL = "http://localhost:8080/cart/";
+var memberId = document.getElementById("memberId").value;
+const cartURL = "http://localhost:8080/api/cart/";
 const couponURL = "http://localhost:8080/coupon/";
 const productURL = "frontendapp/img/products/";
-
-const dumbProducts = {
+const mockProducts = {
     1001: {
         name: "巧克力餅乾",
         price: 300,
@@ -30,42 +26,28 @@ const dumbProducts = {
         picture: productURL + "08.jpg"
     },
 }
-const dumbItems = [
+const mockItems = [
     {cartId:1, picture: "圖片", productName: "巧克力餅乾", price: 100, proAmount: 1,},
     {cartId:2, picture: "圖片", productName: "牛奶糖餅乾", price: 200, proAmount: 2,}
 ];
-let products = dumbProducts;
-
+let products = mockProducts;
 
 createApp({
     setup() {
-        let items = ref(dumbItems);
+        let items = ref(mockItems);
         const isDiscount = ref(false);
         const codeInput = ref("");
         const discountAmount = ref(0);
         const coupons = ref([]);
-        const selectedItems = ref([]); // 選擇的商品
+        const selectedItems = ref([]);
+        const isCheckoutDisabled = computed(() => {
+            return selectedItems.value.length === 0;
+        });
+        //取得localStorage內的購物車資料
+        let localCartItems = JSON.parse(localStorage.getItem("localCartItems")) || [];
 
-        // // 取得localStorage內的購物車資料
-        // let localCartItems = JSON.parse(localStorage.getItem("localCartItems")) || [];
-        // // 查找是否已存在相同商品
-        // let existingItem = localCartItems.find(item => item.productId === productId);
-        //
-        // if (existingItem) {
-        //     // 如果商品已存在，增加數量
-        //     existingItem.proAmount += proAmount;
-        // } else {
-        //     // 如果商品不存在，添加新項目
-        //     localCartItems.push({
-        //         productId: productId,
-        //         proAmount: proAmount
-        //     });
-        // }
-        // // 存入localStorage
-        // localStorage.setItem("localCartItems", JSON.stringify(localCartItems));
-        // console.log(localCartItems);
 
-        // 全選狀態的計算屬性
+        // 全選狀態
         const allSelected = computed({
             get() {
                 return selectedItems.value.length === items.value.length && items.value.length > 0;
@@ -78,66 +60,10 @@ createApp({
                 }
             }
         });
-        // 選中商品的總金額計算屬性
+
+        // 選中商品的總金額計算
         const selectedSum = computed(() => {
-            return selectedItems.value.reduce((acc, item) => acc + (item.price * item.proAmount), 0);
-        });
-
-
-        /**
-         前端頁面資料推演，購物車，CartViewObject，需要什麼資料？
-         Cart: CartId、MemberId、ProductId、ProAmount、JoinDt
-         流水號PK、會員編號FK、商品編號FK、商品數量、加入日期
-
-         CartViewObject:
-         購物車項目 Id CartId、商品圖片、商品品項名、商品單價、商品數量、總計
-         所屬會員 Id
-         {
-            response:{
-            data: {
-            productsInfos: [],
-            cartList: [],
-            coupons:[]
-            }
-            }
-         }
-         **/
-
-        onMounted( async() => {
-            try {
-                let cartResponse = await axios.get(cartURL + memberId);
-                let couponResponse = await axios.get(couponURL);
-
-                let { cartPrdList, cartList } = cartResponse.data;
-                coupons.value.push(...couponResponse.data);
-                console.log("couPonResponse = " + couponResponse);
-                // console.log("cartPrdList = " + JSON.stringify(cartPrdList));
-
-                // 把 cartPrdList 轉成 products 格式
-                products = cartPrdList.reduce((acc, item) => {
-                    let id = item.prdId;
-                    acc[id] = {
-                        name: item.prdName,
-                        picture: productURL + "0" + (id-1000) + ".jpg",
-                        price: item.prdPrice,
-                        others: item
-                    };
-                    return acc;
-                }, {});
-                console.log("products = " + JSON.stringify(products));
-
-
-
-
-                if(cartResponse.data !== null)
-                    console.log("api串接成功, cartList資料為:" + cartResponse.data);
-
-                items.value = cartList.map(cartView);
-                console.log(toRaw(items.value));
-
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
+            return selectedItems.value.reduce((acc, item) => acc + (item.price * item.proAmount), 0) || 0;
         });
 
         //刪除商品
@@ -148,6 +74,7 @@ createApp({
 
             // array 裡需至少有一項才執行，否則短路不繼續運算，不短路則 spice 掉陣列裡第 i 個 item
             array.length > 0 && array.splice(index, 1);
+            array.length > 0 && selectedItems.value.splice(index, 1);
 
             console.log("item = ", toRaw(itemToDelete));
             console.log("cartId =", cartId);
@@ -158,8 +85,8 @@ createApp({
                 .catch(err => console.log(err));
         };
 
-
-        let couponChecked; // 套用優惠券成功與否的狀態
+        //套用優惠券
+        let couponChecked;
         const discountHandler = () => {
 
             // 檢查輸入的 codeInput.value 跟 coupons 裡的 couponCode 是否符合
@@ -175,14 +102,92 @@ createApp({
             }
         };
 
+        //掛載後才執行
+        onMounted( async() => {
+            try {
+                //對後端發送get請求取得的回應
+                let cartResponse = await axios.get(cartURL + memberId);
+                console.log("memberId=" + memberId);
 
-        async function checkOutHandler(){
-            // items.value.forEach(item => console.log(toRaw(item)))
-            const buyItemList = items.value.map(item => ( {"productId": item.productId, "quantity": item.proAmount} ));
-            const postData = {buyItemList};
+                let couponResponse = await axios.get(couponURL);
 
-            const response = await axios.post("http://localhost:8080/checkout",postData)
-            console.log(response);
+                //解構賦值: 將resp裡面的data, 重新給兩個key變數: cartPrdList, cartList
+                let { cartPrdList, cartList } = cartResponse.data;
+
+                coupons.value.push(...couponResponse.data);
+                // console.log("couPonResponse = " + couponResponse);
+                // console.log("cartPrdList = " + JSON.stringify(cartPrdList));
+
+                // 把 cartPrdList 轉成 products所需格式
+                products = cartPrdList.reduce(reduceToProducts, {});
+                // (reduce:重新組裝成一個新的形式物件; 自定義重組方式->reduceToProducts)
+                // console.log("products = " + JSON.stringify(products));
+
+                if(cartResponse.data !== null)
+                    console.log("api串接成功, cartList資料為:" + cartResponse.data);
+
+                items.value = cartList.map(cartView);
+                console.log(toRaw(items.value));
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        });
+
+
+        //按下去買單
+        function checkOutHandler() {
+            localStorage.clear();
+            try{
+
+                // 確保只選擇了被勾選的商品
+                const selectedCartItems = selectedItems.value.map(item => ({
+                    productId: item.productId,
+                    productName: item.productName,
+                    price: item.price,
+                    quantity: item.proAmount,
+                    sum: item.price * item.proAmount,
+                    cartId: item.cartId
+                }));
+
+                // 計算總金額
+                const totalAmount = selectedSum.value - discountAmount.value + 80;
+                console.log("sum = " + selectedSum.value);
+                console.log("discountAmount = " + discountAmount.value);
+                console.log("totalAmount = " + totalAmount);
+
+                // 要儲存的購物車資料
+                const cartData = {
+                    buyItemList: selectedCartItems,
+                    totalAmount: totalAmount,
+                    discount: discountAmount.value,
+                    shipping: 80
+                };
+
+                // 將購物車存入localStorage
+                localStorage.setItem('cartData', JSON.stringify(cartData));
+
+                //將最新的localStorage資料發送至後端
+                selectedItems.value.map( item => {
+                    console.log("item = " + JSON.stringify(item));
+                    console.log(cartURL + item.cartId)
+                    const response = axios.put(cartURL + item.cartId, item.proAmount, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    console.log(response);
+                })
+                console.log("購物車資料已存入localStorage並更新到後端");
+                alert("即將跳轉到結帳頁面");
+
+                // 跳轉到結帳頁面
+                window.location.href = "http://localhost:8080/checkout";
+
+            } catch (error) {
+                console.error("更新購物車時出錯:", error);
+                alert("更新購物車時出錯，請稍後再試");
+            }
         }
 
         return {
@@ -195,21 +200,27 @@ createApp({
             discountHandler,
             checkOut: checkOutHandler,
             selectedItems,
-            allSelected
+            allSelected,
+            memberId,
+            isCheckoutDisabled
         }
     }
 }).mount('#shopping-cart');
 
-function reduceCallback(accumulator, current){
-    accumulator[current.productId] = {
-        name: current.proName,
-        picture: productURL + "0" + (current.productId-1000) + ".jpg",
-        price: current.proPrice,
-        others: current
+
+//自定義reduce方法
+function reduceToProducts(acc, item) {
+    let id = item.prdId;
+    acc[id] = {
+        name: item.prdName,
+        picture: productURL + "0" + (id-1000) + ".jpg",
+        price: item.prdPrice,
+        others: item
     };
-    return accumulator;
+    return acc;
 }
 
+//購物車畫面所需資訊
 function cartView(item){
     let id = item.productId;
     item.productName = products[id].name;
@@ -219,3 +230,18 @@ function cartView(item){
     item.url = "product/" + item.productId;
     return item;
 }
+
+/**
+ CartViewObject:
+ 購物車項目 Id CartId、商品圖片、商品品項名、商品單價、商品數量、總計
+ 所屬會員 Id
+ {
+ response:{
+ data: {
+ productsInfos: [],
+ cartList: [],
+ coupons:[]
+ }
+ }
+ }
+ **/

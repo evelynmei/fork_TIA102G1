@@ -42,6 +42,7 @@ public class productInfoUserController {
 		return ResponseEntity.status(HttpStatus.OK).body(map);
 	}
 
+	//單一商品詳細資訊
 	@GetMapping("product/{productId}")
 	public String getProduct(@PathVariable Integer productId, Model model) {
 		ProductInfo product = productInfoServiceS.getOneProductInfo(productId);

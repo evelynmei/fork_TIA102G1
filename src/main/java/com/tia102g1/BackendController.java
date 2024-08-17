@@ -1,13 +1,5 @@
 package com.tia102g1;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 import com.tia102g1.county.model.CountyService;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.csform.model.CsFormService;
@@ -36,6 +28,13 @@ import com.tia102g1.store.model.StoreService;
 import com.tia102g1.store.model.StoreVO;
 import com.tia102g1.sysmsg.model.SysMsgService;
 import com.tia102g1.sysmsg.model.SysMsgVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
 
 @Controller
 public class BackendController {
@@ -84,8 +83,6 @@ public class BackendController {
 	@Autowired
 	ProductInfoServiceS productInfoServiceS;
 
-//	@Autowired
-//	CouponService couponSvc;
 
 	//	/* ======================= 後台管理頁面 ======================= */
 	// 首頁
@@ -196,12 +193,6 @@ public class BackendController {
 //	@GetMapping({ "/favProduct", "/favProduct/mainPageFavProduct" })
 //	public String mainPageFavProduct(Model model) {
 //		return "/favProduct/mainPageFavProduct";
-//	}
-
-	// 購物車紀錄
-//	@GetMapping({ "/cart", "/cart/mainPageCart" })
-//	public String mainPageCart(Model model) {
-//		return "/cart/mainPageCart";
 //	}
 
 	// 加購商品關係
@@ -409,11 +400,4 @@ public class BackendController {
 		return list;
 	}
 
-	// 優惠券
-//	@GetMapping({"admin/coupon", "/coupon/mainPageCoupon" })
-//	public String mainPageCoupon(Model model) {
-//		List<Coupon> couponList = couponSvc.getAllCoupons();
-//		model.addAttribute("couponList", couponList);
-//		return "/coupon/mainPageCoupon";
-//	}
 }
