@@ -121,33 +121,46 @@
 
                         <!--  購物車dropdown預覽  -->
                         <div class="cart-wrapper">
+<!--                            隱藏欄位 memeberId-->
+                            <label>
+                                <input th:value="${memberId}" id="memberId" type="hidden">
+                            </label>
+
                             <button type="button" class="btn">
                                 <i class="material-icons">shopping_cart</i>
                                 <!-- 購物車旁的數字綁定 -->
-                                <span class="ttcount">{{ttcount}}</span></button>
+                                <span class="ttcount">{{ttcount}}</span>
+                            </button>
                             <div id="cart-dropdown" class="cart-menu">
                                 <ul class="w-100 float-left">
                                     <li>
                                         <table class="table table-striped">
+                                            <span class="close">
+                                                <a class="close-cart">
+                                                    <div onclick="$('#cart-dropdown').hide()">
+                                                        <i class="material-icons">close</i>
+                                                    </div>
+                                                </a>
+                                            </span>
+
                                             <tbody>
-                                            <tr>
-                                                <!-- todo 跟購物車綁定，動態資料 -->
-                                                <td class="text-center"><a href="#"><img
-                                                        src="/frontendapp/img/products/01.jpg" alt="01" title="01"
-                                                        height="104" width="80"></a></td>
-                                                <td class="text-left product-name"><a href="#">商品總共</a>
-                                                    <div class="quantity float-left w-100" v-for="cart in carts">
-                                                        <span class="cart-qty float-none">{{cart.proAmount}} × </span>
-                                                        <span class=" text-left price"> ${{cart.proPrice}}</span>
+<!--                                            動態渲染tr-->
+                                            <tr v-for="cart in carts">
+                                                <td class="text-center">
+                                                    <img v-bind:src="cart.picture" height="40" width="40" alt="">
+                                                </td>
+
+                                                <td class="text-left product-name">
+                                                    {{cart.name}}
+                                                </td>
+
+                                                <td>
+                                                    <div class="quantity float-left w-100" >
+                                                        <span class=" text-left price">${{cart.price}} x </span>
+                                                        <span class="cart-qty float-none">{{cart.proAmount}}</span>
                                                     </div>
                                                 </td>
-                                                <td class="text-center close">
-                                                    <a class="close-cart">
-                                                        <div onclick="$('#cart-dropdown').hide()">
-                                                            <i class="material-icons">close</i>
-                                                        </div>
-                                                    </a>
-                                                </td>
+
                                             </tr>
                                             </tbody>
                                         </table>
@@ -157,8 +170,8 @@
                                             <tbody>
                                             <tr>
                                                 <td class="text-left"><strong>總金額</strong></td>
-                                                <!-- 跟購物車綁定，動態資料 -->
-                                                <td class="text-right"><strong>${{sum}}.00</strong></td>
+
+                                                <td class="text-right"><strong>${{sum}}</strong></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -167,10 +180,6 @@
                                         <form action="../cart.html">
                                             <input class="btn pull-left mt_10 btn-primary btn-rounded w-100"
                                                    value="查看購物車" type="submit">
-                                        </form>
-                                        <form action="../checkOut.html">
-                                            <input class="btn pull-right mt_10 btn-primary btn-rounded w-100"
-                                                   value="去買單" type="submit" @click="checkoutHandler">
                                         </form>
                                     </li>
                                 </ul>
