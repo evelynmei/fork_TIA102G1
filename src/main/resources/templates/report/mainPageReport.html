@@ -37,15 +37,38 @@
 
 	<!-- 功能內容開始 -->
 	<section class="content">
-		
 	<div class="container">
-		<img th:if="${chartPath != null and chartPath != ''}" th:src="${chartPath}" alt="Sales Chart">			
+        <div class="btn-group">
+            <button type="button" onclick="showChart('sales')">訂單狀態金額統計</button>
+            <button type="button" onclick="showChart('product')">商品銷售統計</button>
+        </div>
     </div>  
+    <div class="container">
+        <img id="salesChartImage" th:if="${chartPath != null and chartPath != ''}" th:src="@{${chartPath}}" alt="Sales Chart" style="display:none;">
+        <img id="productChartImage" th:if="${productChartPath != null and productChartPath != ''}" th:src="@{${productChartPath}}" alt="Product Chart" style="display:none;">
+    </div> 
 	<div th:if="${errorMessage}" class="alert alert-danger">
 	    <p th:text="${errorMessage}"></p>
 	</div>
 	
 	</section>
+	
+	 <script>
+	     function showChart(chartType) {
+	         if (chartType === 'sales') {
+	             document.getElementById('salesChartImage').style.display = 'block';
+	             document.getElementById('productChartImage').style.display = 'none';
+	         } else if (chartType === 'product') {
+	             document.getElementById('salesChartImage').style.display = 'none';
+	             document.getElementById('productChartImage').style.display = 'block';
+	         }
+	     }
+	
+	     // 頁面載入時顯示預設圖表
+	     window.onload = function() {
+	         showChart('sales');
+	     };
+    </script>
 	 
 	<!-- footer and script link -->
 	<body th:insert="~{/comPage3}"></body>
