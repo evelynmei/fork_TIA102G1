@@ -5,6 +5,67 @@
     <title>門市資訊</title>
     <!-- 共同引入 headTag-import meta tag-->
     <meta th:replace="~{frontendapp/components/common :: headtag-import}">
+    
+    <style>
+		body {
+		    font-family: Arial, sans-serif;
+		    margin: 0;
+		    padding: 20px;
+		    background-color: #f0f0f0;
+		}
+		
+		.store-container {
+		    background-color: white;
+		    border-radius: 8px;
+		    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		    margin-bottom: 20px;
+		    overflow: hidden;
+		}
+		
+		.store-info {
+		    padding: 20px;
+		}
+		
+		.store-info ul {
+		    list-style-type: none;
+		    padding: 0;
+		    margin: 0;
+		}
+		
+		.store-info li {
+		    color: #383232;
+		    margin: 10px 0;
+		    font-size: 18px;
+		    padding-left: 20px;
+		    position: relative;
+		}
+		
+		.store-info li::before {
+		    content: "•";
+		    position: absolute;
+		    left: 0;
+		}
+		
+		.info-title {
+		    font-size: 24px;
+		    font-weight: bold;
+		}
+		
+		.map-container {
+		    width: 100%;
+		    height: 300px;
+		}
+		
+		@media (min-width: 768px) {
+		    .store-container {
+		        display: flex;
+		    }
+		    
+		    .store-info, .map-container {
+		        flex: 1;
+		    }
+		}
+    </style>
 </head>
 <body>
 <!-- 共用元件 header:圖示按鈕, navbar...-->
@@ -15,24 +76,48 @@
 <main>
     <!-- 把你的內容貼在這裡-->
     <div class="main-content w-100 float-left">
-        <div class="container">
-            <div class="row">
-                <!--Google map-->
-                <div id="map-container-google-1" class="z-depth-1-half map-container col-sm-12 mb-50"
-                     style="height: 500px">
-                    <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d59512.74927226758!2d72.81491575568408!3d21.210153908095307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e0!4m5!1s0x3be04efc0f8687bd%3A0xc783857ba5d79622!2sTemplateTrip%2C+4030%2C+Central+Bazzar%2C+opp.+Varachha+Police+Station%2C+Varachha+Main+Road%2C+Surat%2C+Gujarat+395006!3m2!1d21.2100775!2d72.84993519999999!4m0!5e0!3m2!1sen!2sin!4v1565339377691!5m2!1sen!2sin"
-                            width="100%" height="500" frameborder="0" style="border:0" allowfullscreen>
-                    </iframe>
-
-                </div>
-
-            </div>
+    <div class="store-container">
+        <div class="store-info">
+            <ul>
+                <li class="info-title">台北慶城店</li>
+                <li class="info-item">台北市松山區慶城街2號</li>
+                <li class="info-item">聯絡電話 0227163388</li>
+                <li class="info-item">營業時間 09:00-21:00</li>
+            </ul>
+        </div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.4517259524155!2d121.54234687358978!3d25.05267413754267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abe77adedc53%3A0x2b24b2886ea72828!2zMTA15Y-w5YyX5biC5p2-5bGx5Y2A5oW25Z-O6KGXMS0y6Jmf!5e0!3m2!1szh-TW!2stw!4v1724013010105!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 
+    <div class="store-container">
+        <div class="store-info">
+            <ul>
+                <li class="info-title">臨江通化店</li>
+                <li class="info-item">台北市大安區通化街72號</li>
+                <li class="info-item">聯絡電話 0227331914</li>
+                <li class="info-item">營業時間 10:00-22:00</li>
+            </ul>
+        </div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.1110266742!2d121.55150367358895!3d25.030305938443544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abcc9fe39c13%3A0xd2e678025593a857!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A6YCa5YyW6KGXNzLomZ8!5e0!3m2!1szh-TW!2stw!4v1724013792213!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
 
-
+    <div class="store-container">
+        <div class="store-info">
+            <ul>
+                <li class="info-title">桃園內壢店</li>
+                <li class="info-item">桃園市中壢區文化路348號</li>
+                <li class="info-item">聯絡電話 034351331</li>
+                <li class="info-item">營業時間 11:00-21:00</li>
+            </ul>
+        </div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.625046067046!2d121.24838727358676!3d24.97886864051265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346821f09f9f3f31%3A0xf359a1cd1a8e7f49!2zMzIw5qGD5ZyS5biC5Lit5aOi5Y2A5paH5YyW6LevMzQ46Jmf!5e0!3m2!1szh-TW!2stw!4v1724013846378!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    
 
     <!-- 把你的內容貼在這裡-->
 </main>

@@ -34,17 +34,7 @@
                                     <div class="col-sm-1 col-xs-3 float-left">
                                         <img src="img/products/02.jpg" alt="">
                                     </div>
-									
-									<!-- <th:block th:each="orderListInfoVO : ${orderListInfoVOList}">
-                                    <div class="col-sm-5 col-xs-9 details float-left">
-                                        <span th:text="${orderListInfoVO.proName}"></span>
-                                    </div>
-                                    <div class="col-sm-6 col-xs-12 qty float-left d-flex">
-                                        <div th:text="'$' + ${orderListInfoVO.purchasedPrice}" class="col-xs-5 col-sm-5 text-sm-right text-xs-left"></div>
-                                        <div th:text="'×' + ${orderListInfoVO.proQuantity}" class="col-xs-2 col-sm-2"></div>
-                                        <div class="total_purchasedPrice col-xs-5 col-sm-5 text-sm-right bold"></div>
-                                    </div>
-                                    </th:block> -->
+
                                     <div class="col-sm-5 col-xs-9 details float-left">
                                     </div>
                                     <div class="col-sm-6 col-xs-12 qty float-left d-flex">
@@ -71,6 +61,10 @@
                             <hr class="float-left w-100">
                             <table class="float-left w-100 mb-30">
                                 <tbody>
+                                <tr class="mb-10">
+                                    <td>運費</td>
+                                    <td class="text-right">80</td>
+                                </tr>
                                 <tr class="mb-10">
                                     <td>總金額</td>
                                     <td th:text="${orderListVO.orderAmount}" class="text-right"></td>

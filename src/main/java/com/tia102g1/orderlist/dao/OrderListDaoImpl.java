@@ -110,8 +110,8 @@ public class OrderListDaoImpl implements OrderListDao {
 				+ "useCoin, cardHolder, cardNumber, cardYy, cardMm, cardVerifyCode, invoiceWay, invoiceTaxNo, "
 				+ "invoiceMobileCode, recipientName, recipientPhone, recipientCnt, recipientDist, recipientAddress, "
 				+ "createdBy, lastUpdatedBy) "
-				+ "VALUES (:memberId, null, null, '2024-05-31', :orderAmount, 0, 350, 4350, 1, 2, 1, 2, 0, 1, '廖嘉銀', '', "
-				+ "null, '', '', 2, '', 'BJH469', '廖嘉銀', '0913556230', 8, 350, '福德路22號', '廖嘉銀', 'chris')";
+				+ "VALUES (:memberId, null, null, '2024-08-19', :orderAmount, 0, 0, 0, 0, 1, 0, 1, 0, 1, '陳沛聖', '', "
+				+ "null, '', '', 1, '', '', '陳沛聖', '0912345678', 1, 104, '忠孝東路一段100號', '陳沛聖', '陳沛聖')";
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", memberId);

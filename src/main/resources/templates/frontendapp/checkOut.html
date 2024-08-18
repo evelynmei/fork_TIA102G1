@@ -21,7 +21,7 @@
 
 <main>
     <!-- 把你的內容貼在這裡-->
-    <input value="" id="memberId" type="hidden">
+    <input th:value="${memberId}" id="memberId" type="hidden">
     <div class="checkout-inner float-left w-100">
         <div class="container">
             <div class="row">
@@ -527,41 +527,43 @@
 
 
         //產生buyItemList
-        // function buyItemList(){
-        //     let cart = JSON.parse(localStorage.getItem("cartData"));
-        //     let json_str = '{"buyItemList":[';
+        function buyItemList(){
+            let cart = JSON.parse(localStorage.getItem("cartData"));
+            let json_str = '{"buyItemList":[';
 
-        //     for (let i = 0; i < cart.length; i++) {
-        //         if (i < cart.length - 1){
-        //             json_str += '{"productId":' + cart[i].productId + ',"quantity":' + cart[i].quantity + '},'
-        //         } else {
-        //             json_str += '{"productId":' + cart[i].productId + ',"quantity":' + cart[i].quantity + '}]}'
-        //         }
-        //     }
-        //     return json_str;
-        // }
+            for (let i = 0; i < cart["buyItemList"].length; i++) {
+                if (i < cart["buyItemList"].length - 1){
+                    json_str += '{"productId":' + cart["buyItemList"][i].productId + ',"quantity":' + cart["buyItemList"][i].quantity + '},'
+                } else {
+                    json_str += '{"productId":' + cart["buyItemList"][i].productId + ',"quantity":' + cart["buyItemList"][i].quantity + '}]}'
+                }
+            }
+            return json_str;
+        }
 
         //異步請求
         async function A() {
             console.log("Function A started");
             const csrftoken = getCookie('csrftoken');
-                // var buyItem_str = buyItemList(); //test
+                var buyItem_str = buyItemList();
+                console.log(buyItem_str);
                 var cart = JSON.parse(localStorage.getItem("cartData"));
-                var memberId = 1;
+                var memberId = document.getElementById("memberId").value;
                 $.ajax({
                     type: "POST",
                     contentType: 'application/json',
-                    data: cart,
+                    // data: cart,
+                    data: buyItem_str,
                     headers: { 'X-CSRFToken': csrftoken },
-                    url: "http://localhost:8080/members/"+ memberId +"/orderLists",
-                    // url: "../members/"+ memberId +"/orderLists",
+                    // url: "http://localhost:8080/members/"+ memberId +"/orderLists",
+                    url: "../members/"+ encodeURIComponent(memberId) +"/orderLists",
                     success: function (response) {
                         console.log(response);
                         $('#orderListId').val(response);
                         // window.location.href = "/orderConfirmation.html";
                     }
                 })
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             console.log("Function A completed");
         }
 
