@@ -561,21 +561,21 @@ public class OrderListVO implements Serializable {
 		RecipientDistRM = recipientDistRM;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderListVO [orderListId=" + orderListId + ", member=" + member + ", coupon=" + coupon + ", eventVO="
-				+ eventVO + ", orderDt=" + orderDt + ", orderAmount=" + orderAmount + ", couponUsedAmount="
-				+ couponUsedAmount + ", coinUsedAmount=" + coinUsedAmount + ", payAmount=" + payAmount
-				+ ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
-				+ paymentStatus + ", pickupMethod=" + pickupMethod + ", useCoupon=" + useCoupon + ", useCoin=" + useCoin
-				+ ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm="
-				+ cardMm + ", cardVerifyCode=" + cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo="
-				+ invoiceTaxNo + ", invoiceMobileCode=" + invoiceMobileCode + ", recipientName=" + recipientName
-				+ ", recipientPhone=" + recipientPhone + ", countyVO=" + countyVO + ", distVO=" + distVO
-				+ ", recipientAddress=" + recipientAddress + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated
-				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins=" + memCoins
-				+ ", orderListInfoVO=" + orderListInfoVO + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "OrderListVO [orderListId=" + orderListId + ", member=" + member + ", coupon=" + coupon + ", eventVO="
+//				+ eventVO + ", orderDt=" + orderDt + ", orderAmount=" + orderAmount + ", couponUsedAmount="
+//				+ couponUsedAmount + ", coinUsedAmount=" + coinUsedAmount + ", payAmount=" + payAmount
+//				+ ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod + ", paymentStatus="
+//				+ paymentStatus + ", pickupMethod=" + pickupMethod + ", useCoupon=" + useCoupon + ", useCoin=" + useCoin
+//				+ ", cardHolder=" + cardHolder + ", cardNumber=" + cardNumber + ", cardYy=" + cardYy + ", cardMm="
+//				+ cardMm + ", cardVerifyCode=" + cardVerifyCode + ", invoiceWay=" + invoiceWay + ", invoiceTaxNo="
+//				+ invoiceTaxNo + ", invoiceMobileCode=" + invoiceMobileCode + ", recipientName=" + recipientName
+//				+ ", recipientPhone=" + recipientPhone + ", countyVO=" + countyVO + ", distVO=" + distVO
+//				+ ", recipientAddress=" + recipientAddress + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated
+//				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", memCoins=" + memCoins
+//				+ ", orderListInfoVO=" + orderListInfoVO + "]";
+//	}
 
 	
 }

@@ -182,11 +182,11 @@ public class CsFormController {
 		return list;
 	}
 	
-	@ModelAttribute("orderListListData")
-	protected List<OrderListVO> referenceListData_OrderList() {
-		List<OrderListVO> list = orderListSvc.getAll();
-		return list;
-	}
+//	@ModelAttribute("orderListListData")
+//	protected List<OrderListVO> referenceListData_OrderList() {
+//		List<OrderListVO> list = orderListSvc.getAll();
+//		return list;
+//	}
 	
 	@ModelAttribute("staffListData")
 	protected List<StaffVO> referenceListData_Staff() {

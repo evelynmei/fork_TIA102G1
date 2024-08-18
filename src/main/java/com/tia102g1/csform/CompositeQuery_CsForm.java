@@ -68,7 +68,7 @@ public class CompositeQuery_CsForm {
 //				orderListVO.setOrderListId(Integer.valueOf(value));
 //				predicate = builder.equal(root.get("orderListVO"), orderListVO);
 				
-			} else if ("orderListId".equals(columnName)) {
+			} else if ("orderId".equals(columnName)) {
 				predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
 			
 			//客服問題類型

@@ -71,7 +71,7 @@
 					
 					<div class="form-group">
 					<label>訂單編號:</label>
-					<input type="text" th:field="*{orderListId}" onclick="hideContent('orderListId.errors');" class="form-control" readonly/><br/>
+					<input type="text" th:field="*{orderId}" onclick="hideContent('orderId.errors');" class="form-control" readonly/><br/>
 					</div>
 
 					<div class="form-group">
@@ -128,7 +128,7 @@
 
 					<input type="hidden" th:field="*{csFormId}"/>
 					<input type="hidden" th:field="*{member.memberId}"/>
-					<input type="hidden" th:field="*{orderListId}"/>
+					<input type="hidden" th:field="*{orderId}"/>
 					<input type="hidden" th:field="*{quDate}"/>
 					<input type="hidden" th:field="*{quTypeVO.quTypeId}"/>
 					<input type="hidden" th:field="*{quAvTime}"/>
