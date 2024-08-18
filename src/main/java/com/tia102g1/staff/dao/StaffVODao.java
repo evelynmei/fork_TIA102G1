@@ -9,6 +9,7 @@ public interface StaffVODao {
 
     /**
      * 查詢staff的role (阿維)
+     *
      * @param staffId
      * @return
      */
@@ -16,8 +17,18 @@ public interface StaffVODao {
 
     /**
      * 查詢員工的帳號id
+     *
      * @param staffId
      * @return
      */
     StaffVO getById(Integer staffId);
+
+    /**
+     * 藉由員工ID新增權限
+     * @param staffId
+     * @param role
+     * @return
+     */
+    void addRoleForStaffId(Integer staffId, Role role);
+
 }

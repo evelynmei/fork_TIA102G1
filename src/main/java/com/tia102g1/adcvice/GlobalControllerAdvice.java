@@ -17,16 +17,18 @@ public class GlobalControllerAdvice {
     }
 
     @ModelAttribute
-    public void addUserAttributes(Model model,Authentication authentication) {
-        System.out.println("GlobalControllerAdvice:生效了");
-
-        if (authentication != null && authentication.isAuthenticated() && !"anonymousUser".equals(authentication.getName())) {
+    public void addUserAttributes(Model model, Authentication authentication) {
+        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_MEMBER"))) {
+            // 只有在用戶擁有 MEMBER 角色時才加載會員資訊
             String account = authentication.getName();
             Member member = memberService.getMemberByAccount(account);
             if (member != null) {
+                Integer memberId = member.getMemberId();
                 model.addAttribute("memberName", member.getName());
-                model.addAttribute("memberId", member.getMemberId());
+                model.addAttribute("memberId", memberId);
+                System.out.println("目前登入會員ID為" + memberId);
             }
         }
     }
+
 }

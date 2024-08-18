@@ -53,6 +53,7 @@ public class MyUserDetailsService implements UserDetailsService {
         // 先從 Member 資料表中查找
         Member member = memberDao.getMemberByAccount(username);
         if (member != null) {
+
             return userDetails(member.getAccount(), member.getPassword(), memberDao.getRolesByMemberId(member.getMemberId()));
         }
 
@@ -61,6 +62,7 @@ public class MyUserDetailsService implements UserDetailsService {
             Integer staffId = Integer.valueOf(username);
             StaffVO staff = staffVODao.getById(staffId);
             if (staff != null) {
+
                 //將查到的帳號用toString轉回String以便傳入new User中的account參數
                 return userDetails(staff.getStaffId().toString(), staff.getPassword(), staffVODao.getRolesByStaffId(staff.getStaffId()));
             }
@@ -76,6 +78,7 @@ public class MyUserDetailsService implements UserDetailsService {
     // 將角色轉換為 Spring Security 的 GrantedAuthority 列表並創建 UserDetails
     private UserDetails userDetails(String account, String password, List<Role> roles) {
         List<GrantedAuthority> roleList = convertToAuthorities(roles);
+        System.out.println("登入權限為: " + roleList);
         return new User(account, password, roleList);
     }
 

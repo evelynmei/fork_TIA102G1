@@ -120,4 +120,11 @@ public interface MemberDao {
      */
     List<Role> getRolesByMemberId(Integer memberId);
 
+    /**
+     * 藉由會員ID給會員添加權限
+     * @param memberId 要添加權限的ID
+     * @param role 權限
+     */
+    void addRoleForMemberId(Integer memberId,Role role);
+
 }

@@ -11,6 +11,7 @@ import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,19 +42,17 @@ public class FrontendController {
     /* ======================= 前台使用者頁面 ======================= */
     // 首頁
     @RequestMapping({"/index", "/index.html"})
-    public String frontendIndex(Model model, Authentication authentication) {
-        if (authentication != null) {
-            // 取得當前登入會員的ID
-            String account = authentication.getName();
-            Member member = memberService.getMemberByAccount(account);
-            Integer memberId = member.getMemberId();
-            model.addAttribute("memberName", member.getName());
-            model.addAttribute("memberId", memberId);
-            System.out.println("目前登入會員ID為" + memberId);
-        } else {
-            // 未登入用戶
-            model.addAttribute("message", "歡迎訪客");
-        }
+    public String frontendIndex(Model model) {
+//        if (authentication != null) {
+//            // 取得當前登入會員的ID
+//            String account = authentication.getName();
+//            Member member = memberService.getMemberByAccount(account);
+//            Integer memberId = member.getMemberId();
+//            model.addAttribute("memberName", member.getName());
+//            model.addAttribute("memberId", memberId);
+//            System.out.println("目前登入會員ID為" + memberId);
+//        }
+
         return "/frontendapp/index";
     }
 
