@@ -47,6 +47,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/css/**", "/js/**", "/frontendapp/**", "/plungins/**").permitAll()
                 .mvcMatchers("/index", "/register/**", "/login/**").permitAll()
                 .mvcMatchers("/member/{memberId}/account/**").hasRole("MEMBER")
+                .mvcMatchers("/favProduct").hasRole("MEMBER")
                 .mvcMatchers("/admin", "/admin/index","").access("!hasRole('MEMBER')")
 //                .mvcMatchers("/member/mainPageMember").hasAnyRole("STAFF","ADMIN")
                 .anyRequest().permitAll()

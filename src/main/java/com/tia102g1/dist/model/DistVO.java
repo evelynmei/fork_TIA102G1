@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.gson.annotations.Expose;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.store.model.StoreVO;
@@ -57,6 +58,7 @@ public class DistVO implements java.io.Serializable {
 	private Timestamp lastUpdated;
 	
 	@OneToMany(mappedBy = "distVO", fetch=FetchType.EAGER)
+	@JsonManagedReference
 	private Set<StoreVO> stores = new HashSet<StoreVO>();
 
 	public DistVO() {

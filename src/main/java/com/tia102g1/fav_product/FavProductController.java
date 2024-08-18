@@ -33,7 +33,7 @@ public class FavProductController {
     @Autowired
     CouponService couponService;
     
-    @GetMapping("favProduct")
+    @GetMapping("/favProduct")
     public String getFavProductsByMemberId(Authentication authentication, Model model) {
         System.out.println("=========================================");
         Member member = memberSvc.getMemberByAccount(authentication.getName());
