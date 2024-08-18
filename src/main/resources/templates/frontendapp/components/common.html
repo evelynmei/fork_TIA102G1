@@ -93,31 +93,31 @@
                     </div>
                     <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
                         <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
-                            <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
-                                <!-- 歡迎訊息 -->
-                                <div class="welcome-message text-nowrap" th:if="${memberName != null}">
-                                    Hi! [[${memberName}]]，您好！
+                            <!--                                &lt;!&ndash; 歡迎訊息 &ndash;&gt;-->
+                            <!--                                <div class="welcome-message" th:if="${memberName != null}">-->
+                            <!--                                    Hi! [[${memberName}]]您好！-->
+                            <!--                                </div>-->
+                        </div>
+                        <!-- TODO 跳轉到所有商品頁，並加上 filter 效果 -->
+                        <!-- 搜尋商品列 -->
+                        <div class="search-wrapper">
+                            <a>
+                                <i class="material-icons search">search</i>
+                                <i class="material-icons close">close</i> </a>
+                            <form autocomplete="on" class="search-form">
+                                <div class="autocomplete">
+                                    <input id="myInput" type="text" name="myCountry" placeholder="搜尋">
+                                    <button type="button"><i class="material-icons">search</i></button>
                                 </div>
-                            </div>
-                            <!-- TODO 跳轉到所有商品頁，並加上 filter 效果 -->
-                            <!-- 搜尋商品列 -->
-                            <div class="search-wrapper">
-                                <a>
-                                    <i class="material-icons search">search</i>
-                                    <i class="material-icons close">close</i> </a>
-                                <form autocomplete="on" class="search-form">
-                                    <div class="autocomplete">
-                                        <input id="myInput" type="text" name="myCountry" placeholder="搜尋">
-                                        <button type="button"><i class="material-icons">search</i></button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!--  memeber 會員中心  -->
-                            <div class="user-info">
-                                <a th:href="@{'/member/' + ${memberId} + '/account'}" >
-                                    <i class="material-icons">perm_identity</i>
-                                </a>
-                            </div>
+                            </form>
+                        </div>
+                        <!--  memeber 會員中心  -->
+                        <div class="user-info">
+                            <a th:href="@{'/member/' + ${memberId} + '/account'}">
+                                <i class="material-icons">perm_identity</i>
+                            </a>
+
+                        </div>
 
                         <!--  購物車dropdown預覽  -->
                         <div class="cart-wrapper">
@@ -190,62 +190,96 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2"
                                 aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <!-- Features 首頁功能主選單 Collapsible content -->
-                            <div class="collapse navbar-collapse">
-                                <ul class="navbar-nav m-auto justify-content-center">
-                                    <li class="nav-item dropdown active">
-                                        <a class="nav-link text-uppercase" th:href="@{/productcategory}">
-                                            商品總覽
-                                            <span class="sr-only">(current)</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown mega-dropdown">
-                                        <a class="nav-link text-uppercase" href="index.html">
-                                            優惠活動
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown active">
-                                        <a class="nav-link dropdown-toggle text-uppercase" th:href="@{'/member/' + ${memberId} + '/account'}">
-                                            會員中心
-                                            <span class="sr-only">(current)</span>
-                                        </a>
-                                        <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
-                                            <div class="sub-menu mb-xl-0 mb-4">
-                                                <ul class="list-unstyled">
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            查詢訂單
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" th:href="@{/favProduct}">
-                                                            我的最愛
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            商品評論
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            會員資料
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="index.html">
-                                                            訊息
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="menu-item pl-0" href="/logout">
-                                                            登出
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <!-- Features 首頁功能主選單 Collapsible content -->
+                        <div class="collapse navbar-collapse">
+                            <ul class="navbar-nav m-auto justify-content-center">
+                                <li style="position: relative; display: flex; align-items: center;">
+                                    <!-- 歡迎訊息 -->
+                                    <div class="welcome-message" th:if="${memberName != null}" style="
+                                    position: relative;
+                                    margin-left: 10px;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: #666;
+                                    white-space: nowrap;">
+                                        Hi! [[${memberName}]]，您好！
+                                    </div>
+                                    <div class="welcome-message" th:if="${providerId != null and oauth2MemberName != null}" style="
+                                    position: relative;
+                                    margin-left: 10px;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: #666;
+                                    white-space: nowrap;">
+                                        Hi! [[${oauth2MemberName}]]，您好！
+                                    </div>
+                                    <div class="welcome-message" th:if="${providerId == null and oauth2MemberName == null and memberName == null}" style="
+                                    position: relative;
+                                    margin-left: 10px;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: #666;
+                                    white-space: nowrap;">
+                                        Hi! 訪客您好，<a th:href="@{/login}"
+                                                        style="color: #007bff; text-decoration: underline;">請登入</a>
+                                    </div>
+
+                                </li>
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link text-uppercase" th:href="@{/productcategory}">
+                                        商品總覽
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown mega-dropdown">
+                                    <a class="nav-link text-uppercase" href="index.html">
+                                        優惠活動
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle text-uppercase"
+                                       th:href="@{'/member/' + ${memberId} + '/account'}">
+                                        會員中心
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+
+                                    <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
+                                        <div class="sub-menu mb-xl-0 mb-4">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <a class="menu-item pl-0" href="index.html">
+                                                        查詢訂單
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="menu-item pl-0" th:href="@{/favProduct}">
+                                                        我的最愛
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="menu-item pl-0" href="index.html">
+                                                        商品評論
+                                                    </a>
+                                                </li>
+                                                <!--                                                <li>-->
+                                                <!--                                                    <a class="menu-item pl-0" href="index.html">-->
+                                                <!--                                                        會員資料-->
+                                                <!--                                                    </a>-->
+                                                <!--                                                </li>-->
+                                                <li>
+                                                    <a class="menu-item pl-0" href="index.html">
+                                                        訊息
+                                                    </a>
+                                                </li>
+                                                <li th:if="${providerId != null or oauth2MemberName != null or memberName != null}">
+                                                    <a class="menu-item pl-0" href="/logout">
+                                                        登出
+                                                    </a>
+                                                </li>
+
+                                            </ul>
                                         </div>
                                     </div>
                                 </li>
@@ -260,7 +294,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link text-uppercase" href="contactUs.html">
+                                    <a class="nav-link text-uppercase" href="/contactUs.html">
                                         聯絡我們
                                     </a>
                                 </li>
@@ -723,8 +757,7 @@
                                 <h5>qty:</h5>
                                 <input value="1" type="number">
                                 <button type="button" class="btn btn-primary"><i
-                                        class="material-icons">shopping_cart</i> Add To Cart
-                                </button>
+                                        class="material-icons">shopping_cart</i> Add To Cart</button>
                             </div>
                         </div>
                     </div>
@@ -732,6 +765,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- 共同引入 置底 import-in-the-end -->
