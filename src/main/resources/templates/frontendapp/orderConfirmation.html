@@ -14,43 +14,57 @@
 
 <main>
     <!-- 把你的內容貼在這裡-->
+<!--     <div th:object="${orderListVO}" class="order-inner float-left w-100"> -->
     <div class="order-inner float-left w-100">
         <div class="container">
             <div class="row">
                 <div id="order-confirmation" class="card float-left w-100 mb-10">
                     <div class="card-block p-20">
                         <h3 class="card-title text-success">您的訂單已成立</h3>
-                        <p>訂購確認信已寄至您的電子信箱 admin7890@gmail.com</p>
+                        <p>訂購確認信已寄至您的電子信箱 <span th:text="${orderListVO.member.email}"></span></p>
                     </div>
                 </div>
 
                 <div id="order-itens" class="card float-left w-100 mb-10">
                     <div class="card-block p-20">
-                        <h3 class="card-title">訂購品項</h3>
+                        <h3 class="card-title" font-size="bold">訂購品項</h3>
                         <div class="order-confirmation-table float-left w-100">
                             <div class="order-line float-left w-100">
                                 <div class="row">
                                     <div class="col-sm-1 col-xs-3 float-left">
                                         <img src="img/products/02.jpg" alt="">
                                     </div>
-
+									
+									<!-- <th:block th:each="orderListInfoVO : ${orderListInfoVOList}">
                                     <div class="col-sm-5 col-xs-9 details float-left">
-                                        <span>巧克力慕斯蛋糕</span>
+                                        <span th:text="${orderListInfoVO.proName}"></span>
                                     </div>
                                     <div class="col-sm-6 col-xs-12 qty float-left d-flex">
-                                        <div class="col-xs-5 col-sm-5 text-sm-right text-xs-left">$350.00</div>
-                                        <div class="col-xs-2 col-sm-2">1</div>
-                                        <div class="col-xs-5 col-sm-5 text-sm-right bold">$350.00</div>
+                                        <div th:text="'$' + ${orderListInfoVO.purchasedPrice}" class="col-xs-5 col-sm-5 text-sm-right text-xs-left"></div>
+                                        <div th:text="'×' + ${orderListInfoVO.proQuantity}" class="col-xs-2 col-sm-2"></div>
+                                        <div class="total_purchasedPrice col-xs-5 col-sm-5 text-sm-right bold"></div>
                                     </div>
-
+                                    </th:block> -->
                                     <div class="col-sm-5 col-xs-9 details float-left">
-                                        <span>草莓奶油蛋糕</span>
                                     </div>
                                     <div class="col-sm-6 col-xs-12 qty float-left d-flex">
-                                        <div class="col-xs-5 col-sm-5 text-sm-right text-xs-left">$400.00</div>
-                                        <div class="col-xs-2 col-sm-2">2</div>
-                                        <div class="col-xs-5 col-sm-5 text-sm-right bold">$400.00</div>
+                                        <div class="col-xs-5 col-sm-5 text-sm-right text-xs-left"></div>
+                                        <div class="col-xs-2 col-sm-2"></div>
+                                        <div class="total_purchasedPrice col-xs-5 col-sm-5 text-sm-right bold"></div>
                                     </div>
+
+                                    <th:block th:each="orderListInfoVO : ${orderListInfoVOList}">
+                                        <div class="col-sm-5 col-xs-9 details float-left">
+                                            <ul>
+                                                <li th:text="${orderListInfoVO.proName}"></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 qty float-left d-flex">
+                                            <div th:text="'$' + ${orderListInfoVO.purchasedPrice}" class="col-xs-5 col-sm-5 text-sm-right text-xs-left"></div>
+                                            <div th:text="'×' + ${orderListInfoVO.proQuantity}" class="col-xs-2 col-sm-2"></div>
+                                            <div th:text="${orderListInfoVO.purchasedPrice}*${orderListInfoVO.proQuantity}" class="total_purchasedPrice col-xs-5 col-sm-5 text-sm-right bold"></div>
+                                        </div>
+                                        </th:block>
 
                                 </div>
                             </div>
@@ -59,31 +73,49 @@
                                 <tbody>
                                 <tr class="mb-10">
                                     <td>總金額</td>
-                                    <td class="text-right">$750.00</td>
+                                    <td th:text="${orderListVO.orderAmount}" class="text-right"></td>
                                 </tr>
                                 <tr class="mb-10">
                                     <td>購物金抵用金額</td>
-                                    <td class="text-right">$50.00</td>
+                                    <td th:text="${orderListVO.coinUsedAmount}" class="text-right"></td>
                                 </tr>
                                 <tr class="mb-10">
                                     <td>優惠券折扣金額</td>
-                                    <td class="text-right">$0.00</td>
+                                    <td th:text="${orderListVO.couponUsedAmount}" class="text-right"></td>
                                 </tr>
                                 <tr class="font-weight-bold">
                                     <td><span class="text-uppercase">總付款金額</span> (含稅)</td>
-                                    <td class="text-right">$700.00</td>
+                                    <td th:text="'NT$ ' + ${orderListVO.payAmount}" class="text-right"></td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div id="order-details" class="float-left w-100">
-                                <h3 class="h3 card-title">收件明細:</h3>
+                                <h3 class="h3 card-title" font-size="bold">訂購資訊</h3>
                                 <ul>
-                                    <li>訂單編號: 20001</li>
-                                    <li>付款方式: 信用卡付款</li>
-                                    <li>
-                                        取貨方式: 宅配<br>
-                                        <em>可管理員收件</em>
+                                    <li>訂單編號: <span th:text="${orderListVO.orderListId}"></span></li>
+                                    <li>付款方式:
+                                        <span th:switch="${orderListVO.paymentMethod}">
+	                                    	<span th:case="1">線上刷卡</span>
+	                                    	<span th:case="2">現場付款</span>
+                                    	</span>
                                     </li>
+                                    <li>取貨方式:
+                                        <span th:switch="${orderListVO.pickupMethod}">
+	                                    	<span th:case="1">宅配到府</span>
+	                                    	<span th:case="2">現場取貨</span>
+                                    	</span>
+                                    </li>
+                                    <li>發票方式: 
+                                    	<span th:switch="${orderListVO.invoiceWay}">
+	                                    	<span th:case="1">紙本發票</span>
+	                                    	<span th:case="2">電子發票</span>
+                                    	</span>  
+                                    </li>
+                                    <li>統一編號: <span th:text="${orderListVO.invoiceTaxNo}"></li>
+                                    <li>手機載具碼: <span th:text="${orderListVO.invoiceMobileCode}"></li>
+                                    <li>收件人姓名: <span th:text="${orderListVO.recipientName}"></li>
+                                    <li>收件人電話: <span th:text="${orderListVO.recipientPhone}"></li>
+                                    <li>收件人地址: <span th:text="${orderListVO.distVO.distCode} + ' ' + ${orderListVO.countyVO.cntName} + ${orderListVO.distVO.distName} + ${orderListVO.recipientAddress}"></li>
                                 </ul>
                             </div>
 
@@ -97,7 +129,7 @@
 
                                 <p>
                                     您的訂購已完成.<br>
-                                    我們會在收到款項後盡速出貨.
+                                    我們會在收到款項後盡速出貨!
                                 </p>
 
 

@@ -5,6 +5,13 @@
     <title>結帳</title>
     <!-- 共同引入 headTag-import meta tag-->
     <meta th:replace="~{frontendapp/components/common :: headtag-import}">
+    <style>
+        /* 定義禁用狀態下的樣式 */
+        input[disabled] {
+            background-color: #e0e0e0; /* 灰色底色 */
+            color: #a0a0a0; /* 字體顏色也改為灰色 */
+        }
+    </style>
 </head>
 <body>
 <!-- 共用元件 header:圖示按鈕, navbar...-->
@@ -14,6 +21,7 @@
 
 <main>
     <!-- 把你的內容貼在這裡-->
+    <input value="" id="memberId" type="hidden">
     <div class="checkout-inner float-left w-100">
         <div class="container">
             <div class="row">
@@ -21,47 +29,48 @@
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span>訂購商品資訊</span>
                     </h4>
-                    <div class="list-group mb-3">
-                        <div class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div id="buy_items" class="list-group mb-3">
+                        <!-- 商品顯示位置 -->
+
+                        <div id="start" class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">巧克力慕斯蛋糕</h6>
+                                <h6 class="my-0">運費</h6>
                             </div>
-                            <span class="text-muted">$350.00</span>
+                            <span id="shipping_amount" class="text-muted">0</span>
                         </div>
+
                         <div class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">草莓奶油蛋糕</h6>
+                                <h6 class="my-0">總金額</h6>
                             </div>
-                            <span class="text-muted">$400.00</span>
+                            <span id="order_amount" class="text-muted">0</span>
                         </div>
 
                         <div class="list-group-item d-flex justify-content-between">
                             <div class="text-success">
-                                <h6 class="my-0">優惠券折扣碼</h6>
-                                <small>折扣碼　-　</small>
+                                <h6 class="my-0">優惠券折扣</h6>
                             </div>
-                            <span class="text-success">0</span>
+                            <span id="coupon_amount" class="text-success">0</span>
                         </div>
 
                         <div class="list-group-item d-flex justify-content-between">
                             <div class="text-success">
                                 <h6 class="my-0">購物金折抵</h6>
-                                <small>可用購物金:1290</small>
                             </div>
-                            <span class="text-success">50</span>
+                            <span id="coins_use" class="text-success">0</span>
                         </div>
 
                         <div class="list-group-item d-flex justify-content-between">
                             <div class="text-success">
                                 <h6 class="my-0">活動折扣</h6>
-                                <small>參加活動:　-　</small>
+                                <small><span id="event_name">-</span></small>
                             </div>
-                            <span class="text-success">0</span>
+                            <span id="event_amount" class="text-success">0</span>
                         </div>
 
                         <div class="list-group-item d-flex justify-content-between">
                             <strong>總付款金額 (TWD)</strong>
-                            <strong>NT$700</strong>
+                            <strong><span id="pay_amount">0</span></strong>
                         </div>
 
                         <div class="list-group-item  justify-content-between">
@@ -77,18 +86,12 @@
                                        required="">
                                 <label class="custom-control-label" for="debit">現場付款</label>
                             </div>
-
-                            <!-- <div class="custom-control custom-radio" id="checkbox-card-paypal">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input"
-                                       required="">
-                                <label class="custom-control-label" for="paypal">Paypal</label>
-                            </div> -->
                         </div>
                         <div id="card-dropdown">
                             <div class="list-group-item  justify-content-between">
                                 <div class="col-md-12 mb-3 p-0">
-                                    <label for="cardHolder">持卡人姓名</label>
-                                    <input type="text" class="form-control" id="cardHolder" placeholder="" required="">
+                                    <label for="cardHolder_card">持卡人姓名</label>
+                                    <input type="text" class="form-control" id="cardHolder_card" placeholder="" required="">
                                     <small class="text-muted">Full name as displayed on card</small>
                                     <div class="invalid-feedback">
                                         Name on card is required
@@ -105,325 +108,515 @@
                             <div class="list-group-item d-flex justify-content-between">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="cc-expiration">到期日</label>
-                                        <input type="text" class="form-control" id="cc-expiration" placeholder=""
-                                               required="">
+                                        <label for="cc-expiration">到期日(MM)</label>
+                                        <input type="text" class="form-control" id="cc-expiration-mm" placeholder="" required="">
                                         <div class="invalid-feedback">
                                             Expiration date required
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
+                                        
                                         <label for="cc-expiration">CVV</label>
                                         <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
                                         <div class="invalid-feedback">
                                             Security code required
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div id="card-dropdown-debit">
-                            <div class="list-group-item  justify-content-between">
-                                <div class="col-md-12 mb-3 p-0">
-                                    <label for="cc-name">Name on card</label>
-                                    <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                                    <small class="text-muted">Full name as displayed on card</small>
-                                    <div class="invalid-feedback">
-                                        Name on card is required
-                                    </div>
-                                </div>
-                                <div class="col-md-12 p-0">
-                                    <label for="cc-number">Credit card number</label>
-                                    <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Credit card number is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="list-group-item d-flex justify-content-between">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="cc-expiration">Expiration</label>
-                                        <input type="text" class="form-control" id="cc-expiration" placeholder=""
-                                               required="">
-                                        <div class="invalid-feedback">
-                                            Expiration date required
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="cc-expiration">CVV</label>
-                                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                                        <div class="invalid-feedback">
-                                            Security code required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div id="card-dropdown-paypal">
-                            <div class="list-group-item  justify-content-between">
-                                <div class="image"><img src="img/logos/paypal.png"></div>
-                            </div>
-                        </div> -->
-                        <a href="/orderConfirmation.html" id="btn_confirm" class="btn btn-primary btn-lg btn-primary">確認訂購</a>
-                       
-                        </ul>
 
-                        <!--<form class="card p-2">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Promo code">
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary btn-primary">Redeem</button>
-                          </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cc-expiration">到期日(YY)</label>
+                                        <input type="text" class="form-control" id="cc-expiration-yy" placeholder="" required="">
+                                        <div class="invalid-feedback">
+                                            Expiration date required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        </form>-->
+                        <a id="btn_confirm" class="btn btn-primary btn-lg btn-primary">確認訂購</a>
+                        </ul>
                     </div>
                 </div>
+
                 <div class="cart-block-right col-md-8 order-md-1">
                     <h4 class="mb-3">結帳資訊</h4>
-                    <form class="needs-validation" novalidate="">
+                    <hr class="mb-4">
+                    <form id="checkOutForm" method="post" action="/orderConfirmation" th:object="${orderListVO}" class="needs-validation">
+                        <input th:value="${memberId}" id="memberId" type="hidden">
+                        <h5 class="mb-3">購物金折抵<span class="required">*</span></h5>
+                        <div class="row">
+                            <!-- <div class="col-md-6 mb-3">
+                                <input type="checkbox" id="useCoupon" name="useCoupon" value="" onclick="coupon_toggleInput()">
+                                <label for="useCoupon">優惠券</label>
+                                <input type="text" disabled th:field="*{coupon.couponId}" class="form-control" value="" onchange="couponChange()">
+                            </div> -->
+                            <div class="col-md-6 mb-3">
+                                <input type="checkbox" id="useCoin" name="useCoin" value="" onclick="coin_toggleInput()">
+                                <label for="useCoin">使用購物金折抵</label>
+                                <input type="number" disabled id="coinUsedAmount" name="coinUsedAmount" class="form-control" value="0" onchange="coinChange()">
+                            </div>
+                        </div>
+
+                        <hr class="mb-4">
+                        <h5 class="mb-3">取貨方式<span class="required">*</span></h5>
                         <div class="row">
                             <div class="col-md-6 mb-3">
+                                <input type="radio" name="pickupMethod" id="pickupMethod1" value="1">
+                                <label for="pickupMethod">宅配取貨</label>
+                                <input type="radio" name="pickupMethod" id="pickupMethod2" value="2">
+                                <label for="pickupMethod">現場取貨</label>
+                            </div>
+                        </div>
+
+                        <hr class="mb-4">
+                        <h5 class="mb-3">取件人資訊</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
                                 <label for="firstName">收件人姓名 <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                                <input type="text" class="form-control" th:field="*{recipientName}" placeholder="" value="" required="">
                                 <div class="invalid-feedback">
-                                    Valid first name is required.
+                                    請輸入收件人姓名.
                                 </div>
                             </div>
-                            <!-- <div class="col-md-6 mb-3">
-                                <label for="lastName">Last name <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                            <div class="col-md-4 mb-3">
+                                <label for="lastName">收件人電話 <span class="required">*</span></label>
+                                <input type="text" class="form-control" th:field="*{recipientPhone}" placeholder="" value="" required="">
                                 <div class="invalid-feedback">
-                                    Valid last name is required.
+                                    請輸入收件人電話.
                                 </div>
-                            </div> -->
-                        </div>
-
-                        <!-- <div class="mb-3">
-                            <label for="username">Username <span class="required">*</span></label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">@</span>
-                                </div>
-                                <input type="text" class="form-control" id="username" placeholder="Username" required="">
-                                <div class="invalid-feedback" style="width: 100%;">
-                                    Your username is required.
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <div class="mb-3">
-                            <label for="email">Email <span class="text-muted">(選填)</span></label>
-                            <input type="email" class="form-control" id="email" placeholder="hello@example.com">
-                            <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
                             </div>
                         </div>
-
-                        <!-- <div class="mb-3">
-                            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                        </div> -->
 
                         <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="zip">郵遞區號 <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    請選擇郵遞區號.
-                                </div>
-                            </div>
-                            <div class="col-md-5 mb-3">
-                                <label for="country">縣市別 <span class="required">*</span></label>
-                                <select class="custom-select d-block w-100" id="country" required="">
+                            <div class="col-md-4 mb-3">
+                                <label for="cntCode">縣市別 <span class="required">*</span></label>
+                                <select th:field="*{countyVO.cntCode}" id="countySelect" class="custom-select d-block w-100" required="">
                                     <option value="">請選擇縣市別</option>
+                                    <option th:each="countyVO : ${countyListData}" th:value="${countyVO.cntCode}" th:text="${countyVO.cntName}" />
                                 </select>
                                 <div class="invalid-feedback">
                                     請選擇縣市別.
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="state">鄉鎮區別 <span class="required">*</span></label>
-                                <select class="custom-select d-block w-100" id="state" required="">
+                                <label for="distCode">鄉鎮區別 <span class="required">*</span></label>
+                                <select th:field="*{distVO.distCode}" id="distSelect" class="custom-select d-block w-100" required="">
                                     <option value="">請選擇鄉鎮區</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                    Please provide a valid state.
+                                    請選擇鄉鎮區.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="zip">郵遞區號 <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="zip" placeholder="" required="">
+                                <div class="invalid-feedback">
+                                    請選擇郵遞區號.
+                                </div>
+                            </div>
+                            <div class="col-md-8 mb-10">
+                                <label for="address">收件地址 <span class="required">*</span> </label>
+                                <input type="text" class="form-control" th:field="*{recipientAddress}" placeholder="請輸入地址" required="">
+                                <div class="invalid-feedback">
+                                    請輸入您的地址.
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <h5 class="mb-3">發票資訊</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="invoiceTaxNo">統一編號</label>
+                                <input type="text" class="form-control" th:field="*{invoiceTaxNo}" placeholder="" value="">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label for="invoiceWay">發票方式 <span class="required">*</span></label>
+                                <select th:field="*{invoiceWay}" class="custom-select d-block w-100" required="">
+                                    <option value="1">紙本發票</option>
+                                    <option value="2">電子發票</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    請選擇發票方式.
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="address">收件地址<span class="required">*</span> </label>
-                                <input type="text" class="form-control" id="address" placeholder="請輸入地址" required="">
-                                <div class="invalid-feedback">
-                                    Please enter your shipping address.
-                                </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="invoiceMobileCode">手機載具碼</label>
+                                <input type="text" class="form-control" th:field="*{invoiceMobileCode}" placeholder="" value="">
                             </div>
 
                         </div>
                         <hr class="mb-4">
-                        <!-- <div class="custom-control custom-checkbox" id="same-address-main">
-                            <input type="checkbox" class="custom-control-input" id="same-address">
-                            <label class="custom-control-label" for="same-address">Shipping address is the same as my
-                                billing address</label>
-                        </div>
-                        <div id="checkout-shipping-address">
-                            <address>
-                                John duff <br>
-                                ABCD Street Name, City, vancouver <br>
-                                canada <br>
-                                (123) 456-7890
-                            </address>
-                        </div>
-                        <div class="custom-control custom-checkbox" id="different-address-main">
-                            <input type="checkbox" class="custom-control-input" id="different-address">
-                            <label class="custom-control-label" for="different-address">ship to a different address?</label>
-                        </div>
-                        <div id="checkout-shipping-address-diff">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="firstName">First name <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="" value=""
-                                           required="">
-                                    <div class="invalid-feedback">
-                                        Valid first name is required.
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="lastName">Last name <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="" value=""
-                                           required="">
-                                    <div class="invalid-feedback">
-                                        Valid last name is required.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="username">Username <span class="required">*</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="username" placeholder="Username"
-                                           required="">
-                                    <div class="invalid-feedback" style="width: 100%;">
-                                        Your username is required.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                                <div class="invalid-feedback">
-                                    Please enter a valid email address for shipping updates.
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="address">Address<span class="required">*</span> </label>
-                                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
-                                <div class="invalid-feedback">
-                                    Please enter your shipping address.
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                                <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5 mb-3">
-                                    <label for="country">Country <span class="required">*</span></label>
-                                    <select class="custom-select d-block w-100" id="country" required="">
-                                        <option value="">Choose...</option>
-                                        <option>United States</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select a valid country.
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="state">State <span class="required">*</span></label>
-                                    <select class="custom-select d-block w-100" id="state" required="">
-                                        <option value="">Choose...</option>
-                                        <option>California</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please provide a valid state.
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="zip">Zip <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="zip" placeholder="" required="">
-                                    <div class="invalid-feedback">
-                                        Zip code required.
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="save-info">
                             <label class="custom-control-label" for="save-info">Save this information for next time</label>
                         </div>
-                        <hr class="mb-4">
-
-
+                        
+                        <input type="hidden" th:field="*{orderListId}">
+                        <input type="hidden" id="member.memberId" name="member.memberId" value="1">
+                        <input type="hidden" th:field="*{orderDt}" value="">
+                        <input type="hidden" th:field="*{orderAmount}">
+                        <input type="hidden" th:field="*{payAmount}">
+                        <input type="hidden" id="useCoupon" name="useCoupon" value="0">
+                        <input type="hidden" id="couponUsedAmount" name="couponUsedAmount" value="0">
+                        <input type="hidden" id="orderStatus" name="orderStatus" value="0">
+                        <input type="hidden" th:field="*{paymentMethod}">
+                        <input type="hidden" id="paymentStatus" name="paymentStatus" value="0">
+                        <input type="hidden" th:field="*{cardHolder}">
+                        <input type="hidden" th:field="*{cardNumber}">
+                        <input type="hidden" th:field="*{cardYy}">
+                        <input type="hidden" th:field="*{cardMm}">
+                        <input type="hidden" th:field="*{cardVerifyCode}">
+                        <!-- <input type="hidden" th:field="*{createdBy}" value="王小明"> -->
+                        <input type="hidden" id="createdBy" name="createdBy" value="陳沛聖">
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script th:src="@{/plugins/moment/moment.min.js}"></script>
 	<script>
-	function getCookie(name) {
-	    let cookieValue = null;
-	    if (document.cookie && document.cookie !== '') {
-	        const cookies = document.cookie.split(';');
-	        for (let i = 0; i < cookies.length; i++) {
-	            const cookie = cookies[i].trim();
-	            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-	                break;
-	            }
-	        }
-	    }
-	    return cookieValue;
-	}
-	
-	$("#btn_confirm").on("click", function () {
-	    const csrftoken = getCookie('csrftoken');
-	    var memberId = 1;
-	    console.log("test1");
-	    $.ajax({
-	        type: "POST",
-	        contentType: 'application/json',
-	        data: JSON.stringify({
-	            "buyItemList": [
-	                {
-	                    "productId": 1001,
-	                    "quantity": 1
-	                },
-	                {
-	                    "productId": 1002,
-	                    "quantity": 2
-	                }
-	            ]
-	        }),
-	        headers: { 'X-CSRFToken': csrftoken },
-	        url: "http://localhost:8080/members/1/orderLists",
-	        success: function (response) {
-	            console.log(response);
-	            console.log("test2");
-	            window.location.href = "/orderConfirmation.html";
-	        }
-	    })
-	});
-	
-	
-	</script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        //縣市
+        $(document).ready(function () {
+        	const csrftoken = getCookie('csrftoken');
+        	
+            $("#countySelect").change(function () {
+            	let selectedCounty = $(this).val();
+            	getDist(selectedCounty, csrftoken);
+            });
+        	
+        });
+        
+        //抓鄉鎮區
+        function getDist(selectedCounty, csrftoken){
+            $.ajax({
+                type: "GET",
+                data: { "cntCode": selectedCounty },
+                headers: { 'X-CSRFToken': csrftoken },
+                url: "../dists/",
+                dataType: "json",
+                success: function (data) {   
+					let pageType = $("#pageType").val();                 
+                    let distSelect = $("#distSelect");
+                    distSelect.empty();
+                    distSelect.append(new Option("-", ""));
+                    data["dists"].forEach(function (item, i) {
+                        distSelect.append(new Option(item["distName"], item["distCode"]));
+                    });
+                }
+            })
+        }
+        
+        //郵遞區號自動填入
+        $('#countySelect').on("change", function(){
+            $('#zip').val("");
+        });
+        
+        $('#distSelect').on("change", function(){
+            $('#zip').val($('#distSelect').val());
+        });
+
+
+
+        //是否使用優惠券
+        // function coupon_toggleInput() {
+        //     let useCoupon = document.getElementById("useCoupon");
+        //     let couponId = document.getElementById("coupon.couponId");
+        //     let coupon_amount = document.getElementById("coupon_amount");
+
+        //     if (useCoupon.checked) {
+        //         couponId.disabled = false; // 啟用輸入框
+        //         useCoupon.value = 1;
+        //         console.log("useCoupon= " + useCoupon.value);
+        //     } else {
+        //         couponId.disabled = true; // 禁用輸入框
+        //         useCoupon.value = 0;
+        //         couponId.value = "";
+        //         coupon_amount.innerText = 0;
+        //         console.log("useCoupon= " + useCoupon.value);
+        //         show_total_price();
+        //     }
+        // }
+
+        //是否使用優惠券的判斷
+        function is_coupon(){
+            let coupon_amount = document.getElementById("coupon_amount");
+            let useCoupon = document.getElementById("useCoupon");
+
+            if(coupon_amount.innerText == 0){
+                useCoupon.value = 0;
+            } else {
+                useCoupon.value = 1;
+            }
+        }
+
+        //是否使用購物金
+        function coin_toggleInput() {
+            let useCoin = document.getElementById("useCoin");
+            let coinUsedAmount = document.getElementById("coinUsedAmount");
+
+            if (useCoin.checked) {
+                coinUsedAmount.disabled = false; // 啟用輸入框
+                useCoin.value = 1;
+            } else {
+                coinUsedAmount.disabled = true; // 禁用輸入框
+                useCoin.value = 0;
+                coinUsedAmount.value = 0;
+            }
+            coinChange();
+        }
+
+        //優惠券更新
+        //優惠券應該是 輸入COUPONID 然後用AJAX去後端抓折扣金額 然後再塞入右側金額欄
+        //let coupon_discount_amount = Ajax抓
+        // function couponChange(){
+        //     let couponId = document.getElementById("coupon.couponId");
+        //     let coupon_amount = document.getElementById("coupon_amount");       
+        //     let coupon_code = document.getElementById("coupon_code");
+
+        //     coupon_code.innerHTML = couponId.value;
+        //     coupon_amount.innerText = 100;
+        //     show_total_price();
+        // }
+
+        //購物金金額更新
+        function coinChange(){
+            let coinUsedAmount = document.getElementById("coinUsedAmount");
+            let coins_use = document.getElementById("coins_use");
+
+            coins_use.innerText = coinUsedAmount.value;
+            show_total_price();
+        }
+        </script>
+
+
+
+        <script>
+        //計算應付總金額
+        function show_total_price() {
+            let cart = JSON.parse(localStorage.getItem("cartData"));
+            let total = 0;
+
+            if(cart["buyItemList"].length > 0){
+                let shipping_amount = document.getElementById("shipping_amount");
+                let coupon_amount = document.getElementById("coupon_amount");
+                let coins_use = document.getElementById("coins_use").innerText;
+                let event_amount = document.getElementById("event_amount").innerText;
+
+                coupon_amount.innerText = cart["discount"]; //優惠券折扣金額
+                // coupon_amount.innerText = 200; //test
+                shipping_amount.innerText = cart["shipping"]; //售價的加項 運費
+
+                //商品金額*數量
+                for (let j = 0; j < cart["buyItemList"].length; j++) {
+                    total += (parseInt(cart["buyItemList"][j].price) * parseInt(cart["buyItemList"][j].quantity));
+                }
+                total += parseInt(shipping_amount.innerText); //運費
+
+                document.getElementById("order_amount").innerText = total; //總金額
+
+                let discount = parseInt(coupon_amount.innerText) + parseInt(coins_use) + parseInt(event_amount); //折扣金額
+                total -= discount;
+
+            } else {
+                total = 0;
+            }
+            document.getElementById("pay_amount").innerText = total; //總付款金額
+        }
+
+        //顯示放入購物車的商品
+        function show_items (){
+            let cart = JSON.parse(localStorage.getItem("cartData"));
+            let start = document.getElementById("start");
+            let item_html = ``;
+
+            if(cart["buyItemList"].length > 0){
+                for (let i = 0; i < cart["buyItemList"].length; i++) {
+                    var amount = (parseInt(cart["buyItemList"][i].price) * parseInt(cart["buyItemList"][i].quantity));
+                    item_html += 
+                        `<div class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">${cart["buyItemList"][i].productName} $${cart["buyItemList"][i].price} × ${cart["buyItemList"][i].quantity}</h6>
+                            </div>
+                            <span class="text-muted">$${amount}</span>
+                        </div>`;
+                }
+            } else {
+                item_html += `<div class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">尚未選購商品</h6>
+                                </div>
+                            </div>`;
+            }
+            start.insertAdjacentHTML('beforebegin', item_html);
+        }
+
+        //預設日期
+        function default_date() {  
+                var now_date = moment().format('YYYY-MM-DD hh:mm:ss')
+                $('#orderDt').val(now_date);
+        }
+
+
+        //網頁載入完畢後立刻執行
+        window.addEventListener("load", function () {
+            show_items (); //顯示已選擇商品
+            show_total_price(); //計算應付總金額
+            is_coupon(); //判斷是否使用優惠券
+
+            default_date();//預設起訖都是當天日期
+
+
+            //取貨方式1-宅配到府
+            let pickupMethod1 = document.getElementById("pickupMethod1");
+            pickupMethod1.addEventListener("click", function(){
+            pickupMethod1.value = 1;
+            pickupMethod2.value = "";
+            console.log("pickupMethod1= " + pickupMethod1.value);
+            console.log("pickupMethod2= " + pickupMethod2.value);
+            });
+
+            //取貨方式2-現場取貨
+            let pickupMethod2 = document.getElementById("pickupMethod2");
+            pickupMethod2.addEventListener("click", function(){
+            pickupMethod2.value = 2;
+            pickupMethod1.value = "";
+            console.log("pickupMethod2= " + pickupMethod2.value);
+            console.log("pickupMethod1= " + pickupMethod1.value);
+            });
+
+            //是否使用優惠券-預設值
+            let useCoupon = document.getElementById("useCoupon");
+            useCoupon.value = 0;
+            console.log("useCoupon= " + useCoupon.value);
+
+            //是否使用購物金-預設值
+            let useCoin = document.getElementById("useCoin");
+            useCoin.value = 0;
+            console.log("useCoin= " + useCoin.value);
+
+            // //優惠券-預設值
+            // let useCoupon = document.getElementById("useCoupon");
+            // useCoupon.value = 0;
+            // console.log("useCoupon= " + useCoupon.value);
+
+            //購物金-預設值
+            let coinUsedAmount = document.getElementById("coinUsedAmount");
+            coinUsedAmount.value = 0;
+            console.log("coinUsedAmount= " + coinUsedAmount.value);
+
+        });
+
+
+        //產生buyItemList
+        // function buyItemList(){
+        //     let cart = JSON.parse(localStorage.getItem("cartData"));
+        //     let json_str = '{"buyItemList":[';
+
+        //     for (let i = 0; i < cart.length; i++) {
+        //         if (i < cart.length - 1){
+        //             json_str += '{"productId":' + cart[i].productId + ',"quantity":' + cart[i].quantity + '},'
+        //         } else {
+        //             json_str += '{"productId":' + cart[i].productId + ',"quantity":' + cart[i].quantity + '}]}'
+        //         }
+        //     }
+        //     return json_str;
+        // }
+
+        //異步請求
+        async function A() {
+            console.log("Function A started");
+            const csrftoken = getCookie('csrftoken');
+                // var buyItem_str = buyItemList(); //test
+                var cart = JSON.parse(localStorage.getItem("cartData"));
+                var memberId = 1;
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json',
+                    data: cart,
+                    headers: { 'X-CSRFToken': csrftoken },
+                    url: "http://localhost:8080/members/"+ memberId +"/orderLists",
+                    // url: "../members/"+ memberId +"/orderLists",
+                    success: function (response) {
+                        console.log(response);
+                        $('#orderListId').val(response);
+                        // window.location.href = "/orderConfirmation.html";
+                    }
+                })
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            console.log("Function A completed");
+        }
+
+        async function B() {
+            console.log("Function B started");
+            let order_amount = document.getElementById("order_amount").innerText;
+            document.getElementById("orderAmount").value = order_amount;
+
+            let pay_amount = document.getElementById("pay_amount").innerText;
+            document.getElementById("payAmount").value = pay_amount;
+
+            let coupon_amount = document.getElementById("coupon_amount").innerText;
+            document.getElementById("couponUsedAmount").value = coupon_amount;
+
+            
+            // let coinUsedAmount = document.getElementById("coinUsedAmount");
+            // coinUsedAmount.value = 0;
+                
+            let card_dropdown = document.getElementById("card-dropdown");
+            if (card_dropdown.classList.contains("show")) {
+                document.getElementById("paymentMethod").value = 1; //信用卡付款
+            } else {
+                document.getElementById("paymentMethod").value = 2; //現場付款
+            }
+
+            let cardHolder_card = document.getElementById("cardHolder_card").value;
+            document.getElementById("cardHolder").value = cardHolder_card;
+
+            let cc_number = document.getElementById("cc-number").value;
+            document.getElementById("cardNumber").value = cc_number;
+
+            let cc_expiration_mm = document.getElementById("cc-expiration-mm").value;
+            document.getElementById("cardMm").value = cc_expiration_mm;
+
+            let cc_expiration_yy = document.getElementById("cc-expiration-yy").value;
+            document.getElementById("cardYy").value = cc_expiration_yy;
+
+            let cc_cvv = document.getElementById("cc-cvv").value;
+            document.getElementById("cardVerifyCode").value = cc_cvv;
+
+            document.getElementById("checkOutForm").submit();
+            console.log("Function B completed");
+        }
+
+        async function executeFunctions() {
+            await A(); // 等A執行完畢
+            B();       // 然後執行B
+        }
+
+        let a = document.getElementById("btn_confirm");
+        a.addEventListener("click", function(){
+            executeFunctions();
+        });
+
+    </script>
 
     <!-- 把你的內容貼在這裡-->
 </main>

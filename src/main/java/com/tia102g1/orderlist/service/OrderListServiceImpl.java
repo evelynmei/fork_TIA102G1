@@ -2,6 +2,7 @@ package com.tia102g1.orderlist.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.tia102g1.orderlist.dao.OrderListDao;
 import com.tia102g1.orderlist.dto.BuyItem;
 import com.tia102g1.orderlist.dto.CreateOrderListRequest;
 import com.tia102g1.orderlist.dto.OrderListQueryParams;
+import com.tia102g1.orderlist.model.OrderListRepository;
 import com.tia102g1.orderlist.model.OrderListVO;
 import com.tia102g1.orderlistinfo.model.OrderListInfoVO;
 import com.tia102g1.productinfo.dao.ProductInfoDaoV2;
@@ -37,6 +39,9 @@ public class OrderListServiceImpl implements OrderListService {
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	OrderListRepository repository;
 	
 //	//查詢訂單筆數
 //	@Override
@@ -62,7 +67,7 @@ public class OrderListServiceImpl implements OrderListService {
 	}
 	
 	
-	//查詢單筆訂單
+	//查詢單筆訂單-Service-service RowMapper
 	@Override
 	public OrderListVO getOrderById(Integer orderListId) {
 		
@@ -76,6 +81,18 @@ public class OrderListServiceImpl implements OrderListService {
 		orderList.setOrderListInfoVO(orderListInfoList);
 		
 		return orderList;
+	}
+	
+	
+	// 單筆查詢-Model-Service JPA
+	public OrderListVO getOneOrderList(Integer orderListId) {
+		Optional<OrderListVO> optional = repository.findById(orderListId);
+		return optional.orElse(null); // 如果有查到資料就回傳VO物件,否則就回傳null
+	}
+	
+	// 修改
+	public void updateOrderList(OrderListVO orderListVO) {
+		repository.save(orderListVO);
 	}
 	
 
@@ -118,10 +135,11 @@ public class OrderListServiceImpl implements OrderListService {
 			OrderListInfoVO orderListInfo = new OrderListInfoVO();
 			orderListInfo.setProductIdRM(buyItem.getProductId());
 			orderListInfo.setProQuantity(buyItem.getQuantity());
-			orderListInfo.setPurchasedPrice(amount);
-			
-			orderListInfoList.add(orderListInfo);
+//			orderListInfo.setPurchasedPrice(amount); //單價*數量
+			orderListInfo.setPurchasedPrice(productInfo.getProPrice()); //商品單價
 		
+			orderListInfoList.add(orderListInfo);
+			
 		}
 		
 		
@@ -133,6 +151,5 @@ public class OrderListServiceImpl implements OrderListService {
 		return orderListId;
 	}
 	
-
 
 }
