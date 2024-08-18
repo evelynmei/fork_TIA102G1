@@ -273,7 +273,6 @@ public class ThymeleafMemberController {
     @PostMapping("/{memberId}/updateMemberInfo")
     public String updateMemberInfo(@PathVariable Integer memberId,
                                    @Validated @ModelAttribute("member") MemberUpdateDto memberUpdateDto,
-                                   Authentication authentication,
                                    BindingResult bindingResult,
                                    Model model) {
 
@@ -331,6 +330,7 @@ public class ThymeleafMemberController {
 
     /**
      * 跳轉到修改密碼的頁面(前台)
+     *
      * @param memberId
      * @param model
      * @return
@@ -348,6 +348,7 @@ public class ThymeleafMemberController {
 
     /**
      * 修改密碼的控制器(前台)
+     *
      * @param memberId
      * @param currentPassword
      * @param newPassword

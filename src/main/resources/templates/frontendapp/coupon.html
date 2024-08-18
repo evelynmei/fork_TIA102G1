@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>優惠券管理</title>
+	<!-- 共同引入 headTag-import meta tag-->
+	<meta th:replace="~{frontendapp/components/common :: headtag-import}">
+</head>
+<body>
+
+<!-- 共用元件 header:圖示按鈕, navbar...-->
+<div th:replace="~{frontendapp/components/common :: app-header}"></div>
+<!-- 共用元件(index除外) bread crumb -->
+<div th:replace="~{frontendapp/components/common :: app-bread-crumb(title=${'優惠券管理'})}"></div>
+
+<main>
+	<!-- 把你的內容貼在這裡-->
+	<div class="cart-area table-area pt-110 pb-95 float-left w-100">
+		<div class="container">
+			<div class=" cart-wrapper float-left w-100">
+				<div class="table-responsive">
+					<table class="table product-table text-center">
+						<thead>
+						<tr>
+							<th class="table-p-name text-uppercase">優惠券名稱</th>
+							<th class="table-p-price text-uppercase">序號</th>
+							<th class="table-p-qty text-uppercase">面額</th>
+							<th class="table-total text-uppercase">折數</th>
+							<th class="table-total text-uppercase">有效期限</th>
+						</tr>
+						</thead>
+<!--						隱藏欄位 memberId-->
+						<input th:value="${memberId}" id="memberId" type="hidden">
+						<tbody>
+						<th:block th:each="coupon : ${couponList}">
+						
+						<tr th:if="${coupon.couponStatus == 1}">
+							<td th:text="${coupon.couponName}"></td>
+							<td th:text="${coupon.couponCode}"></td>
+							<td th:text="${coupon.discAmount}"></td>							
+							<td th:text="${#numbers.formatDecimal(coupon.discPercentage * 100, 1, 0)} + '%'"></td>
+							<td th:text="${coupon.endDt}"></td>
+						</tr>
+						</th:block>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- 把你的內容貼在這裡-->
+</main>
+<!-- 共用元件 footer和一些按鈕功能 -->
+<div th:replace="~{frontendapp/components/common :: app-footer}"></div>
+<!-- 選用元件 app-modals互動視窗 -->
+<div th:replace="~{frontendapp/components/common :: app-modals}"></div>
+<!-- 共同引入 置底 import-in-the-end -->
+<div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
+
+</body>
+
+</html>

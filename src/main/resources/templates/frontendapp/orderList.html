@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單紀錄</title>
+    <meta th:replace="~{frontendapp/components/common :: headtag-import}">
+</head>
+<body>
+<div th:replace="~{frontendapp/components/common :: app-header}"></div>
+<div th:replace="~{frontendapp/components/common :: app-bread-crumb(title=${'訂單管理'})}"></div>
+
+<main style="padding: 20px;">
+    <h2>訂單紀錄</h2>
+    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+        <thead style="background-color: #f2f2f2;">
+        <tr>
+            <th>訂單編號</th>
+            <th>訂購日期</th>
+            <th>訂購金額</th>
+            <th>購物金抵用金額</th>
+            <th>優惠券折扣金額</th>
+            <th>總付款金額</th>
+            <th>付款狀態</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderListId}"></td>
+            <td th:text="${#dates.format(order.orderDt, 'yyyy/MM/dd')}"></td>
+            <td th:text="${order.orderAmount}"></td>
+            <td th:text="${order.coinUsedAmount}"></td>
+            <td th:text="${order.couponUsedAmount}"></td>
+            <td th:text="${order.payAmount}"></td>
+            <td th:text="${order.paymentStatus == 0 ? '未付款' : (order.paymentStatus == 1 ? '已付款' : (order.paymentStatus == 2 ? '退款中' : '已退款'))}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<div th:replace="~{frontendapp/components/common :: app-footer}"></div>
+<div th:replace="~{frontendapp/components/common :: app-modals}"></div>
+<div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
+</body>
+</html>
