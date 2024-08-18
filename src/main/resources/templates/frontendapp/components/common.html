@@ -263,21 +263,22 @@
                                                         商品評論
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a class="menu-item pl-0" href="index.html">
-                                                        會員資料
-                                                    </a>
-                                                </li>
+<!--                                                <li>-->
+<!--                                                    <a class="menu-item pl-0" href="index.html">-->
+<!--                                                        會員資料-->
+<!--                                                    </a>-->
+<!--                                                </li>-->
                                                 <li>
                                                     <a class="menu-item pl-0" href="index.html">
                                                         訊息
                                                     </a>
                                                 </li>
-                                                <li>
+                                                <li th:if="${providerId != null or oauth2MemberName != null or memberName != null}">
                                                     <a class="menu-item pl-0" href="/logout">
                                                         登出
                                                     </a>
                                                 </li>
+
                                             </ul>
                                         </div>
                                     </div>
