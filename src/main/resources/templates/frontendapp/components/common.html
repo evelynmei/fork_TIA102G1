@@ -206,7 +206,16 @@
                                     white-space: nowrap;">
                                         Hi! [[${memberName}]]，您好！
                                     </div>
-                                    <div class="welcome-message" th:if="${memberName == null}" style="
+                                    <div class="welcome-message" th:if="${providerId != null and oauth2MemberName != null}" style="
+                                    position: relative;
+                                    margin-left: 10px;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: #666;
+                                    white-space: nowrap;">
+                                        Hi! [[${oauth2MemberName}]]，您好！
+                                    </div>
+                                    <div class="welcome-message" th:if="${providerId == null and oauth2MemberName == null and memberName == null}" style="
                                     position: relative;
                                     margin-left: 10px;
                                     font-size: 16px;
@@ -216,6 +225,7 @@
                                         Hi! 訪客您好，<a th:href="@{/login}"
                                                         style="color: #007bff; text-decoration: underline;">請登入</a>
                                     </div>
+
                                 </li>
                                 <li class="nav-item dropdown active">
                                     <a class="nav-link dropdown-toggle text-uppercase" th:href="@{/productcategory}">
