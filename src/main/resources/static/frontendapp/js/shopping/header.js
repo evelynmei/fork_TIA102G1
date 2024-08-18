@@ -1,7 +1,7 @@
 let { createApp, ref, computed, onMounted, toRaw  } = Vue;
 
 var memberId = document.getElementById("memberId").value;
-const cartURL = "http://localhost:8080/api/cart/";
+const cartURL = "/api/cart/";
 const productURL = "/frontendapp/img/products/";
 
 createApp({
