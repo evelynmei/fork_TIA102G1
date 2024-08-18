@@ -32,7 +32,7 @@ public class FavProductController {
     @Autowired
     ProductInfoServiceS prodInfoSvc;
     
-    @GetMapping("favProduct")
+    @GetMapping("/favProduct")
     public String getFavProductsByMemberId(Authentication authentication, Model model) {
         System.out.println("=========================================");
         Member member = memberSvc.getMemberByAccount(authentication.getName());
