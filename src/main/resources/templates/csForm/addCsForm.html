@@ -112,12 +112,12 @@
 <!--                                             </div> -->
                                             <div class="form-group">
                                                 <label>訂單編號:</label>
-                                                <input type="text" th:field="*{orderListId}"
+                                                <input type="text" th:field="*{orderId}"
                                                     onclick="hideContent('orderListId.errors');"
                                                     class="form-control" /><br />
-                                                <span th:if="${#fields.hasErrors('orderListId')}"
-                                                    th:errors="*{orderListId}" class="error"
-                                                    id="orderListId.errors"></span>
+                                                <span th:if="${#fields.hasErrors('orderId')}"
+                                                    th:errors="*{orderId}" class="error"
+                                                    id="orderId.errors"></span>
                                             </div>
 
                                             <div class="form-group">

@@ -548,12 +548,22 @@
                 var buyItem_str = buyItemList();
                 console.log(buyItem_str);
                 var cart = JSON.parse(localStorage.getItem("cartData"));
-                var memberId = document.getElementById("memberId").value;
+                //var memberId = document.getElementById("memberId").value;
+                var memberId = 1;
                 $.ajax({
                     type: "POST",
                     contentType: 'application/json',
                     // data: cart,
-                    data: buyItem_str,
+                    //data: buyItem_str,
+                    data: JSON.stringify(
+                         {
+                             "buyItemList":
+                             [
+                                 {"productId":1001,"quantity":1},
+                                 {"productId":1002,"quantity":2}
+                             ]
+                         }
+                     ),
                     headers: { 'X-CSRFToken': csrftoken },
                     // url: "http://localhost:8080/members/"+ memberId +"/orderLists",
                     url: "../members/"+ encodeURIComponent(memberId) +"/orderLists",
