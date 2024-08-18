@@ -174,16 +174,4 @@ public class FrontendController {
     }
 
 
-    // ===================================================
-    // 關於我們 (有空再做)
-    @GetMapping({"/aboutus", "/aboutUs.html"})
-    public String frontendAboutUs(Model model) {
-        return "/frontendapp/aboutUs";
-    }
-
-    // 測試頁
-    @GetMapping({"/sample"})
-    public String frontendSample(Model model) {
-        return "/frontendapp/sample";
-    }
 }

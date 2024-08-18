@@ -30,6 +30,8 @@
 							<th class="table-total text-uppercase">add to cart</th>
 						</tr>
 						</thead>
+<!--						隱藏欄位 memberId-->
+						<input th:value="${memberId}" id="memberId" type="hidden">
 						<tbody>
 						<th:block th:each="productInfo : ${favProducts}">
 						
@@ -46,8 +48,11 @@
 									<span th:case="0">未上架</span>
 								    <span th:case="1">上架中</span>
 							</td>							
-							<td class="table-addtocart"><a href="cart.html" class="btn-primary btn">Add to
-							cart</a></td>
+							<td class="table-addtocart">
+								<a th:value="${productInfo.productId}" class="btn-primary btn btn-cart">
+									加入購物車
+								</a>
+							</td>
 						</tr>
 						</th:block>
 						</tbody>
@@ -69,6 +74,7 @@
 <div th:replace="~{frontendapp/components/common :: import-in-the-end}"></div>
 
 <script src="/frontendapp/js/removeFavorite.js"></script>
+<script src="/frontendapp/js/shopping/addToCartBtns.js"></script>
 
 </body>
 
