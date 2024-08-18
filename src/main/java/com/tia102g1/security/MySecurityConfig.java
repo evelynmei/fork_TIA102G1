@@ -61,6 +61,9 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customAuthenticationFailureHandler)
 
                 .and()
+                .rememberMe()
+                .userDetailsService(myUserDetailsService)
+                .and()
 //                //OAuth2.0授權認證方法
                 .oauth2Login()
                 .loginPage("/login")
