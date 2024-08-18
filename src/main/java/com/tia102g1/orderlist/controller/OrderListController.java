@@ -206,6 +206,9 @@ public class OrderListController {
 
 	    /*************************** 2.開始修改資料 *****************************************/
 	    orderListVO.setLastUpdated(now);
+	    
+	    System.out.println(orderListVO);
+	    
 	    orderListService.updateOrderList(orderListVO); // 把更新好屬性的當前VO物件交給Service層做update
 
 	    // Print orderListId for debugging
