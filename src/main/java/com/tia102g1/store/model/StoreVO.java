@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.dist.model.DistVO;
@@ -36,6 +38,7 @@ public class StoreVO implements java.io.Serializable {
 //	private Integer cntCode;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "CNTCODE", referencedColumnName = "CNTCODE")
 	private CountyVO countyVO;
 	
@@ -43,6 +46,7 @@ public class StoreVO implements java.io.Serializable {
 //	private Integer distCode;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "DISTCODE", referencedColumnName = "DISTCODE")
 	private DistVO distVO;
 
