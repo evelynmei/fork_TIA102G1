@@ -3,7 +3,7 @@ let { createApp, ref, computed, onMounted, toRaw } = Vue;
 var memberId = document.getElementById("memberId").value;
 const cartURL = "http://localhost:8080/api/cart/";
 const couponURL = "http://localhost:8080/api/coupon/";
-const productURL = "frontendapp/img/products/";
+const productURL = "/frontendapp/img/products/";
 const mockProducts = {
     1001: {
         name: "巧克力餅乾",
@@ -132,13 +132,13 @@ createApp({
                 let { cartPrdList, cartList } = cartResponse.data;
 
                 coupons.value.push(...couponResponse.data);
-                // console.log("couPonResponse = " + couponResponse);
-                // console.log("cartPrdList = " + JSON.stringify(cartPrdList));
+                console.log("couPonResponse = " + couponResponse);
+                console.log("cartPrdList = " + JSON.stringify(cartPrdList));
 
                 // 把 cartPrdList 轉成 products所需格式
                 products = cartPrdList.reduce(reduceToProducts, {});
                 // (reduce:重新組裝成一個新的形式物件; 自定義重組方式->reduceToProducts)
-                // console.log("products = " + JSON.stringify(products));
+                console.log("products = " + JSON.stringify(products));
 
                 if(cartResponse.data !== null)
                     console.log("api串接成功, cartList資料為:" + cartResponse.data);
@@ -199,7 +199,7 @@ createApp({
                 alert("即將跳轉到結帳頁面");
 
                 // 跳轉到結帳頁面
-                window.location.href = "http://localhost:8080/checkout";
+                window.location.href = "http://desserter.ddns.net/checkout";
 
             } catch (error) {
                 console.error("更新購物車時出錯:", error);
