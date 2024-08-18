@@ -15,8 +15,14 @@ public interface OrderListService {
 	//查詢所有歷史訂單
 	List<OrderListVO> getOrders(OrderListQueryParams orderListQueryParams);
 	
-	//單筆查詢訂單主檔
+	//單筆查詢訂單主檔-RowMapper
 	OrderListVO getOrderById(Integer orderListId);
+	
+	//單筆查詢訂單主檔-JPA
+	OrderListVO getOneOrderList(Integer orderListId);
+	
+	//修改-JPA
+	void updateOrderList(OrderListVO orderListVO);
 	
 	//新增訂單
 	Integer createOrderList(Integer memberId, CreateOrderListRequest createOrderListRequest);

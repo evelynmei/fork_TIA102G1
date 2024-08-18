@@ -140,17 +140,17 @@ public class OrderListVO implements Serializable {
 	@Column(name = "recipientAddress")
 	private String recipientAddress;
 
-	@Column(name = "createdBy")
+	@Column(name = "createdBy", updatable = false)
 	private String createdBy;
 
-	@Column(name = "dateCreated")
+	@Column(name = "dateCreated", insertable = false, updatable = false)
 	private Timestamp dateCreated;
 
 	@Column(name = "lastUpdatedBy")
 	@NotEmpty(message = "最後更新者: 請勿空白")
 	private String lastUpdatedBy;
 
-	@Column(name = "lastUpdated")
+	@Column(name = "lastUpdated", insertable = false, updatable = false)
 
 	private Timestamp lastUpdated;
 

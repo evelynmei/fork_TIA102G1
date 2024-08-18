@@ -1,26 +1,34 @@
 package com.tia102g1;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.tia102g1.county.model.CountyService;
+import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.coupon.Coupon;
 import com.tia102g1.coupon.CouponService;
-import com.tia102g1.member.model.Member;
+import com.tia102g1.dist.model.DistService;
+import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.member.service.MemberService;
 import com.tia102g1.news.model.NewsService;
 import com.tia102g1.news.model.NewsVO;
+import com.tia102g1.orderlist.model.OrderListVO;
 import com.tia102g1.productinfo.entity.ProductInfo;
 import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import com.tia102g1.producttype.model.ProductTypeService;
 import com.tia102g1.producttype.model.ProductTypeVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class FrontendController {
@@ -30,15 +38,22 @@ public class FrontendController {
 
     @Autowired
     CouponService couponService;
+    
     @Autowired
     MemberService memberService;
+    
     @Autowired
     ProductInfoServiceS productInfoServiceS;
 
     @Autowired
     ProductTypeService productTypeService;
+    
+	@Autowired
+	CountyService countySvc;
 
-
+	@Autowired
+	DistService distSvc;
+    
     /* ======================= 前台使用者頁面 ======================= */
     // 首頁
     @RequestMapping({"/index", "/index.html"})
@@ -142,17 +157,27 @@ public class FrontendController {
     }
 
     /* ====== 結帳付款 ====== */
-    // 填寫付款資訊
-    @GetMapping({"/checkout", "/checkout.html"})
-    public String frontendCheckout(Model model) {
-        return "/frontendapp/checkout";
-    }
+    
+	// 填寫付款資訊
+	@GetMapping({ "/checkout", "/checkout.html" })
+	public String frontendCheckout(Model model) {
+		model.addAttribute("orderListVO", new OrderListVO()); // 表單的綁定物件
+		return "/frontendapp/checkout";
+	}
+	
+	@ModelAttribute("countyListData")
+	protected List<CountyVO> referenceListData_County(Model model) {
+		model.addAttribute("countyVO", new CountyVO());
+		List<CountyVO> list = countySvc.getAll();
+		return list;
+	}
 
-    // 訂單成立確認
-    @GetMapping({"/orderconfirmation", "/orderConfirmation.html"})
-    public String frontendOrderConfirm(Model model) {
-        return "/frontendapp/orderConfirmation";
-    }
+	@ModelAttribute("distListData")
+	protected List<DistVO> referenceListData_Dist(Model model) {
+		model.addAttribute("distVO", new DistVO());
+		List<DistVO> list = distSvc.getAll();
+		return list;
+	}
 
     /* ====== 常見問題 ====== */
     @GetMapping({"/commonask", "/commonAsk.html"})
