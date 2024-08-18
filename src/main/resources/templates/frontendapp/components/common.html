@@ -98,7 +98,7 @@
                         <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
                             <div class="header-right d-flex d-xs-flex d-sm-flex justify-content-end float-right">
                                 <!-- 歡迎訊息 -->
-                                <div class="welcome-message" th:if="${memberName != null}">
+                                <div class="welcome-message text-nowrap" th:if="${memberName != null}">
                                     Hi! [[${memberName}]]，您好！
                                 </div>
                             </div>
@@ -120,7 +120,6 @@
                                 <a th:href="@{'/member/' + ${memberId} + '/account'}" >
                                     <i class="material-icons">perm_identity</i>
                                 </a>
-
                             </div>
 
                             <!--  購物車dropdown預覽  -->
@@ -200,7 +199,7 @@
                             <div class="collapse navbar-collapse">
                                 <ul class="navbar-nav m-auto justify-content-center">
                                     <li class="nav-item dropdown active">
-                                        <a class="nav-link dropdown-toggle text-uppercase" th:href="@{/productcategory}">
+                                        <a class="nav-link text-uppercase" th:href="@{/productcategory}">
                                             商品總覽
                                             <span class="sr-only">(current)</span>
                                         </a>
@@ -215,7 +214,6 @@
                                             會員中心
                                             <span class="sr-only">(current)</span>
                                         </a>
-
                                         <div class="dropdown-menu mega-menu v-2 z-depth-1 special-color py-3 px-3">
                                             <div class="sub-menu mb-xl-0 mb-4">
                                                 <ul class="list-unstyled">
@@ -749,6 +747,7 @@
         <script src="/frontendapp/js/jquery.zoom.min.js"></script>
         <script src="/frontendapp/js/jquery.lazy.min.js"></script>
         <script src="/frontendapp/js/copy-text.js"></script>
+
     </th:block>
 
 </html>

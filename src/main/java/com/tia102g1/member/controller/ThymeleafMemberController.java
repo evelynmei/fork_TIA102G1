@@ -2,6 +2,7 @@ package com.tia102g1.member.controller;
 
 import com.tia102g1.county.model.CountyService;
 import com.tia102g1.county.model.CountyVO;
+import com.tia102g1.coupon.CouponService;
 import com.tia102g1.dist.model.DistService;
 import com.tia102g1.dist.model.DistVO;
 import com.tia102g1.member.dto.MemberQueryParams;
@@ -35,6 +36,8 @@ public class ThymeleafMemberController {
 
     @Autowired
     DistService distService;
+    @Autowired
+    CouponService couponService;
 
     /**
      * 顯示後台員工總覽主頁的控制器
@@ -233,6 +236,8 @@ public class ThymeleafMemberController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "會員不存在");
         }
         model.addAttribute("member", member);
+        model.addAttribute("couponList", couponService.getAllCoupons());
+
         return "frontendapp/myaccount";
     }
 

@@ -1,7 +1,10 @@
 package com.tia102g1.fav_product;
 
-import java.util.List;
-
+import com.tia102g1.coupon.CouponService;
+import com.tia102g1.member.model.Member;
+import com.tia102g1.member.service.MemberService;
+import com.tia102g1.productinfo.entity.ProductInfo;
+import com.tia102g1.productinfo.model.ProductInfoServiceS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tia102g1.member.model.Member;
-import com.tia102g1.member.service.MemberService;
-import com.tia102g1.productinfo.entity.ProductInfo;
-import com.tia102g1.productinfo.model.ProductInfoServiceS;
+import java.util.List;
 
 @Controller
 public class FavProductController {
@@ -31,6 +29,9 @@ public class FavProductController {
     
     @Autowired
     ProductInfoServiceS prodInfoSvc;
+
+    @Autowired
+    CouponService couponService;
     
     @GetMapping("favProduct")
     public String getFavProductsByMemberId(Authentication authentication, Model model) {
@@ -43,6 +44,7 @@ public class FavProductController {
         
         // 將商品資訊添加到模型中，傳遞給前端頁面
         model.addAttribute("favProducts", productInfos);
+        model.addAttribute("couponList", couponService.getAllCoupons());
         
         return "frontendapp/favProduct";  // 返回對應的視圖名稱
     }

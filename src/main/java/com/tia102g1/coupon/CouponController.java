@@ -20,7 +20,11 @@ public class CouponController {
     @Autowired
     private CouponService couponService;
 
-
+    /**
+     * 列出全部優惠券
+     * @param model
+     * @return 後台優惠券主頁
+     */
     @GetMapping({"admin/coupon", "/coupon/mainPageCoupon" })
     public String listAllCoupon(Model model) {
         List<Coupon> couponList = couponService.getAllCoupons();
@@ -30,9 +34,10 @@ public class CouponController {
 
     /**
      * 查詢全部優惠券
-     * @return
+     * @return api
+     * 前端請求時, 返回json格式的優惠券資料
      */
-    @GetMapping("coupon")
+    @GetMapping("api/coupon")
     public ResponseEntity<?> getAllCoupons(ModelMap modelMap) {
         List<Coupon> couponList = couponService.getAllCoupons();
         modelMap.addAttribute("couponList", couponList);
@@ -65,7 +70,7 @@ public class CouponController {
      * 編輯優惠券
      * @param couponId: 用來拿到要更新的 coupon
      * @param coupon: 從 updateCoupon.html 傳來要更改的 coupon 資料
-     * @return 引導回 coupon 管理首頁。
+     * @return 引導回後台優惠券主頁
      */
     @PutMapping("coupon/{couponId}")
     public String updateCoupon(@PathVariable Integer couponId,
@@ -75,32 +80,10 @@ public class CouponController {
         return "redirect:/admin/coupon";
     }
 
-//    @PutMapping("coupon/{couponId}")
-//    public String updateCoupon(@PathVariable Integer couponId,
-//                               @Valid @ModelAttribute("coupon") Coupon coupon,
-//                               BindingResult bindingResult,
-//                               Model model) {
-//        if (bindingResult.hasErrors()) {
-//            // 如果有驗證錯誤，返回編輯頁面並顯示錯誤
-//            model.addAttribute("couponToUpdate", coupon);
-//            return "/coupon/updateCoupon";
-//        }
-//        coupon.setLastUpdated(new Timestamp(new Date().getTime()));
-//        try {
-//            couponService.updateCoupon(coupon);
-//            return "redirect:/admin/coupon";
-//        } catch (Exception e) {
-//            // 處理其他可能的錯誤
-//            model.addAttribute("error", e.getMessage());
-//            model.addAttribute("couponToUpdate", coupon);
-//            return "/coupon/updateCoupon";
-//        }
-//    }
-
     /**
      * 刪除優惠券
      * @param couponId
-     * @return
+     * @return 重導回優惠券主頁
      */
     @DeleteMapping("coupon/{couponId}")
     public String deleteCoupon(@PathVariable Integer couponId) {
@@ -112,7 +95,7 @@ public class CouponController {
     /**
      * 查詢單項優惠券
      * @param couponId
-     * @return
+     * @return api
      */
     @GetMapping("coupon/{couponId}")
     public ResponseEntity<?> getCoupon(@PathVariable Integer couponId) {
@@ -123,20 +106,13 @@ public class CouponController {
     /**
      * 搜尋優惠券
      * @param searchParams
-     * @return
+     * @return 重導回優惠券主頁, 顯示搜尋結果
      */
-
-//    @GetMapping("coupon/search")
-//    public ResponseEntity<List<Coupon>> searchCoupons(@RequestParam Map<String, String> searchParams) {
-//        List<Coupon> coupons = couponService.searchCoupons(searchParams);
-//        return ResponseEntity.ok(coupons);
-//    }
-
     @GetMapping("coupon/search")
     public String searchResult(@RequestParam(required = false) Map<String, String> searchParams, Model model) {
         List<Coupon> couponList = couponService.searchCoupons(searchParams);
         model.addAttribute("couponList", couponList);
-
+        //搜尋結果的boolean value
         model.addAttribute("isSearchOperation", true);
 
         return "coupon/mainPageCoupon";

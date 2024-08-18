@@ -2,7 +2,7 @@ let { createApp, ref, computed, onMounted, toRaw } = Vue;
 
 var memberId = document.getElementById("memberId").value;
 const cartURL = "http://localhost:8080/api/cart/";
-const couponURL = "http://localhost:8080/coupon/";
+const couponURL = "http://localhost:8080/api/coupon/";
 const productURL = "frontendapp/img/products/";
 const mockProducts = {
     1001: {
@@ -85,20 +85,37 @@ createApp({
                 .catch(err => console.log(err));
         };
 
-        //套用優惠券
-        let couponChecked;
+        /* 套用優惠券, 目前只判斷打折 */
+        let couponSelected;
+
+        //按下套用優惠券按鈕
         const discountHandler = () => {
 
             // 檢查輸入的 codeInput.value 跟 coupons 裡的 couponCode 是否符合
             const isCodeInCoupons = coupons.value.some(coupon => coupon.couponCode === codeInput.value);
-            if(isCodeInCoupons) {
-                couponChecked= coupons.value.find(coupon => coupon.couponCode === codeInput.value);
-                console.log(couponChecked);
 
-                // 計算折價金額
-                discountAmount.value = Math.round(selectedSum.value * (1 - couponChecked.discPercentage));
-                console.log(discountAmount.value);
-                isDiscount.value = !isDiscount.value;
+            // TODO 加上沒勾選 不觸發以下邏輯
+            if(isCodeInCoupons) {
+                couponSelected= coupons.value.find(coupon => coupon.couponCode === codeInput.value);
+                console.log(couponSelected);
+
+                //判斷優惠類型
+                //discType = 2, 計算折扣百分比
+                if(couponSelected.discType === 2){
+                    // 計算打折後金額
+                    discountAmount.value = Math.round(selectedSum.value * (1 - couponSelected.discPercentage));
+                    console.log(discountAmount.value);
+                    isDiscount.value = !isDiscount.value;
+                }
+                //discType = 1, 計算現金抵用
+                else if(couponSelected.discType === 1){
+                    discountAmount.value = couponSelected.discAmount;
+                    console.log(discountAmount.value);
+                    isDiscount.value = !isDiscount.value;
+                }
+            }
+             else {
+                alert("優惠券不存在 :(");
             }
         };
 

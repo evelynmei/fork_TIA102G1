@@ -113,13 +113,17 @@
                                                     <td class="text-center align-middle">
                                                         <div class="btn-group align-top btn-nowrap">
                                                             <form action="#" th:action="@{'/coupon/edit/{id}'(id=${coupon.couponId})}" th:method="get">
-                                                                <button class="btn btn-sm btn-outline-secondary badge" type="submit" th:if="${session.permission != null}">
+<!--                                                                登入才啟用按鈕-->
+                                                                <button class="btn btn-sm btn-outline-secondary badge" type="submit"
+                                                                        th:disabled="${session.permission == null}">
                                                                     <a th:href="@{'/coupon/edit/' + ${coupon.couponId} }"></a>
                                                                     Edit
                                                                 </button>
                                                             </form>
                                                             <form action="#" th:action="@{'/coupon/{id}'(id=${coupon.couponId})}" th:method="delete">
-                                                                <button class="btn btn-sm btn-outline-secondary badge ml-0" type="submit">
+<!--                                                                登入才啟用按鈕-->
+                                                                <button class="btn btn-sm btn-outline-secondary badge ml-0" type="submit"
+                                                                        th:disabled="${session.permission == null}">
                                                                     <i class="fa fa-trash"></i>
                                                                 </button>
                                                             </form>
@@ -140,7 +144,9 @@
                         <div class="col-12 col-lg-3 mb-3">
                                 <div class="card-body">
                                     <div class="text-center px-xl-3">
-                                        <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#addCouponModal" th:if="${session.permission != null}">
+<!--                                        登入才啟用按鈕-->
+                                        <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#addCouponModal"
+                                                th:disabled="${session.permission == null}">
                                             新增優惠券
                                         </button>
                                     </div>
@@ -306,10 +312,10 @@
                                                 <!-- 隱藏欄位 -->
                                                 <div>
                                                     <label><input id="couponStatus" name="couponStatus" value="0" type="hidden"></label>
-<!--                            ===================== TODO discType 跟 createdBy 目前都是寫死，未來可以修 =================== -->
+<!--                            ===================== discType 跟 createdBy 目前都是寫死，未來可以修 =================== -->
                                                     <label><input class="form-control" id="discType" name="discType" value="1" type="hidden"></label>
-                                                    <label><input class="form-control" id="createdBy" name="createdBy" value="Chris" type="hidden"></label>
-                                                    <label><input class="form-control" id="lastUpdatedBy" name="lastUpdatedBy" value="Chris" type="hidden"></label>
+                                                    <label><input class="form-control" id="createdBy" name="createdBy" value="Eve" type="hidden"></label>
+                                                    <label><input class="form-control" id="lastUpdatedBy" name="lastUpdatedBy" value="Eve" type="hidden"></label>
                                                 </div>
 
                                             </div>
