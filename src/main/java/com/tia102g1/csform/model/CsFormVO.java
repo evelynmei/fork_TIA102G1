@@ -36,12 +36,12 @@ public class CsFormVO {
 	@JoinColumn(name = "MEMBERID", referencedColumnName = "MEMBERID")
 	private Member member;
 	
-//	@Column(name = "ORDERID")
-//	private Integer orderId;
+	@Column(name = "ORDERID")
+	private Integer orderId;
 	
-	@ManyToOne
-	@JoinColumn(name = "ORDERID", referencedColumnName = "orderListId")
-	private OrderListVO orderListVO;
+//	@ManyToOne
+//	@JoinColumn(name = "ORDERID", referencedColumnName = "orderListId")
+//	private OrderListVO orderListVO;
 	
 //	@Column(name = "STAFFID")
 //	private Integer staffId;
@@ -94,13 +94,15 @@ public class CsFormVO {
 		super();
 	}
 
-	public CsFormVO(Integer csFormId, Member member, OrderListVO orderListVO, StaffVO staffVO, QuTypeVO quTypeVO,
-			Date quDate, String quContent, byte[] quPic, String quAvTime, Date replyDt, String replyContent,
-			Integer status, String createdBy, Date dateCreated, String lastUpdatedBy, Date lastUpdated) {
+
+
+	public CsFormVO(Integer csFormId, Member member, Integer orderId, StaffVO staffVO, QuTypeVO quTypeVO, Date quDate,
+			String quContent, byte[] quPic, String quAvTime, Date replyDt, String replyContent, Integer status,
+			String createdBy, Date dateCreated, String lastUpdatedBy, Date lastUpdated) {
 		super();
 		this.csFormId = csFormId;
 		this.member = member;
-		this.orderListVO = orderListVO;
+		this.orderId = orderId;
 		this.staffVO = staffVO;
 		this.quTypeVO = quTypeVO;
 		this.quDate = quDate;
@@ -115,6 +117,8 @@ public class CsFormVO {
 		this.lastUpdatedBy = lastUpdatedBy;
 		this.lastUpdated = lastUpdated;
 	}
+
+
 
 	public Integer getCsFormId() {
 		return csFormId;
@@ -132,13 +136,19 @@ public class CsFormVO {
 		this.member = member;
 	}
 
-	public OrderListVO getOrderListVO() {
-		return orderListVO;
+
+
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setOrderListVO(OrderListVO orderListVO) {
-		this.orderListVO = orderListVO;
+
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
+
+
 
 	public StaffVO getStaffVO() {
 		return staffVO;
@@ -244,13 +254,18 @@ public class CsFormVO {
 		this.lastUpdated = lastUpdated;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "CsFormVO [csFormId=" + csFormId + ", member=" + member + ", orderListVO=" + orderListVO + ", staffVO="
-				+ staffVO + ", quTypeVO=" + quTypeVO + ", quDate=" + quDate + ", quContent=" + quContent + ", quAvTime=" + quAvTime + ", replyDt=" + replyDt + ", replyContent="
+		return "CsFormVO [csFormId=" + csFormId + ", member=" + member + ", orderId=" + orderId + ", staffVO=" + staffVO
+				+ ", quTypeVO=" + quTypeVO + ", quDate=" + quDate + ", quContent=" + quContent + ", quPic="
+				+ Arrays.toString(quPic) + ", quAvTime=" + quAvTime + ", replyDt=" + replyDt + ", replyContent="
 				+ replyContent + ", status=" + status + ", createdBy=" + createdBy + ", dateCreated=" + dateCreated
-				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + ", quPic=" + Arrays.toString(quPic) + "]";
+				+ ", lastUpdatedBy=" + lastUpdatedBy + ", lastUpdated=" + lastUpdated + "]";
 	}
+
+
 
 	
 	

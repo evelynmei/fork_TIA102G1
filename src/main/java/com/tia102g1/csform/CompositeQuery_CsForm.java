@@ -63,10 +63,13 @@ public class CompositeQuery_CsForm {
 				predicate = builder.equal(root.get("member"), member);
 			
 			//訂單編號
+//			} else if ("orderListId".equals(columnName)) {
+//				OrderListVO orderListVO = new OrderListVO();
+//				orderListVO.setOrderListId(Integer.valueOf(value));
+//				predicate = builder.equal(root.get("orderListVO"), orderListVO);
+				
 			} else if ("orderListId".equals(columnName)) {
-				OrderListVO orderListVO = new OrderListVO();
-				orderListVO.setOrderListId(Integer.valueOf(value));
-				predicate = builder.equal(root.get("orderListVO"), orderListVO);
+				predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
 			
 			//客服問題類型
 			} else if ("quTypeId".equals(columnName)) {
