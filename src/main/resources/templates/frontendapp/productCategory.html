@@ -71,8 +71,10 @@
                                                         th:value="${productInfo.productId}">
                                                     <i class="material-icons">加入購物車</i>
                                                 </button>
-                                                <a href="wishlist.html" class="btn btn-primary btn-wishlist"><i
-                                                        class="material-icons">加入收藏</i></a>
+                                                <button type="button" class="btn btn-primary btn-wishlist"
+												        th:data-product-id="${productInfo.productId}"
+												        onclick="toggleFavorite(this)"><i class="material-icons">加入最愛</i>
+                                                </button>
 
                                                 <button type="button" class="btn btn-primary btn-quickview"
                                                         data-toggle="modal" data-target="#product_view"><i

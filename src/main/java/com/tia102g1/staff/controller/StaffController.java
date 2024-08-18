@@ -138,10 +138,11 @@ public class StaffController {
 		return "staff/listAllStaff";
 	}
 	
+	@SuppressWarnings("null")
 	@GetMapping("staffLogin")
 	public String staffLogin(HttpServletRequest req,Model model) {
 		String referer = req.getHeader("Referer");
-		if(referer != null && !referer.contains("staffLogin")) {
+		if(referer != null && !referer.contains("staffLogin") && !referer.contains("staffChangePW") && !referer.contains("changePW")) {
 			req.getSession().setAttribute("location", referer);
 		}
 		
