@@ -1,82 +1,99 @@
 package com.tia102g1.staff.service;
 
+import com.tia102g1.role.dao.RoleDao;
+import com.tia102g1.role.dao.impl.RoleDaoImpl;
+import com.tia102g1.role.model.Role;
+import com.tia102g1.staff.dao.StaffDAO;
+import com.tia102g1.staff.dao.StaffDAOImpl;
+import com.tia102g1.staff.dao.StaffVODao;
+import com.tia102g1.staff.dao.StaffVODaoImpl;
+import com.tia102g1.staff.entity.Staff;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.tia102g1.staff.dao.StaffDAO;
-import com.tia102g1.staff.dao.StaffDAOImpl;
-import com.tia102g1.staff.entity.Staff;
-
 
 public class StaffServiceImpl implements StaffService {
 
-	private StaffDAO dao;
+    //新增權限部分
+    private RoleDao roleDao;
+    private StaffVODao staffDao;
 
-	public StaffServiceImpl() {
-		dao = new StaffDAOImpl();
-	}
+    private StaffDAO dao;
 
-	@Override
-	public Staff addStaff(Staff staff) {
-		dao.insert(staff);
-		return staff;
-	}
+    public StaffServiceImpl() {
+        dao = new StaffDAOImpl();
+        //新增權限部分
+        staffDao = new StaffVODaoImpl();
+        roleDao = new RoleDaoImpl();
+    }
 
-	@Override
-	public Staff updateStaff(Staff staff) {
-		dao.update(staff);
-		return staff;
-	}
+    @Override
+    public Staff addStaff(Staff staff) {
+        dao.insert(staff);
 
-	@Override
-	public Staff getStaffByStaffId(Integer staffId) {
-		Staff staff = dao.getById(staffId);
-		return staff;
-	}
+//        //新增權限部分
+        Role staffRole = roleDao.getRoleByName("ROLE_STAFF");
+        staffDao.addRoleForStaffId(staff.getStaffId(), staffRole);
+        System.out.println("註冊成功，staffId為 : " + staff.getStaffId() + " 權限為 : " + staffRole.getRoleName());
+        return staff;
+    }
 
-	@Override
-	public List<Staff> getAllStaff(int currentPage) {
-		List<Staff> list = dao.getAll(currentPage);
-		return list;
-	}
+    @Override
+    public Staff updateStaff(Staff staff) {
+        dao.update(staff);
+        return staff;
+    }
 
-	@Override
-	public List<Staff> getAllStaff() {
-		List<Staff> list = dao.getAll();
-		return list;
-	}
+    @Override
+    public Staff getStaffByStaffId(Integer staffId) {
+        Staff staff = dao.getById(staffId);
+        return staff;
+    }
 
-	@Override
-	public List<Staff> getStaffByCompositeQuery(Map<String, String[]> map) {
-		Map<String, String> query = new HashMap<>();
-		Set<Map.Entry<String, String[]>> entry = map.entrySet();
+    @Override
+    public List<Staff> getAllStaff(int currentPage) {
+        List<Staff> list = dao.getAll(currentPage);
+        return list;
+    }
 
-		for (Map.Entry<String, String[]> row : entry) {
-			String key = row.getKey();
+    @Override
+    public List<Staff> getAllStaff() {
+        List<Staff> list = dao.getAll();
+        return list;
+    }
 
-			if ("action".equals(key)) {
-				continue;
-			}
+    @Override
+    public List<Staff> getStaffByCompositeQuery(Map<String, String[]> map) {
+        Map<String, String> query = new HashMap<>();
+        Set<Map.Entry<String, String[]>> entry = map.entrySet();
 
-			String value = row.getValue()[0];
-			if (value.isEmpty() || value == null) {
-				continue;
-			}
-			query.put(key, value);
-		}
-		System.out.println(query);
+        for (Map.Entry<String, String[]> row : entry) {
+            String key = row.getKey();
 
-		return dao.getByCompositeQuery(query);
-	}
+            if ("action".equals(key)) {
+                continue;
+            }
 
-	@Override
-	public int getPageTotal() {
-		int pageQty;
-		int pageMax = 5;
-		long total = dao.getTotal();
-		pageQty = (int) (total % pageMax == 0 ? (total / pageMax) : (total / pageMax + 1));
-		return pageQty;
-	}
+            String value = row.getValue()[0];
+            if (value.isEmpty() || value == null) {
+                continue;
+            }
+            query.put(key, value);
+        }
+        System.out.println(query);
+
+        return dao.getByCompositeQuery(query);
+    }
+
+    @Override
+    public int getPageTotal() {
+        int pageQty;
+        int pageMax = 5;
+        long total = dao.getTotal();
+        pageQty = (int) (total % pageMax == 0 ? (total / pageMax) : (total / pageMax + 1));
+        return pageQty;
+    }
 }

@@ -39,4 +39,13 @@ public class StaffVODaoImpl implements StaffVODao {
         List<StaffVO> staffList = namedParameterJdbcTemplate.query(sql, map, new StaffRowMapper());
         return staffList.isEmpty() ? null : staffList.get(0);
     }
+
+    @Override
+    public void addRoleForStaffId(Integer staffId, Role role) {
+        Map<String, Object> map = new HashMap<>();
+        String sql = "INSERT INTO staffhasrole(staffid,roleid) VALUES (:staffId,:roleId)";
+        map.put("staffId", staffId);
+        map.put("roleId", role.getRoleId());
+        namedParameterJdbcTemplate.update(sql, map);
+    }
 }

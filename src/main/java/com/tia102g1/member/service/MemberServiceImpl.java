@@ -4,17 +4,23 @@ import com.tia102g1.member.constant.AccountStatus;
 import com.tia102g1.member.dao.MemberDao;
 import com.tia102g1.member.dto.*;
 import com.tia102g1.member.model.Member;
+import com.tia102g1.role.dao.RoleDao;
+import com.tia102g1.role.model.Role;
 import org.apache.bcel.generic.RETURN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -26,12 +32,14 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDao memberDao;
     @Autowired
+    private RoleDao roleDao;
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private EmailForForgetPassword emailForForgetPassword;
 
     @Override
-
+    @Transactional
     public Integer register(MemberRegisterRequest memberRegisterRequest) {
         //為什麼service取名register而不是createMember?，因service層會添加其他額外判斷是否register，而不單單只是create而已
 
@@ -54,8 +62,18 @@ public class MemberServiceImpl implements MemberService {
         String hashedPassword = passwordEncoder.encode(memberRegisterRequest.getPassword());
         //將加密過後的密碼set到該會員資料
         memberRegisterRequest.setPassword(hashedPassword);
+
+
         //創建帳號
-        return memberDao.createMember(memberRegisterRequest);
+        Integer memberId = memberDao.createMember(memberRegisterRequest);
+
+        //==========權限部分，替註冊的會員新增memberId=============
+        //替Member添加預設的Role
+        Role memberRole = roleDao.getRoleByName("ROLE_MEMBER");
+        memberDao.addRoleForMemberId(memberId, memberRole);
+        System.out.println("註冊成功，memberId為 : " + memberId + " 權限為 : " + memberRole.getRoleName());
+        //創建帳號
+        return memberId;
     }
 
     @Override

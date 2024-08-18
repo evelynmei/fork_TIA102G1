@@ -5,6 +5,7 @@ import com.tia102g1.socialmember.service.MyOidcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +28,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     // 客製化的 login 失敗處理器
     @Autowired
     CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+    @Autowired
+    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     // 設定密碼的加密機制為 BCrypt 方式
@@ -43,7 +46,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/frontendapp/**", "/plungins/**").permitAll()
                 .mvcMatchers("/index", "/register/**", "/login/**").permitAll()
-                .mvcMatchers("/member/{memberId}/account/**").authenticated()
+                .mvcMatchers("/member/{memberId}/account/**").hasRole("MEMBER")
+                .mvcMatchers("/admin", "/admin/index").access("!hasRole('MEMBER')")
 //                .mvcMatchers("/member/mainPageMember").hasAnyRole("STAFF","ADMIN")
                 .anyRequest().permitAll()
                 .and()
@@ -51,10 +55,12 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login") // 指定自定義的登入頁面
                 .permitAll()
                 .loginProcessingUrl("/login") // 登入表單提交的 URL
-                .defaultSuccessUrl("/index", false) // 登入成功後的響應的 URL
+                .successHandler(customAuthenticationSuccessHandler)
+//                .defaultSuccessUrl("/index", true) // 登入成功後的響應的 URL
                 .failureHandler(customAuthenticationFailureHandler)
+
                 .and()
-                //OAuth2.0授權認證方法
+//                //OAuth2.0授權認證方法
                 .oauth2Login()
                 .loginPage("/login")
                 .defaultSuccessUrl("/index", false)
