@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 public interface ChartOrderListRepository extends JpaRepository<ChartOrderListVO, Integer>{
 	
 	@Query(value = "SELECT DATE_FORMAT(orderDt, '%Y-%m') AS orderDate, " +
-            "SUM(CASE WHEN paymentStatus = 1 THEN payAmount ELSE 0 END) AS group1Amount, " +
-            "SUM(CASE WHEN paymentStatus = 2 THEN payAmount ELSE 0 END) AS group2Amount, " +
-            "SUM(CASE WHEN paymentStatus IN (3, 4) THEN payAmount ELSE 0 END) AS group3Amount " +
+            "SUM(CASE WHEN paymentStatus = 0 THEN payAmount ELSE 0 END) AS group1Amount, " +
+            "SUM(CASE WHEN paymentStatus = 1 THEN payAmount ELSE 0 END) AS group2Amount, " +
+            "SUM(CASE WHEN paymentStatus IN (2, 3) THEN payAmount ELSE 0 END) AS group3Amount " +
             "FROM OrderList " +
             "GROUP BY DATE_FORMAT(orderDt, '%Y-%m') " +
             "ORDER BY DATE_FORMAT(orderDt, '%Y-%m')", nativeQuery = true)
