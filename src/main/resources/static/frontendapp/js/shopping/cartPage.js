@@ -1,8 +1,8 @@
 let { createApp, ref, computed, onMounted, toRaw } = Vue;
 
 var memberId = document.getElementById("memberId").value;
-const cartURL = "http://localhost:8080/api/cart/";
-const couponURL = "http://localhost:8080/api/coupon/";
+const cartURL = "/api/cart/";
+const couponURL = "/api/coupon/";
 const productURL = "/frontendapp/img/products/";
 const mockProducts = {
     1001: {
@@ -199,7 +199,7 @@ createApp({
                 alert("即將跳轉到結帳頁面");
 
                 // 跳轉到結帳頁面
-                window.location.href = "http://desserter.ddns.net/checkout";
+                window.location.href = "/checkout";
 
             } catch (error) {
                 console.error("更新購物車時出錯:", error);
