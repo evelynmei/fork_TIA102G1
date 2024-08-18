@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -50,24 +51,38 @@ public class CouponController {
      */
     @PostMapping("coupon/add")
     public String addCoupon(@Valid @ModelAttribute("coupon") Coupon coupon) {
+        Integer discAmount = coupon.getDiscAmount();
+        BigDecimal discPercentage = coupon.getDiscPercentage();
+
+        //判斷優惠券的折扣類型
+        if(discPercentage != null) coupon.setDiscType(2);
+        else if(discAmount != null) coupon.setDiscType(1);
         couponService.addCoupon(coupon);
         return "redirect:/coupon/mainPageCoupon";
     }
 
     /**
-     * 編輯優惠券
+     * 前往編輯優惠券頁面
      * @param couponId: 用來拿到要更新的 coupon
      * @return 引導到更新頁 updateCoupon.html
      */
     @GetMapping("coupon/edit/{couponId}")
     public String editingCoupon(@PathVariable Integer couponId, Model model) {
         Coupon toUpdate = couponService.getCoupon(couponId);
+
+        Integer discAmount = toUpdate.getDiscAmount();
+        BigDecimal discPercentage = toUpdate.getDiscPercentage();
+
+        //判斷優惠券的折扣類型
+        if(discPercentage != null) toUpdate.setDiscType(2);
+        else if(discAmount != null) toUpdate.setDiscType(1);
+
         model.addAttribute("couponToUpdate", toUpdate);
         return "/coupon/updateCoupon";
     }
 
     /**
-     * 編輯優惠券
+     * 編輯優惠券的處理，送出修改到資料庫，然後回管理主頁
      * @param couponId: 用來拿到要更新的 coupon
      * @param coupon: 從 updateCoupon.html 傳來要更改的 coupon 資料
      * @return 引導回後台優惠券主頁
@@ -76,6 +91,14 @@ public class CouponController {
     public String updateCoupon(@PathVariable Integer couponId,
                                @Valid @ModelAttribute("coupon") Coupon coupon) {
         coupon.setLastUpdated(new Timestamp(new Date().getTime()));
+
+        Integer discAmount = coupon.getDiscAmount();
+        BigDecimal discPercentage = coupon.getDiscPercentage();
+
+        //判斷優惠券的折扣類型
+        if(discPercentage != null) coupon.setDiscType(2);
+        else if(discAmount != null) coupon.setDiscType(1);
+
         couponService.updateCoupon(coupon);
         return "redirect:/admin/coupon";
     }
