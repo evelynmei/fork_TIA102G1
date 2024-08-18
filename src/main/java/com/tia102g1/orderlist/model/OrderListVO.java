@@ -23,6 +23,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.lang.Nullable;
+
 import com.tia102g1.county.model.CountyVO;
 import com.tia102g1.coupon.Coupon;
 import com.tia102g1.dist.model.DistVO;
@@ -49,12 +51,14 @@ public class OrderListVO implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "couponId", referencedColumnName = "couponId")
+	@Nullable
 	private Coupon coupon;
 //	@Column(name = "couponId")
 //	private Integer couponId;
 
 	@ManyToOne
 	@JoinColumn(name = "eventId", referencedColumnName = "eventId")
+	@Nullable
 	private EventVO eventVO;
 //	@Column(name = "eventId")
 //	private Integer eventId;

@@ -66,12 +66,16 @@
 <!--							平均星星數 commentStars/commentUsers -->
 <!--							<p th:text="${averageRating}"></p>-->
 							<div class="product-ratings d-inline-block align-middle">
-								<div class="product-ratings d-inline-block align-middle">
-									<span class="fa fa-stack" th:each="i : ${#numbers.sequence(1, 5)}">
-										<i class="material-icons" th:classappend="${i <= averageRating} ? '' : 'off'">star</i>
-									</span>
-								</div>
-							</div>
+    <!-- 評分星星 -->
+    <div class="product-ratings d-inline-block align-middle">
+        <span class="fa fa-stack" th:each="i : ${#numbers.sequence(1, 5)}">
+            <!-- 根據 averageRating 顯示星星 -->
+            <i class="material-icons" th:classappend="${i <= (averageRating != null ? averageRating : 0)} ? '' : 'off'">star</i>
+        </span>
+    </div>
+    <!-- 顯示平均評分 -->
+    <div th:if="${averageRating == 0}">0</div>
+</div>
 							<a href="#" class="review-down">(查看評價)</a>
 						</div>
 
