@@ -1144,3 +1144,42 @@ VALUES
     ('FREESHIP100', '限時免運', 0, '2024-03-01', '2024-03-31', 1, 80, NULL, 'Tom Hanks', 'Tom Hanks'),
     ('GREENEARTH', '餅乾85折優惠', 0, '2024-04-22', '2024-04-22', 2, NULL, 0.85, 'Julia Roberts', 'Julia Roberts'),
     ('BACKSCHOOL', '開學季折扣: 折抵100元', 0, '2024-08-20', '2024-09-05', 1, 100, NULL, 'Will Smith', 'Will Smith');
+
+#系統訊息管理
+INSERT INTO SYSMSG (TYPE, MSGTITLE, MSGCONTENT, STATUS, CREATEDBY, DATECREATED, LASTUPDATEDBY)
+VALUES
+	(1, '歡迎加入會員', '感謝您成為我們的會員，享受更多專屬優惠！', 1, 'Admin', NOW(), 'Admin'),
+	(2, '付款成功通知', '您的訂單付款已成功處理，感謝您的支持！', 1, 'Admin', NOW(), 'Admin'),
+	(3, '訂單出貨通知', '您的訂單已經出貨，敬請期待！', 1, 'Admin', NOW(), 'Admin'),
+	(1, '會員福利更新', '我們剛更新了會員福利，現在有更多驚喜等著您！', 1, 'Admin', NOW(), 'Admin'),
+	(2, '付款失敗通知', '您的付款失敗，請檢查付款資訊或重新嘗試。', 0, 'Admin', NOW(), 'Admin'),
+	(3, '訂單取消通知', '您的訂單已取消，若有疑問請聯絡我們的客服。', 1, 'Admin', NOW(), 'Admin');
+	
+#商品公告管理
+INSERT INTO NEWS (NEWSTITLE, NEWSDATE, STARTDT, ENDDT, NEWSCONTENT, NEWSPIC, STATUS, CREATEDBY, DATECREATED, LASTUPDATEDBY)
+VALUES
+	('夏季大促銷', '2024-08-01', '2024-08-01', '2024-08-31', '夏季大促銷來襲，全館8折起，活動僅限8月！', NULL, 1, 'Admin', NOW(), 'Admin'),
+	('中秋節活動', '2024-08-15', '2024-09-01', '2024-09-10', '中秋節即將來臨，別錯過我們的限定月餅折扣！', NULL, 1, 'Admin', NOW(), 'Admin'),
+	('新品上市', '2024-07-20', '2024-07-20', '2024-08-20', '我們的新品甜點正式上市，快來體驗！', NULL, 1, 'Admin', NOW(), 'Admin'),
+	('春季特賣會', '2024-03-01', '2024-03-01', '2024-03-31', '春季特賣會開始了，千萬不要錯過！', NULL, 0, 'Admin', NOW(), 'Admin'),
+	('重要公告', '2024-06-10', '2024-06-10', '2024-06-20', '網站將於6月20日進行系統維護，請提前準備。', NULL, 1, 'Admin', NOW(), 'Admin');
+
+#訂單明細	
+INSERT INTO ORDERLISTINFO (ORDERLISTID, PRODUCTID, PURCHASEDPRICE, PROQUANTITY, CREATEDBY, DATECREATED, LASTUPDATEDBY)
+VALUES
+	(20001, 1001, 120, 2, 'Admin', NOW(), 'Admin'),
+	(20001, 1002, 150, 1, 'Admin', NOW(), 'Admin'),
+	(20002, 1003, 200, 3, 'Admin', NOW(), 'Admin'),
+	(20002, 1004, 180, 1, 'Admin', NOW(), 'Admin'),
+	(20003, 1005, 250, 4, 'Admin', NOW(), 'Admin'),
+	(20003, 1006, 300, 2, 'Admin', NOW(), 'Admin'),
+	(20004, 1007, 130, 3, 'Admin', NOW(), 'Admin'),
+	(20004, 1008, 110, 2, 'Admin', NOW(), 'Admin'),
+	(20005, 1009, 220, 1, 'Admin', NOW(), 'Admin'),
+	(20005, 1010, 170, 5, 'Admin', NOW(), 'Admin'),
+	(20006, 1011, 260, 3, 'Admin', NOW(), 'Admin'),
+	(20006, 1012, 190, 2, 'Admin', NOW(), 'Admin'),
+	(20006, 1013, 210, 4, 'Admin', NOW(), 'Admin'),
+	(20006, 1014, 240, 1, 'Admin', NOW(), 'Admin'),
+	(20006, 1015, 280, 2, 'Admin', NOW(), 'Admin');
+
