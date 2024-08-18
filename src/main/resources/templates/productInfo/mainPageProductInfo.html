@@ -210,12 +210,15 @@
 									</select>
 								</div>
 
-								<div class="select two" style="width: 35% ">
-									<label>價格區間搜尋</label><br> <a for="priceMin">最小價格:</a> <input
-										type="number" id="priceMin" name="priceMin" step="0" min="0">
-									<a for="priceMax">最大價格:</a> <input type="number" id="priceMax"
-										name="priceMax" step="0" max="1000000">
+								<div class="select two" style="width: 35%;">
+								    <label>價格區間搜尋</label><br>
+								    <label for="priceMin">最小價格:</label>
+								    <input type="number" id="priceMin" name="priceMin" step="0.01" min="0" oninput="validatePrice()">
+								    <label for="priceMax">最大價格:</label>
+								    <input type="number" id="priceMax" name="priceMax" step="0.01" max="1000000" oninput="validatePrice()">
+								    <div id="priceError" style="color: red; display: none;">最大價格必須大於最小價格</div>
 								</div>
+
 								<br>
 								<br>
 								<div class="form-group">
@@ -284,6 +287,18 @@
 	//清除提示信息
 	function hideContent(d) {
 	     document.getElementById(d).style.display = "none";
+	}
+	
+	function validatePrice() {
+	    const priceMin = document.getElementById('priceMin').value;
+	    const priceMax = document.getElementById('priceMax').value;
+	    const priceError = document.getElementById('priceError');
+
+	    if (priceMin !== '' && priceMax !== '' && parseFloat(priceMax) <= parseFloat(priceMin)) {
+	        priceError.style.display = 'block';
+	    } else {
+	        priceError.style.display = 'none';
+	    }
 	}
 	</script>
 

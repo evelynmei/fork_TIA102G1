@@ -225,7 +225,7 @@ td {
 							</th>
 							<th style="width: 5%" class="th-productInfo">圖片</th>
 							<th style="width: 5%" class="th-productInfo">狀態</th>
-							<th style="width: 5%" class="th-productInfo">描述</th>
+							
 							<th style="width: 5%" class="th-productInfo">最後<br>更新者
 							</th>
 							<th style="width: 5%" class="th-productInfo"></th>
@@ -249,7 +249,7 @@ td {
 									<span th:case="0">未上架</span>
 								    <span th:case="1">上架中</span>
 								</td>
-								<td th:text="${productInfo.proDesc}"></td>
+								
 								<td th:text="${productInfo.lastUpdatedBy}"></td>
 								<td>
 									<form method="post" th:action="@{getOne_For_Update}">

@@ -150,17 +150,19 @@ a:hover, a:active {
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputFile">商品圖片</label>
-						<div class="input-group">
-							<input type="file" th:field="*{proPic}" onclick="previewImage()"
-								multiple="multiple" onchange="hideContent('proPic.errors');" />
-							<!-- 			<span  th:if="${#fields.hasErrors('upFiles')}" th:errors="*{upFiles}" class="error" id="upFiles.errors"></span> -->
-							<span class="error" th:utext="${errorMessage}" id="proPic.errors">${errorMessage}</span>
-							<!-- 			<h2 id="errorMessage">${errorMessage}</h2>  -->
-							<div id="blob_holder"></div>
-
-						</div>
+					    <label for="exampleInputFile">商品圖片</label>
+					    <div class="input-group">
+					        <input type="file" th:field="*{proPic}" 
+					               onclick="previewImage(event)" 
+					               multiple="multiple" 
+					               onchange="hideContent('proPic.errors'); previewImage(event);" />    
+					        <span class="error" th:utext="${errorMessage}" id="proPic.errors">${errorMessage}</span><br/>            
+					        <div id="blob_holder" style="width:60%; padding-left: 15%">
+					            <img id="preview_image" th:src="@{/productInfo/ProductInfoReader} + '?productId=' + ${productInfo.productId}" width="100px">
+					        </div>
+					    </div>
 					</div>
+
 					<div class="form-group">
 						<label>商品介紹</label> <input type="text" class="form-control"
 							name="proDesc" placeholder="請輸入商品介紹" th:field="*{proDesc}"
@@ -183,13 +185,9 @@ a:hover, a:active {
 							th:field="*{proStatus}" value="0"> <a>未上架</a> <input
 							type="radio" th:field="*{proStatus}" value="1"> <a>上架中</a>
 					</div>
-
+					<br/> 
 					<div class="form-group">
-						<label>最後更新者</label> <input type="text" class="form-control"
-							name="lastUpdatedBy" placeholder="輸入建檔者" th:field="*{lastUpdatedBy}"
-							onclick="hideContent('lastUpdatedBy.errors');"> <span
-							th:if="${#fields.hasErrors('lastUpdatedBy')}"
-							th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
+						<label>最後更新者 : </label> <span th:text="${session.staffName}" ></span><br/> 
 					</div>
 
 				</div>
@@ -271,6 +269,20 @@ a:hover, a:active {
 							+ "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
 					document.getElementById('submit').disabled = true;
 				}
+			}
+			
+			function previewImage(event) {
+			    var input = event.target;
+			    var file = input.files[0];
+
+			    if (file) {
+			        var reader = new FileReader();
+			        reader.onload = function(e) {
+			            var previewImage = document.getElementById('preview_image');
+			            previewImage.src = e.target.result;
+			        }
+			        reader.readAsDataURL(file);
+			    }
 			}
 		</script>
 </body>

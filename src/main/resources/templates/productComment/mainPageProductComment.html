@@ -199,7 +199,7 @@
 							<td>
 							    <span th:if="${productCommentVO.commentPic == null}" style="color: gray;">使用者未上傳圖片</span>
 							    <img th:if="${productCommentVO.commentPic != null}" 
-							         th:src="@{'/productComment/ProductCommentReader?proCommentId=' + ${productCommentVO.proCommentId}}" 
+							    	 th:src="@{/productComment/ProductCommentReader} + '?proCommentId=' + ${productCommentVO.proCommentId}"
 							         width="80px">
 							</td>							
 							<td th:text="${productCommentVO.commentRate}"></td>

@@ -154,6 +154,7 @@ public class ProductCommentVO implements Serializable{
 	}
 
 	public void setStaffVO(StaffVO staffVO) {
+		System.out.println(staffVO.getStaffId());
 		this.staffVO = staffVO;
 	}
 

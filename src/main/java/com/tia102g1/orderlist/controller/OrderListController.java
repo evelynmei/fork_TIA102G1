@@ -185,13 +185,13 @@ public class OrderListController {
 
 		// 先把指定id的VO物件查出來並顯示,準備交給updateEvent頁面做修改
 		OrderListVO orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListId));
+		
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("orderListVO", orderListVO);
 		
-		List<OrderListInfoVO> orderListInfoList = orderListService.getOrderListInfos(Integer.valueOf(orderListId));
+		List<OrderListInfoVO> orderListInfoList = orderListService.getOrderListInfos(Integer.valueOf(orderListVO.getOrderListId()));
 		model.addAttribute("orderListInfoListData", orderListInfoList);
-
 
 		return "orderList/updateOrderList";
 	}
@@ -199,21 +199,31 @@ public class OrderListController {
 	@PostMapping("update")
 	public String update(@Valid OrderListVO orderListVO, BindingResult result, ModelMap model) throws IOException {
 
-		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+	    /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+	    if (result.hasErrors()) { // 錯誤訊息result
+	        return "/orderList/updateOrderList";
+	    }
 
-		if (result.hasErrors()) { // 錯誤訊息result
-			return "/orderList/updateOrderList";
-		}
-		/*************************** 2.開始修改資料 *****************************************/
-		orderListVO.setLastUpdated(now);
-		orderListService.updateOrderList(orderListVO); // 把更新好屬性的當前VO物件交給Service層做update
-		
-		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
-		model.addAttribute("success", "- (修改成功)");
-		orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListVO.getOrderListId())); // 取出剛更新完的VO物件,顯示在前端頁面上
-		model.addAttribute("orderListVO", orderListVO);
+	    /*************************** 2.開始修改資料 *****************************************/
+	    orderListVO.setLastUpdated(now);
+	    orderListService.updateOrderList(orderListVO); // 把更新好屬性的當前VO物件交給Service層做update
 
-		return "/orderList/listOneOrderList";
+	    // Print orderListId for debugging
+	    System.out.println("OrderListId: " + orderListVO.getOrderListId());
+
+	    List<OrderListInfoVO> orderListInfoList = orderListService.getOrderListInfos(Integer.valueOf(orderListVO.getOrderListId()));
+	    
+	    // Print the size of the list
+	    System.out.println("OrderListInfo List Size: " + (orderListInfoList != null ? orderListInfoList.size() : "null"));
+
+	    model.addAttribute("orderListInfoListData", orderListInfoList);
+
+	    /*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+	    model.addAttribute("success", "- (修改成功)");
+	    orderListVO = orderListService.getOneOrderList(Integer.valueOf(orderListVO.getOrderListId())); // 取出剛更新完的VO物件,顯示在前端頁面上
+	    model.addAttribute("orderListVO", orderListVO);
+
+	    return "/orderList/listOneOrderList";
 	}
 
 	

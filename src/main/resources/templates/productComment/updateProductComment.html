@@ -32,7 +32,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">加購商品關係管理</h1>
+              <h1 class="m-0">商品評價管理</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -82,22 +82,25 @@
 					</div>
 		
 					<div class="form-group">
-						<label for="exampleInputFile">評論圖片</label>
-						<div class="input-group">
-							<input type="hidden" th:field="*{commentPic}" onclick="previewImage()"
-								multiple="multiple"  />
-							<div id="blob_holder"></div>
+					    <label for="exampleInputFile">評論圖片</label>
+					    <div class="input-group">
+					        <!-- 隱藏的 input 用於提交時傳遞 commentPic 的值 -->
+					        <input type="hidden" id="commentPicField" th:field="*{commentPic}" />
+					
+					        <div id="blob_holder" style="width:60%; padding-left: 15%">
+					            <!-- 根據 commentPic 是否為空來顯示圖片或提示訊息 -->
+					            <img id="preview_image" th:if="${productCommentVO.commentPic != null}"
+					                 th:src="@{/productComment/ProductCommentReader} + '?proCommentId=' + ${productCommentVO.proCommentId}"
+					                 width="100px">
+					            <!-- 當 commentPic 為空時顯示替代訊息 -->
+					            <p id="noImageMessage" th:if="${productCommentVO.commentPic == null}">沒有上傳圖片</p>
+					        </div>
+					    </div>
 					</div>
 					
 					<div class="form-group">
 					    <label for="staffId">回覆評價員工</label>
-					    <select id="staffId" name="staffId" class="form-control" th:field="*{staffVO.staffId}">
-					        <option value="" disabled selected>請選擇員工</option>
-					        <!--動態生成的選項 -->
-					        <option th:each="staffVO : ${staffListData}"
-					            th:value="${staffVO.staffId}"
-					            th:text="|${staffVO.staffId} - ${staffVO.name}|"></option>
-					    </select>
+					   <span th:text="${session.staffName}" ></span><br/> 
 					</div>
 					
 					<div class="form-group">
@@ -112,12 +115,7 @@
 					
 					
 					<div class="form-group">
-					    <label>最後更新者</label>
-					    <input type="text" class="form-control"
-					        name="lastUpdatedBy" placeholder="輸入建檔者" th:field="*{lastUpdatedBy}"
-					        onclick="hideContent('lastUpdatedBy.errors');" required />
-					    <span th:if="${#fields.hasErrors('lastUpdatedBy')}"
-					        th:errors="*{lastUpdatedBy}" class="error" id="lastUpdatedBy.errors"></span>
+						<label>最後更新者 : </label> <span th:text="${session.staffName}" ></span><br/> 
 					</div>
 
 				</div>
@@ -125,10 +123,11 @@
 				<input type="hidden" th:field="*{member.memberId}"/>
 				<input type="hidden" th:field="*{productInfo.productId}"/>
 				<input type="hidden" th:field="*{orderListInfoVO.orderListInfoId}"/>
+				<input type="hidden" th:field="*{staffVO}"/>
 				<input type="hidden" th:field="*{commentDate}"/>				
 				<input type="hidden" th:field="*{dateCreated}"/>
 				<input type="hidden" th:field="*{createdBy}"/>
-				
+				<input type="hidden" th:field="*{lastUpdatedBy}"/>
 				<!-- /.card-body -->
 
 				<div class="card-footer">
@@ -163,6 +162,14 @@
 	    }
 	});
 
+	
+	
+	document.querySelector("form").addEventListener("submit", function(event) {
+        const input = document.getElementById("commentPicInput");
+        if (input.files.length === 0) {
+            input.removeAttribute("name"); // 移除 name 屬性以避免傳遞空值
+        }
+    });
     
 	</script>
 
