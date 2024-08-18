@@ -167,28 +167,29 @@
 		
 			<div class="container" style="width:100%; padding:1.5rem">
 
-					<form  class="square-link">
-					    <button th:href="@{selectPaymentStatusIsZero}" method="post" class="square-link">
+					<form th:action="@{listOrderListByPaymentStatus}" method="post" class="square-link">
+					    <button>
 					    	<input type="hidden" name="paymentStatus" value="0" />
 					        <span id="paymentStatusZeroCount" style=" color:white;">0</span><br>
 					        <a style="color:white; padding: 0;">未付款</a>
 					    </button>
 					</form>
 			
-		
-			<form  class="square-link">
-			    <button th:href="@{selectOrderStatusIsZero}"  method="post" class="square-link">
-			        <span id="orderStatusZeroCount" style=" color:white;">0</span><br>
-			        <a style="color:white; padding: 0;">處理中</a>
-			    </button>
-			</form>
-			
-			<form  method="post" class="square-link">
-			    <button th:href="@{selectOrderStatusIsOne}"  method="post" class="square-link">
-			        <span id="orderStatusOneCount" style=" color:white;">0</span><br>
-			        <a style="color:white; padding: 0;">已確認</a>
-			    </button>
-			</form>
+					<form th:action="@{listOrderListByOrderStatusZero}" method="post" class="square-link">
+					    <button>
+					    	<input type="hidden" name="orderStatus" value="0" />
+					        <span id="orderStatusZeroCount" style=" color:white;">0</span><br>
+					        <a style="color:white; padding: 0;">處理中</a>
+					    </button>
+					</form>
+					
+					<form th:action="@{listOrderListByOrderStatusOne}" method="post" class="square-link">
+					    <button>
+					   	 	<input type="hidden" name="orderStatus" value="1" />
+					        <span id="orderStatusOneCount" style=" color:white;">0</span><br>
+					        <a style="color:white; padding: 0;">已確認</a>
+					    </button>
+					</form>
 			 
 				
 					

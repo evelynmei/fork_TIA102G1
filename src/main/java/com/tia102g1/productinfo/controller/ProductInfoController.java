@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tia102g1.productinfo.entity.ProductInfo;
@@ -72,7 +73,7 @@ public class ProductInfoController {
 	}
 	
 	@PostMapping("insert")
-	public String insert(@Valid ProductInfo productInfo, BindingResult result, ModelMap model, @RequestParam("proPic") MultipartFile[] parts) throws IOException {
+	public String insert(@Valid ProductInfo productInfo, BindingResult result, ModelMap model, @RequestParam("proPic") MultipartFile[] parts,  HttpSession session) throws IOException {
 		result = removeFieldError(productInfo, result, "proPic");
 		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的圖片時
 	        model.addAttribute("errorMessage", "商品照片: 請上傳照片");
@@ -94,18 +95,20 @@ public class ProductInfoController {
 	        return "/productInfo/addProductInfo"; // 確認返回路徑是否正確
 	    }
 	    
+	    String createdBy = (String) session.getAttribute("staffId");
 	    productInfo.setCommentUsers(0);
 	    productInfo.setCommentStars(0);
 	    productInfo.setDateCreated(now);
 	    productInfo.setLastUpdated(now);
-	    productInfo.setLastUpdatedBy(productInfo.getCreatedBy());
+	    productInfo.setCreatedBy(createdBy);
+	    productInfo.setLastUpdatedBy(createdBy);
 
 	    productInfoServiceS.addProductInfo(productInfo);
 
 	    List<ProductInfo> list = productInfoServiceS.getAll();
 	    model.addAttribute("success", "- (新增成功)");
 
-	    return "redirect:/productInfo/mainPageProductInfo"; // 確認重定向路徑是否正確
+	    return "/productInfo/listOneProductInfo"; // 確認重定向路徑是否正確
 	}
 	
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
@@ -134,7 +137,7 @@ public class ProductInfoController {
 	
 	@PostMapping("update")
 	public String update(@Valid ProductInfo productInfo, BindingResult result, ModelMap model, 
-			@RequestParam("proPic") MultipartFile[] parts) throws IOException {
+			@RequestParam("proPic") MultipartFile[] parts, HttpSession session) throws IOException {
 		
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中proPic欄位的FieldError紀錄 --> 見第172行
@@ -157,7 +160,9 @@ public class ProductInfoController {
 			return "/productinfo/updateProductInfo";
 		}
 		/*************************** 2.開始修改資料 *****************************************/
+		String lastUpdatedBy = (String) session.getAttribute("staffId");		
 		productInfo.setLastUpdated(now);
+		productInfo.setLastUpdatedBy(lastUpdatedBy);
 		productInfoServiceS.updateProductInfo(productInfo); //把更新好屬性的當前VO物件交給Service層做update
 	
 

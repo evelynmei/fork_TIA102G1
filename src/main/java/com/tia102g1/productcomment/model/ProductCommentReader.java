@@ -2,22 +2,26 @@ package com.tia102g1.productcomment.model;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+@Controller
+@RequestMapping("/productComment")
 public class ProductCommentReader {
 
 	@Autowired
 	ProductCommentService productCommentService;
 	
 	@GetMapping("ProductCommentReader")
-	public void productCommentReader(@RequestParam("(Integer.valueOf(proCommentId)") String proCommentId, HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public void productCommentReader(@RequestParam("proCommentId") String proCommentId, HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();

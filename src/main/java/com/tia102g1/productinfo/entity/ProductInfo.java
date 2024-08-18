@@ -91,7 +91,6 @@ public class ProductInfo implements java.io.Serializable {
 	private Timestamp dateCreated;
 
 	@Column(name = "lastUpdatedBy")
-	@NotEmpty(message = "最後更新者: 請勿空白")
 	private String lastUpdatedBy;
 
 	@Column(name = "lastUpdated")

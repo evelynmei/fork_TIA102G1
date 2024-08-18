@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -106,7 +107,7 @@ public class ProductCommentController {
 
 	@PostMapping("insert")
 	public String insert(@Valid ProductCommentVO productCommentVO, BindingResult result, ModelMap model,
-			@RequestParam("commentPic") MultipartFile[] parts) throws IOException {
+			@RequestParam(value = "commentPic", required = false)  MultipartFile[] parts, HttpSession session) throws IOException {
 		// 移除與 commentPic 相關的字段錯誤
 		result = removeFieldError(productCommentVO, result, "commentPic");
 
@@ -123,6 +124,13 @@ public class ProductCommentController {
 		} else {
 			productCommentVO.setCommentPic(null); // 如果未上傳圖片，則將圖片設置為null
 		}
+		
+		if (parts != null && parts.length > 0 && !parts[0].isEmpty()) {
+		    // 處理上傳的文件
+		} else {
+		    // 處理沒有上傳文件的情況
+		    productCommentVO.setCommentPic(null); // 或者其他處理邏輯
+		}
 
 		if (result.hasErrors()) { // 如果有其他錯誤
 			List<ObjectError> allErrors = result.getAllErrors(); // 獲取所有錯誤信息
@@ -130,9 +138,11 @@ public class ProductCommentController {
 			return "/productComment/addProductComment"; // 確認返回路徑
 		}
 
+		String createdBy = (String) session.getAttribute("staffId");
 		productCommentVO.setDateCreated(now);
 		productCommentVO.setLastUpdated(now);
-		productCommentVO.setLastUpdatedBy(productCommentVO.getCreatedBy());
+		productCommentVO.setCreatedBy(createdBy);
+		productCommentVO.setLastUpdatedBy(createdBy);
 
 		productCommentService.addProductCommentVO(productCommentVO);
 
@@ -187,41 +197,29 @@ public class ProductCommentController {
 	}
 
 	@PostMapping("update")
-	public String update(@Valid ProductCommentVO productCommentVO, BindingResult result, ModelMap model,
-			@RequestParam("commentPic") MultipartFile[] parts) throws IOException {
+	public String update(@Valid ProductCommentVO productCommentVO, BindingResult result, ModelMap model, HttpSession session) throws IOException {
 
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中proPic欄位的FieldError紀錄 --> 見第172行
 		result = removeFieldError(productCommentVO, result, "commentPic");
+		
 
-		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時,就取原有的圖片塞入
-			byte[] commentPic = productCommentService.getOneProductCommentVO(productCommentVO.getProCommentId()).getCommentPic(); // getOneProductCommentVO()返回VO物件,
-																											// 再呼叫圖片屬性getter
-			productCommentVO.setCommentPic(commentPic); // 然後setter放入當前VO物件中
-		} else { // 使用者有選擇要上傳的新圖片時
-			for (MultipartFile multipartFile : parts) { // 逐一取出
-				if (multipartFile.getSize() > 5 * 1024 * 1024) { // 5MB = 5 * 1024 * 1024 bytes
-					model.addAttribute("errorMessage", "商品照片: 圖片大小不能超過 5MB");
-					return "/productComment/addProductComment";
-				}
-				byte[] commentPic = multipartFile.getBytes(); // 轉為Bytes
-				productCommentVO.setCommentPic(commentPic); // 把Bytes setter進當前VO物件的圖片屬性
-			}
-		}
-		if (result.hasErrors()) { // 錯誤訊息result
-			return "/productComment/updateProductComment";
-		}
 		/*************************** 2.開始修改資料 *****************************************/
-		productCommentVO.setReplyTime(now);
-		productCommentVO.setLastUpdated(now);
-		productCommentService.updateProductCommentVO(productCommentVO);// 把更新好屬性的當前VO物件交給Service層做update
+		String lastUpdatedBy = (String) session.getAttribute("staffId");
+		Integer lastUpdatedByOne = Integer.valueOf(lastUpdatedBy);
+		
+		
+		
+		productCommentService.updateStoreReply(productCommentVO.getProCommentId(), productCommentVO.getStoreReply(), lastUpdatedByOne, now, lastUpdatedBy,now);// 把更新好屬性的當前VO物件交給Service層做update
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
 		productCommentVO = productCommentService.getOneProductCommentVO(Integer.valueOf(productCommentVO.getProCommentId()));// 取出剛更新完的VO物件,顯示在前端頁面上
 		model.addAttribute("productCommentVO", productCommentVO);
+		
+		
 
-		return "/productComment/listOneProductComment";
+		return "redirect:/productComment/mainPageProductComment";
 	}
 	
 	@PostMapping("listComment_byMember")
@@ -237,5 +235,7 @@ public class ProductCommentController {
 		model.addAttribute("productCommentListData", list);
 		return "productComment/mainPageProductComment";
 	}
-
+	
+	
+	
 }
