@@ -2,11 +2,11 @@ let { createApp, ref, computed, onMounted, toRaw  } = Vue;
 
 var memberId = document.getElementById("memberId").value;
 const cartURL = "/api/cart/";
-const productURL = "/frontendapp/img/products/";
+const productURL = "/images/product_pic/";
 
 createApp({
     setup() {
-        const carts = ref([{ proAmount: 1, proPrice: 200}, { proAmount: 3, proPrice: 170}]);
+        const carts = ref([{ proAmount: 0, proPrice: 0}]);
 
         //計算購物車旁數字
         const ttcount  = computed(()=>{
@@ -54,7 +54,7 @@ createApp({
     }
 }).mount('#vue-header')
 
-window.onclick = clickListenerToCloseCartDropDown;
+// window.onclick = clickListenerToCloseCartDropDown;
 
 //自訂義reduce方法: 從cartPrd Entity取出需要的資料, 組成新的物件
 function reduceToCartPrd(acc, item) {
@@ -62,7 +62,7 @@ function reduceToCartPrd(acc, item) {
 
         prdName: item.prdName,
         prdPrice: item.prdPrice,
-        picture: productURL + "0" + (item.prdId - 1000) + ".jpg"
+        picture: productURL + (item.prdId + 6000) + ".jpg"
 
     }
     return acc;
@@ -77,11 +77,11 @@ function cartWrapperView(item) {
         ...item
     }
 }
-
-function clickListenerToCloseCartDropDown(event) {
-    const cartModal = document.getElementById('cart-dropdown');
-    if (event.target !== cartModal) {
-        $("#cart-dropdown").slideToggle("fast");
-        cartModal.setAttribute("style", "display: none");
-    }
-}
+//點cart-wrapper以外的地方切換關閉
+// function clickListenerToCloseCartDropDown(event) {
+//     const cartModal = document.getElementById('cart-dropdown');
+//     if (event.target !== cartModal) {
+//         $("#cart-dropdown").slideToggle("fast");
+//         cartModal.setAttribute("style", "display: none");
+//     }
+// }
