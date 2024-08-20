@@ -12,7 +12,8 @@ class PhotoWrite {
 		String url = "jdbc:mysql://localhost:3306/tia102g1?serverTimezone=Asia/Taipei";
 		String userid = "root";
 		String passwd = "123456";
-		String photos = "src/main/resources/static/images/product_pic"; //測試用圖片已置於【專案錄徑】底下的【resources/images/product_pic】目錄內
+		String photos = "src/main/resources/static/images/product_pic";
+		//測試用圖片已置於【專案錄徑】底下的【resources/images/product_pic】目錄內
 		String update = "update productinfo set proPic =? where productId=?";
 
 		int count = 1001;

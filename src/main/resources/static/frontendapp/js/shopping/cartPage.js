@@ -3,32 +3,22 @@ let { createApp, ref, computed, onMounted, toRaw } = Vue;
 var memberId = document.getElementById("memberId").value;
 const cartURL = "/api/cart/";
 const couponURL = "/api/coupon/";
-const productURL = "/frontendapp/img/products/";
+const productURL = "images/product_pic/";
 const mockProducts = {
     1001: {
-        name: "巧克力餅乾",
-        price: 300,
-        picture: productURL + "04.jpg"
+        name: "假資料原味餅乾",
+        price: 100,
+        picture: productURL + "7001.jpg"
     },
     1002: {
-        name: "巧克力蛋糕",
-        price: 400,
-        picture: productURL + "09.jpg"
-    },
-    1003: {
-        name: "白巧克力餅乾",
-        price: 500,
-        picture: productURL + "07.jpg"
-    },
-    1004: {
-        name: "白巧克力餅乾",
-        price: 500,
-        picture: productURL + "08.jpg"
-    },
+        name: "假資料牛奶糖餅乾",
+        price: 200,
+        picture: productURL + "7002.jpg"
+    }
 }
 const mockItems = [
-    {cartId:1, picture: "圖片", productName: "巧克力餅乾", price: 100, proAmount: 1,},
-    {cartId:2, picture: "圖片", productName: "牛奶糖餅乾", price: 200, proAmount: 2,}
+    {cartId:1, picture: productURL + "images/product_pic/7001", productName: "假資料原味餅乾", price: 100, proAmount: 1,},
+    {cartId:2, picture: productURL + "images/product_pic/7002", productName: "假資料牛奶糖餅乾", price: 200, proAmount: 2,}
 ];
 let products = mockProducts;
 
@@ -132,8 +122,9 @@ createApp({
                 let { cartPrdList, cartList } = cartResponse.data;
 
                 coupons.value.push(...couponResponse.data);
-                console.log("couPonResponse = " + couponResponse);
-                console.log("cartPrdList = " + JSON.stringify(cartPrdList));
+                // console.log("couPonResponse = " + JSON.stringify(couponResponse));
+                // console.log("cartPrdList = " + JSON.stringify(cartPrdList));
+                // console.log("cartList = " + JSON.stringify(cartList));
 
                 // 把 cartPrdList 轉成 products所需格式
                 products = cartPrdList.reduce(reduceToProducts, {});
@@ -141,9 +132,10 @@ createApp({
                 console.log("products = " + JSON.stringify(products));
 
                 if(cartResponse.data !== null)
-                    console.log("api串接成功, cartList資料為:" + cartResponse.data);
+                    console.log("api串接成功, cartList資料為:" + JSON.stringify(cartResponse.data));
 
                 items.value = cartList.map(cartView);
+                console.log("=============================================");
                 console.log(toRaw(items.value));
 
             } catch (error) {
@@ -228,9 +220,9 @@ createApp({
 //自定義reduce方法
 function reduceToProducts(acc, item) {
     let id = item.prdId;
-    acc[id] = {
+    acc[item.prdId] = {
         name: item.prdName,
-        picture: productURL + "0" + (id-1000) + ".jpg",
+        picture: productURL + (item.prdId + 6000) + ".jpg",
         price: item.prdPrice,
         others: item
     };
@@ -240,9 +232,9 @@ function reduceToProducts(acc, item) {
 //購物車畫面所需資訊
 function cartView(item){
     let id = item.productId;
-    item.productName = products[id].name;
-    item.price = products[id].price;
-    item.picture = products[id].picture;
+    item.productName = products[item.productId].name;
+    item.price = products[item.productId].price;
+    item.picture = products[item.productId].picture;
     item.sum = item.price * item.proAmount;
     item.url = "product/" + item.productId;
     return item;
