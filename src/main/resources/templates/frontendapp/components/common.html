@@ -121,7 +121,7 @@
 
                         <!--  購物車dropdown預覽  -->
                         <div class="cart-wrapper">
-<!--                            隱藏欄位 memeberId-->
+                            <!--                            隱藏欄位 memeberId-->
                             <label>
                                 <input th:value="${memberId}" id="memberId" type="hidden">
                             </label>
@@ -144,7 +144,7 @@
                                             </span>
 
                                             <tbody>
-<!--                                            動態渲染tr-->
+                                            <!--                                            動態渲染tr-->
                                             <tr v-for="cart in carts">
                                                 <td class="text-center">
                                                     <img v-bind:src="cart.picture" height="40" width="40" alt="">
@@ -419,7 +419,8 @@
             </div>
         </div>
     </div>
-    <script src="/frontendapp/js/shopping/header.js"></script>
+<!--    <script src="/frontendapp/js/shopping/header.js"></script>-->
+    <script type="module" src="/frontendapp/js/shopping/cartAndHeaderUnion.js"></script>
 </header>
 
 <!-- 共用元件(index除外) bread crumb -->
@@ -532,21 +533,21 @@
         <!-- 回到頂端按鈕 -->
         <a id="goToTop" title="Back to top" class="btn-primary">
             <i class="material-icons arrow-up">keyboard_arrow_up</i></a>
+
         <!-- todo chatbot智能客服 -->
+                <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/oversea/index.js"></script>
+                <script>
+                    new CozeWebSDK.WebChatClient({
+                        config: {
+                            bot_id: '7403590234551959568',
+                        },
+                        componentProps: {
+                            title: '客服小幫手',
+                            icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgoJPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNTUiPgoJCTxwYXRoIGQ9Ik0xOCA0YTMgMyAwIDAgMSAzIDN2OGEzIDMgMCAwIDEtMyAzaC01bC01IDN2LTNINmEzIDMgMCAwIDEtMy0zVjdhMyAzIDAgMCAxIDMtM3pNOS41IDloLjAxbTQuOTkgMGguMDEiIC8+CgkJPHBhdGggZD0iTTkuNSAxM2EzLjUgMy41IDAgMCAwIDUgMCIgLz4KCTwvZz4KPC9zdmc+'
 
-        <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/oversea/index.js"></script>
-        <script>
-            new CozeWebSDK.WebChatClient({
-                config: {
-                    bot_id: '7403590234551959568',
-                },
-                componentProps: {
-                    title: '客服小幫手',
-                    icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgoJPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNTUiPgoJCTxwYXRoIGQ9Ik0xOCA0YTMgMyAwIDAgMSAzIDN2OGEzIDMgMCAwIDEtMyAzaC01bC01IDN2LTNINmEzIDMgMCAwIDEtMy0zVjdhMyAzIDAgMCAxIDMtM3pNOS41IDloLjAxbTQuOTkgMGguMDEiIC8+CgkJPHBhdGggZD0iTTkuNSAxM2EzLjUgMy41IDAgMCAwIDUgMCIgLz4KCTwvZz4KPC9zdmc+'
-
-                },
-            });
-        </script>
+                        },
+                    });
+                </script>
 
 
         <!--  Cookie取得同意 -->
@@ -800,7 +801,7 @@
     <script src="/frontendapp/js/imagesloaded.pkgd.min.js"></script>
     <script src="/frontendapp/js/jquery.zoom.min.js"></script>
     <script src="/frontendapp/js/jquery.lazy.min.js"></script>
-    <script src="/frontendapp/js/copy-text.js"></script>
+    <!--    <script src="/frontendapp/js/copy-text.js"></script>-->
 </th:block>
 
 </html>
