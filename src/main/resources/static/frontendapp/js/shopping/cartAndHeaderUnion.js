@@ -28,7 +28,7 @@ const mockShoppingCart = [
 let products = mockProducts;
 const cartViewData = ref(mockShoppingCart);
 
-let cartPrdList, cartList, cartPrd;
+let cartPrdList, cartList;
 if(memberId !== "") {
     fetchCartAPI().then(
         cartData => {
@@ -41,7 +41,6 @@ if(memberId !== "") {
             cartViewData.value = cartList.map(cartView);
 
 
-            // console.log("cartViewForDropDown : ", toRaw(cartViewForDropDown.value));
             console.log("Items : ", toRaw(cartViewData.value));
         }
     );
