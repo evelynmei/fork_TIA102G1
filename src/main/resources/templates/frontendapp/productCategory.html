@@ -69,11 +69,12 @@
 
                                                 <button type="button" class="btn btn-primary btn-cart"
                                                         th:value="${productInfo.productId}">
-                                                    <i class="material-icons">加入購物車</i>
+                                                    <i class="material-icons">shopping_cart</i>
                                                 </button>
                                                 <button type="button" class="btn btn-primary btn-wishlist"
 												        th:data-product-id="${productInfo.productId}"
-												        onclick="toggleFavorite(this)"><i class="material-icons">加入最愛</i>
+												        onclick="toggleFavorite(this)">
+                                                    <i class="material-icons">favorite</i>
                                                 </button>
 
                                             </div>
