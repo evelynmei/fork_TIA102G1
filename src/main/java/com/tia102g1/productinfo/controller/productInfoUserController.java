@@ -65,10 +65,13 @@ public class productInfoUserController {
 	        // 獲取產品信息
 	        ProductInfo product = productInfoServiceS.getOneProductInfo(productId);
 	        model.addAttribute("product", product);
-	        
-	        // 獲取 productCommentVO
+			model.addAttribute("coupon", couponService.getAllCoupons());
+
+
+			// 獲取 productCommentVO
 	        List<ProductCommentVO> productCommentVO = productCommentService.getOneProdComment(productId);
 	        model.addAttribute("productCommentVO", productCommentVO);
+
 
 	        // 計算商品的平均星星數
 	        Integer averageRating = 0; // 預設值為0

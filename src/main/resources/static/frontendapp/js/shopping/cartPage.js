@@ -122,7 +122,7 @@ createApp({
                 let { cartPrdList, cartList } = cartResponse.data;
 
                 coupons.value.push(...couponResponse.data);
-                // console.log("couPonResponse = " + JSON.stringify(couponResponse));
+                console.log("couPonResponse = " + JSON.stringify(couponResponse));
                 // console.log("cartPrdList = " + JSON.stringify(cartPrdList));
                 // console.log("cartList = " + JSON.stringify(cartList));
 
