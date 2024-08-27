@@ -1,11 +1,13 @@
 let { createApp, ref, computed, onMounted, toRaw  } = Vue;
 
-// var memberId = document.getElementById("memberId").value;
-const memberId = 1;
+const memberId = document.getElementById("memberId").value;
+// const memberId = 1;
 
 const cartURL = "/api/cart/";
 const productURL = "/images/product_pic/";
 const couponURL = "/api/coupon/";
+const coupons = [];
+
 
 const mockProducts = {
     1001: {
@@ -26,29 +28,27 @@ const mockShoppingCart = [
 let products = mockProducts;
 const cartViewData = ref(mockShoppingCart);
 
-// const cartViewForDropDown = ref([{ proAmount: 0, proPrice: 0}]);
-const coupons = [];
-
 let cartPrdList, cartList, cartPrd;
+if(memberId !== "") {
+    fetchCartAPI().then(
+        cartData => {
+            cartPrdList = cartData.cartPrdList;
+            cartList = cartData.cartList;
+            // console.log(cartPrdList);
+            // console.log(cartList);
 
-fetchCartAPI().then(
-    cartData => {
-        cartPrdList = cartData.cartPrdList;
-        cartList = cartData.cartList;
-        // console.log(cartPrdList);
-        // console.log(cartList);
-
-        products = cartPrdList.reduce(reduceToProducts, {})
-        cartViewData.value = cartList.map(cartView);
+            products = cartPrdList.reduce(reduceToProducts, {})
+            cartViewData.value = cartList.map(cartView);
 
 
-        // console.log("cartViewForDropDown : ", toRaw(cartViewForDropDown.value));
-        console.log("Items : ", toRaw(cartViewData.value));
-    }
-)
-fetchCouponAPI().then(
-    couponData => coupons.push(...couponData)
-)
+            // console.log("cartViewForDropDown : ", toRaw(cartViewForDropDown.value));
+            console.log("Items : ", toRaw(cartViewData.value));
+        }
+    );
+    fetchCouponAPI().then(
+        couponData => coupons.push(...couponData)
+    );
+}
 
 //計算購物車旁數字
 const ttcount  = computed(()=>{
@@ -60,15 +60,11 @@ const allShoppingCartSum = computed(()=>{
 
 const headerComponent = createApp({
     setup() {
-        const hideCartDropDown = ()=>{
-            const element = $("#cart-dropdown").hide();
-        };
 
         return {
             ttcount,
             carts: cartViewData,
             sum: allShoppingCartSum,
-            hideCartDropDown
         }
     }
 }).mount('#vue-header')
