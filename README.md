@@ -1,4 +1,5 @@
 Creat SQL table: src\main\resources\static\sql_DDL.sql
+
 Insert test data: src\main\resources\static\test_data
 Run Application.java
 
