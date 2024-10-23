@@ -1,4 +1,5 @@
 #測試資料
+USE tia102g1;
 #會員等級對照表
 insert into memberLv (lvName, lvBuff, lvAccumulate, createdBy, lastUpdatedBy) values ('銅牌會員', '回饋購物金為結帳金額5%', 0, 'chris', 'chris');
 insert into memberLv (lvName, lvBuff, lvAccumulate, createdBy, lastUpdatedBy)

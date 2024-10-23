@@ -1,4 +1,6 @@
-SET FOREIGN_KEY_CHECKS = 0;																									
+CREATE DATABASE tia102g1;
+USE tia102g1;
+SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS member;																									
 DROP TABLE IF EXISTS memberLv;																									
 DROP TABLE IF EXISTS memberCoupon;																									
