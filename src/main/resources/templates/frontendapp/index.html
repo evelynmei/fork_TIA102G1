@@ -74,13 +74,13 @@
                         <div class="ttbanner-inner d-inline-block align-top float-none">
                             <div class="ttbanner-desc float-left w-100">
                             <th:block th:each="productTypeVO : ${typeListData}">
-                                <h2 class="ttbanner-heading text-uppercase float-left w-100" th:if="${productTypeVO.productTypeId == 1}" 
+                                <h2 class="ttbanner-heading text-uppercase float-left w-100" th:if="${productTypeVO.productTypeId == 1}"
 											th:text="${productTypeVO.typeName}"></h2>
                             </th:block>                                
                                 <span class="subtitle float-left w-100 py-20">以天然食材精心製作，每一口都帶來滿滿的幸福滋味。無添加防腐劑，保留原始風味，細膩口感讓人回味無窮。無論是茶點還是小聚，都是不容錯過的美味選擇。</span>
                                 <span class="shop-now float-left w-100">
                                 <th:block th:each="productInfo, iterStat : ${productInfoListData}">
-							        <th:block th:if="${productInfo.productTypeVO.productTypeId == 1 && iterStat.index == 1}">
+							        <th:block th:if="${productInfo.productTypeVO.productTypeId == 1 && iterStat.index == 11}">
 							            <form th:action="@{listProductInfosByCompositeQuery}" method="post" class="d-inline-block">
 							                <input type="hidden" name="productTypeId" th:value="${productInfo.productTypeVO.productTypeId}">
 							                <button type="submit" class="align-top float-none btn-primary">開始購物</button>
